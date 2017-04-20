@@ -11,7 +11,7 @@
 // @grant              GM_setValue
 // @grant              GM_registerMenuCommand
 // @icon               http://tb.himg.baidu.com/sys/portrait/item/d4346e6f65313332ac06
-// @version            3.2.6
+// @version            3.2.7
 // @supportURL         http://tieba.baidu.com/f?kw=firefox
 // @contributionURL    nnnnoe132@gmail.com|alipay.com
 // ==/UserScript==
@@ -19,6 +19,7 @@
 
 /* ------------------ changelog -------------------
  * update INFO:
+ * update 2017/04/20 : 添加鼠标悬浮触发查词
  * update 2017/04/19 : 终于搞明白怎么定位了
  * update 2017/04/18 : 添加最大选择数设置和默认行为设置，优化样式
  * update 2017/04/12 : 添加了百度翻译谷歌翻译按钮
@@ -70,9 +71,10 @@ Iciba.prototype.init = function() {
     var style = '#icibaCirclePointer{foď-family:"Mārosoft Yahei",sđifįans-İrĲ!importĵt;displaĝblockļľŀłď;z-Ďdex:10Š0ŒĿŁŃ;ovđfŎw:hidśnţŔŦwŰth:20pxŴťŖīightŻŽſĽŤŕńbŀśrŞž ĤlŰ #5ƛƀƍ;ƏrƑ-raņusŞŠžƝŦĄŐgĢund:#ABDƬŖƏxĸhƥoŭ0 ǃ3Ɣ#1ǉƺńopaĂtĝ.7ǋ;tƤĶitiĕ:.05sǕƼĸizĎg:ƠƢƼǋ}ĀĂĄĆĈĊČĎĐƒhŨđ{ǍǏǚĝ1Ǯǰăąćĉċčďđ:ǏǛũ{ǫȌ1ƔƖƘ#35șșǣǏkưoƲƴ#90a2c4ǣoƽsƿdǁ:ǃǅǇ2ȶȃāȅResultCĕłĎǼŘŚŜƩšǕŷdŹȍutoǕƃƅƇaɐɒƋŵŖmaƽɌɎ3żƫɚƁƎƐȌnĕeȝƯƱƳƵEɲȫȭȯȱȳ 8ƔȔxƙ9ɿǕĊtǸĸǎĂnǩŢɥƍǯȹĄȻȽȿɁďaɄr *ȑȬǥǧʈǪɨr-ǭʋŃʍǱa_İaĈh_Ƽ{ņňŊŌŎŐǕɝrgĎȲǕǎűǨʼʤŖɠźş0%ȫơđʢoʃomƓɽȖdƙC˖ǕĔĖsǦeˁœɦ;ʂʄňǿʞʊ˟ƞwƐʅ˥ʉȸʧʐȾɀɂʕnđ Ďpɐ{Ŀ˛ǛǝsłǛcʷʫʺn˞ƌƭʠƣƥiƧ̉ɛɧɵǀŭɪ˶ɴʜˀȒʡʣ˨Ŧʱŉŋ:ĎƗ˶ʢʵő˂ńũŁāal-̰Ƅ̈ĚűĊ˘ŎaƇ̗ɬ̫ʦȅʩeʫcʭƼ>ȄĄS̓ʬIn˺t˼ƥņ˦ 7ɤ̟˃Ÿźc̰c(ˆ% -ɹ͗x)ˉƑ:̽ɓĬɕŻɺƊ͙ń̦e-ɔƆͰ̊͘ƻȞȠȢ:wůĐǕcoŎƒ#6΋˘ɂʜ˝14ͻ̒ˡeʃˋˤʇˮ̫;˙tėęěĝğġģĥħĩƃĮĹĲĴĶĸıf˯ȅ͋̈́h͎͐Ůǻr,͉aε͍͏ɐ:ĔcƧʚ̔ȰǂǄ ǆɽǃ#˖C˸ĶΖ΅·ŀƵȶ2Ǯ.ʎο͌ͅBɐɑn͒ʿ˦ɋ͛Ż9Γˠ͸Ƈ2ͱͩˋƤƦƨ˧ͼƎ;ɯd-ΆΈɱɳΜƮȟϽƣep̼̓oЈЊ̻ϴƒͬЄ̌ĊĦˑƕ·ȗϒϝϟπϢϤǝǺ̭ȑϼȡƳϿϘΉĘЬaНʧПhϣˎ̈ȎiȐЅͿШЀϙ#e5пп̙Ȯ̕Ȳό2Ǉ8ъϔİtγ͊ϡвСϦйЇĽag˝url("d̻a̤ɝљ/svg+xmlƟaİ64,PHN2ZyBѷXJzaW9uPSIxLjEiIGlk҃JDYXBhXz҉IHƆbG5zҏodHRwOi8vd3ҪLnczLm9yѸ8yMDAwL3ѶѸIљG1sbnM6eGxpbms9Imh0ҢA6Ly9ҫ3φdzMub3JnLҗ5OTkũӊӌӎҊHgӐjBweCӀeT0iMHB4IiѺѿV3QҲ4҃IwIҹgNTYuөY2ԎU2҇k2NҊgc3R5ҜUӐmVuYWJsZS1iԫNrZӣҩW5kOm5ldyҺԎAԐԒԔԒԗDԙԛԝj˛ҙқDpzcGFjZӻāHJlc2VydmUiPgogICՄѴҔdGgKիՄմժCBҎSJNԑUuMTQԚՊ҆jg4N0w0MS41ODgsMՔuNzg2Yӟ֘֓Ԛւրւ0LՊրzԜLӪ֨U4֦տ֖֪TE֥jȩNmMһִy҇Y4Ġ0xMC4ӟTgtMjM׋׍׏֙֫IҰDEһ׍xOC0ҷywמB׈A֨E֯Dה֦שרz֝Q֘׭҆ҹsO֏yө׊֎4֍׭֕TӠցԡ֫ׯցYybזҰjԖ֎wxN׆ҷDh׍׆1֙E֕ؖөM֕֏ӟؚ֩45Ġנ҇E2إטkyҋֻ҇ԡ׵wһזִ֘֯Tפ׌k3תրDc5֫פ֒MԇzՋjIؗSwؗ׆ӨרsԑԓػוU؊AקU1ا0Ԟَ׺4֒d6Iֵמأ֒Qֺٓق׍ҽCس֦Eؽـ֘يքٵٴӜy0ؽ؋y٠؏پڄ؎NѹҰִؽTφNٹ֫ٻڋֵֿ٘ײY֕׍Շg֥DZ٦ԃzҢlԮ՚ZѬӄDթcmņKז։ןgցgؽլךـpOح+PC9wҒRoէo8ҼҾz4K"ͨЄЦȢ-˽ǚǜ̈ceȋrɭІЧϾ˛zΐ5ɻۢͲϺ̀ѐζгϥTǘsŊĐGoթĊХɮ۝řѤњќўѠłѣјeѦѨѪѬѮѰѲPD94bWwgգա՟lvbjӼ׺ԍԃlӍNvZҌuZzӼVVRG֫ʺҙ֊ԫԺԫxܕդԧ5vIj8+CjxڢmcӁӃӅMԧӓӕӗәӛӝ֞ӢӤӦԌҸAvԡZnԂԄWԆԈ܋ԋԍԏ֙ՄݠӰdpZңۄ҄3ׅӀaGVݥ2ӓԋݪӸܺiյլ8ՕFȦAթնހGZӌGwӐӽ֍և1RjQiĆݸޑgZDӼT׿ٝي5ԎQֆޝV׍ySґ3؆ׇ֎AֆYֶQ3ԎӠԑg֟݀N֏2כՂٷҸY׋֏ؤՁ؏֏3׵0֯҈1ԎI־jީٕ֫ՊԐiׇڑ؊ȩԎkٸ޼׌؄רg׵4ԝkM؏ߒӟݷ޷؟޵ׇԞA1My4٣ߩݷzؐأ׺ߵݷ߁߷߀ԞާߒٟՁߵ؟҇ޭ֝ח҇Uڳڷڈ٪լֶEح׬ֿߞ֏0O܎t߾ԝլԚ؋0؆Š҇Aڊް֚tߟࠗS0ࠞc־ִࠞؼߎװI׋׿Ԕґࠋם߶ޮזֆڒIֶ݀׌ֱDMࠋީ߯߱߬ׄ׆։լڂ֏w߯Aڂ׆࠽ًࠣzԎ޲өȟׅީ߶ׄࠫ؊YxԎٻ׍قՆ֒࡟ߒԝiםֿՉׯNזࠚࠀ߬ޙE࠶EٸVsדߋQٯީĬIvۅۇҽѷۊیێͳѮ۶ۑۣ۟ۡϮƞѕ۷ۓ˿ۖۘǸяϠ۩ѓ۬ĵۮ̻eBʕdu۵ۜۑїљ:ћѝџѡۿѥѧѩѫѭĄ܇ѳѵѷѹѻѽѿҁԋ࠿ҊҌպҐҒҔҖҘҚtҜҞҠҢҤҦҨҪҬҮҰҲҴyҶݑһࢌҿ݁ӄӆӈӭӍӏӑ݆HӖӘӚҪ݋Ӡݍӥӧ࡞ӬӋ࣬ӰӲܷӵӷӹ՚ӾԀݗ3ѿRȦޕiөँӸgݭݯZݱ0ԋؤӿԁԃ2ԅԇԉݝՃߞعढAӰ֊eWxlҏܜmFăGUtYमjȧՀӢԩޔ˺ZXࡃլݞkुҥحࣧOnNہWNफջwڬVzऽJѷ҄+DQoJծhհgऑWQӐkJƿWR߈ԃ࣌Nߛؿࠑ֦֖ࠉ٣Gدj٘޵wڀYٝ࠷ڏEײڕ҈ݪپٯIࠜڇؖ֊Mࢅ5ڈ֌כ֐վٓ׆ҥזٓרٸcٝࡆضփ॰ޙࡕࡔժॴ׋֖ؖलࠍԝٍࡥࡣ׃ࡢ֙٬ߟڂލ࠶ࡵڍxQҗ߆փإҷঔٔڙްـק࡙jkߵןࡖ4ࡓTI֕֞ޱ4ĬBսيՇMקࡾ֒c0նࠡޙࢄ֎׃ࠅࡓࠫࡣ׻র֕߰ࠗDk࠶؀׭־זثҷW׎٢өUٓ৫֖ৎܙ׌؝ցশج֦ԓԑڕזޙkؤةৠقصؐ؎׺ٟ׭׋৫֒֔ցৰॻڑ৴ިժEن׺ؤւ״׆ךਥڏ؄ॶוIրߌק؆ԛzכ؎҇ڵNHթޗচ਷ׄiנ߾ؤjޠ֫տ֙਽ҹؿ֛ਝ҇Mٍ֑ޙU߃০ׅ4ҷ࡛׾ߜֈ৞zغ্ٶ޲ԑ֦ٚׯөAڝ९׍ڱ਒׆޷Պ׾ਮ֖ީ֝ੇՔ࠯غ֠ٴט੏כࠢ҈ࡓןࡍ੗֖৷্ٸֵহੌ׍ਭٯ؆٠ҽ߰ਨ৺׌ԓ੧ছ਽ևਿੁߒ੃V٦լਠ0ӟ߰঍ॶ֕তߪࠗԒؚǠԛٍ߮ࠞب֫ߘ৹ঀߕֺؗشڎӪքࡵՊছEસ߯wٯkર਒߰ҽTڏપԕؚૅયׂલؗן૆߮ࡱׄ૊ԑࡇիƸࡶӠөٻґ֣ژֲ֟ࡦ֦A৏ૡԒছB٦ֵߦߠ؜গਮ֙Jj֫؀ڍছশ޼߾ҽو״ࡒցࡼਚװਲזֶڜMةࡸ٪֓ٓ֏ׁ࡛ࠨ޾ԑৎߟ։׉ଗأଙ׾੶ે੝૫ߪؤ׽ࡊ਴଒ցଢુٙҷੀ߻߃Tޠߟةz٬ׅঈ੗ө࠵Ġ4ׄ҈ڙ৚ִॼੲ্x֝ڎيו૫ց૷ਫ਼ٶਮԕਏߊ੎਴ٍߋԜ׵յॴ઎ࠃٳ؉ֿ֑לٯॿ঎૚ߠޱ࠶ࡅ٘֝Aࠚ޾֖c޽୪ଖলө୴ߟ਴ִ࠶ߏ࠮ֶࠡkֶٟࠫMٟࡱ୦਴לڀֈ޵ম߂Ҹାڍؿࡕ৞پ؊ࡁஏֶUҥל࠱ڱ0ঠ٣לઃؤक़ୱো֒hࡆ֩Շ਋॰࠭։ফߪ੬஋ୀڏਁ࡛ٸে੥ߋ࠮ࢇԠԢԤऱԧރҜw٦՜nYƄୠڳଃ߉াk7ܷ4ࢋկձॗख़ࢋۉࡏg==ۍۛк۞˜ɏɑ 1ۤ௤Ї࢜ە:ۗۙࢡ˱ȿTŜtBȬ{ʸ̇̑ˠʾ͔ǩşɻƉόఄۥΔмΉϛǕĐxΟ̳g̈ЖюΜΞΏŞΒఉˠఘĘĚĜ:Aĺ̰,HeܔΖ̯ήķάβۏ࢓ɰ#fbఴఴ̅ƽϰŻ5ƉǕλūǁ-ŝůűۘా̭ీw-ĝɗɑ௴ȼ˲௷ఐ௺ŝȍĦǼΆȋďĞ"Ǖ̡ʳǪ̩௭۝:Ǘࢦǎr࢟ͭƄ͹ఈЯIࢪhح-˶w_˪ơʰŇ̢ĝГͳ}Ϟc౰Ī౳Ŋbన_Ɨ́>LƷEL౺ʲ̣̥Ʉ౏ʑt౒௹Ȭ ņvνϟ௵ಘ௸౔ Ⱦಟ˰౐௶ಣಛƗಧȺ಩ಢ౓ಛpಮʏರಙತĔrmವaಡಸಛ˹ɐಽಿಫɽಆన௼̆ʻϹΔఁˀ್ఝΎӶ౬Ќ಻̰ಖ౑ೆϔ͐ೄಷ೛bѓೞಗೀɽఏł౩aē೓ͮ͹Ďīĺఖ࢑ఘ́yĊ̤n೰ǚ΍˚௧೯ıೲϺΝΎట΢ఢతlదనũ̃aబΰĺయ౿ξ೅ಲɽದഔ೟ഖ Ɨ{ಊΟ೵೷౾ۦങ೤೛Ѣυχȡt͵ͫɫ೙ಪഛĽgʚˊƒ೑ʌഥ೚ഛ́Ģʈ೫Ė೔ͯˆ೼Οഅడ"͋ըe UIĮVđѠnഎLuĂѠ Sࢦ Ȼ޲Ŋμൖ൘a൚൜Unāҡe,ణiథsࢦഐĻ̿ഺറಚɽಁಃ౲I-ņ୴ĄĒ೴௧1шజഹಠച൷ ൹౱౳౩ʺ́đೣ഻ඊඌ಄ർĺɕʮgඓ൶ತඖൻ-u಴൵ಱඕāൺ౳ϊϦీ̻:඙Ɔരඦඟඨඍ඘eඐǸϧం-క఻࢘ʥඥ೥ aච౳೧ʮŊŐඝඳಛෆർൔvಉŇħഽĕഴఋƵ3ෛ඲ස೪ෙ#236fdȪΜ೧ൽeΆƤ࢝ࢳƳđ͵ෝധκФ෠෢෤෦ෳഛාͷĵdwೱ൫ෂ೛෽ƿƳกǚe_λ෌ස෽dĢp_ණ˼ģ۔ǝabƖɐ̾࢑˄Ş6වƂ೭Ƈ1ยආŦφrĤƒĿǷđ෻ටಂබ෾จข{ɑpచรńධฦ3ఽరࢯШ௯ǝǃ-7โഓඈദ෼ඵ඗ึ฀ขฌФฺ฼ษŖ฿Şแ฽࢒ไϾๆ̈-1ͱ๊ͣ฽ۧಾඉತǰඩർൾt_ɝĎර೐ఎ௸̲Ɨఓ:కาපิ๑๱඀಑౼ౡŏ̪࢑೏ϩΜ఺్ə࢑͵ͷลŞ.Ϝ൴ํඔ຀๯-Ǜബeถ˾௰౩ۯзพം຋ఃศ௪ͦఇϳΜ෠ෛ3൅-ൂ͹ƏԿິ࢕ŻఛິേౌഈഏమʁɄຓೕ:ɢ๞౸Ͼb೩kǪ໎๺l๿෎๐ඡ๱_ພ۴ັොగ೬໇ຸd຾Ρడʫ൮ഉ൰ίໃຘನ๎ำຜpാs຅ౠōຈʽ͓๷ຍດຏɋ΃ͶΙ˝ɪ೗໓ໞുດ๊സශນඞ໕ກ໗ā࣓ʫඋ໖౳ū{̭഍̱ఒ̵Űd̸༆ഠඃඅໄ̧఺༃ɝ༅์໭ບ༎ຜ຃༓෽ūʘീ༢۠Ş༤໬ಯ໮ປี൩ʩ۝ู๹ś෬̻௰ണΔ̜മ̘Μ౟ಓnຒ໶ʶΜిŬŮ༞ెΜ௽ೌϪɍ˅ศ౫ൃའใ௥ࢳۻࢶ۾ࢱ܁ࢺ܄ࢽѯeѱࣀҾࣃ॓ѾҀ҂҄ࣉҋҍҏґғҕҗӰқҝҟջҡңҥҧҩӛҭүұҳҵؒҺۈࣂӹӂࣨӇӉࣼӎ݅Ӕࣰ݈ࣳӜuӞࣶӣࣸEӨӪࣻӮՏӱӳएःܘङݗजݙञݜ҄ݞՄ਀ߋE߮Ձ੘େ٘ݗڢHڤՙӼZԹhऴपLԬ࿌2tҮҲ1ӍQ6ӍԆडࡠ࿁֣࿃׬ି؏׿௕ԃ܌܎6ԡҔԖԦ͎BҴXौcnZl௖KCTxݖ࣋ҏQҜFޛjۋCQkݺՖݽग़စl࿅࿇ڦڨbC1բऩlҦBԿԨӡ2RԻѹjҜlһѼ࿖ऱ٦ݮѷԹܟGQ௕ނބ௉ҙӤ்ֈ଺ڳ׿һࡐ׌Aںح࿸ဆJޔޖ্ઁ4ଳؙ࡞ٸI4Tक़ٯֻ঎ߋI঍઩উַ׋ߒݪӪ࠶غ੫דਯԖڑஜҷࠫၓࡰଢ଼આφਚ৲୰؁ؿՋୢيڂڅࠍwী؅ضȩd҈ӨِNॴش୓஭كؿ੉ળॶ੔ڇ߰ၷબၹԑف׮ਯg୍଄ଟTઔ׆ִٟਗ਼ض҅ၠકޮડ؈྾߶৬׎୹֖֨ࠇߋ׀઼֫QુטQ߲মࡹ৭׾פࡶg࡫ႈQࠗV߯ႏـঀၷ઒֙৾ߌߕؤٍӨ޶׌h٦ဃ௘ढ़௚CgဇLȨܺjwݓ3ݕۅ௢࢐ം౦Ǚ෮0ǢΜ༙̯༛๻༝̷ວ̒๪ക໯༾Άཀ΀УǼǾǐǒǔ༺ಶ༼༮ჷoჹɰжȐჽȀǞ9໔൸༕ർමฎฅᄑජ໳ຩຝǍ௿ƞఞ໤ΣlൗŰ൤໩sಥ൨ΆśĮ໦೘ཌྷ౻໵ౢᄁ๫ᄃᄐ༏౳౵౷Ɛē̺Ƈ๾Μᄙ๗༹༫༻༭ᄵຜᄸ໋හ໴̣དྷຉຨ໹ʞώ௪ఆǃɣ๙ńภș๞఺1ͦౣۑ๢:-27ఛǄϗЁȤʀ༡ີດൄᅬ຿ĞĠcĢĤĦĨĪĬౝᄲჵ༽๑ᅈƐහ෽ᆀơ2ࢮ௥ےท෮ᅣᅥƔ๤ϭᅗჴ๬ᄄ๑ƧṵĜᄔ๏ᄶർ໱ĕ໳෠΋6ິຶฦŠᄏ༔ᆜǥľ۴ཛ̈ۤόᆰ༊ďᆒᄴᆩຜͿณᆞĶ{ȈʫʟŹ̅ʹཛྷᅼᆓᅆีᆹ_ᆻᄦ෽İౙdᄻoථ཈ఀᅐgᄚ฻ᆳtᆵᅅᆷᇈƱᆺ໲ᇞ๑ᇎĕ˔෽ම{఺2ຽᇅᆶ෽ᇉ˽ᆽĊᆿƏᇁཔైབౄŲᅨн఍ᅬົΑ๩คᆛᆸᇠᇊģ༴ං༷ሂᆑሄჶ๑ᇱሉ฻ɪt(๽ѯΟĥຝyЊ)ೊᇃnˌˎː௬ᇮᇝ෽ೈlී́ᇑථᄾຊᇖሣɑːᆐཝɎ87ˈ෨๹༜๽eĦᆨ෽࿳ᇣඡሒᆠЪේໝᅃᄂረᄖቇƕǗ෗ᆽ቉#8d቗቗ቂᄖᆮ໙Ǎ๶ʈᇘ:ལቌᄳ቎ᆪ౨๲ടහᆚሐඡłbሬħƗቬሏᅾඡᆄ˔എቶᆔඡቩ๳˵ h3ᅊ෩ངŀཆǝᇔඇ༬།ᇇ๑ተቲᅋ౽യሧ኎ቅ෇ǚ۴ຩ๜అɻ๞ላΐᇭብᅽች౳ቇ༵ఙልቛᆪቐ༲lበʉ ຫȳᇽΉɿᄎኖ෍኏ቆሇ˽ƕǎϦწ͝ხ̴Ǫ཯ෲΜຒ༧ŀ༩̹ᇒЌཌ࢑ཎĝಔዒᅏϨΛኤᇆኘർsy̗ቔᅩາ༥ͶᇫຯዛᇯᄖȽय़ȼtቭቷ౳ዬљ́ᆆኜɸᅒᇚ;ໜຳΜ໋ີƤ฻ໍ̓kີƐ຺ඃኣംዋດȶሃ༌ኻዝĸuይ́ಥኰኜອǃጊΔጌ໇௫5ሻዩቧຜዳዮജi኱ලቀฦጜˠ࢚ᅠᆊ௰๤3ᅦ-แጮኌᅄኗᇍጔዴħpഞ໅ᇫ఼ጢതጐฏያጾጧ෽໱ᅊᄙ๛ώኬጥፋ጖pፍĒᆮቢፒዊፃᅮየፇኍ጑ጽጕħፘᅊዔ೸དᄱሱዙƣጟ๋፡ጻ፣ᄖĔˍǼዷሷź໽ະቕኸ๸ఐ๺዆฿ገሌᅂጋ፞ጟ፠ჳቼኼ༖۲ǸᅊཊኋŦኆ෫ኈ෮᎔ŖዷύƔኵཤϽཋჲˠ෷෣෥෧࢑᎖ཅ᎙ንೳΎሁᎇጝᎉൃᎋɦᇜጼ፵᎐˷Ѣ჻ĒᎥ෹Ꭸ፲ቍᎸᆪ෈ōuຠᎿᎧፓีቫഝ᎜௫ጏ።ፉᆪƗดዯሩiดᇐ፩ዖᎣƞጞͯᇬᏒ፳ᏔຜᏖɍጪ๛ሦ࢑Ꭵ෢෢Ꮜ๑Ꮸᇐ෠7᏶ȃի౰A_TOO_LOႀጪ๗౮ᄿሲ඾ᐆᎮ೽ᎆ๩';
     style = lzw_decode(style);
     GM_addStyle(style);
-    GM_registerMenuCommand('iciba划词翻译设置(ctrl键设置)', () => { _this.openSetting_ctrl() });
-    GM_registerMenuCommand('iciba划词翻译设置(设置最大查词长度)', () => { _this.openSetting_length() });
-    GM_registerMenuCommand('iciba划词翻译设置(默认行为)', () => { _this.openSetting_default() });
+    GM_registerMenuCommand('iciba划词翻译设置(ctrl键设置)', () => _this.openSetting_ctrl());
+    GM_registerMenuCommand('iciba划词翻译设置(设置最大查词长度)', () => _this.openSetting_length());
+    GM_registerMenuCommand('iciba划词翻译设置(默认行为)', () => _this.openSetting_default());
+    GM_registerMenuCommand('iciba触发翻译鼠标行为', () => _this.openSetting_click_or_over());
     _this.loadSetting();
     _this.eventBinding();
 };
@@ -84,9 +86,11 @@ Iciba.prototype.loadSetting = function() {
     _this.ctrlKey_actived = parseInt(GM_getValue('ctrlKey_actived') || '0');
     _this.maxSelectlength = GM_getValue('maxSelectlength') || '150';
     _this.defaultBehavior = GM_getValue('defaultBehavior') || '0';
+    _this.mouseoverRatherThanClick = GM_getValue('mouseoverRatherThanClick') || '0';
     GM_setValue('ctrlKey_actived', _this.ctrlKey_actived);
     GM_setValue('maxSelectlength', _this.maxSelectlength);
     GM_setValue('defaultBehavior', _this.defaultBehavior);
+    GM_setValue('mouseoverRatherThanClick', _this.mouseoverRatherThanClick);
 };
 
 // eventBinding 绑定事件
@@ -146,6 +150,13 @@ Iciba.prototype.openSetting_default = function() {
     GM_setValue('maxSelectlength', _this.defaultBehavior);
 };
 
+// openSetting_ctrl ctrl设置对话框
+Iciba.prototype.openSetting_click_or_over = function() {
+    var _this = this;
+    _this.mouseoverRatherThanClick = confirm('是否将「鼠标点击小蓝圈」 打开查词框行为改为「鼠标移至小蓝圈」打开查词框？') ? '1' : '0';
+    GM_setValue('mouseoverRatherThanClick', _this.mouseoverRatherThanClick);
+};
+
 // showIcibaCirclePointer 显示并定位小圆点
 Iciba.prototype.showIcibaCirclePointer = function(e) {
     var _this = this;
@@ -157,9 +168,22 @@ Iciba.prototype.showIcibaCirclePointer = function(e) {
     _this.icibaCirclePointer.style.top = (de.re.offsetTop + 7) + 'px';
     _this.icibaCirclePointer.style.left = (de.re.offsetLeft + 5) + 'px';
     _this.icibaCirclePointer.setAttribute('keyword', window.getSelection().toString().toLowerCase().trim());
-    _this.icibaCirclePointer.addEventListener('click', function(e) {
-        _this.showContainer(e, _this);
-    }, false);
+
+    let mouseoverTimout = 0;
+    if (_this.mouseoverRatherThanClick === '1') {
+        _this.icibaCirclePointer.addEventListener('mouseenter', e => {
+            mouseoverTimout = setTimeout(() => {
+                _this.showContainer(e, _this);
+            }, 100); // 100ms delay prevents accident mouseover
+        }, false);
+        _this.icibaCirclePointer.addEventListener('mouseleave', () => {
+            clearTimeout(mouseoverTimout);
+        }, false);
+    } else {
+        _this.icibaCirclePointer.addEventListener('click', e => {
+            _this.showContainer(e, _this);
+        }, false);
+    }
 
     document.body.appendChild(_this.icibaCirclePointer);
 };
