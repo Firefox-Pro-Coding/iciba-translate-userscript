@@ -11,7 +11,7 @@
 // @grant              GM_setValue
 // @grant              GM_registerMenuCommand
 // @icon               http://tb.himg.baidu.com/sys/portrait/item/d4346e6f65313332ac06
-// @version            3.2.8
+// @version            3.2.9
 // @supportURL         http://tieba.baidu.com/f?kw=firefox
 // @contributionURL    nnnnoe132@gmail.com|alipay.com
 // ==/UserScript==
@@ -19,6 +19,7 @@
 
 /* ------------------ changelog -------------------
  * update INFO:
+ * update 2017/05/09 : bug fix
  * update 2017/04/20 : 添加鼠标悬浮触发查词
  * update 2017/04/19 : 终于搞明白怎么定位了
  * update 2017/04/18 : 添加最大选择数设置和默认行为设置，优化样式
@@ -147,7 +148,7 @@ Iciba.prototype.openSetting_default = function() {
     } else {
         alert('输入数据无效，操作取消！');
     }
-    GM_setValue('maxSelectlength', _this.defaultBehavior);
+    GM_setValue('defaultBehavior', _this.defaultBehavior);
 };
 
 // openSetting_ctrl ctrl设置对话框
