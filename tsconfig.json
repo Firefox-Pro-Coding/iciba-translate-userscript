@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "moduleResolution": "Node",
+    "module": "CommonJS",
+    "outDir": "tsc_dist/",
+    "baseUrl": "./",
+    "paths": {
+      "~/src/*": ["src/*"]
+    }
+  }
+}

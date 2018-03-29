@@ -1,0 +1,37 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "./tslintRules/coreRules.json",
+    "./tslintRules/codestyle.json",
+    "./tslintRules/tslintEslint.json",
+    "tslint-eslint-rules",
+    "tslint-consistent-codestyle",
+    "tslint-config-airbnb"
+  ],
+  "jsRules": {},
+  "rules": {
+    "align": false,
+    "array-type": [true, "generic"],
+    "import-name": [false, {
+      "*.vue": "*"
+    }],
+    "max-line-length": [true, 100],
+    "no-console": { "severity": "warning" },
+    "no-unused-variable": true,
+    "object-literal-key-quotes": false,
+    "object-literal-sort-keys": false,
+    "object-shorthand-properties-first": false,
+    "ordered-imports": [false],
+    "prefer-array-literal": [true, { "allow-type-parameters": true }],
+    "semicolon": [true, "never"],
+    "strict-boolean-expressions": false,
+    "ter-arrow-parens": [false],
+    "trailing-comma": [true,
+      {
+        "multiline": "always",
+        "esSpecCompliant": true
+      }
+    ]
+  },
+  "rulesDirectory": []
+}

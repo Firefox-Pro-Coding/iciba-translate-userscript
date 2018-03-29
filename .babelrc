@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "env"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "~/common/*": "./apiserver_tsc/common/",
+        "~/config/*": "./apiserver_tsc/config/"
+      }
+    }]
+  ]
+}
