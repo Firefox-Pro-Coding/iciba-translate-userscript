@@ -18,6 +18,8 @@
     "max-line-length": [true, 100],
     "no-console": { "severity": "warning" },
     "no-unused-variable": true,
+    "no-as-type-assertion": false,
+    "no-inferrable-types": false,
     "object-literal-key-quotes": false,
     "object-literal-sort-keys": false,
     "object-shorthand-properties-first": false,

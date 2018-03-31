@@ -44,8 +44,7 @@
     "no-empty-interface": true,
     "no-import-side-effect": true,
     "no-inferrable-types": [
-      true,
-      "ignore-params"
+      false
     ],
     "no-internal-module": true,
     "no-namespace": true,

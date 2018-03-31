@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export const getValue = (name: string, def: string): Promise<string> => {
   if (GM.getValue) {
     return Promise.resolve(GM.getValue(name, def))
@@ -18,7 +19,7 @@ export const setValue = (name: string, value: string): Promise<void> => {
   return Promise.resolve()
 }
 
-export const got = (params) => {
+export const got = (params: GMXMLHttpRequestOptions): Promise<string> => {
   const api = GM.xmlHttpRequest || GM_xmlhttpRequest
 
   if (!api) {
@@ -29,7 +30,6 @@ export const got = (params) => {
       method: 'GET',
       url: '',
       timeout: 10000,
-      d: '',
       ontimeout() {
         rj(new Error('网络超时！'))
       },

@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ESNext",
     "moduleResolution": "Node",
-    "module": "CommonJS",
+    "module": "CommonJs",
+    "sourceMap": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "emitDecoratorMetadata": true,
     "outDir": "tsc_dist/",
     "baseUrl": "./",
     "paths": {

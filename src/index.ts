@@ -1,6 +1,9 @@
 // tslint:disable-next-line
-import "babel-polyfill"
+// import 'babel-polyfill'
 
-import test from '~/src/components/test.vue'
+import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
 
-console.log(test)
+// tslint:disable no-unused no-unused-variable
+const icibaInstance = new IcibaMain().$mount()
+
+document.body.appendChild(icibaInstance.$el)
