@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component, Model, Prop, Watch } from 'vue-property-decorator'
-import { ICircleStyleParam } from '~/src/interfaces/circle'
+import { ICircleStyleParam } from '~/src/interfaces/index'
 
 @Component({
   name: 'Circle',

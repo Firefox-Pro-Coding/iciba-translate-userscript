@@ -1,6 +1,17 @@
 <template>
   <div class="iciba-main">
-    <!-- <main-frame class=""></main-frame> -->
+    <div class="iciba-container" v-show="containerVisible">
+      <div class="input-box">
+        <input type="text" name="" value="">
+        <div class="button-box">
+          <!-- <div class="button" v-for="button in providers" :key="button.uniqName">
+
+          </div> -->
+        </div>
+      </div>
+      <div class="content-box" v-html="content">
+      </div>
+    </div>
     <iciba-circle
       ref="circle"
       v-model="circleVisible"
@@ -12,4 +23,4 @@
 </template>
 
 <script lang="ts" src="./IcibaMain.ts"></script>
-<style src="./IcibaMain.less" lang="less" scope></style>
+<style lang="less" scope></style>

@@ -8,4 +8,30 @@
 </template>
 
 <script lang="ts" src="./IcibaCircle.ts"></script>
-<style src="./IcibaCircle.less" lang="less" scope></style>
+<style lang="less" scope>
+  .iciba-circle {
+    position: absolute;
+    display: block;
+    z-index: 10000;
+    overflow: hidden;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #555;
+    border-radius: 100px;
+    background: #ABD;
+    box-shadow: 0 0 5px #888;
+    opacity: 0.7;
+    transition: 0.1s ease opacity, 0.1s ease border, 0.1s ease background, 0.1s ease box-shadow;
+    box-sizing: border-box;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:active {
+      border: 1px solid #353535;
+      background: #90A2C4;
+      box-shadow: 0 0 5px #999;
+    }
+  }
+</style>

@@ -4,6 +4,6 @@
 import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
 
 // tslint:disable no-unused no-unused-variable
-const icibaInstance = new IcibaMain().$mount()
+const icibaInstance = new IcibaMain()
 
-document.body.appendChild(icibaInstance.$el)
+export default icibaInstance
