@@ -1,6 +1,7 @@
 TODOs
 --------------
 - [ ] complete readme
+- [ ] issue template
 - [ ] add css post processer to add !important to all rules
 - [ ] add a plug-in translator provider system
 
