@@ -19,8 +19,6 @@
   "author": "noe132",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^9.6.5",
-    "@types/rimraf": "^2.0.2",
     "babel-polyfill": "^6.26.0",
     "chalk": "^2.3.2",
     "cheerio": "^1.0.0-rc.2",
@@ -32,11 +30,12 @@
     "typescript": "^2.8.1",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
-    "vue-property-decorator": "^6.0.0",
-    "webpack-bundle-analyzer": "^2.11.1"
+    "vue-property-decorator": "^6.0.0"
   },
   "devDependencies": {
     "@types/greasemonkey": "^0.0.28",
+    "@types/node": "^9.6.5",
+    "@types/rimraf": "^2.0.2",
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -68,6 +67,7 @@
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.5.0",
+    "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.14",
     "webpack-merge": "^4.1.2"
   }

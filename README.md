@@ -1,7 +1,9 @@
 iciba划词翻译
 -------------
 
-![GitHub package version](https://img.shields.io/github/package-json/v/badges/shields.svg?style=flat-square)
+![GitHub package version](https://img.shields.io/github/package-json/v/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
+![license](https://img.shields.io/github/license/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
+
 
 iciba划词翻译 用户脚本
 
@@ -13,5 +15,5 @@ usage needed
 ## 问题反馈
 在repo下[创建issue](https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/issues/new)即可。按照提示说明填写。
 
-## contribution
-查看 (contribution.md)(contribution.md)
+## 贡献
+查看 [CONTRIBUTION.md](CONTRIBUTION.md)
