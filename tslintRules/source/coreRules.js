@@ -174,7 +174,7 @@ module.exports = {
   // 'newline-per-chained-call': true,
   // 'no-angle-bracket-type-assertion': true,
   'no-boolean-literal-compare': true,
-  'no-consecutive-blank-lines': true,
+  'no-consecutive-blank-lines': [true, 2],
   'no-parameter-properties': true,
   'no-redundant-jsdoc': true,
   'no-reference-import': true,

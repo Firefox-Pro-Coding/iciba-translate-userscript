@@ -44,7 +44,8 @@
     "no-empty-interface": true,
     "no-import-side-effect": true,
     "no-inferrable-types": [
-      false
+      true,
+      "ignore-params"
     ],
     "no-internal-module": true,
     "no-namespace": true,
@@ -193,7 +194,10 @@
     ],
     "new-parens": true,
     "no-boolean-literal-compare": true,
-    "no-consecutive-blank-lines": true,
+    "no-consecutive-blank-lines": [
+      true,
+      2
+    ],
     "no-parameter-properties": true,
     "no-redundant-jsdoc": true,
     "no-reference-import": true,

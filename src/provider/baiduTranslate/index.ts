@@ -1,24 +1,24 @@
 import Vue from 'vue'
 
-import iconBase64 from '~/src/asserts/img/search.svg'
+import iconBase64 from '~/src/assets/img/baidu.svg'
 import { got } from '~/src/lib/gmapi'
 
 import AbstractTranslateProvider, {
   ITranslateProviderSetting,
 } from '../AbstractTranslateProvider'
 
-import icibaContainer from './container/icibaContainer.vue'
+// import icibaContainer from './container/icibaContainer.vue'
 
 class IcibaTranslateProvider extends AbstractTranslateProvider {
-  public uniqName = 'iciba'
-  public icon = iconBase64
+  public uniqName = 'baiduTranslate'
+  public icon = `data:image/svg+xml;base64,${window.btoa(iconBase64)}`
   public settingDescripter = []
   public containerComponent = new Vue({
-    el: document.createElement('div'),
-    template: '<iciba-container></iciba-container>',
-    components: {
-      icibaContainer,
-    },
+    // el: document.createElement('div'),
+    // template: '<iciba-container></iciba-container>',
+    // components: {
+    //   icibaContainer,
+    // },
   })
 
   public getSetting(): ITranslateProviderSetting {
@@ -67,7 +67,10 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     //   let playbtn = document.querySelectorAll('.icIBahyI-ico_sound')
     //   if (playbtn.length != 0) {
     //     for (let i = 0; i < playbtn.length; i++) {
-    //       playbtn[i].setAttribute('mp3', playbtn[i].getAttribute('onclick').match(/asplay_hanci\('(.*)'\)/)[1])
+          // playbtn[i].setAttribute(
+          //   'mp3',
+          //   playbtn[i].getAttribute('onclick').match(/asplay_hanci\('(.*)'\)/)[1]
+          // )
     //       playbtn[i].removeAttribute('onclick')
     //       playbtn[i].addEventListener('click', _this.playSound, false)
     //     }

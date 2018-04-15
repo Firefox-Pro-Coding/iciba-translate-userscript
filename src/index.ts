@@ -2,8 +2,32 @@
 // import 'babel-polyfill'
 
 import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
+import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
 
-// tslint:disable no-unused no-unused-variable
-const icibaInstance = new IcibaMain()
+// providers
+import IcibaProvider from '~/src/provider/iciba/index'
+import GoogleTranslateProvider from '~/src/provider/googleTranslate/index'
+import BaiduTranslateProvider from '~/src/provider/baiduTranslate/index'
 
-export default icibaInstance
+const icibaMain = new IcibaMain({
+  el: document.createElement('div'),
+  data: {
+    providerClasses: [
+      IcibaProvider,
+      GoogleTranslateProvider,
+      BaiduTranslateProvider,
+    ],
+  },
+})
+const icibaCircle = new IcibaCircle({
+  el: document.createElement('div'),
+})
+
+icibaCircle.$on('translate', (param: { word: string, e: MouseEvent}) => {
+  icibaMain.translate(param)
+})
+
+icibaCircle.setIcibaMain(icibaMain.$el)
+
+document.body.appendChild(icibaCircle.$el)
+document.body.appendChild(icibaMain.$el)

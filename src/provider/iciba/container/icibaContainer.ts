@@ -8,6 +8,6 @@ export default class App extends Vue {
   // tslint:enable no-unused-variable
 
   public handleClick(e: MouseEvent) {
-
+    //
   }
 }
