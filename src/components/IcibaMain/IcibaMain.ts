@@ -1,78 +1,80 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import { IPositionStyle, IStyle } from '~/src/interfaces/index'
 
-import MainFrame from '~/src/components/MainFrame/MainFrame.vue'
-import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
-import { ICircleStyleParam } from '~/src/interfaces/index'
-
-import IcibaTranslateProvider from '~/src/provider/iciba/iciba'
+// import IcibaTranslateProvider from '~/src/provider/iciba/index'
 import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
 
 import insideOf from '~/src/lib/insideOf'
+
 @Component({
   name: 'IcibaMain',
-  components: {
-    IcibaCircle,
-    MainFrame,
-  },
 })
 export default class App extends Vue {
-  // tslint:disable no-unused-variable
-  private content: string = 'hello'
-  private providers: Array<AbstractTranslateProvider> = []
+  public providers: Array<AbstractTranslateProvider> = []
+  public providerClasses: Array<typeof AbstractTranslateProvider> = []
+  public visible: boolean = false
+  public loading: boolean = false
+  public style: IStyle = {}
+  public loadingDotsNumber: number = 3
+  public loadingDotsInterval: number = 0
 
-  private circleStyle: ICircleStyleParam = {}
-  private circleVisible: boolean = false
+  public internalStyle: IPositionStyle = {
+    top: 'auto',
+    bottom: 'auto',
+    left: 'auto',
+    right: 'auto',
+  }
+  public inputText: string = ''
 
-  private containerVisible: boolean = false
-
-  private word: string = ''
-  // tslint:enable no-unused-variable
+  public get loadingDots() {
+    return Array(this.loadingDotsNumber).fill('.').join('')
+  }
 
   public mounted() {
-    this.providers.push(new IcibaTranslateProvider())
-    this.bindEventListener()
+    // this.providers = this.providerClasses.map(v => new v());
+    window.addEventListener('mousedown', this.handleWindowClick, false)
+    this.loadingDotsInterval = window.setInterval(this.changeLoadingDots, 300)
   }
 
-  public windowClickListener(e: MouseEvent) {
-    const target = e.target as Node
-    const parent = this.$refs.circle as Node
-    if (insideOf(target, parent)) {
-      return
+  public destroyed() {
+    window.removeEventListener('mousedown', this.handleWindowClick, false)
+    window.clearInterval(this.loadingDotsInterval)
+  }
+
+  public changeLoadingDots() {
+    this.loadingDotsNumber += 1
+    if (this.loadingDotsNumber > 10) {
+      this.loadingDotsNumber = 3
     }
-    const word = window.getSelection().toString().trim()
-    if (!word.length) {
-      this.circleVisible = false
-      return
+  }
+
+  public translate({ word, e }: { word: string, e: MouseEvent }) {
+    this.inputText = word
+    this.internalStyle = {
+      ...{
+        top: 'auto',
+        bottom: 'auto',
+        left: 'auto',
+        right: 'auto',
+      },
+      ...{
+        top: `${e.pageY}px`,
+        left: `${e.pageX}px`,
+      },
     }
-    this.word = word
-    this.circleStyle = {
-      top: `${e.pageY}px`,
-      left: `${e.pageX}px`,
-    }
-    this.circleVisible = true
-  }
+    this.visible = true
+    this.loading = true
+    console.log(word)
 
-  public windowKeyDownListener(e: KeyboardEvent) {
-    //
-  }
-
-  public handleCircleClick(word: string) {
-    this.translate(word)
-  }
-
-  private translate(word: string) {
     // TODO show loading
     // get Translate
     // show translate
   }
 
-  private bindEventListener() {
-    window.addEventListener('mouseup', (e) => {
-      this.windowClickListener(e)
-    }, false)
-    window.addEventListener('keydown', (e) => {
-      this.windowKeyDownListener(e)
-    }, false)
+  public async handleWindowClick(e: MouseEvent) {
+    if (!insideOf(e.target, this.$el)) {
+      this.visible = false
+    }
   }
 }

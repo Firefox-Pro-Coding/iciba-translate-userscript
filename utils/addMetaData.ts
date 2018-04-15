@@ -6,7 +6,7 @@ const packageInfo = require('../package.json')
 
 const metaData = fs.readFileSync(path.join(__dirname, '../config/metaData.js'))
   .toString()
-  .replace('{{ version }}', packageInfo.version)
+  .replace('{{ version }}', `${packageInfo.version}.${new Date().getTime()}`)
 const indexJs = fs.readFileSync(path.join(__dirname, '../dist/index.js')).toString()
 
 fs.writeFileSync(path.join(__dirname, '../dist/index.js'), `${metaData}\n${indexJs}`)

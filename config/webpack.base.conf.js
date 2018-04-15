@@ -8,7 +8,7 @@ module.exports = {
   entry: {
     index: './src/index.ts',
   },
-  mode: 'production',
+  mode: 'development',
   output: {
     path: resolve('dist'),
     filename: '[name].js',
@@ -17,17 +17,19 @@ module.exports = {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       '~/src': resolve('src'),
+      // for stylus
+      'assets': resolve('src/assets'),
       'vue$': 'vue/dist/vue.esm.js',
     },
   },
   module: {
     rules: [
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-      },
+      // {
+      //   test: /\.ts$/,
+      //   exclude: /node_modules/,
+      //   enforce: 'pre',
+      //   loader: 'tslint-loader',
+      // },
       {
         test: /\.ts$/,
         loader: 'ts-loader',
@@ -39,6 +41,19 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
+        // options: {
+        //   loaders: {
+        //     stylus: [
+        //       { loader: 'css-loader' },
+        //       {
+        //         loader: 'stylus-loader',
+        //         options: {
+        //           preferPathResolver: 'webpack',
+        //         },
+        //       },
+        //     ],
+        //   },
+        // },
       },
       {
         test: /\.js$/,
@@ -47,11 +62,11 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'url-loader',
+        loader: 'raw-loader',
         include: [resolve('src')],
       },
     ],
   },
 
-  devtool: '#source-map',
+  devtool: 'inline-source-map',
 }
