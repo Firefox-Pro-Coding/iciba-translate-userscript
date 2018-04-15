@@ -7,25 +7,8 @@ greasefork地址： [https://greasyfork.org/zh-CN/scripts/6303-iciba](https://gr
 ## 使用说明
 usage needed
 
+## 问题反馈
+在repo下[创建issue](https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/issues/new)即可。按照提示说明填写。
 
-## 项目说明
-工程使用 `typescript` 编写，使用 `vue` 作为前端框架，用 `webpack` 打包成最后的输出文件。
-
-## 构建步骤
-安装依赖
-```shell
-yarn install
-```
-
-编译
-```
-yarn build
-```
-
-## troubleshooting
-分析包大小
-```shell
-yarn a
-# or
-yarn analyze
-```
+## contribution
+查看 (contribution.md)[contribution.md]
