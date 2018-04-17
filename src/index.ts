@@ -1,5 +1,4 @@
 // tslint:disable-next-line
-// import 'babel-polyfill'
 
 import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
 import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
@@ -12,10 +11,10 @@ import BaiduTranslateProvider from '~/src/provider/baiduTranslate/index'
 const icibaMain = new IcibaMain({
   el: document.createElement('div'),
   data: {
-    providerClasses: [
-      IcibaProvider,
-      GoogleTranslateProvider,
-      BaiduTranslateProvider,
+    providers: [
+      new IcibaProvider(),
+      new GoogleTranslateProvider(),
+      new BaiduTranslateProvider(),
     ],
   },
 })

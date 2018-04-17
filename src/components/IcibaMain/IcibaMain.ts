@@ -11,8 +11,8 @@ import insideOf from '~/src/lib/insideOf'
   name: 'IcibaMain',
 })
 export default class App extends Vue {
+  // providers is offered while created this instance
   public providers: Array<AbstractTranslateProvider> = []
-  public providerClasses: Array<typeof AbstractTranslateProvider> = []
   public visible: boolean = false
   public loading: boolean = false
   public style: IStyle = {}
@@ -32,7 +32,6 @@ export default class App extends Vue {
   }
 
   public mounted() {
-    // this.providers = this.providerClasses.map(v => new v());
     window.addEventListener('mousedown', this.handleWindowClick, false)
     this.loadingDotsInterval = window.setInterval(this.changeLoadingDots, 300)
   }
