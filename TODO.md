@@ -5,6 +5,9 @@ TODOs
 - [ ] add css post processer to add !important to all rules
 - [ ] add a plug-in translator provider system
 
+## features
+- [ ] dragable IcibaMain
+
 
 ## plugin translator provider system
 translator provider must have these properties

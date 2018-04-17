@@ -32,33 +32,28 @@ module.exports = {
       // },
       {
         test: /\.ts$/,
-        loader: 'ts-loader',
+        loaders: [
+          'babel-loader',
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsSuffixTo: [/\.vue$/],
+            },
+          },
+        ],
         exclude: /node_modules/,
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-        },
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         // options: {
         //   loaders: {
-        //     stylus: [
-        //       { loader: 'css-loader' },
-        //       {
-        //         loader: 'stylus-loader',
-        //         options: {
-        //           preferPathResolver: 'webpack',
-        //         },
-        //       },
+        //     ts: [
+        //       'babel-loader',
+        //       'ts-loader',
         //     ],
         //   },
         // },
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src')],
       },
       {
         test: /\.svg$/,

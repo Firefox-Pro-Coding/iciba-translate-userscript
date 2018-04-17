@@ -1,8 +1,8 @@
 iciba划词翻译
 -------------
 
-![GitHub package version](https://img.shields.io/github/package-json/v/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
-![license](https://img.shields.io/github/license/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
+![version](./badges/version.svg)
+![license](./badges/license.svg)
 
 
 iciba划词翻译 用户脚本
