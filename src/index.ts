@@ -1,5 +1,4 @@
 // tslint:disable-next-line
-
 import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
 import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
 

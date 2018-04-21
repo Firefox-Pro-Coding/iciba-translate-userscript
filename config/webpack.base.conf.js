@@ -57,7 +57,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'raw-loader',
+        loader: 'url-loader',
         include: [resolve('src')],
       },
     ],

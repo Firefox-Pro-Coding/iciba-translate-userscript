@@ -1,0 +1,119 @@
+@import '~assets/styles/variables.less';
+@import '~assets/styles/hardreset.less';
+
+.reset {
+  .hard-reset();
+
+  * {
+    .hard-reset();
+  }
+}
+
+.iciba-userscript-iciba-result-container.reset {
+  // local variables
+  @big-margin: 6px;
+  @medium-margin: 4px;
+  @small-margin: 3px;
+  @tiny-margin: 2px;
+
+  display: flex;
+  word-break: break-word;
+  flex-flow: column nowrap;
+
+  * {
+    color: @main-level-1;
+  }
+
+  .flex {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .flex-co {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .symbols-box {
+    .symbol-item {
+      & + .symbol-item {
+        margin: @big-margin 0 0 0;
+      }
+
+      .pronunciation-box {
+        .pronunciation-item {
+          align-items: center;
+          height: 22px;
+
+          .ipa-type-name {
+            margin-right: @medium-margin;
+            color: @main-level-4;
+          }
+
+          .ipa {
+            color: @main-level-3;
+          }
+
+          .playSound {
+            margin: 0 0 0 @medium-margin;
+            width: 16px;
+            height: 16px;
+            background: url('~assets/img/iciba-sound.svg');
+            cursor: pointer;
+
+            &:hover {
+              opacity: 0.7;
+            }
+            &:active {
+              opacity: 0.9;
+            }
+          }
+        }
+      }
+
+      .part-box {
+        margin: @medium-margin 0 0 0;
+
+        &.no-margin-top {
+          margin: 0;
+        }
+
+        .part-item {
+          & + .part-item {
+            margin: @tiny-margin 0 0 0;
+          }
+
+          .part-item-part {
+            flex: 0 0 auto;
+            padding: 0 6px 0 0;
+            color: @main-level-4;
+          }
+
+          .part-item-meaning-box {
+            flex: 1 1 auto;
+            line-height: 18px;
+
+            .meaning-item {
+              &:not(:last-child) {
+                padding-right: @small-margin;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .translation-box {
+    .translate-tip {
+      margin: 5px 0 0 0;
+      text-align: right;
+      color: @main-level-4;
+      font-size: @font-size-base - 2px;
+    }
+  }
+}

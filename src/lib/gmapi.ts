@@ -19,30 +19,41 @@ export const setValue = (name: string, value: string): Promise<void> => {
   return Promise.resolve()
 }
 
-export const got = (params: GMXMLHttpRequestOptions): Promise<string> => {
+interface IExtendedGMOption extends GMXMLHttpRequestOptions {
+  responseType?: string
+}
+
+export const got = (params: IExtendedGMOption): Promise<string> => {
   const api = GM.xmlHttpRequest || GM_xmlhttpRequest
 
   if (!api) {
     throw new Error('not running in greasymonkey or tampermonkey enviroment')
   }
+
   return new Promise<string>((rs, rj) => {
-    api({
+    const option: IExtendedGMOption = {
       method: 'GET',
       url: '',
       timeout: 10000,
-      ontimeout() {
-        rj(new Error('网络超时！'))
+      ontimeout(e) {
+        rj(e)
       },
-      onerror() {
-        rj(new Error('网络错误！'))
+      onerror(e) {
+        rj(e)
       },
-      onload(response) {
+      onload(theResponse) {
+        const response = theResponse as any // tslint:disable-line
         if (response.status !== 200) {
           rj(new Error('网络错误！'))
         }
-        rs(response.responseText)
+        if (params.responseType === 'blob') {
+          rs(response.response)
+        } else {
+          rs(response.responseText)
+        }
       },
       ...params,
-    })
+    }
+    api(option as any)
   })
 }

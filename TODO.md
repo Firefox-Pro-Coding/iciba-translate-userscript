@@ -2,8 +2,13 @@ TODOs
 --------------
 - [ ] complete readme
 - [ ] issue template
-- [ ] add css post processer to add !important to all rules
 - [ ] add a plug-in translator provider system
+- [ ] implement providers
+  - [x] iciba
+    - [ ] using grid to get better flow of part-box
+  - [ ] google translate CN
+  - [ ] baidu translate
+
 
 ## features
 - [ ] dragable IcibaMain

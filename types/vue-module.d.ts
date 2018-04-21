@@ -20,6 +20,16 @@ declare module '*IcibaMain.vue' {
   export default IcibaMain
 }
 
+declare module '*IcibaContainer.vue' {
+  import Vue from 'vue'
+  class IcibaContainer extends Vue {
+    public content: string
+    public data: object
+  }
+  export default IcibaContainer
+}
+
+
 declare module '*.vue' {
   import Vue from 'vue'
   export default Vue

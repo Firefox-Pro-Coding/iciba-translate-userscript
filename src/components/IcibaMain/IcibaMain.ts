@@ -34,11 +34,26 @@ export default class App extends Vue {
   public mounted() {
     window.addEventListener('mousedown', this.handleWindowClick, false)
     this.loadingDotsInterval = window.setInterval(this.changeLoadingDots, 300)
+    this.initProviders()
   }
 
   public destroyed() {
     window.removeEventListener('mousedown', this.handleWindowClick, false)
     window.clearInterval(this.loadingDotsInterval)
+  }
+
+  public initProviders() {
+    this.$nextTick(() => { // nextTick to wait element to be rendered
+      this.providers.forEach((provider) => {
+        const container = document.querySelector(
+          `.provider-container.provider-container-${provider.uniqName}`,
+        )
+        if (!container) {
+          throw new Error('内部错误！')
+        }
+        provider.containerComponent.$mount(container)
+      })
+    })
   }
 
   public changeLoadingDots() {
@@ -48,23 +63,36 @@ export default class App extends Vue {
     }
   }
 
-  public translate({ word, e }: { word: string, e: MouseEvent }) {
+  public handleInputSearch() {
+    this.translate({ word: this.inputText })
+  }
+
+  public translate({ word, e }: { word: string, e?: MouseEvent }) {
     this.inputText = word
-    this.internalStyle = {
-      ...{
-        top: 'auto',
-        bottom: 'auto',
-        left: 'auto',
-        right: 'auto',
-      },
-      ...{
-        top: `${e.pageY}px`,
-        left: `${e.pageX}px`,
-      },
+
+    if (e) {
+      this.internalStyle = {
+        ...{
+          top: 'auto',
+          bottom: 'auto',
+          left: 'auto',
+          right: 'auto',
+        },
+        ...{
+          top: `${e.pageY}px`,
+          left: `${e.pageX}px`,
+        },
+      }
     }
+
     this.visible = true
     this.loading = true
-    console.log(word)
+    const p = this.providers[0]
+    p.translate(word).then(() => {
+      p.visible = true
+      this.loading = false
+    })
+    // console.log(word)
 
     // TODO show loading
     // get Translate

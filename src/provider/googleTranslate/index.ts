@@ -11,7 +11,7 @@ import AbstractTranslateProvider, {
 
 class IcibaTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'googleCNTranslate'
-  public icon = `data:image/svg+xml;base64,${window.btoa(iconBase64)}`
+  public icon = iconBase64
   public settingDescripter = []
   public containerComponent = new Vue({
     // el: document.createElement('div'),
@@ -58,8 +58,8 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     if (!match) {
       throw new Error('解析出错！')
     }
-    const html = match[1]
-    return html
+    // const html = match[1]
+    return Promise.resolve()
 
     // if (engine === 'iciba') {
     //   let iciba_result = await get_iciba_result(word)

@@ -275,7 +275,7 @@ module.exports = {
   'settings': {
     'import/resolver': {
       'webpack': {
-        'config': 'config/webpack.conf.js',
+        'config': 'config/webpack.base.conf.js',
       },
       // 'node': {
       //   'extensions': ['.js', '.json']
