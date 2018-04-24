@@ -19,6 +19,7 @@
   display: flex;
   word-break: break-word;
   flex-flow: column nowrap;
+  line-height: 1.5;
 
   * {
     color: @main-level-1;
@@ -40,6 +41,8 @@
 
   .symbols-box {
     .symbol-item {
+      width: 100%;
+
       & + .symbol-item {
         margin: @big-margin 0 0 0;
       }
@@ -47,15 +50,19 @@
       .pronunciation-box {
         .pronunciation-item {
           align-items: center;
-          height: 22px;
+          height: 20px;
+          line-height: 20px;
 
           .ipa-type-name {
             margin-right: @medium-margin;
             color: @main-level-4;
+            font-size: @font-size-base - 2px;
           }
 
           .ipa {
             color: @main-level-3;
+            font-size: @font-size-base - 2px;
+            font-family: 'Microsoft Yahei', 'Arial';
           }
 
           .playSound {
@@ -83,19 +90,22 @@
         }
 
         .part-item {
+          @part-line-height: 20px;
+
           & + .part-item {
-            margin: @tiny-margin 0 0 0;
+            margin: @small-margin 0 0 0;
           }
 
           .part-item-part {
             flex: 0 0 auto;
             padding: 0 6px 0 0;
             color: @main-level-4;
+            line-height: @part-line-height;
           }
 
           .part-item-meaning-box {
             flex: 1 1 auto;
-            line-height: 18px;
+            line-height: @part-line-height;
 
             .meaning-item {
               &:not(:last-child) {

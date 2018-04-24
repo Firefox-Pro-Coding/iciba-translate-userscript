@@ -14,10 +14,19 @@ declare module '*IcibaCircle.vue' {
 declare module '*IcibaMain.vue' {
   import Vue from 'vue'
   class IcibaMain extends Vue {
+    public sizeHelper: HTMLElement
     public translate(p: { word: string, e: MouseEvent }): void | Promise<void>
     public getPosition(n: number): string
   }
   export default IcibaMain
+}
+
+declare module '*SizeHelper.vue' {
+  import Vue from 'vue'
+  class SizeHelper extends Vue {
+    public id: string
+  }
+  export default SizeHelper
 }
 
 declare module '*IcibaContainer.vue' {

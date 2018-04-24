@@ -18,6 +18,7 @@ export default class App extends Vue {
   public style: IStyle = {}
   public loadingDotsNumber: number = 3
   public loadingDotsInterval: number = 0
+  public sizeHelper: HTMLElement | undefined
 
   public internalStyle: IPositionStyle = {
     top: 'auto',
@@ -46,10 +47,10 @@ export default class App extends Vue {
     this.$nextTick(() => { // nextTick to wait element to be rendered
       this.providers.forEach((provider) => {
         const container = document.querySelector(
-          `.provider-container.provider-container-${provider.uniqName}`,
+          `.mounted-element.provider-container-${provider.uniqName}`,
         )
         if (!container) {
-          throw new Error('内部错误！')
+          throw new Error('挂载provider container错误！')
         }
         provider.containerComponent.$mount(container)
       })
@@ -67,36 +68,58 @@ export default class App extends Vue {
     this.translate({ word: this.inputText })
   }
 
-  public translate({ word, e }: { word: string, e?: MouseEvent }) {
-    this.inputText = word
+  public handleTranslateButtonClick(theProvider: AbstractTranslateProvider) {
+    const provider = theProvider
+    this.providers.forEach(p => { p.visible = false })
+    provider.visible = true
+    this.internalTranslate(provider)
+  }
 
-    if (e) {
-      this.internalStyle = {
-        ...{
-          top: 'auto',
-          bottom: 'auto',
-          left: 'auto',
-          right: 'auto',
-        },
-        ...{
-          top: `${e.pageY}px`,
-          left: `${e.pageX}px`,
-        },
-      }
+  public setPosition(e: MouseEvent) {
+    if (!this.sizeHelper) {
+      throw new Error('sizeHelper 未定义！')
     }
+    const sizeHelperBounding = this.sizeHelper.getBoundingClientRect()
+    const availableSpace = {
+      x: sizeHelperBounding.left - e.clientX,
+      y: sizeHelperBounding.top - e.clientY,
+    }
+    console.log(e)
+    console.log(availableSpace)
+    this.internalStyle = {
+      ...{
+        top: 'auto',
+        bottom: 'auto',
+        left: 'auto',
+        right: 'auto',
+      },
+      ...{
+        top: `${e.pageY}px`,
+        left: `${e.pageX}px`,
+      },
+    }
+  }
 
-    this.visible = true
+  public internalTranslate(provider: AbstractTranslateProvider) {
+    const word = this.inputText
+
     this.loading = true
-    const p = this.providers[0]
-    p.translate(word).then(() => {
-      p.visible = true
+    provider.translate(word).then(() => {
+      provider.visible = true
       this.loading = false
     })
-    // console.log(word)
+  }
 
-    // TODO show loading
-    // get Translate
-    // show translate
+  public translate({ word, e }: { word: string, e?: MouseEvent }) {
+    if (e) {
+      this.setPosition(e)
+    }
+    this.visible = true
+    this.inputText = word
+
+    this.internalTranslate(
+      this.providers[0],
+    )
   }
 
   public async handleWindowClick(e: MouseEvent) {

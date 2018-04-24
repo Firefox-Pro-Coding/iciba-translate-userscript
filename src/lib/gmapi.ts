@@ -23,14 +23,18 @@ interface IExtendedGMOption extends GMXMLHttpRequestOptions {
   responseType?: string
 }
 
-export const got = (params: IExtendedGMOption): Promise<string> => {
+interface IExtendedGMXMLHttpRequestResponse extends GMXMLHttpRequestResponse {
+  response: any
+}
+
+export const got = (params: IExtendedGMOption) => {
   const api = GM.xmlHttpRequest || GM_xmlhttpRequest
 
   if (!api) {
     throw new Error('not running in greasymonkey or tampermonkey enviroment')
   }
 
-  return new Promise<string>((rs, rj) => {
+  return new Promise<IExtendedGMXMLHttpRequestResponse>((rs, rj) => {
     const option: IExtendedGMOption = {
       method: 'GET',
       url: '',
@@ -41,16 +45,11 @@ export const got = (params: IExtendedGMOption): Promise<string> => {
       onerror(e) {
         rj(e)
       },
-      onload(theResponse) {
-        const response = theResponse as any // tslint:disable-line
+      onload(response) {
         if (response.status !== 200) {
           rj(new Error('网络错误！'))
         }
-        if (params.responseType === 'blob') {
-          rs(response.response)
-        } else {
-          rs(response.responseText)
-        }
+        rs(response as IExtendedGMXMLHttpRequestResponse)
       },
       ...params,
     }

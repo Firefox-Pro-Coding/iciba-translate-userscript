@@ -50,7 +50,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
 
     let result
     try {
-      const content = await got({
+      const response = await got({
         method: 'GET',
         headers: {
           'Accept': '*/*',
@@ -67,6 +67,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
         url: apiUrl,
         timeout: 10000,
       })
+      const content = response.responseText
       const contentMatch = content.match(/callbackFnName\((.*)\)/)
       if (!contentMatch) {
         return Promise.reject(new Error('数据错误！'))
@@ -77,17 +78,17 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       return Promise.reject(e)
     }
 
-    if (result.errno !== 0) {
+    if (result.errno === 0) {
+      // fix iciba api typo
+      if ('baesInfo' in result) {
+        result.baseInfo = result.baesInfo
+        delete result.baesInfo
+      }
+      this.containerComponent.data = result
+    } else {
       // iciba 错误
-      return Promise.reject(new Error('iciba 取词错误！'))
+      return Promise.reject(new Error(result.errmsg))
     }
-
-    // fix iciba api typo
-    if ('baesInfo' in result) {
-      result.baseInfo = result.baesInfo
-      delete result.baesInfo
-    }
-    this.containerComponent.data = result
     return Promise.resolve()
   }
 }

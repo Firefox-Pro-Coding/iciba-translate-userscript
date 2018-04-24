@@ -17,6 +17,7 @@
               class="button"
               v-for="item in providers"
               :key="item.uniqName"
+              @click="handleTranslateButtonClick(item)"
               :style="{ backgroundImage: `url('${item.icon}')` }">
             </div>
             <div class="button"></div>
@@ -25,12 +26,15 @@
         <div class="content-box">
           <div
             class="provider-container"
-            :class="[`provider-container-${item.uniqName}`]"
+            v-show="!loading && item.visible"
             v-for="item in providers"
-            v-show="item.visible"
             :key="item.uniqName">
+            <div
+              class="mounted-element"
+              :class="[`provider-container-${item.uniqName}`]">
+            </div>
           </div>
-          <p class="loading-tip" v-if="loading">
+          <p class="loading-tip" v-show="loading">
             加载中{{ loadingDots }}
           </p>
         </div>
@@ -53,6 +57,8 @@
     box-shadow: none;
     box-sizing: border-box;
     transition: 0.15s;
+    // height: 100000px;
+    // width: 100000px;
 
     &.iciba-main-enter, &.iciba-main-leave-to {
       opacity: 0;
@@ -69,22 +75,26 @@
     }
 
     .iciba-container {
+      display: flex;
+      flex-flow: column nowrap;
       position: absolute;
       top: 0;
       left: 0;
-      width: auto;
+      // width: 320px;
       height: auto;
-      max-width: 320px;
       border: none;
       background: @background-level-5;
       box-shadow: 0 0 8px @box-shadow-color;
       letter-spacing: 0;
+      font-size: @font-size-base;
+      line-height: 1.5;
     }
 
     .input-box {
       @input-box-height: 28px;
 
       display: flex;
+      background: white;
       flex-flow: row nowrap;
       border-bottom: 1px solid @border-level-1;
       height: @input-box-height + 1px;
@@ -106,27 +116,28 @@
       .button-box {
         display: flex;
         flex-flow: row nowrap;
-        flex: 1 1 auto;
+        flex: 0 0 auto;
 
         .button {
           width: @input-box-height + 1px;
           height: @input-box-height;
+          flex: 0 0 @input-box-height + 1px;
           border: none;
           border-left: 1px solid @border-level-1;
-          background: none;
+          background-color: @background-level-5;
           z-index: 1;
           background-size: 16px;
           background-position: center;
           background-repeat: no-repeat;
 
           &:hover {
-            background-color: @button-hover-color;
+            background-color: white;
           }
 
           &:active {
             background-position: center calc(50% + 1px);
-            background-color: @button-active-color;
-            box-shadow: 0 0 5px #DDD inset;
+            background-color: @background-level-4;
+            box-shadow: 0 0 6px #AAA inset;
           }
         }
       }

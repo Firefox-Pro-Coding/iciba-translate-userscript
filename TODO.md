@@ -8,6 +8,10 @@ TODOs
     - [ ] using grid to get better flow of part-box
   - [ ] google translate CN
   - [ ] baidu translate
+- [ ] lower case the translated word
+
+Quadrafuzz 报错
+handle errmsg
 
 
 ## features
