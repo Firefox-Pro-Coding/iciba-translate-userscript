@@ -21,14 +21,6 @@ declare module '*IcibaMain.vue' {
   export default IcibaMain
 }
 
-declare module '*SizeHelper.vue' {
-  import Vue from 'vue'
-  class SizeHelper extends Vue {
-    public id: string
-  }
-  export default SizeHelper
-}
-
 declare module '*IcibaContainer.vue' {
   import Vue from 'vue'
   class IcibaContainer extends Vue {

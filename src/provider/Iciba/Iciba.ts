@@ -78,15 +78,15 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       return Promise.reject(e)
     }
 
+    // fix iciba api typo
+    if ('baesInfo' in result) {
+      result.baseInfo = result.baesInfo
+      delete result.baesInfo
+    }
+
     if (result.errno === 0) {
-      // fix iciba api typo
-      if ('baesInfo' in result) {
-        result.baseInfo = result.baesInfo
-        delete result.baesInfo
-      }
       this.containerComponent.data = result
     } else {
-      // iciba 错误
       return Promise.reject(new Error(result.errmsg))
     }
     return Promise.resolve()

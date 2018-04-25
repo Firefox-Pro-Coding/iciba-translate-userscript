@@ -61,13 +61,18 @@
     </div>
 
     <!-- translation -->
-    <div class="translation-box flex-co" v-if="data.baseInfo && data.baseInfo.translate_result">
+    <div class="translation-box flex-co" v-if="data.baseInfo && data.baseInfo.translate_type === 2 && data.baseInfo.translate_result">
       <div class="translate-content">
         {{ data.baseInfo.translate_result }}
       </div>
       <div class="translate-tip">
         {{ data.baseInfo.translate_msg }}
       </div>
+    </div>
+
+    <!-- suggest -->
+    <div class="suggest-box flex-co" v-if="data.baseInfo && data.baseInfo.translate_type === 3">
+      {{ data.baseInfo.suggest.map(v => v.key).join('; ') }}
     </div>
   </div>
 </template>

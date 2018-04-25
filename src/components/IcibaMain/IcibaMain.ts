@@ -7,6 +7,13 @@ import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
 
 import insideOf from '~/src/lib/insideOf'
 
+const defaultStyle = {
+  top: 'auto',
+  bottom: 'auto',
+  left: 'auto',
+  right: 'auto',
+}
+
 @Component({
   name: 'IcibaMain',
 })
@@ -15,16 +22,16 @@ export default class App extends Vue {
   public providers: Array<AbstractTranslateProvider> = []
   public visible: boolean = false
   public loading: boolean = false
+  public errorMessage: string = ''
   public style: IStyle = {}
   public loadingDotsNumber: number = 3
   public loadingDotsInterval: number = 0
   public sizeHelper: HTMLElement | undefined
-
-  public internalStyle: IPositionStyle = {
-    top: 'auto',
-    bottom: 'auto',
-    left: 'auto',
-    right: 'auto',
+  public icibaMainStyle: IPositionStyle = {
+    ...defaultStyle,
+  }
+  public icibaContainerStyle: IPositionStyle = {
+    ...defaultStyle,
   }
   public inputText: string = ''
 
@@ -70,7 +77,6 @@ export default class App extends Vue {
 
   public handleTranslateButtonClick(theProvider: AbstractTranslateProvider) {
     const provider = theProvider
-    this.providers.forEach(p => { p.visible = false })
     provider.visible = true
     this.internalTranslate(provider)
   }
@@ -84,15 +90,16 @@ export default class App extends Vue {
       x: sizeHelperBounding.left - e.clientX,
       y: sizeHelperBounding.top - e.clientY,
     }
-    console.log(e)
-    console.log(availableSpace)
-    this.internalStyle = {
-      ...{
-        top: 'auto',
-        bottom: 'auto',
-        left: 'auto',
-        right: 'auto',
-      },
+    const style = {
+      ...(availableSpace.x < 300 ? { right: '0' } : { left: '0' }),
+      ...(availableSpace.y < 200 ? { bottom: '0' } : { top: '0' }),
+    }
+    this.icibaContainerStyle = {
+      ...defaultStyle,
+      ...style,
+    }
+    this.icibaMainStyle = {
+      ...defaultStyle,
       ...{
         top: `${e.pageY}px`,
         left: `${e.pageX}px`,
@@ -103,9 +110,14 @@ export default class App extends Vue {
   public internalTranslate(provider: AbstractTranslateProvider) {
     const word = this.inputText
 
+    this.providers.forEach(p => { p.visible = false })
+    this.errorMessage = ''
     this.loading = true
     provider.translate(word).then(() => {
       provider.visible = true
+    }).catch((e) => {
+      this.errorMessage = e.message
+    }).finally(() => {
       this.loading = false
     })
   }

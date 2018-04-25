@@ -3,9 +3,9 @@
     <div
       id="iciba-main"
       class="iciba-main"
-      :style="internalStyle"
+      :style="icibaMainStyle"
       v-show="visible">
-      <div class="iciba-container">
+      <div class="iciba-container" :style="icibaContainerStyle">
         <div class="input-box">
           <input
             class="search-input"
@@ -20,7 +20,6 @@
               @click="handleTranslateButtonClick(item)"
               :style="{ backgroundImage: `url('${item.icon}')` }">
             </div>
-            <div class="button"></div>
           </div>
         </div>
         <div class="content-box">
@@ -36,6 +35,9 @@
           </div>
           <p class="loading-tip" v-show="loading">
             加载中{{ loadingDots }}
+          </p>
+          <p class="error-message" v-show="!loading && errorMessage">
+            {{ errorMessage }}
           </p>
         </div>
       </div>
@@ -57,8 +59,7 @@
     box-shadow: none;
     box-sizing: border-box;
     transition: 0.15s;
-    // height: 100000px;
-    // width: 100000px;
+    font-family: 'Microsoft Yahei', 'Arial', sans-serif;
 
     &.iciba-main-enter, &.iciba-main-leave-to {
       opacity: 0;
@@ -80,7 +81,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      // width: 320px;
+      width: 300px;
       height: auto;
       border: none;
       background: @background-level-5;
@@ -106,6 +107,7 @@
         line-height: @input-box-height;
         height: @input-box-height;
         z-index: 2;
+        color: @main-level-1;
 
         &:focus {
           outline: 2px solid @input-outline-color;
@@ -146,11 +148,7 @@
     .content-box {
       display: flex;
       flex-flow: column nowrap;
-      padding: 8px 10px;
-
-      .loading-tip {
-        margin: 0;
-      }
+      padding: 8px 10px 10px 10px;
     }
   }
 </style>
