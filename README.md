@@ -1,13 +1,15 @@
 iciba划词翻译
 -------------
 
-![version](./badges/version.svg)
-![license](./badges/license.svg)
-
+![version](https://img.shields.io/github/package-json/v/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
+![license](https://img.shields.io/github/license/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
 
 iciba划词翻译 用户脚本
 
 greasefork地址： [https://greasyfork.org/zh-CN/scripts/6303-iciba](https://greasyfork.org/zh-CN/scripts/6303-iciba%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91)
+
+## changelog
+see [CHANGELOG.md](CHANGELOG.md)
 
 ## 使用说明
 usage needed

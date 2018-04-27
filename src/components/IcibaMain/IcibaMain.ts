@@ -1,9 +1,18 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import { IPositionStyle, IStyle } from '~/src/interfaces/index'
+import {
+  IPositionStyle,
+  IStyle,
+  ITranslateProviderSettingDescriptors,
+} from '~/src/interfaces/index'
 
 // import IcibaTranslateProvider from '~/src/provider/iciba/index'
 import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
+
+import IcibaProvider from '~/src/provider/Iciba/Iciba'
+import GoogleDictProvider from '~/src/provider/GoogleDict/GoogleDict'
+import GoogleTranslateProvider from '~/src/provider/GoogleTranslate/GoogleTranslate'
+import BaiduTranslateProvider from '~/src/provider/BaiduTranslate/BaiduTranslate'
 
 import insideOf from '~/src/lib/insideOf'
 
@@ -14,11 +23,21 @@ const defaultStyle = {
   right: 'auto',
 }
 
+interface IProviderConstructor {
+  new (): AbstractTranslateProvider
+}
+
 @Component({
   name: 'IcibaMain',
 })
 export default class App extends Vue {
   // providers is offered while created this instance
+  public providerClasses: Array<IProviderConstructor> = [
+    IcibaProvider,
+    GoogleDictProvider,
+    GoogleTranslateProvider,
+    BaiduTranslateProvider,
+  ]
   public providers: Array<AbstractTranslateProvider> = []
   public visible: boolean = false
   public loading: boolean = false
@@ -34,6 +53,15 @@ export default class App extends Vue {
     ...defaultStyle,
   }
   public inputText: string = ''
+  public settingDescriptor: ITranslateProviderSettingDescriptors = [
+    {
+      name: 'draggable',
+      description: '查询结果窗口是否可拖拽',
+      type: 'select',
+      default: 'false',
+      options: ['true', 'false'],
+    },
+  ]
 
   public get loadingDots() {
     return Array(this.loadingDotsNumber).fill('.').join('')
@@ -48,20 +76,6 @@ export default class App extends Vue {
   public destroyed() {
     window.removeEventListener('mousedown', this.handleWindowClick, false)
     window.clearInterval(this.loadingDotsInterval)
-  }
-
-  public initProviders() {
-    this.$nextTick(() => { // nextTick to wait element to be rendered
-      this.providers.forEach((provider) => {
-        const container = document.querySelector(
-          `.mounted-element.provider-container-${provider.uniqName}`,
-        )
-        if (!container) {
-          throw new Error('挂载provider container错误！')
-        }
-        provider.containerComponent.$mount(container)
-      })
-    })
   }
 
   public changeLoadingDots() {
@@ -138,5 +152,27 @@ export default class App extends Vue {
     if (!insideOf(e.target, this.$el)) {
       this.visible = false
     }
+  }
+
+  private initProviders() {
+    this.providers = this.providerClasses.map(C => {
+      const instance = new C()
+      instance.loadSetting([
+        { name: 'icon', value: 'hash' },
+      ])
+      return instance
+    })
+
+    this.$nextTick(() => { // nextTick to wait element to be rendered
+      this.providers.forEach((provider) => {
+        const container = document.querySelector(
+          `.mounted-element.provider-container-${provider.uniqName}`,
+        )
+        if (!container) {
+          throw new Error('挂载provider container错误！')
+        }
+        provider.containerComponent.$mount(container)
+      })
+    })
   }
 }

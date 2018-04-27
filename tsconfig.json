@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
     "outDir": "tsc_dist/",
     "baseUrl": "./",
     "paths": {

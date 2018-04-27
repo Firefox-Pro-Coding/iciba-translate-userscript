@@ -1,5 +1,7 @@
 module.exports = {
-  // TypeScript Specific
+  /**
+   * TypeScript Specific
+   */
   'adjacent-overload-signatures': true,
   'ban-types': {
     options: [
@@ -61,10 +63,12 @@ module.exports = {
   ],
   'unified-signatures': true,
 
-  // Functionality
+  /**
+   * Functionality
+   */
   'await-promise': true,
-  // "ban": no sensible default
   'ban-comma-operator': true,
+  // "ban": no sensible default
   'curly': true,
   'forin': true,
   // "import-blacklist": no sensible default
@@ -72,7 +76,7 @@ module.exports = {
   'no-arg': true,
   'no-bitwise': true,
   'no-conditional-assignment': true,
-  'no-console': true,
+  'no-console': { 'severity': 'warning' },
   'no-construct': true,
   'no-debugger': true,
   'no-duplicate-super': true,
@@ -118,14 +122,16 @@ module.exports = {
   'use-default-type-parameter': true,
   'use-isnan': true,
 
-  // Maintainability
+  /**
+   * Maintainability
+   */
   'cyclomatic-complexity': true,
   'eofline': true,
-  'indent': [true, 'spaces'],
+  'indent': [true, 'spaces', 2],
   'linebreak-style': [true, 'LF'],
   'max-classes-per-file': [true, 1],
   'max-file-line-count': [true, 1000],
-  'max-line-length': [true, 120],
+  // 'max-line-length': [true, 120], handle by eslint
   'no-default-export': false,
   'no-duplicate-imports': true,
   'no-irregular-whitespace': true,
@@ -137,19 +143,15 @@ module.exports = {
   'prefer-const': true,
   'trailing-comma': [true, {
     'multiline': 'always',
+    'esSpecCompliant': true,
     'singleline': 'never',
   }],
 
-  // Style
-  'align': [
-    true,
-    'parameters',
-    'arguments',
-    'statements',
-    'elements',
-    'members',
-  ],
-  'array-type': [true, 'array-simple'],
+  /**
+   * Style
+   */
+  'align': false,
+  'array-type': [true, 'generic'],
   'arrow-parens': true,
   'arrow-return-shorthand': [true, 'multiline'],
   'binary-expression-operand-order': true,
@@ -211,7 +213,7 @@ module.exports = {
     'avoid-template',
   ],
   'return-undefined': true,
-  'semicolon': [true, 'always'],
+  'semicolon': [true, 'never'],
   'space-before-function-paren': [true, {
     'anonymous': 'never',
     'asyncArrow': 'always',

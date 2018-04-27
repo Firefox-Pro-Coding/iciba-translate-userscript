@@ -1,27 +1,24 @@
 import * as querystring from 'querystring'
 
-import iconBase64 from '~/src/assets/img/search.svg'
+import icibaIcon from '~/src/assets/img/iciba/search.svg'
+import icibaIcon2 from '~/src/assets/img/iciba/search_214340.svg'
 import { got } from '~/src/lib/gmapi'
 
-import AbstractTranslateProvider, {
-  ITranslateProviderSetting,
-} from '../AbstractTranslateProvider'
+import AbstractTranslateProvider from '../AbstractTranslateProvider'
 
 import IcibaContainer from './container/IcibaContainer.vue'
 
 class IcibaTranslateProvider extends AbstractTranslateProvider {
-  public uniqName = 'iciba'
-  public icon = iconBase64
-  public settingDescripter = []
-  // public containerComponent = new IcibaContainer()
+  public uniqName = 'Iciba'
   public containerComponent = new IcibaContainer()
+  public settingDescriptor = []
 
-  public getSetting(): ITranslateProviderSetting {
-    return []
-  }
-
-  public loadSetting(settings: ITranslateProviderSetting) {
-    // nothing to do
+  public constructor() {
+    super()
+    this.icons = [
+      icibaIcon,
+      icibaIcon2,
+    ].map(icon => AbstractTranslateProvider.createIcon(icon))
   }
 
   public async translate(word: string) {

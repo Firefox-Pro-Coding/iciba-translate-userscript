@@ -58,7 +58,7 @@
     border: none;
     box-shadow: none;
     box-sizing: border-box;
-    transition: 0.15s;
+    transition: 0.15s ease opacity, 0.15s ease transform;
     font-family: 'Microsoft Yahei', 'Arial', sans-serif;
 
     &.iciba-main-enter, &.iciba-main-leave-to {
@@ -133,7 +133,7 @@
           background-repeat: no-repeat;
 
           &:hover {
-            background-color: white;
+            background-color: #FCFCFC;
           }
 
           &:active {

@@ -1,7 +1,7 @@
 changelog
 ----------
 
-4.0.0
+## 4.0.0
 2018/03/30: refactor by typescript
 
 ### old versions:

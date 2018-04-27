@@ -81,7 +81,9 @@
     "no-arg": true,
     "no-bitwise": true,
     "no-conditional-assignment": true,
-    "no-console": true,
+    "no-console": {
+      "severity": "warning"
+    },
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
@@ -125,7 +127,8 @@
     "eofline": true,
     "indent": [
       true,
-      "spaces"
+      "spaces",
+      2
     ],
     "linebreak-style": [
       true,
@@ -138,10 +141,6 @@
     "max-file-line-count": [
       true,
       1000
-    ],
-    "max-line-length": [
-      true,
-      120
     ],
     "no-default-export": false,
     "no-duplicate-imports": true,
@@ -156,20 +155,14 @@
       true,
       {
         "multiline": "always",
+        "esSpecCompliant": true,
         "singleline": "never"
       }
     ],
-    "align": [
-      true,
-      "parameters",
-      "arguments",
-      "statements",
-      "elements",
-      "members"
-    ],
+    "align": false,
     "array-type": [
       true,
-      "array-simple"
+      "generic"
     ],
     "arrow-parens": true,
     "arrow-return-shorthand": [
@@ -239,7 +232,7 @@
     "return-undefined": true,
     "semicolon": [
       true,
-      "always"
+      "never"
     ],
     "space-before-function-paren": [
       true,

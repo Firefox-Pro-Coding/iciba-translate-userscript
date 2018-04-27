@@ -1,43 +1,84 @@
+// import * as crypto from 'crypto'
 import Vue from 'vue'
+import md5 from 'md5'
 
-export type ITranslateProviderSettingDescripter = Array<ITranslateProviderSettingDescripterItem>
+import {
+  ITranslateProviderSettingItem,
+  ITranslateProviderSettingDescriptors,
+  ITranslateProviderSettings,
+} from '~/src/interfaces/index'
 
-interface ITranslateProviderSettingDescripterItem {
-  settingName: string
-  default: string
+export interface IIconType {
+  data: string
+  hash: string
 }
 
-export type ITranslateProviderSetting = Array<ITranslateProviderSettingItem>
+export default abstract class AbstractTranslateProvider {
+  // handy ways to create icon objects
+  public static createIcon(icon: string): IIconType {
+    return {
+      data: icon,
+      hash: md5(icon),
+    }
+  }
 
-interface ITranslateProviderSettingItem {
-  settingName: string
-  value: string
-}
-
-abstract class AbstractTranslateProvider {
-  // the container component visible status
+  // the container component visible status. used and controlled by IcibaMain
   public visible = false
+
+  // base64 value of the traslator icon (square). svg format preferred
+  public icons: Array<IIconType> = []
+
+  // get currect set icon or default icon
+  public get icon(): string {
+    const iconHashSettingItem = this.getSettingItem('icon')
+    if (!iconHashSettingItem) {
+      return this.getDefaultIcon()
+    }
+    const selectedIcon = this.icons.find(i => i.hash === iconHashSettingItem.value)
+    if (!selectedIcon) {
+      return this.getDefaultIcon()
+    }
+    return selectedIcon.data || ''
+  }
 
   // unique name of the translate provider
   public abstract uniqName: string
 
-  // base64 value of the traslator icon (square). svg format preferred
-  public abstract icon: string
-
   // container element
   public abstract containerComponent: Vue
 
-  // setting descripter
-  public abstract settingDescripter: ITranslateProviderSettingDescripter
+  // setting descriptor
+  public abstract settingDescriptor: ITranslateProviderSettingDescriptors
+
+  // setting stored array
+  protected settings: ITranslateProviderSettings = []
+
+  /**
+   * translate the word. return a rejected promise if any error occured
+   * and the error message will show as translate result
+   */
+  public abstract translate(word: string): Promise<void>
+
+  // get current settings
+  public getSetting() {
+    return this.settings
+  }
 
   // handle loads settings
-  public abstract loadSetting(setting: ITranslateProviderSetting): void | Error
+  public loadSetting(settings: ITranslateProviderSettings) {
+    this.settings = settings
+  }
 
-  // read current settings
-  public abstract getSetting(): ITranslateProviderSetting
+  protected getSettingItem(
+    name: string,
+    defaultValue = null,
+  ): ITranslateProviderSettingItem | null {
+    const item = this.settings.find(v => v.name === name)
+    return item || defaultValue
+  }
 
-  // translate the word
-  public abstract translate(word: string): Promise<void>
+  private getDefaultIcon(): string {
+    const defaultIcon = this.icons[0]
+    return defaultIcon ? defaultIcon.data : ''
+  }
 }
-
-export default AbstractTranslateProvider

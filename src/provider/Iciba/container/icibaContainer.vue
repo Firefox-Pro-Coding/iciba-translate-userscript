@@ -79,7 +79,4 @@
 
 <script lang="ts" src="./IcibaContainer.ts"></script>
 
-<style lang="less" scope>
-</style>
-
-<style lang="less" src="./IcibaContainer.less" scope></style>
+<style lang="less" src="./IcibaContainer.less" scoped></style>

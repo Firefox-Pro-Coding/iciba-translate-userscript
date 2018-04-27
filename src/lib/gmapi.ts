@@ -14,7 +14,8 @@ export const setValue = (name: string, value: string): Promise<void> => {
     return Promise.resolve(GM.setValue(name, value))
   }
   if (GM_setValue) {
-    return Promise.resolve(GM_setValue(name, value))
+    GM_setValue(name, value)
+    return Promise.resolve()
   }
   return Promise.resolve()
 }

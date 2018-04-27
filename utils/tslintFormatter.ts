@@ -6,9 +6,12 @@ const rl = readline.createInterface({
   // output: process.stdout,
 })
 
+let hasError = false
+
 rl.on('line', (inputLine) => {
   const reg = /(WARNING|ERROR): (.*?)\[(\d+), (\d+)\]: (.*)/
   if (reg.test(inputLine)) {
+    hasError = true
     const match = inputLine.match(reg)
     const [
       ,
@@ -27,5 +30,11 @@ rl.on('line', (inputLine) => {
     console.log(message) // tslint:disable-line
   } else {
     console.log(inputLine) // tslint:disable-line
+  }
+})
+
+rl.on('close', () => {
+  if (hasError) {
+    process.exit(1)
   }
 })

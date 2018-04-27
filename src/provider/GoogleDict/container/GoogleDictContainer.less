@@ -1,0 +1,38 @@
+@import '~assets/styles/variables.less';
+@import '~assets/styles/hardreset.less';
+
+.reset {
+  .hard-reset();
+
+  * {
+    .hard-reset();
+  }
+}
+
+.iciba-userscript-google-dict-result-container.reset {
+  // local variables
+  @big-margin: 6px;
+  @medium-margin: 4px;
+  @small-margin: 3px;
+  @tiny-margin: 2px;
+
+  .container-reset();
+
+  display: flex;
+  word-break: break-word;
+  flex-flow: column nowrap;
+
+  .flex {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .flex-co {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}

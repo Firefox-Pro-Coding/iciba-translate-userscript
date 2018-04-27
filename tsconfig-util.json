@@ -10,9 +10,6 @@
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
     "outDir": "tsc_dist/",
-    "baseUrl": "./",
-    "paths": {
-      "~/src/*": ["src/*"]
-    }
+    "baseUrl": "./"
   }
 }

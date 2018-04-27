@@ -1,32 +1,30 @@
 import Vue from 'vue'
 
-import iconBase64 from '~/src/assets/img/google.svg'
-// import { got } from '~/src/lib/gmapi'
-
-import AbstractTranslateProvider, {
-  ITranslateProviderSetting,
-} from '../AbstractTranslateProvider'
+/* eslint-disable camelcase */
+import type_1_translate_281759 from '~/src/assets/img/googleTranslate/type_1_translate_281759.svg'
+import type_2_translate_281776 from '~/src/assets/img/googleTranslate/type_2_translate_281776.svg'
+import type_2_translate_324121 from '~/src/assets/img/googleTranslate/type_2_translate_324121.svg'
+import type_3_google_814137 from '~/src/assets/img/googleTranslate/type_3_google_814137.svg'
+/* eslint-enable camelcase */
+import AbstractTranslateProvider from '../AbstractTranslateProvider'
 
 // import icibaContainer from './container/icibaContainer.vue'
 
-class IcibaTranslateProvider extends AbstractTranslateProvider {
-  public uniqName = 'googleCNTranslate'
-  public icon = iconBase64
-  public settingDescripter = []
-  public containerComponent = new Vue({
-    // el: document.createElement('div'),
-    // template: '<iciba-container></iciba-container>',
-    // components: {
-    //   icibaContainer,
-    // },
-  })
+class GoogleTranslateProvider extends AbstractTranslateProvider {
+  public uniqName = 'GoogleTranslate'
+  public settingDescriptor = []
+  public containerComponent = new Vue({})
 
-  public getSetting(): ITranslateProviderSetting {
-    return []
-  }
-
-  public loadSetting(settings: ITranslateProviderSetting) {
-    // nothing to do
+  public constructor() {
+    super()
+    this.icons = [
+      /* eslint-disable camelcase */
+      type_1_translate_281759,
+      type_2_translate_281776,
+      type_2_translate_324121,
+      type_3_google_814137,
+      /* eslint-enable camelcase */
+    ].map(icon => AbstractTranslateProvider.createIcon(icon))
   }
 
   public async translate(word: string) {
@@ -34,4 +32,4 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
   }
 }
 
-export default IcibaTranslateProvider
+export default GoogleTranslateProvider
