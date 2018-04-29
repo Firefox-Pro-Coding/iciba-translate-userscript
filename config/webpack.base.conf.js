@@ -1,4 +1,5 @@
 const path = require('path')
+const { VueLoaderPlugin } = require('vue-loader')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -8,7 +9,6 @@ module.exports = {
   entry: {
     index: './src/index.ts',
   },
-  mode: 'development',
   output: {
     path: resolve('dist'),
     filename: '[name].js',
@@ -24,36 +24,37 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.ts$/,
-      //   exclude: /node_modules/,
-      //   enforce: 'pre',
-      //   loader: 'tslint-loader',
-      // },
       {
         test: /\.ts$/,
         loaders: [
           'babel-loader',
-          {
-            loader: 'ts-loader',
-            options: {
-              appendTsSuffixTo: [/\.vue$/],
-            },
-          },
+          'ts-loader',
         ],
         exclude: /node_modules/,
       },
       {
+        test: /\.js$/,
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'vue-style-loader',
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.less$/,
+        resourceQuery: /^\?vue/,
+        loaders: [
+          'vue-style-loader',
+          'css-loader',
+          'less-loader',
+        ],
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          loaders: {
-            ts: [
-              'babel-loader',
-              'ts-loader',
-            ],
-          },
-        },
       },
       {
         test: /\.svg$/,
@@ -63,5 +64,7 @@ module.exports = {
     ],
   },
 
-  devtool: 'inline-source-map',
+  plugins: [
+    new VueLoaderPlugin(),
+  ],
 }
