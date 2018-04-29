@@ -30,6 +30,14 @@ declare module '*IcibaContainer.vue' {
   export default IcibaContainer
 }
 
+declare module '*GoogleDictContainer.vue' {
+  import Vue from 'vue'
+  class GoogleDictContainer extends Vue {
+    public dictionaryData: any
+  }
+  export default GoogleDictContainer
+}
+
 
 declare module '*.vue' {
   import Vue from 'vue'

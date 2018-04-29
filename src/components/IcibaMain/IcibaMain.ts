@@ -122,10 +122,14 @@ export default class App extends Vue {
   }
 
   public internalTranslate(provider: AbstractTranslateProvider) {
-    const word = this.inputText
+    const word = this.inputText.trim()
+    this.errorMessage = ''
 
     this.providers.forEach(p => { p.visible = false })
-    this.errorMessage = ''
+    if (!word) {
+      this.errorMessage = '查询不能为空！'
+      return
+    }
     this.loading = true
     provider.translate(word).then(() => {
       provider.visible = true
@@ -144,7 +148,7 @@ export default class App extends Vue {
     this.inputText = word
 
     this.internalTranslate(
-      this.providers[0],
+      this.providers[1],
     )
   }
 
@@ -164,15 +168,38 @@ export default class App extends Vue {
     })
 
     this.$nextTick(() => { // nextTick to wait element to be rendered
-      this.providers.forEach((provider) => {
-        const container = document.querySelector(
-          `.mounted-element.provider-container-${provider.uniqName}`,
-        )
-        if (!container) {
+      this.providers.forEach((instance) => {
+        const name = `provider-container-${instance.uniqName}`
+        const containerInstanceArr = this.$refs[name] as Array<any>
+        const containerInstance = containerInstanceArr.length ? containerInstanceArr[0] : null
+        if (!containerInstance) {
           throw new Error('挂载provider container错误！')
         }
-        provider.containerComponent.$mount(container)
+        instance.componentInstance = containerInstance
       })
     })
+
+    // this.$nextTick(() => { // nextTick to wait element to be rendered
+    //   this.providers.forEach((provider) => {
+    //     const container = document.querySelector(
+    //       `.mounted-element.provider-container-${provider.uniqName}`,
+    //     )
+    //     if (!container) {
+    //       throw new Error('挂载provider container错误！')
+    //     }
+    //     provider.containerComponent.$mount(container)
+    //   })
+    // })
+    // this.$nextTick(() => { // nextTick to wait element to be rendered
+    //   this.providers.forEach((provider) => {
+    //     const container = document.querySelector(
+    //       `.mounted-element.provider-container-${provider.uniqName}`,
+    //     )
+    //     if (!container) {
+    //       throw new Error('挂载provider container错误！')
+    //     }
+    //     provider.containerComponent.$mount(container)
+    //   })
+    // })
   }
 }

@@ -2,10 +2,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
-
-interface IAudioCache {
-  [propName: string]: ArrayBuffer
-}
+import { IAudioCache } from '~/src/interfaces/index'
 
 @Component({
   name: 'IcibaContainer',

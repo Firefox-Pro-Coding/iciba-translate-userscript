@@ -1,3 +1,9 @@
+import Vue from 'vue'
+
+export interface IVue extends Vue {
+  [name: string]: any
+}
+
 export interface IPositionStyle {
   top?: string,
   bottom?: string,
@@ -29,3 +35,7 @@ export interface ITranslateProviderSettingItem {
 
 export type ITranslateProviderSettingDescriptors = Array<ITranslateProviderSettingDescriptorItem>
 export type ITranslateProviderSettings = Array<ITranslateProviderSettingItem>
+
+export interface IAudioCache {
+  [propName: string]: ArrayBuffer
+}

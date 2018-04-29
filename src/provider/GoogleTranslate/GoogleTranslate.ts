@@ -13,7 +13,7 @@ import AbstractTranslateProvider from '../AbstractTranslateProvider'
 class GoogleTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'GoogleTranslate'
   public settingDescriptor = []
-  public containerComponent = new Vue({})
+  public containerComponentClass = Vue.extend({ name: 'GoogleTranslateContainer' })
 
   public constructor() {
     super()

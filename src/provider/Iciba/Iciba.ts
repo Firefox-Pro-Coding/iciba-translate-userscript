@@ -10,7 +10,7 @@ import IcibaContainer from './container/IcibaContainer.vue'
 
 class IcibaTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'Iciba'
-  public containerComponent = new IcibaContainer()
+  public containerComponentClass = IcibaContainer
   public settingDescriptor = []
 
   public constructor() {
@@ -81,11 +81,13 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       delete result.baesInfo
     }
 
-    if (result.errno === 0) {
-      this.containerComponent.data = result
-    } else {
+    if (result.errno !== 0) {
       return Promise.reject(new Error(result.errmsg))
     }
+    if (this.componentInstance === null) {
+      return Promise.reject(new Error('查询结果挂载失败！'))
+    }
+    this.componentInstance.data = JSON.parse(JSON.stringify(result))
     return Promise.resolve()
   }
 }

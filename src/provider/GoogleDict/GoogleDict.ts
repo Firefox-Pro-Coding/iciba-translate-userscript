@@ -16,7 +16,7 @@ import GoogleDictContainer from './container/GoogleDictContainer.vue'
 class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = 'GoogleDict'
   public settingDescriptor = []
-  public containerComponent = new GoogleDictContainer()
+  public containerComponentClass = GoogleDictContainer
 
   public constructor() {
     super()
@@ -34,7 +34,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
   public async translate(word: string) {
     const apiUrlBase = 'https://content.googleapis.com/dictionaryextension/v1/knowledge/search?'
     const query = {
-      term: 'apple',
+      term: word,
       language: 'en',
       corpus: 'en-US',
       country: 'US',
@@ -67,6 +67,12 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       url: apiUrl,
       timeout: 10000,
     })
+    const data = JSON.parse(response.responseText)
+    if (this.componentInstance === null) {
+      return Promise.reject(new Error('查询结果挂载失败！'))
+    }
+    this.componentInstance.modalVisible = false
+    this.componentInstance.dictionaryData = data.dictionaryData
     console.log(JSON.parse(response.responseText))
     return Promise.resolve()
   }

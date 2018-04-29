@@ -1,38 +1,39 @@
 <template>
   <transition name="iciba-main">
     <div
-      id="iciba-main"
-      class="iciba-main"
+      class="iciba-main reset"
       :style="icibaMainStyle"
       v-show="visible">
       <div class="iciba-container" :style="icibaContainerStyle">
-        <div class="input-box">
-          <input
-            class="search-input"
-            type="text"
-            @keypress.13="handleInputSearch"
-            v-model="inputText">
+        <div class="input-container">
+          <div class="input-box">
+            <input
+              class="search-input"
+              type="text"
+              @keypress.13="handleInputSearch"
+              v-model="inputText" />
+            <div class="setting-button"></div>
+          </div>
           <div class="button-box">
             <div
-              class="button"
               v-for="item in providers"
               :key="item.uniqName"
+              @keydown.32.prevent
+              class="button"
               @click="handleTranslateButtonClick(item)"
               :style="{ backgroundImage: `url('${item.icon}')` }">
             </div>
           </div>
         </div>
         <div class="content-box">
-          <div
+          <component
             class="provider-container"
             v-show="!loading && item.visible"
             v-for="item in providers"
+            :ref="`provider-container-${item.uniqName}`"
+            :is="item.containerComponentClass"
             :key="item.uniqName">
-            <div
-              class="mounted-element"
-              :class="[`provider-container-${item.uniqName}`]">
-            </div>
-          </div>
+          </component>
           <p class="loading-tip" v-show="loading">
             加载中{{ loadingDots }}
           </p>
@@ -50,7 +51,18 @@
   @import '~assets/styles/variables.less';
   @import '~assets/styles/hardreset.less';
 
-  #iciba-main {
+  .focus-outline() {
+    outline: 2px solid @input-outline-color;
+    outline-offset: -1px;
+  }
+  .reset {
+    .hard-reset();
+    * {
+      .hard-reset();
+    }
+  }
+
+  .iciba-main.reset {
     position: absolute;
     display: block;
     z-index: 9999;
@@ -71,9 +83,6 @@
       transform: none;
     }
 
-    * {
-      .hard-reset();
-    }
 
     .iciba-container {
       display: flex;
@@ -83,6 +92,7 @@
       left: 0;
       width: 300px;
       height: auto;
+      max-height: 300px;
       border: none;
       background: @background-level-5;
       box-shadow: 0 0 8px @box-shadow-color;
@@ -91,27 +101,58 @@
       line-height: 1.5;
     }
 
-    .input-box {
-      @input-box-height: 28px;
+    .input-container {
+      @input-container-height: 28px;
 
       display: flex;
       background: white;
       flex-flow: row nowrap;
       border-bottom: 1px solid @border-level-1;
-      height: @input-box-height + 1px;
+      height: @input-container-height + 1px;
 
-      .search-input {
+      .input-box {
+        display: flex;
         flex: 1 1 auto;
-        border: none;
-        padding: 0 7px;
-        line-height: @input-box-height;
-        height: @input-box-height;
-        z-index: 2;
-        color: @main-level-1;
+        position: relative;
 
-        &:focus {
-          outline: 2px solid @input-outline-color;
-          outline-offset: -1px;
+        .search-input {
+          flex: 1 1 auto;
+          border: none;
+          padding: 0 7px;
+          line-height: @input-container-height;
+          height: @input-container-height;
+          z-index: 2;
+          color: @main-level-1;
+
+          &:focus {
+            .focus-outline();
+          }
+        }
+
+        .setting-button {
+          @offset: 2px;
+
+          position: absolute;
+          right: 0;
+          top: 0;
+          height: @input-container-height;
+          width: @input-container-height - @offset;
+          background: url('~assets/img/settings_149837.svg');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 16px 16px;
+          z-index: 2;
+          cursor: pointer;
+          opacity: 0.2;
+
+          &:hover {
+            opacity: 0.6;
+          }
+
+          &:active {
+            background-position: center calc(50% + 1px);
+            opacity: 0.9;
+          }
         }
       }
 
@@ -121,13 +162,13 @@
         flex: 0 0 auto;
 
         .button {
-          width: @input-box-height + 1px;
-          height: @input-box-height;
-          flex: 0 0 @input-box-height + 1px;
+          position: relative;
+          width: @input-container-height + 1px;
+          flex: 0 0 @input-container-height + 1px;
+          height: @input-container-height;
           border: none;
           border-left: 1px solid @border-level-1;
           background-color: @background-level-5;
-          z-index: 1;
           background-size: 16px;
           background-position: center;
           background-repeat: no-repeat;

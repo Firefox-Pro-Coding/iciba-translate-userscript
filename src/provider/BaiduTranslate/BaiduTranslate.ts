@@ -10,7 +10,7 @@ import AbstractTranslateProvider from '../AbstractTranslateProvider'
 class BaiduTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'BaiduTranslate'
   public settingDescriptor = []
-  public containerComponent = new Vue({})
+  public containerComponentClass = Vue.extend({ name: 'BaiduTranslateContainer' })
 
   public constructor() {
     super()

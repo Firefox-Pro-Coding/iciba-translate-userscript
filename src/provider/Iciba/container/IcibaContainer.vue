@@ -1,5 +1,5 @@
 <template>
-  <div class="iciba-userscript-iciba-result-container reset">
+  <div class="iciba-iciba-result-container reset">
     <!-- symbols -->
     <div
       class="symbols-box flex-co"
@@ -31,8 +31,7 @@
             <div class="ipa" v-if="symbomItem.ph_other">
               [{{ symbomItem.ph_other }}]
             </div>
-            <div class="playSound" @click="handlePlay(symbomItem.ph_tts_mp3)">
-            </div>
+            <div class="playSound" @click="handlePlay(symbomItem.ph_tts_mp3)"></div>
           </div>
         </div>
 

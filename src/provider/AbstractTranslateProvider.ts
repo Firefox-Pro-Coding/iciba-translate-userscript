@@ -6,6 +6,7 @@ import {
   ITranslateProviderSettingItem,
   ITranslateProviderSettingDescriptors,
   ITranslateProviderSettings,
+  IVue,
 } from '~/src/interfaces/index'
 
 export interface IIconType {
@@ -44,8 +45,11 @@ export default abstract class AbstractTranslateProvider {
   // unique name of the translate provider
   public abstract uniqName: string
 
-  // container element
-  public abstract containerComponent: Vue
+  // container class
+  public abstract containerComponentClass: typeof Vue
+
+  // container instance
+  public componentInstance: IVue | null = null
 
   // setting descriptor
   public abstract settingDescriptor: ITranslateProviderSettingDescriptors
