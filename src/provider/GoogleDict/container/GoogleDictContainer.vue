@@ -1,5 +1,7 @@
 <template>
-  <div class="iciba-google-dict-result-container reset" ref="container">
+  <div
+    class="google-dict-result-container no-matter-what-this-class-is reset"
+    ref="container">
     <div class="expand-button" title="展开" @click="handleOpenModal"></div>
     <div class="scroll-bar-track" ref="scroll-bar-track">
       <div class="scroll-bar-thumb" ref="scroll-bar-thumb" :style="scrollbarStyle">
