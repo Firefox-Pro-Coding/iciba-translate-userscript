@@ -167,7 +167,7 @@ module.exports = {
   'deprecation': true,
   'encoding': true,
   'import-spacing': true,
-  'interface-name': true,
+  // 'interface-name': true,
   'interface-over-type-literal': true,
   'jsdoc-format': [true, 'check-multiline-start'],
   // 'match-default-export-name': true,

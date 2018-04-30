@@ -30,7 +30,6 @@ module.exports = {
           'babel-loader',
           'ts-loader',
         ],
-        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
@@ -59,7 +58,6 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'url-loader',
-        include: [resolve('src')],
       },
     ],
   },

@@ -9,7 +9,6 @@
     "no-return-undefined": true,
     "no-static-this": true,
     "no-unnecessary-else": true,
-    "no-unnecessary-type-annotation": true,
     "object-shorthand-properties-first": true,
     "parameter-properties": true,
     "prefer-const-enum": true,

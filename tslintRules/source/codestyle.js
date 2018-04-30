@@ -10,7 +10,7 @@ module.exports = {
   'no-return-undefined': true,
   'no-static-this': true,
   'no-unnecessary-else': true,
-  'no-unnecessary-type-annotation': true,
+  // 'no-unnecessary-type-annotation': true,
   // 'no-unused': [true, 'ignore-parameters'],
   // 'no-var-before-return': true,
   'object-shorthand-properties-first': true,

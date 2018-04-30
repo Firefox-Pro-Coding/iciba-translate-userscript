@@ -179,7 +179,6 @@
     "deprecation": true,
     "encoding": true,
     "import-spacing": true,
-    "interface-name": true,
     "interface-over-type-literal": true,
     "jsdoc-format": [
       true,
