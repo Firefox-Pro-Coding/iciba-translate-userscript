@@ -133,9 +133,13 @@ export default class App extends Vue {
     this.loading = true
     provider.translate(word).then(() => {
       provider.visible = true
+      this.loading = false
+      // DON'T CHANGE!
+      // call this callback right after setting loading to false
+      // this insure that provider container is visible
+      provider.translateCallback()
     }).catch((e) => {
       this.errorMessage = e.message
-    }).finally(() => {
       this.loading = false
     })
   }

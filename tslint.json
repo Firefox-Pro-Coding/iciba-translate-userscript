@@ -15,6 +15,7 @@
     "import-name": [false, {
       "*.vue": "*"
     }],
+    "variable-name": false,
     "max-line-length": false,
     "no-console": { "severity": "warning" },
     "no-unused-variable": true,

@@ -34,12 +34,12 @@
             :is="item.containerComponentClass"
             :key="item.uniqName">
           </component>
-          <p class="loading-tip" v-show="loading">
+          <div class="loading-tip content" v-show="loading">
             加载中{{ loadingDots }}
-          </p>
-          <p class="error-message" v-show="!loading && errorMessage">
+          </div>
+          <div class="error-message content" v-show="!loading && errorMessage">
             {{ errorMessage }}
-          </p>
+          </div>
         </div>
       </div>
     </div>
@@ -104,6 +104,7 @@
     .input-container {
       @input-container-height: 28px;
 
+      flex: 0 0 auto;
       display: flex;
       background: white;
       flex-flow: row nowrap;
@@ -189,7 +190,10 @@
     .content-box {
       display: flex;
       flex-flow: column nowrap;
-      padding: 8px 10px 10px 10px;
+
+      .content {
+        .container-reset();
+      }
     }
   }
 </style>

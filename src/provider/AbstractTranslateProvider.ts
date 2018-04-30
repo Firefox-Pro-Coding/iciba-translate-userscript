@@ -63,6 +63,11 @@ export default abstract class AbstractTranslateProvider {
    */
   public abstract translate(word: string): Promise<void>
 
+  // this callback is called when setting visible to true
+  public translateCallback() {
+    //
+  }
+
   // get current settings
   public getSetting() {
     return this.settings

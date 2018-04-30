@@ -228,6 +228,7 @@ module.exports = {
     true,
     'ban-keywords',
     'check-format',
+    'allow-leading-underscore',
   ],
   'whitespace': [
     true,

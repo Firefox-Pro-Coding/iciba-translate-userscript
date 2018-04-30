@@ -1,5 +1,5 @@
 <template>
-  <div class="iciba-result-container reset">
+  <div class="iciba-result-container no-matter-what-this-class-is reset">
     <!-- symbols -->
     <div
       class="symbols-box flex-co"
