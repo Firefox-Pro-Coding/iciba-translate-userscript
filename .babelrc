@@ -4,6 +4,6 @@
     ["@babel/stage-0", { "decoratorsLegacy": true }]
   ],
   "plugins": [
-    ["@babel/transform-runtime"]
+     "@babel/transform-runtime"
   ]
 }
