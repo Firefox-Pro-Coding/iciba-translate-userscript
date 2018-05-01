@@ -1,7 +1,6 @@
 import * as querystring from 'querystring'
 
 import icibaIcon from '~/src/assets/img/iciba/search.svg'
-import icibaIcon2 from '~/src/assets/img/iciba/search_214340.svg'
 import { got } from '~/src/lib/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
@@ -17,7 +16,6 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     super()
     this.icons = [
       icibaIcon,
-      icibaIcon2,
     ].map(icon => AbstractTranslateProvider.createIcon(icon))
   }
 
