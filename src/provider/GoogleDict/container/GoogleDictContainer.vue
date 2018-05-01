@@ -1,6 +1,6 @@
 <template>
   <div class="google-dict-result-container no-matter-what-this-class-is reset">
-    <div class="real-contaner flex-co">
+    <div class="real-container flex-co" :class="{ 'no-scroll-bar': noScrollBar }">
       <div class="scroll-bar-track" ref="scroll-bar-track">
         <div
           class="scroll-bar-thumb"
@@ -20,7 +20,7 @@
               <!-- entry -->
               <div class="entry-box flex-co" v-if="dicDataItem.entries && dicDataItem.entries.length">
                 <div
-                  class="entry-item"
+                  class="entry-item flex-co"
                   v-for="(entry, index) in dicDataItem.entries"
                   :key="index">
 

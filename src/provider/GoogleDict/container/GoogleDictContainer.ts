@@ -27,6 +27,7 @@ export default class App extends Vue {
     startScrollTop: 0,
   }
   public container: HTMLElement = null as any as HTMLElement
+  public noScrollBar = true
   private audioCache: IAudioCache = {}
 
   public get scrollbarStyle() {
@@ -159,6 +160,8 @@ export default class App extends Vue {
 
     const thumbMaxHeightPercentage = 1 - sizePercentage
     const thumbTop = thumbMaxHeightPercentage * currentScrollPercentage * 100
+
+    this.noScrollBar = sizePercentage === 1
 
     this.scrollbar.track = {
       top: scrollTop,

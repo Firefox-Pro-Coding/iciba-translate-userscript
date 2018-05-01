@@ -38,171 +38,187 @@
     align-items: flex-start;
   }
 
-  .scroll-bar-track {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 10px;
-    height: 100%;
-    z-index: 2;
-
-    .scroll-bar-thumb {
-      position: absolute;
-      width: 100%;
-      height: 10px;
-      left: 0;
-      top: 0;
-      border-radius: 100px;
-      background: rgba(0, 0, 0, 0.15);
-      cursor: pointer;
-
-      &:hover {
-        background: rgba(0, 0, 0, 0.25);
-      }
-    }
-  }
-
-  .real-contaner {
+  .real-container {
     position: relative;
     overflow: hidden;
     align-items: stretch;
+
+    &.no-scroll-bar {
+      .scroll-bar-track {
+        display: none;
+      }
+
+      .scroll-content {
+        padding-right: 0;
+
+        .expand-button {
+          right: 0;
+        }
+      }
+    }
+
+    .scroll-bar-track {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 10px;
+      height: 100%;
+      z-index: 2;
+
+      .scroll-bar-thumb {
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        left: 0;
+        top: 0;
+        border-radius: 100px;
+        background: rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.25);
+        }
+      }
+    }
 
     .scroll-content {
       position: relative;
       overflow-y: scroll;
       padding-right: 10px;
-    }
-  }
 
-  .expand-button {
-    position: absolute;
-    top: 0;
-    right: 10px;
-    height: 24px;
-    width: 24px;
-    background: url('~assets/img/expand_128456.svg');
-    background-size: 16px;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.3;
-    cursor: pointer;
+      .expand-button {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        height: 24px;
+        width: 24px;
+        background: url('~assets/img/expand_128456.svg');
+        background-size: 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.3;
+        cursor: pointer;
 
-    &:hover {
-      opacity: 0.6;
-    }
+        &:hover {
+          opacity: 0.6;
+        }
 
-    &:active {
-      opacity: 0.9;
+        &:active {
+          opacity: 0.9;
+        }
+      }
     }
   }
 
   .result-content {
     font-size: 13px;
     line-height: 17px;
-  }
 
-  .entry-box {
-    align-items: stretch;
+    .entry-box {
+      align-items: stretch;
 
-    .entry-item {
-      & + .entry-item {
-        border-top: 1px solid @border-level-1;
-        margin: 10px 0 0 0;
-        padding: 4px 0 0 0;
-      }
-
-      .headword {
-        font-size: 20px;
-        line-height: 1.5;
-      }
-
-      .phonetics-box {
-        margin: 0 0 5px 0;
-        height: 20px;
-        line-height: 20px;
-        align-items: center;
-        color: @main-level-3;
-        font-family: 'Microsoft Yahei', 'Arial';
-
-        .play-button {
-          height: 20px;
-          width: 22px;
-          background: url('~assets/img/play/speaker-filled-audio-tool_59284.svg');
-          background-size: 16px;
-          background-position: center;
-          background-repeat: no-repeat;
-          opacity: 0.45;
-
-          &:hover {
-            opacity: 0.7;
-          }
-
-          &:active {
-            background-position: center calc(50% + 1px);
-            opacity: 1;
-          }
-        }
-      }
-      .sense-family-box {
+      .entry-item {
         align-items: stretch;
 
-        .sense-family-item {
-          align-items: stretch;
+        & + .entry-item {
+          border-top: 1px solid @border-level-1;
+          margin: 10px 0 0 0;
+          padding: 4px 0 0 0;
+        }
 
-          & + .sense-family-item {
-            margin: 6px 0 0 0;
-          }
+        .headword {
+          font-size: 20px;
+          line-height: 1.5;
+        }
 
-          .poss {
-            margin: 0 0 3px 0;
+        .phonetics-box {
+          margin: 0 0 5px 0;
+          height: 20px;
+          line-height: 20px;
+          align-items: center;
+          color: @main-level-3;
+          font-family: 'Microsoft Yahei', 'Arial';
 
-            .pos {
-              font-style: italic;
+          .play-button {
+            height: 20px;
+            width: 22px;
+            background: url('~assets/img/play/speaker-filled-audio-tool_59284.svg');
+            background-size: 16px;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.45;
+
+            &:hover {
+              opacity: 0.7;
+            }
+
+            &:active {
+              background-position: center calc(50% + 1px);
+              opacity: 1;
             }
           }
+        }
+        .sense-family-box {
+          align-items: stretch;
 
-          .morph-units-box {
-            .morph-units-item {
-              .description {
-                color: @main-level-4;
+          .sense-family-item {
+            align-items: stretch;
+
+            & + .sense-family-item {
+              margin: 6px 0 0 0;
+            }
+
+            .poss {
+              margin: 0 0 3px 0;
+
+              .pos {
+                font-style: italic;
               }
+            }
 
-              .word-form {
-                color: @main-level-4;
-                font-weight: bold;
-              }
+            .morph-units-box {
+              .morph-units-item {
+                .description {
+                  color: @main-level-4;
+                }
 
-              &:not(:last-child) {
-                padding: 0 3px 0 0;
+                .word-form {
+                  color: @main-level-4;
+                  font-weight: bold;
+                }
 
-                &::after {
-                  content: ';';
+                &:not(:last-child) {
+                  padding: 0 3px 0 0;
+
+                  &::after {
+                    content: ';';
+                  }
                 }
               }
             }
-          }
 
-          .sense-list {
-            margin: 2px 0 0 0;
-            align-items: stretch;
+            .sense-list {
+              margin: 2px 0 0 0;
+              align-items: stretch;
 
-            .sense-item {
-              .number {
-                flex: 0 0 30px;
-                text-align: right;
-                padding: 0 4px 0 0;
-                font-weight: bold;
-              }
+              .sense-item {
+                .number {
+                  flex: 0 0 30px;
+                  text-align: right;
+                  padding: 0 4px 0 0;
+                  font-weight: bold;
+                }
 
-              .definition {
-                flex: 1 1 auto;
+                .definition {
+                  flex: 1 1 auto;
+                }
               }
             }
+            //
           }
-          //
         }
+        //
       }
-      //
     }
   }
 
