@@ -46,11 +46,22 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        resourceQuery: /^\?vue/,
-        loaders: [
-          'vue-style-loader',
-          'css-loader',
-          'less-loader',
+        oneOf: [
+          {
+            resourceQuery: /^\?vue/,
+            loaders: [
+              'vue-style-loader',
+              'css-loader',
+              'less-loader',
+            ],
+          },
+          {
+            loaders: [
+              'style-loader',
+              'css-loader',
+              'less-loader',
+            ],
+          },
         ],
       },
       {

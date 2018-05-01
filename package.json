@@ -54,6 +54,7 @@
     "less": "^3.0.2",
     "less-loader": "^4.1.0",
     "rimraf": "^2.6.2",
+    "style-loader": "^0.21.0",
     "stylelint": "^9.2.0",
     "stylelint-processor-html": "^1.0.0",
     "ts-loader": "^4.2.0",

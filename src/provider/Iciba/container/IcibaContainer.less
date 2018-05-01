@@ -1,14 +1,6 @@
 @import '~assets/styles/variables.less';
 @import '~assets/styles/hardreset.less';
 
-.reset {
-  .hard-reset();
-
-  * {
-    .hard-reset();
-  }
-}
-
 .iciba-result-container.no-matter-what-this-class-is.reset {
   // local variables
   @big-margin: 6px;
@@ -21,20 +13,6 @@
   display: flex;
   flex-flow: column nowrap;
   word-break: break-word;
-
-  .flex {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  .flex-co {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
 
   .symbols-box {
     .symbol-item {

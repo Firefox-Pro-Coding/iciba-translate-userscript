@@ -10,11 +10,17 @@ TODOs
   - [ ] baidu translate
 - [ ] lower case the translated word
 - [ ] cross script communication using GM_setValue
+- [ ] 连续点两个按钮会同时出现结果
 
 Quadrafuzz 报错
 handle errmsg
 
 - [ ] googleDict language select
+- [ ] click outside modal close
+- [ ] scrollbar
+- [x] note
+- [x] origin
+- [x] usage
 
 ## features
 - [ ] dragable IcibaMain

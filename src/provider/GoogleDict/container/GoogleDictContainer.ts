@@ -4,9 +4,15 @@ import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
 import getScrollBarWidth from '~/src/lib/scrollbar-width'
 import { IAudioCache } from '~/src/interfaces/index'
+import labelSet from './components/labelSet/labelSet.vue'
+import thesaurus from './components/thesaurus/thesaurus.vue'
 
 @Component({
   name: 'GoogleDictContainer',
+  components: {
+    labelSet,
+    thesaurus,
+  },
 })
 export default class App extends Vue {
   public dictionaryData: any = null
@@ -142,7 +148,12 @@ export default class App extends Vue {
   public visibleCallback() {
     this.$nextTick(() => {
       this.container.scrollTop = 0
+      this.scrollBarListener()
     })
+  }
+
+  public handleNymClick() {
+    //
   }
 
   private scrollBarListener() {

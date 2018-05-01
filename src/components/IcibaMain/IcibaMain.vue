@@ -55,8 +55,10 @@
     outline: 2px solid @input-outline-color;
     outline-offset: -1px;
   }
-  .reset {
+
+  .iciba-main /deep/ {
     .hard-reset();
+
     * {
       .hard-reset();
     }

@@ -40,6 +40,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
   public async translate(word: string) {
     if (this.componentInstance) {
       this.componentInstance.dictionaryData = null
+      this.componentInstance.modalVisible = false
     }
     const apiUrlBase = 'https://content.googleapis.com/dictionaryextension/v1/knowledge/search?'
     const query = {
@@ -54,33 +55,35 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',
     }
     const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
-    const response = await got({
-      method: 'GET',
-      /* eslint-disable max-len */
-      headers: {
-        'accept': '*/*',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-        'cache-control': 'no-cache',
-        'pragma': 'no-cache',
-        'user-agent': window.navigator.userAgent,
-        'x-goog-encode-response-if-executable': 'base64',
-        'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
-        'x-origin': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
-        'x-referer': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
-        'x-requested-with': 'XMLHttpRequest',
-      },
-      /* eslint-enable max-len */
-      url: apiUrl,
-      timeout: 10000,
-    })
-    const data = JSON.parse(response.responseText)
-    if (this.componentInstance === null) {
-      return Promise.reject(new Error('查询结果挂载失败！'))
+    try {
+      const response = await got({
+        method: 'GET',
+        headers: {
+          'accept': '*/*',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+          'cache-control': 'no-cache',
+          'pragma': 'no-cache',
+          'user-agent': window.navigator.userAgent,
+          'x-goog-encode-response-if-executable': 'base64',
+          'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
+          'x-origin': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
+          'x-referer': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
+          'x-requested-with': 'XMLHttpRequest',
+        },
+        url: apiUrl,
+        timeout: 10000,
+      })
+      const data = JSON.parse(response.responseText)
+      console.log(JSON.parse(response.responseText))
+      if (this.componentInstance === null) {
+        return Promise.reject(new Error('查询结果挂载失败！'))
+      }
+      this.componentInstance.modalVisible = false
+      this.componentInstance.dictionaryData = data.dictionaryData
+    } catch (e) {
+      return Promise.reject(new Error('无查询结果！'))
     }
-    this.componentInstance.modalVisible = false
-    this.componentInstance.dictionaryData = data.dictionaryData
-    console.log(JSON.parse(response.responseText))
     return Promise.resolve()
   }
 }

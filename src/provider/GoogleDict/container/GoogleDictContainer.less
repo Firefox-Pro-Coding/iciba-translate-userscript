@@ -1,14 +1,6 @@
 @import '~assets/styles/variables.less';
 @import '~assets/styles/hardreset.less';
 
-.reset {
-  .hard-reset();
-
-  * {
-    .hard-reset();
-  }
-}
-
 .google-dict-result-container.no-matter-what-this-class-is.reset {
   // local variables
   @big-margin: 6px;
@@ -23,25 +15,11 @@
   flex-flow: column nowrap;
   max-height: 400px;
   position: relative;
-
-  .flex {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  .flex-co {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
+  font-family: 'Noto Sans', 'Arial', sans-serif;
 
   .real-container {
     position: relative;
     overflow: hidden;
-    align-items: stretch;
 
     &.no-scroll-bar {
       .scroll-bar-track {
@@ -61,23 +39,29 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 10px;
+      width: 8px;
       height: 100%;
       z-index: 2;
 
+      &:hover, &.moving {
+        .scroll-bar-thumb {
+          left: 0;
+          width: 8px;
+          background: rgba(0, 0, 0, 0.25);
+        }
+      }
+
       .scroll-bar-thumb {
+        display: flex;
+        justify-content: center;
         position: absolute;
-        width: 100%;
-        height: 10px;
-        left: 0;
+        width: 6px;
+        height: 0;
+        left: 1px;
         top: 0;
         border-radius: 100px;
         background: rgba(0, 0, 0, 0.15);
         cursor: pointer;
-
-        &:hover {
-          background: rgba(0, 0, 0, 0.25);
-        }
       }
     }
 
@@ -89,7 +73,7 @@
       .expand-button {
         position: absolute;
         top: 0;
-        right: 10px;
+        right: 8px;
         height: 24px;
         width: 24px;
         background: url('~assets/img/expand_128456.svg');
@@ -110,16 +94,12 @@
     }
   }
 
-  .result-content {
+  .content-box {
     font-size: 13px;
     line-height: 17px;
 
     .entry-box {
-      align-items: stretch;
-
       .entry-item {
-        align-items: stretch;
-
         & + .entry-item {
           border-top: 1px solid @border-level-1;
           margin: 10px 0 0 0;
@@ -137,9 +117,10 @@
           line-height: 20px;
           align-items: center;
           color: @main-level-3;
-          font-family: 'Microsoft Yahei', 'Arial';
+          font-family: 'Noto Sans', 'Arial', sans-serif;
 
           .play-button {
+            transform: translateY(1px);
             height: 20px;
             width: 22px;
             background: url('~assets/img/play/speaker-filled-audio-tool_59284.svg');
@@ -159,11 +140,7 @@
           }
         }
         .sense-family-box {
-          align-items: stretch;
-
           .sense-family-item {
-            align-items: stretch;
-
             & + .sense-family-item {
               margin: 6px 0 0 0;
             }
@@ -176,30 +153,8 @@
               }
             }
 
-            .morph-units-box {
-              .morph-units-item {
-                .description {
-                  color: @main-level-4;
-                }
-
-                .word-form {
-                  color: @main-level-4;
-                  font-weight: bold;
-                }
-
-                &:not(:last-child) {
-                  padding: 0 3px 0 0;
-
-                  &::after {
-                    content: ';';
-                  }
-                }
-              }
-            }
-
             .sense-list {
               margin: 2px 0 0 0;
-              align-items: stretch;
 
               .sense-item {
                 .number {
@@ -209,7 +164,7 @@
                   font-weight: bold;
                 }
 
-                .definition {
+                .definition-box {
                   flex: 1 1 auto;
                 }
               }
@@ -230,6 +185,7 @@
     right: 0;
     display: flex;
     justify-content: center;
+    align-items: stretch;
     z-index: 10;
     transition: 0.3s;
     opacity: 1;
@@ -269,7 +225,6 @@
       width: 80%;
       max-width: 800px;
       margin: 0 auto;
-      height: 100%;
       overflow-y: auto;
       background: white;
       padding: 20px;
@@ -279,8 +234,166 @@
       .entry-box {
         .entry-item {
           .headword {
-            font-size: 18px;
+            font-size: 28px;
           }
+
+          .phonetics-box {
+            .play-button {
+              margin: 0 0 0 3px;
+            }
+          }
+
+          .note {
+            margin: 10px 0;
+
+            .note-type-box {
+              margin: 0 0 3px 0;
+
+              .note-type {
+                flex: 0 0 auto;
+                background: @background-level-4;
+                color: @main-level-3-5;
+                padding: 2px 6px;
+              }
+            }
+
+            .note-text {
+              font-size: 12px;
+              color: @main-level-4;
+            }
+          }
+
+          .sense-family-box {
+            .sense-family-item {
+              & + .sense-family-item {
+                margin-top: 15px;
+              }
+
+              .poss {
+                margin: 0;
+
+                .pos {
+                  font-weight: bold;
+                }
+              }
+
+              .morph-units-box {
+                flex-wrap: wrap;
+                color: @main-level-5;
+
+                .morph-units-item {
+
+                  .word-form {
+                    color: @main-level-4-5;
+                    font-weight: bold;
+                  }
+
+                  &:not(:last-child) {
+                    padding: 0 3px 0 0;
+
+                    &::after {
+                      content: ';';
+                    }
+                  }
+                }
+              }
+
+              .sense-list {
+                .sense-item {
+                  & + .sense-item {
+                    margin: 5px 0 0 0;
+                  }
+
+                  .number {
+                    flex: 0 0 50px;
+                    padding: 0 10px 0 0;
+                  }
+
+                  .sense-item-box {
+                    flex: 1 1 auto;
+                  }
+
+                  .definition-box {
+                    .example-group-box {
+                      .example-group-item {
+                        .example-box {
+                          .example-item {
+                            color: @main-level-4;
+
+                            &::before, &::after {
+                              content: '"';
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+
+                  .subsense-box {
+                    margin: 2px 0 0 0;
+
+                    .subsense-item {
+                      margin: 2px 0 0 20px;
+                      display: list-item;
+
+                      .concise-definition {
+                        align-items: center;
+                        flex-wrap: wrap;
+
+                        span:not(:last-child) {
+                          margin: 0 5px 0 0;
+                        }
+
+                        .domain-label {
+                          font-size: 12px;
+                          background: @background-level-5;
+                          color: @main-level-5;
+                          padding: 1px 4px;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .origin {
+            margin: 10px 0 0 0;
+
+            .title {
+              font-size: 18px;
+              color: @main-level-4;
+            }
+
+            .img-box {
+              margin: 8px 0 0 0;
+
+              img {
+                max-width: 100%;
+              }
+            }
+
+            .text {
+              margin: 8px 0 0 0;
+            }
+          }
+        }
+      }
+
+      .usage-overtime {
+        border-top: 1px solid @border-level-1;
+        margin-top: 15px;
+
+        .title {
+          font-size: 18px;
+          color: @main-level-4;
+          margin: 12px 0 0 0;
+        }
+
+        img {
+          margin: 8px 0 0 0;
+          max-width: 100%;
         }
       }
     }
