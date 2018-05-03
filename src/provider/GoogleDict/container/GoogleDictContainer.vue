@@ -39,7 +39,7 @@
                       <span class="flex" v-for="(item, index) in entry.phonetics" :key="index">
                         <span>{{ item.text }}</span>
                         <span
-                          style="padding: 0 1px"
+                          style="padding: 0 1px;"
                           v-if="index !== entry.phonetics.length - 1">,</span>
                       </span>
                       <span>/</span>
@@ -72,7 +72,7 @@
                           v-if="index < 2"
                           v-for="(sense, index) in senseFamilyItem.senses"
                           :key="index">
-                          <div class="number">{{ index + 1 }}.</div>
+                          <div class="sense-item-number">{{ index + 1 }}.</div>
                           <div class="definition-box">
                             <div class="definition" v-html="sense.definition.text"></div>
                           </div>
@@ -88,11 +88,11 @@
       </div>
 
       <transition name="modal">
-        <div class="expanded-modal-wrapper" v-if="modalVisible">
-          <div class="modal" @click="handleCloseModal">
+        <div class="google-dict-modal-wrapper" v-if="modalVisible">
+          <div class="google-dict-modal-bg" @click="handleCloseModal">
 
           </div>
-          <div class="expanded-result-content content-box">
+          <div class="google-dict-modal-content content-box">
 
             <!-- TODO: Maybe render subentries, e.g. for "pan out". -->
             <div class="dictionary-data-box flex-co" v-if="dictionaryData && dictionaryData.length">
@@ -117,7 +117,7 @@
                         <span class="flex" v-for="(item, index) in entry.phonetics" :key="index">
                           <span>{{ item.text }}</span>
                           <span
-                            style="padding: 0 1px"
+                            style="padding: 0 1px;"
                             v-if="index !== entry.phonetics.length - 1">,</span>
                         </span>
                         <span>/</span>
@@ -162,7 +162,7 @@
                             :class="{ collapsable: index !== 0 }"
                             v-for="(sense, index) in senseFamilyItem.senses"
                             :key="index">
-                            <div class="number">{{ index + 1 }}.</div>
+                            <div class="sense-item-number">{{ index + 1 }}.</div>
                             <div class="sense-item-box flex-co">
                               <!-- labelSet -->
                               <label-set :label-set="sense.labelSet"></label-set>
@@ -271,7 +271,7 @@
 
                     <div class="origin flex-co" v-if="entry.etymology">
                       <div class="title">Origin</div>
-                      <div class="img-box">
+                      <div class="img-box" v-if="entry.etymology.images">
                         <img
                           :style="{
                             height: `${entry.etymology.images.tablet.height / 2 }px`,

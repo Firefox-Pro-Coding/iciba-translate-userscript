@@ -39,7 +39,7 @@
         padding: 3px 5px;
 
         &:not(:last-child) {
-          margin-right: 4px;
+          margin-right: 5px;
         }
 
         &.registers-label {
@@ -49,10 +49,6 @@
           text-transform: none;
           background: none;
           padding: 0;
-        }
-
-        &:not(:last-child) {
-          margin-right: 5px;
         }
       }
     }

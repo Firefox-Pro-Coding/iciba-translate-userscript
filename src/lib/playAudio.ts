@@ -1,7 +1,13 @@
 // using web audio api play sound
-const context = new AudioContext()
+let context: AudioContext
 
 export default async(arrayBuffer: ArrayBuffer, volume: number = 1): Promise<void> => {
+  // https://goo.gl/7K7WLu
+  context = context || new AudioContext()
+  if (context.state === 'suspended') {
+    await context.resume()
+  }
+
   // make a copy because decodeAudioData detaches arrayBuffer
   const arrayBufferCopy = arrayBuffer.slice(0)
   const audioBuffer = await context.decodeAudioData(arrayBufferCopy)

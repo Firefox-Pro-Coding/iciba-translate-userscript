@@ -106,6 +106,12 @@
           padding: 4px 0 0 0;
         }
 
+        &:first-child {
+          .headword {
+            margin-top: -3px;
+          }
+        }
+
         .headword {
           font-size: 20px;
           line-height: 1.5;
@@ -157,10 +163,10 @@
               margin: 2px 0 0 0;
 
               .sense-item {
-                .number {
+                .sense-item-number {
                   flex: 0 0 30px;
                   text-align: right;
-                  padding: 0 4px 0 0;
+                  padding: 0 8px 0 0;
                   font-weight: bold;
                 }
 
@@ -169,15 +175,13 @@
                 }
               }
             }
-            //
           }
         }
-        //
       }
     }
   }
 
-  .expanded-modal-wrapper {
+  .google-dict-modal-wrapper {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -193,7 +197,7 @@
     &.modal-enter, &.modal-leave-to {
       opacity: 0;
 
-      .expanded-result-content {
+      .google-dict-modal-content {
         transform: scale(0.9);
       }
     }
@@ -201,12 +205,12 @@
     &.modal-enter-to, &.modal-leave {
       opacity: 1;
 
-      .expanded-result-content {
+      .google-dict-modal-content {
         transform: translateY(1);
       }
     }
 
-    .modal {
+    .google-dict-modal-bg {
       position: fixed;
       top: 0;
       bottom: 0;
@@ -217,7 +221,7 @@
       z-index: 1;
     }
 
-    .expanded-result-content {
+    .google-dict-modal-content {
       position: relative;
       z-index: 2;
       font-size: 14px;

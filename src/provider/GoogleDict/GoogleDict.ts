@@ -75,7 +75,6 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         timeout: 10000,
       })
       const data = JSON.parse(response.responseText)
-      console.log(JSON.parse(response.responseText))
       if (this.componentInstance === null) {
         return Promise.reject(new Error('查询结果挂载失败！'))
       }

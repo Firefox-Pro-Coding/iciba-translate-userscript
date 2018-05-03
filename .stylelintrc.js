@@ -45,7 +45,8 @@ module.exports = {
       "except": ["after-declaration", "first-nested"],
       "ignore": ["after-comment", "inside-single-line-block"]
     }],
-    "declaration-no-important": true,
+    // disable because sometimes need it
+    // "declaration-no-important": true,
     "font-family-name-quotes": "always-unless-keyword",
     "font-family-no-duplicate-names": true,
     "function-calc-no-unspaced-operator": true,

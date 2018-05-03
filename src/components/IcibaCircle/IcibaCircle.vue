@@ -2,7 +2,7 @@
   <div
     v-show="visible"
     :style="internalStyle"
-    class="iciba-circle reset"
+    class="iciba-circle the-iciba-circle reset"
     @click="handleClick">
   </div>
 </template>
@@ -17,7 +17,7 @@
     .hard-reset();
   }
 
-  .iciba-circle.reset {
+  .iciba-circle.the-iciba-circle.reset {
     position: absolute;
     display: block;
     z-index: 10000;
@@ -38,10 +38,8 @@
     }
 
     &:active {
-      // border: 1px solid #353535;
       box-shadow: 0 0 5px @box-shadow-color, 0 0 3px @box-shadow-color inset;
       background: @iciba-circle-active-background;
-      // box-shadow: 0 0 5px #999;
     }
   }
 </style>
