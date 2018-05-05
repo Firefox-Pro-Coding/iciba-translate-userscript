@@ -28,31 +28,15 @@
                   :key="index">
 
                   <!-- headword -->
-                  <div class="headword">
-                    {{ entry.syllabifiedHeadword || entry.headword }}
+                  <div class="headword flex flex-wrap">
+                    <div class="headword-word">
+                      {{ entry.syllabifiedHeadword || entry.headword }}
+                    </div>
+                    <sup class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</sup>
                   </div>
 
                   <!-- phonetics -->
-                  <div class="phonetics-box flex" v-if="entry.phonetics && entry.phonetics.length">
-                    <div class="phonetics flex">
-                      <span>/</span>
-                      <span class="flex" v-for="(item, index) in entry.phonetics" :key="index">
-                        <span>{{ item.text }}</span>
-                        <span
-                          style="padding: 0 1px;"
-                          v-if="index !== entry.phonetics.length - 1">,</span>
-                      </span>
-                      <span>/</span>
-                    </div>
-
-                    <div
-                      class="play-button"
-                      v-for="(item, index) in entry.phonetics"
-                      :key="index"
-                      @click="handlePlay(item.oxfordAudio)"
-                      v-if="item.oxfordAudio">
-                    </div>
-                  </div>
+                  <phonetics @play-audio="handlePlay" class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
 
                   <!-- sense-family -->
                   <div class="sense-family-box flex-co" v-if="entry.senseFamilies && entry.senseFamilies.length">
@@ -60,8 +44,12 @@
                       class="sense-family-item flex-co"
                       v-for="(senseFamilyItem, index) in entry.senseFamilies"
                       :key="index">
-                      <div class="poss" v-for="(item, index) in senseFamilyItem.partsOfSpeechs" :key="index">
-                        <span class="pos">{{ item.value }}</span>
+                      <div
+                        :title="item.qualifier"
+                        class="poss flex flex-wrap"
+                        v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
+                        :key="index">
+                        {{ item.value }}
                       </div>
 
                       <!-- sense-list -->
@@ -74,7 +62,11 @@
                           :key="index">
                           <div class="sense-item-number">{{ index + 1 }}.</div>
                           <div class="definition-box">
-                            <div class="definition" v-html="sense.definition.text"></div>
+                            <fragment
+                              @entry-click="handleEntryLinkClick"
+                              class="sense-frag"
+                              :fragment="sense.definition.fragments">
+                            </fragment>
                           </div>
                         </div>
                       </div>
@@ -106,52 +98,48 @@
                     :key="index">
 
                     <!-- headword -->
-                    <div class="headword">
-                      {{ entry.syllabifiedHeadword || entry.headword }}
+                    <div class="headword flex flex-wrap">
+                      <div class="headword-word">
+                        {{ entry.syllabifiedHeadword || entry.headword }}
+                      </div>
+                      <sup class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</sup>
                     </div>
 
                     <!-- phonetics -->
-                    <div class="phonetics-box flex" v-if="entry.phonetics && entry.phonetics.length">
-                      <div class="phonetics flex">
-                        <span>/</span>
-                        <span class="flex" v-for="(item, index) in entry.phonetics" :key="index">
-                          <span>{{ item.text }}</span>
-                          <span
-                            style="padding: 0 1px;"
-                            v-if="index !== entry.phonetics.length - 1">,</span>
-                        </span>
-                        <span>/</span>
-                      </div>
-
-                      <div
-                        class="play-button"
-                        v-for="(item, index) in entry.phonetics"
-                        :key="index"
-                        @click="handlePlay(item.oxfordAudio)"
-                        v-if="item.oxfordAudio">
-                      </div>
-                    </div>
+                    <phonetics @play-audio="handlePlay" class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
 
                     <!-- note -->
                     <div class="note flex-co" v-if="entry.note">
                       <div class="note-type-box flex">
-                        <span class="note-type">{{ entry.note.type }}</span>
+                        <div class="note-type-label iciba-inline-block">{{ entry.note.type }}</div>
                       </div>
-                      <span class="note-text" v-html="entry.note.text"></span>
+                      <div class="note-text iciba-inline" v-html="entry.note.text"></div>
                     </div>
 
                     <!-- sense-family -->
                     <div class="sense-family-box flex-co" v-if="entry.senseFamilies && entry.senseFamilies.length">
                       <div class="sense-family-item flex-co" v-for="(senseFamilyItem, index) in entry.senseFamilies" :key="index">
-                        <div class="poss" v-for="(item, index) in senseFamilyItem.partsOfSpeechs" :key="index">
-                          <span class="pos">{{ item.value }}</span>
+                        <div class="poss" v-if="senseFamilyItem.partsOfSpeechs && senseFamilyItem.partsOfSpeechs.length">
+                          <div
+                            :title="item.qualifier"
+                            class="pos flex flex-wrap"
+                            v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
+                            :key="index">
+                            {{ item.value }}
+                          </div>
                         </div>
 
+                        <!-- phonetics -->
+                        <phonetics @play-audio="handlePlay" class="phonetics-box" :phonetics="senseFamilyItem.phonetics"></phonetics>
+
+                        <!-- labelSet -->
+                        <label-set :label-set="senseFamilyItem.labelSet"></label-set>
+
                         <!-- morph-units -->
-                        <div class="morph-units-box flex" v-if="senseFamilyItem.morphUnits && senseFamilyItem.morphUnits.length">
-                          <div class="morph-units-item" v-for="(item, index) in senseFamilyItem.morphUnits" :key="index">
-                            <span class="description">{{ item.formType.description }}</span>
-                            <span class="word-form">{{ item.wordForm }}</span>
+                        <div class="morph-units-box" v-if="senseFamilyItem.morphUnits && senseFamilyItem.morphUnits.length">
+                          <div class="morph-units-item iciba-inline" :title="item.formType.posTag" v-for="(item, index) in senseFamilyItem.morphUnits" :key="index">
+                            <div class="morph-units-description iciba-inline">{{ item.formType.description }}</div>
+                            <div class="morph-units-word-form iciba-inline">{{ item.wordForm }}</div>
                           </div>
                         </div>
 
@@ -169,7 +157,48 @@
 
                               <!-- difinition -->
                               <div class="definition-box flex-co">
-                                <div class="definition" v-html="sense.definition.text"></div>
+                                <div class="difinition">
+
+                                  <div class="text iciba-inline">
+                                    <div class="iciba-inline sense-definition-frag" v-for="(frag, index) in sense.definition.fragments" :key="index">
+                                      <a
+                                        v-if="frag.isEntryLink"
+                                        class="searchable-word"
+                                        @click="handleEntryLinkClick(frag.text)"
+                                        v-html="frag.text"></a>
+                                      <div class="iciba-inline" v-else v-html="frag.text"></div>
+                                    </div>
+                                  </div>
+
+                                  <fragment
+                                    @entry-click="handleEntryLinkClick"
+                                    class="sense-frag"
+                                    :fragment="sense.definition.fragments">
+                                  </fragment>
+
+                                  <!-- domain class -->
+                                  <template v-if="sense.domainClasses && sense.domainClasses.length">
+                                    <div
+                                      title="domain"
+                                      class="sense-label domain-label iciba-inline-block"
+                                      v-for="(domain, index) in sense.domainClasses"
+                                      :key="`domain-${index}`">
+                                      {{ domain }}
+                                    </div>
+                                  </template>
+
+                                  <!-- semantic class -->
+                                  <template v-if="sense.semanticClasses && sense.semanticClasses.length">
+                                    <div
+                                      title="semantic"
+                                      class="sense-label semantic-label iciba-inline-block"
+                                      v-for="(semantic, index) in sense.semanticClasses"
+                                      :key="`semantic-${index}`">
+                                      {{ semantic }}
+                                    </div>
+                                  </template>
+                                </div>
+
 
                                 <!-- example sentense -->
                                 <div
@@ -179,6 +208,16 @@
                                     class="example-group-item flex-co"
                                     v-for="(exampleGroupItem, index) in sense.exampleGroups"
                                     :key="index">
+
+                                    <div class="example-label-box" v-if="exampleGroupItem.registers && exampleGroupItem.registers.length">
+                                      <div
+                                        class="example-label iciba-inline-block"
+                                        v-for="(label, index) in exampleGroupItem.registers"
+                                        :key="index">
+                                        {{ label }}
+                                      </div>
+                                    </div>
+
                                     <div
                                       class="example-box flex-co"
                                       v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
@@ -193,7 +232,10 @@
                                 </div>
 
                                 <!-- thesaurus -->
-                                <thesaurus :thesaurus-entries="sense.thesaurusEntries"></thesaurus>
+                                <thesaurus
+                                  @nym-click="handleNymClick"
+                                  :thesaurus-entries="sense.thesaurusEntries">
+                                </thesaurus>
 
                                 <!-- subsense -->
                                 <div
@@ -206,17 +248,36 @@
                                     <div class="subsense-item-container flex-co">
                                       <!-- label -->
                                       <label-set :label-set="subsense.labelSet"></label-set>
-                                      <div class="concise-definition flex">
-                                        <span>{{ subsense.conciseDefinition }}</span>
+
+                                      <!-- definition -->
+                                      <div class="subsense-definition">
+                                        <fragment
+                                          @entry-click="handleEntryLinkClick"
+                                          class="subsense-frag"
+                                          :fragment="subsense.definition.fragments">
+                                        </fragment>
+
+                                        <!-- domain class -->
                                         <template v-if="subsense.domainClasses && subsense.domainClasses.length">
-                                          <span
-                                            class="domain-label"
+                                          <div
+                                            title="domain"
+                                            class="subsense-label domain-label iciba-inline-block"
                                             v-for="(domain, index) in subsense.domainClasses"
-                                            :key="index">
+                                            :key="`domain-${index}`">
                                             {{ domain }}
-                                          </span>
+                                          </div>
                                         </template>
 
+                                        <!-- semantic class -->
+                                        <template v-if="subsense.semanticClasses && subsense.semanticClasses.length">
+                                          <div
+                                            title="semantic"
+                                            class="subsense-label semantic-label iciba-inline-block"
+                                            v-for="(semantic, index) in subsense.semanticClasses"
+                                            :key="`semantic-${index}`">
+                                            {{ semantic }}
+                                          </div>
+                                        </template>
                                       </div>
 
                                       <!-- example sentense -->
@@ -241,46 +302,37 @@
                                       </div>
 
                                       <!-- thesaurus -->
-                                      <thesaurus :thesaurus-entries="subsense.thesaurusEntries"></thesaurus>
+                                      <thesaurus
+                                        @nym-click="handleNymClick"
+                                        :thesaurus-entries="subsense.thesaurusEntries">
+                                      </thesaurus>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                            <!-- example -->
-                            <!-- syn -->
 
-                            <!-- <ul class="subsenses">
-                              {{#subsenses}}
-                              <li class="subsense">
-                                <div class="definition">{{definition.text}}</div>
-                              </li>
-                              <div class="syns">
-                                {{#showOnlyOnce}}
-                                {{#thesaurusEntries}} {{#synonyms}} {{#nyms}}
-                                <span class="nym"><a class="nym-link" href="#">{{nym}}</a></span>
-                                {{/nyms}} {{/synonyms}} {{/thesaurusEntries}}
-                                {{/showOnlyOnce}}
+                              <!-- etymology fragment -->
+                              <!-- do not renderer etymology here -->
+                              <div
+                                v-if="sense.etymology && sense.etymology.etymology"
+                                class="sense-etymology">
+                                <fragment
+                                  @entry-click="handleEntryLinkClick"
+                                  class="sense-frag"
+                                  :fragment="sense.etymology.etymology.fragments">
+                                </fragment>
                               </div>
-                              {{/subsenses}}
-                            </ul> -->
+
+                              <!-- note -->
+                              <!-- here could have note. but do not render -->
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class="origin flex-co" v-if="entry.etymology">
-                      <div class="title">Origin</div>
-                      <div class="img-box" v-if="entry.etymology.images">
-                        <img
-                          :style="{
-                            height: `${entry.etymology.images.tablet.height / 2 }px`,
-                            width: `${entry.etymology.images.tablet.width / 2 }px`,
-                          }"
-                          :src="`https://www.gstatic.com/onebox/dictionary/${entry.etymology.images.tablet.url}`">
-                      </div>
-                      <div class="text" v-html="entry.etymology.etymology.text"></div>
-                    </div>
+                    <!-- etymology -->
+                    <etymology @entry-click="handleEntryLinkClick" :etymology="entry.etymology"></etymology>
                   </div>
                 </div>
 

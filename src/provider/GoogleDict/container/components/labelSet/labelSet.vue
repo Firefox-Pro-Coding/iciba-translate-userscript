@@ -7,7 +7,7 @@
         class="general-label-box flex"
         :key="index">
         <span
-          :class="[`${key}-label`, 'label']"
+          :class="[`${key}-label`, 'iciba-google-dict-label']"
           v-for="(label, index) in labelSet[key]"
           :key="index">
           {{ label }}
@@ -18,8 +18,7 @@
   </div>
 </template>
 
-<script lang="ts" src="./labelSet.ts">
-</script>
+<script lang="ts" src="./labelSet.ts"></script>
 
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
@@ -31,11 +30,11 @@
         margin-right: 5px;
       }
 
-      .label {
+      .iciba-google-dict-label {
         font-size: 12px;
         text-transform: uppercase;
-        background: @background-level-4;
-        color: @main-level-3-5;
+        background: hsl(210, 70%, 92%);
+        color: @main-level-2-5;
         padding: 3px 5px;
 
         &:not(:last-child) {
@@ -43,12 +42,8 @@
         }
 
         &.registers-label {
-          font-size: inherit;
-          font-style: italic;
-          color: @main-level-4;
-          text-transform: none;
-          background: none;
-          padding: 0;
+          background: @background-level-4;
+          color: @main-level-3-5;
         }
       }
     }

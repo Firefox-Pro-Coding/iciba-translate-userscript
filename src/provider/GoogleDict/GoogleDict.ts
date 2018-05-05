@@ -13,6 +13,8 @@ import AbstractTranslateProvider from '../AbstractTranslateProvider'
 
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
 
+import check from './check'
+
 class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = 'GoogleDict'
   public settingDescriptor = []
@@ -75,12 +77,19 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         timeout: 10000,
       })
       const data = JSON.parse(response.responseText)
+      const copy = JSON.parse(response.responseText)
+
+      check(copy)
+
       if (this.componentInstance === null) {
         return Promise.reject(new Error('查询结果挂载失败！'))
       }
       this.componentInstance.modalVisible = false
       this.componentInstance.dictionaryData = data.dictionaryData
     } catch (e) {
+      if (e.response && e.response.status === 500) {
+        return Promise.reject(new Error('输入不合法！'))
+      }
       return Promise.reject(new Error('无查询结果！'))
     }
     return Promise.resolve()

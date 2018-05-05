@@ -28,6 +28,10 @@ interface IExtendedGMXMLHttpRequestResponse extends GMXMLHttpRequestResponse {
   response: any
 }
 
+class GMXMLError extends Error {
+  public response: any
+}
+
 export const got = (params: IExtendedGMOption) => {
   const api = GM.xmlHttpRequest || GM_xmlhttpRequest
 
@@ -48,7 +52,9 @@ export const got = (params: IExtendedGMOption) => {
       },
       onload(response) {
         if (response.status !== 200) {
-          rj(new Error('网络错误！'))
+          const err = new GMXMLError('网络错误！')
+          err.response = response
+          rj(err)
         }
         rs(response as IExtendedGMXMLHttpRequestResponse)
       },

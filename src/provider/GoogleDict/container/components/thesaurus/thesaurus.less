@@ -1,0 +1,57 @@
+@import '~assets/styles/variables.less';
+@import '~assets/styles/hardreset.less';
+
+.thesaurus-container {
+  .thesaurus-entry-item {
+    & + .thesaurus-entry-item {
+      margin: 2px 0 0 0;
+    }
+
+    .thesaurus-item {
+      // below
+    }
+
+    .example-box {
+      margin-left: 95px;
+
+      .example-item {
+        color: @main-level-4;
+      }
+    }
+  }
+}
+
+.thesaurus-item {
+  .title {
+    color: @main-level-4;
+    flex: 0 0 95px;
+  }
+
+  .thesaurus-word-box {
+    display: list-item;
+    flex: 1 1 auto;
+
+    .thesaurus-word-item {
+      .nym-item {
+        display: inline-flex;
+        color: @main-level-4;
+
+        &.nym-label {
+          font-size: 12px;
+          background: @background-level-4;
+          color: @main-level-4;
+          padding: 1px 4px;
+          margin: 0 3px 0 0;
+        }
+
+        .nym-split {
+          padding-right: 3px;
+        }
+
+        &.has-entry .nym-content {
+          color: @primary;
+        }
+      }
+    }
+  }
+}

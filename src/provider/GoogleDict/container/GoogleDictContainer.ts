@@ -6,12 +6,18 @@ import getScrollBarWidth from '~/src/lib/scrollbar-width'
 import { IAudioCache } from '~/src/interfaces/index'
 import labelSet from './components/labelSet/labelSet.vue'
 import thesaurus from './components/thesaurus/thesaurus.vue'
+import phonetics from './components/phonetics/phonetics.vue'
+import fragment from './components/fragment/fragment.vue'
+import etymology from './components/etymology/etymology.vue'
 
 @Component({
   name: 'GoogleDictContainer',
   components: {
     labelSet,
     thesaurus,
+    phonetics,
+    fragment,
+    etymology,
   },
 })
 export default class App extends Vue {
@@ -152,8 +158,12 @@ export default class App extends Vue {
     })
   }
 
-  public handleNymClick() {
-    //
+  public handleNymClick(word: string) {
+    console.log(word)
+  }
+
+  public handleEntryLinkClick(word: string) {
+    console.log(word)
   }
 
   private scrollBarListener() {

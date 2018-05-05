@@ -17,6 +17,26 @@
   position: relative;
   font-family: 'Noto Sans', 'Arial', sans-serif;
 
+  .label-type-main () {
+    background: #5BA6E6;
+    color: white;
+  }
+
+  .label-type-light() {
+    background: @background-level-5;
+    color: @main-level-5;
+  }
+
+  .label-type-pink() {
+    background: #F9DCDC;
+    color: @main-level-3;
+  }
+
+  /deep/ .searchable-word {
+    color: @primary;
+    cursor: pointer;
+  }
+
   .real-container {
     position: relative;
     overflow: hidden;
@@ -115,6 +135,10 @@
         .headword {
           font-size: 20px;
           line-height: 1.5;
+
+          .headword-graph-index {
+            font-size: 12px;
+          }
         }
 
         .phonetics-box {
@@ -145,6 +169,7 @@
             }
           }
         }
+
         .sense-family-box {
           .sense-family-item {
             & + .sense-family-item {
@@ -153,9 +178,10 @@
 
             .poss {
               margin: 0 0 3px 0;
+              font-style: italic;
 
-              .pos {
-                font-style: italic;
+              .pos + .pos {
+                margin: 0 0 0 5px;
               }
             }
 
@@ -239,6 +265,10 @@
         .entry-item {
           .headword {
             font-size: 28px;
+
+            .headword-graph-index {
+              font-size: 14px;
+            }
           }
 
           .phonetics-box {
@@ -253,10 +283,10 @@
             .note-type-box {
               margin: 0 0 3px 0;
 
-              .note-type {
+              .note-type-label {
+                .label-type-main();
+
                 flex: 0 0 auto;
-                background: @background-level-4;
-                color: @main-level-3-5;
                 padding: 2px 6px;
               }
             }
@@ -282,12 +312,11 @@
               }
 
               .morph-units-box {
-                flex-wrap: wrap;
                 color: @main-level-5;
 
                 .morph-units-item {
 
-                  .word-form {
+                  .morph-units-word-form {
                     color: @main-level-4-5;
                     font-weight: bold;
                   }
@@ -315,11 +344,37 @@
 
                   .sense-item-box {
                     flex: 1 1 auto;
+
+                    .sense-label {
+                      font-size: 12px;
+                      padding: 1px 4px;
+                      margin: 0 0 0 3px;
+
+                      span:not(:last-child) {
+                        margin: 0 5px 0 0;
+                      }
+
+                      &.domain-label {
+                        .label-type-light();
+                      }
+
+                      &.semantic-label {
+                        .label-type-pink();
+                      }
+                    }
                   }
 
                   .definition-box {
                     .example-group-box {
                       .example-group-item {
+                        .example-label-box {
+                          .example-label {
+                            .label-type-light();
+
+                            padding: 1px 4px;
+                          }
+                        }
+
                         .example-box {
                           .example-item {
                             color: @main-level-4;
@@ -340,46 +395,31 @@
                       margin: 2px 0 0 20px;
                       display: list-item;
 
-                      .concise-definition {
+                      .subsense-definition {
                         align-items: center;
-                        flex-wrap: wrap;
 
-                        span:not(:last-child) {
-                          margin: 0 5px 0 0;
-                        }
-
-                        .domain-label {
+                        .subsense-label {
                           font-size: 12px;
-                          background: @background-level-5;
-                          color: @main-level-5;
                           padding: 1px 4px;
+                          margin: 0 0 0 3px;
+
+                          span:not(:last-child) {
+                            margin: 0 5px 0 0;
+                          }
+
+                          &.domain-label {
+                            .label-type-light();
+                          }
+
+                          &.semantic-label {
+                            .label-type-pink();
+                          }
                         }
                       }
                     }
                   }
                 }
               }
-            }
-          }
-
-          .origin {
-            margin: 10px 0 0 0;
-
-            .title {
-              font-size: 18px;
-              color: @main-level-4;
-            }
-
-            .img-box {
-              margin: 8px 0 0 0;
-
-              img {
-                max-width: 100%;
-              }
-            }
-
-            .text {
-              margin: 8px 0 0 0;
             }
           }
         }

@@ -7,4 +7,12 @@ import { Component, Prop } from 'vue-property-decorator'
 export default class extends Vue {
   @Prop([Array])
   public thesaurusEntries: any
+
+  public addQoute(text: string): string {
+    return `"${text}"`
+  }
+
+  public handleNymClick(word: string) {
+    this.$emit('nym-click', word)
+  }
 }

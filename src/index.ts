@@ -31,7 +31,7 @@ const install = (top: any) => {
     script.setAttribute('src', `https://cdn.bootcss.com/vue/${v.version}/vue.js`)
     setTimeout(() => {
       document.body.appendChild(script)
-    }, 5000)
+    }, 3000)
   }
 }
 
