@@ -1,11 +1,11 @@
 iciba划词翻译
 -------------
 
+[![install](https://noe132.com/img/6303/install.php)](https://greasyfork.org/zh-CN/scripts/6303-iciba)
 [![version](https://img.shields.io/github/package-json/v/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)](https://greasyfork.org/zh-CN/scripts/6303-iciba)
 [![license](https://img.shields.io/badge/license-MIT-green.svg?longCache=true&style=flat-square)](LICENSE)
 ![David](https://img.shields.io/david/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
 ![David](https://img.shields.io/david/dev/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
-
 
 iciba划词翻译 用户脚本
 

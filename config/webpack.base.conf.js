@@ -17,7 +17,6 @@ module.exports = {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       '~/src': resolve('src'),
-      // for stylus
       'assets': resolve('src/assets'),
       'vue$': 'vue/dist/vue.esm.js',
     },
@@ -35,6 +34,9 @@ module.exports = {
         test: /\.js$/,
         loaders: [
           'babel-loader',
+        ],
+        exclude: [
+          resolve('node_modules/vue'),
         ],
       },
       {
@@ -70,7 +72,9 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'url-loader',
+        loaders: [
+          'url-loader',
+        ],
       },
     ],
   },

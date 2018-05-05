@@ -29,7 +29,9 @@ const install = (top: any) => {
     const v = Vue as any
     const script = document.createElement('script')
     script.setAttribute('src', `https://cdn.bootcss.com/vue/${v.version}/vue.js`)
-    document.body.appendChild(script)
+    setTimeout(() => {
+      document.body.appendChild(script)
+    }, 5000)
   }
 }
 
