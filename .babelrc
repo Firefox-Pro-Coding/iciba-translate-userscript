@@ -1,9 +1,5 @@
 {
   "presets": [
-    "@babel/env",
-    ["@babel/stage-0", { "decoratorsLegacy": true }]
+    "./config/babelrc.js"
   ],
-  "plugins": [
-     "@babel/transform-runtime"
-  ]
 }
