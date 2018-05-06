@@ -2,12 +2,11 @@
   <div class="etymology-box flex-co" v-if="etymology">
     <div class="etymology-title">Origin</div>
     <div class="etymology-img-box" v-if="etymology.images">
-      <img
-        :style="{
-          height: `${etymology.images.tablet.height / 2 }px`,
-          width: `${etymology.images.tablet.width / 2 }px`,
-        }"
-        :src="`https://www.gstatic.com/onebox/dictionary/${etymology.images.tablet.url}`">
+      <image-loader
+        :height="etymology.images.tablet.height"
+        :width="etymology.images.tablet.width"
+        :url="`https://www.gstatic.com/onebox/dictionary/${etymology.images.tablet.url}`">
+      </image-loader>
     </div>
     <div class="etymology-text">
       <fragment

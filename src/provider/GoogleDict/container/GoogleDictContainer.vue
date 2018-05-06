@@ -105,8 +105,12 @@
                       <sup class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</sup>
                     </div>
 
+
                     <!-- phonetics -->
                     <phonetics @play-audio="handlePlay" class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
+
+                    <!-- labelSet -->
+                    <label-set :label-set="entry.labelSet"></label-set>
 
                     <!-- note -->
                     <div class="note flex-co" v-if="entry.note">
@@ -341,12 +345,19 @@
                   <div class="title">
                     Use over time for: {{ dicDataItem.queryTerm }}
                   </div>
-                  <img
+                  <div
                     :style="{
                       height: `${dicDataItem.usageOverTimeImage.tablet.height / 2 }px`,
                       width: `${dicDataItem.usageOverTimeImage.tablet.width / 2 }px`,
+                      overflow: 'hidden',
                     }"
-                    :src="`https://www.gstatic.com/onebox/dictionary/${dicDataItem.usageOverTimeImage.tablet.url}`">
+                    class="usage-img-wrapper">
+                    <image-loader
+                      :height="dicDataItem.usageOverTimeImage.tablet.height"
+                      :width="dicDataItem.usageOverTimeImage.tablet.width"
+                      :url="`https://www.gstatic.com/onebox/dictionary/${dicDataItem.usageOverTimeImage.tablet.url}`">
+                    </image-loader>
+                  </div>
                 </div>
               </div>
             </div>

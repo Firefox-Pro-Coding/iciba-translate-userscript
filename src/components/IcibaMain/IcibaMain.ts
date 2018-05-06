@@ -139,7 +139,7 @@ export default class App extends Vue {
       // this insure that provider container is visible
       provider.translateCallback()
     }).catch((e) => {
-      this.errorMessage = e.message
+      this.errorMessage = `${provider.uniqName}: ${e.message}`
       this.loading = false
     })
   }

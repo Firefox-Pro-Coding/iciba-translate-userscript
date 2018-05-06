@@ -9,6 +9,7 @@ import thesaurus from './components/thesaurus/thesaurus.vue'
 import phonetics from './components/phonetics/phonetics.vue'
 import fragment from './components/fragment/fragment.vue'
 import etymology from './components/etymology/etymology.vue'
+import imageLoader from './components/imageLoader/imageLoader.vue'
 
 @Component({
   name: 'GoogleDictContainer',
@@ -18,6 +19,7 @@ import etymology from './components/etymology/etymology.vue'
     phonetics,
     fragment,
     etymology,
+    imageLoader,
   },
 })
 export default class App extends Vue {

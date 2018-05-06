@@ -88,9 +88,9 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       this.componentInstance.dictionaryData = data.dictionaryData
     } catch (e) {
       if (e.response && e.response.status === 500) {
-        return Promise.reject(new Error('输入不合法！'))
+        return Promise.reject(new Error('无查询结果！'))
       }
-      return Promise.reject(new Error('无查询结果！'))
+      return Promise.reject(new Error(`遇到错误: ${e.message}`))
     }
     return Promise.resolve()
   }
