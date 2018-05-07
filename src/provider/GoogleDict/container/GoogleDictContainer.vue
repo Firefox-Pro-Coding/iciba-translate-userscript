@@ -1,5 +1,7 @@
 <template>
-  <div class="google-dict-result-container no-matter-what-this-class-is reset" :class="{ 'has-scroll-bar': !noScrollBar }">
+  <div
+    class="google-dict-result-container no-matter-what-this-class-is reset"
+    :class="{ 'has-scroll-bar': !noScrollBar }">
     <div class="real-container flex-co">
       <div
         :class="{ moving: drag.start }"
@@ -37,7 +39,7 @@
                   </div>
 
                   <!-- phonetics -->
-                  <phonetics @play-audio="handlePlay" class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
+                  <phonetics class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
 
                   <!-- sense-family -->
                   <div class="sense-family-box flex-co" v-if="entry.senseFamilies && entry.senseFamilies.length">
@@ -64,7 +66,6 @@
                           <div class="sense-item-number">{{ index + 1 }}.</div>
                           <div class="definition-box">
                             <fragment
-                              @entry-click="handleEntryLinkClick"
                               class="sense-frag"
                               :fragment="sense.definition.fragments">
                             </fragment>
@@ -108,7 +109,7 @@
 
 
                     <!-- phonetics -->
-                    <phonetics @play-audio="handlePlay" class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
+                    <phonetics class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
 
                     <!-- labelSet -->
                     <label-set :label-set="entry.labelSet"></label-set>
@@ -135,7 +136,7 @@
                         </div>
 
                         <!-- phonetics -->
-                        <phonetics @play-audio="handlePlay" class="phonetics-box" :phonetics="senseFamilyItem.phonetics"></phonetics>
+                        <phonetics class="phonetics-box" :phonetics="senseFamilyItem.phonetics"></phonetics>
 
                         <!-- labelSet -->
                         <label-set :label-set="senseFamilyItem.labelSet"></label-set>
@@ -176,7 +177,6 @@
                                   </div>
 
                                   <fragment
-                                    @entry-click="handleEntryLinkClick"
                                     class="sense-frag"
                                     :fragment="sense.definition.fragments">
                                   </fragment>
@@ -209,10 +209,7 @@
                                 <example-groups :example-groups="sense.exampleGroups"></example-groups>
 
                                 <!-- thesaurus -->
-                                <thesaurus
-                                  @nym-click="handleNymClick"
-                                  :thesaurus-entries="sense.thesaurusEntries">
-                                </thesaurus>
+                                <thesaurus :thesaurus-entries="sense.thesaurusEntries"></thesaurus>
 
                                 <!-- subsense -->
                                 <div
@@ -229,13 +226,12 @@
                                       <!-- definition -->
                                       <div class="subsense-definition">
                                         <fragment
-                                          @entry-click="handleEntryLinkClick"
                                           class="subsense-frag"
                                           :fragment="subsense.definition.fragments">
                                         </fragment>
 
                                         <!-- etymology -->
-                                        <etymology @entry-click="handleEntryLinkClick" :etymology="subsense.etymology"></etymology>
+                                        <etymology :etymology="subsense.etymology"></etymology>
 
                                         <!-- domain class -->
                                         <template v-if="subsense.domainClasses && subsense.domainClasses.length">
@@ -264,17 +260,14 @@
                                       <example-groups :example-groups="subsense.exampleGroups"></example-groups>
 
                                       <!-- thesaurus -->
-                                      <thesaurus
-                                        @nym-click="handleNymClick"
-                                        :thesaurus-entries="subsense.thesaurusEntries">
-                                      </thesaurus>
+                                      <thesaurus :thesaurus-entries="subsense.thesaurusEntries"></thesaurus>
                                     </div>
                                   </div>
                                 </div>
                               </div>
 
                               <!-- etymology -->
-                              <etymology @entry-click="handleEntryLinkClick" :etymology="sense.etymology"></etymology>
+                              <etymology :etymology="sense.etymology"></etymology>
 
                               <!-- note -->
                               <!-- here could have note. but do not render at end of sense -->
@@ -285,7 +278,7 @@
                     </div>
 
                     <!-- etymology -->
-                    <etymology @entry-click="handleEntryLinkClick" :etymology="entry.etymology"></etymology>
+                    <etymology :etymology="entry.etymology"></etymology>
                   </div>
                 </div>
 

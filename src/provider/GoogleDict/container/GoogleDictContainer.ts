@@ -4,6 +4,9 @@ import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
 import getScrollBarWidth from '~/src/lib/scrollbar-width'
 import { IAudioCache } from '~/src/interfaces/index'
+import bus from '~/src/provider/GoogleDict/bus'
+
+
 import labelSet from './components/labelSet/labelSet.vue'
 import thesaurus from './components/thesaurus/thesaurus.vue'
 import phonetics from './components/phonetics/phonetics.vue'
@@ -65,6 +68,10 @@ export default class App extends Vue {
     this.container.addEventListener('mouseenter', this.scrollBarListener, false)
     window.addEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
     window.addEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
+
+    bus.on('play-audio', this.handlePlay)
+    bus.on('nym-click', this.handleNymClick)
+    bus.on('entry-click', this.handleEntryLinkClick)
   }
 
   public beforeDestroy() {
@@ -168,6 +175,10 @@ export default class App extends Vue {
 
   public handleEntryLinkClick(word: string) {
     console.log(word)
+  }
+
+  public handleCustomEvent() {
+    console.log('custom!')
   }
 
   private scrollBarListener() {

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
+import bus from '~/src/provider/GoogleDict/bus'
 
 @Component({
   name: 'GoogleDictContainerPhonetics',
@@ -9,6 +10,6 @@ export default class extends Vue {
   public phonetics: any
 
   public handlePlay(url: string): void {
-    this.$emit('play-audio', url)
+    bus.emit('play-audio', url)
   }
 }

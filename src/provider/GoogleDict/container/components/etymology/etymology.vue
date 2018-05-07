@@ -10,7 +10,6 @@
     </div>
     <div class="etymology-text">
       <fragment
-        @entry-click="handleEntryLinkClick"
         class="etymology-frag"
         :fragment="etymology.etymology.fragments">
       </fragment>

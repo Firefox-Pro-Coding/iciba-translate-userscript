@@ -13,8 +13,4 @@ import imageLoader from '../imageLoader/imageLoader.vue'
 export default class extends Vue {
   @Prop()
   public etymology: any
-
-  public handleEntryLinkClick(word: string) {
-    this.$emit('entry-click', word)
-  }
 }

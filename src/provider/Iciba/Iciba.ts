@@ -4,7 +4,6 @@ import icibaIcon from '~/src/assets/img/iciba/search.svg'
 import { got } from '~/src/lib/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
-
 import IcibaContainer from './container/IcibaContainer.vue'
 
 class IcibaTranslateProvider extends AbstractTranslateProvider {
