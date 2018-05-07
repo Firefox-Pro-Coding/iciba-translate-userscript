@@ -1,9 +1,10 @@
 <template>
-  <div class="google-dict-result-container no-matter-what-this-class-is reset">
-    <div class="real-container flex-co" :class="{ 'no-scroll-bar': noScrollBar }">
+  <div class="google-dict-result-container no-matter-what-this-class-is reset" :class="{ 'has-scroll-bar': !noScrollBar }">
+    <div class="real-container flex-co">
       <div
         :class="{ moving: drag.start }"
         class="scroll-bar-track"
+        v-if="!noScrollBar"
         ref="scroll-bar-track">
         <div
           class="scroll-bar-thumb"
@@ -32,7 +33,7 @@
                     <div class="headword-word">
                       {{ entry.syllabifiedHeadword || entry.headword }}
                     </div>
-                    <sup class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</sup>
+                    <div class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</div>
                   </div>
 
                   <!-- phonetics -->
@@ -102,7 +103,7 @@
                       <div class="headword-word">
                         {{ entry.syllabifiedHeadword || entry.headword }}
                       </div>
-                      <sup class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</sup>
+                      <div class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</div>
                     </div>
 
 
@@ -204,36 +205,8 @@
                                 </div>
 
 
-                                <!-- example sentense -->
-                                <div
-                                  class="example-group-box flex-co"
-                                  v-if="sense.exampleGroups && sense.exampleGroups.length">
-                                  <div
-                                    class="example-group-item flex-co"
-                                    v-for="(exampleGroupItem, index) in sense.exampleGroups"
-                                    :key="index">
-
-                                    <div class="example-label-box" v-if="exampleGroupItem.registers && exampleGroupItem.registers.length">
-                                      <div
-                                        class="example-label iciba-inline-block"
-                                        v-for="(label, index) in exampleGroupItem.registers"
-                                        :key="index">
-                                        {{ label }}
-                                      </div>
-                                    </div>
-
-                                    <div
-                                      class="example-box flex-co"
-                                      v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
-                                      <div
-                                        class="example-item"
-                                        v-html="example"
-                                        v-for="(example, index) in exampleGroupItem.examples"
-                                        :key="index">
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
+                                <!-- example groups -->
+                                <example-groups :example-groups="sense.exampleGroups"></example-groups>
 
                                 <!-- thesaurus -->
                                 <thesaurus
@@ -261,6 +234,9 @@
                                           :fragment="subsense.definition.fragments">
                                         </fragment>
 
+                                        <!-- etymology -->
+                                        <etymology @entry-click="handleEntryLinkClick" :etymology="subsense.etymology"></etymology>
+
                                         <!-- domain class -->
                                         <template v-if="subsense.domainClasses && subsense.domainClasses.length">
                                           <div
@@ -284,26 +260,8 @@
                                         </template>
                                       </div>
 
-                                      <!-- example sentense -->
-                                      <div
-                                        class="example-group-box flex-co"
-                                        v-if="subsense.exampleGroups && subsense.exampleGroups.length">
-                                        <div
-                                          class="example-group-item flex-co"
-                                          v-for="(exampleGroupItem, index) in subsense.exampleGroups"
-                                          :key="index">
-                                          <div
-                                            class="example-box flex-co"
-                                            v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
-                                            <div
-                                              class="example-item"
-                                              v-html="example"
-                                              v-for="(example, index) in exampleGroupItem.examples"
-                                              :key="index">
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
+                                      <!-- example groups -->
+                                      <example-groups :example-groups="subsense.exampleGroups"></example-groups>
 
                                       <!-- thesaurus -->
                                       <thesaurus
@@ -315,20 +273,11 @@
                                 </div>
                               </div>
 
-                              <!-- etymology fragment -->
-                              <!-- do not renderer etymology here -->
-                              <div
-                                v-if="sense.etymology && sense.etymology.etymology"
-                                class="sense-etymology">
-                                <fragment
-                                  @entry-click="handleEntryLinkClick"
-                                  class="sense-frag"
-                                  :fragment="sense.etymology.etymology.fragments">
-                                </fragment>
-                              </div>
+                              <!-- etymology -->
+                              <etymology @entry-click="handleEntryLinkClick" :etymology="sense.etymology"></etymology>
 
                               <!-- note -->
-                              <!-- here could have note. but do not render -->
+                              <!-- here could have note. but do not render at end of sense -->
                             </div>
                           </div>
                         </div>

@@ -37,23 +37,23 @@
     cursor: pointer;
   }
 
-  .real-container {
-    position: relative;
-    overflow: hidden;
+  &.has-scroll-bar {
+    padding-right: 4px;
 
-    &.no-scroll-bar {
-      .scroll-bar-track {
-        display: none;
-      }
-
+    .real-container {
       .scroll-content {
-        padding-right: 0;
+        padding-right: 10px;
 
         .expand-button {
-          right: 0;
+          right: 8px;
         }
       }
     }
+  }
+
+  .real-container {
+    position: relative;
+    overflow: hidden;
 
     .scroll-bar-track {
       position: absolute;
@@ -88,12 +88,12 @@
     .scroll-content {
       position: relative;
       overflow-y: scroll;
-      padding-right: 10px;
+      padding-right: 0;
 
       .expand-button {
         position: absolute;
         top: 0;
-        right: 8px;
+        right: 0;
         height: 24px;
         width: 24px;
         background: url('~assets/img/expand_128456.svg');
@@ -135,9 +135,11 @@
         .headword {
           font-size: 20px;
           line-height: 1.5;
+          align-items: flex-start;
 
           .headword-graph-index {
             font-size: 12px;
+            margin: 0 0 0 2px;
           }
         }
 
@@ -257,7 +259,7 @@
       margin: 0 auto;
       overflow-y: auto;
       background: white;
-      padding: 20px;
+      padding: 20px 20px 30px 20px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.75);
       transition: 0.3s ease transform;
 
@@ -364,30 +366,6 @@
                     }
                   }
 
-                  .definition-box {
-                    .example-group-box {
-                      .example-group-item {
-                        .example-label-box {
-                          .example-label {
-                            .label-type-light();
-
-                            padding: 1px 4px;
-                          }
-                        }
-
-                        .example-box {
-                          .example-item {
-                            color: @main-level-4;
-
-                            &::before, &::after {
-                              content: '"';
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-
                   .subsense-box {
                     margin: 2px 0 0 0;
 
@@ -435,9 +413,12 @@
           margin: 12px 0 0 0;
         }
 
-        img {
+        .usage-img-wrapper {
           margin: 8px 0 0 0;
-          max-width: 100%;
+
+          img {
+            max-width: 100%;
+          }
         }
       }
     }

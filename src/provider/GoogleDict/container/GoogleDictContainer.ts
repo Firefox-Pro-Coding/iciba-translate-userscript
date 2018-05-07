@@ -10,6 +10,7 @@ import phonetics from './components/phonetics/phonetics.vue'
 import fragment from './components/fragment/fragment.vue'
 import etymology from './components/etymology/etymology.vue'
 import imageLoader from './components/imageLoader/imageLoader.vue'
+import exampleGroups from './components/exampleGroups/exampleGroups.vue'
 
 @Component({
   name: 'GoogleDictContainer',
@@ -20,6 +21,7 @@ import imageLoader from './components/imageLoader/imageLoader.vue'
     fragment,
     etymology,
     imageLoader,
+    exampleGroups,
   },
 })
 export default class App extends Vue {
@@ -95,13 +97,13 @@ export default class App extends Vue {
         clientHeight,
       } = this.container
 
-      const avaliableScrollSpace = scrollHeight - clientHeight
-      const moveDelta = e.clientY - this.drag.startY
-      const moveDeltaPercentage = moveDelta / avaliableScrollSpace
+      const scrollSpacePixel = scrollHeight - clientHeight
+      const mouseMovePixel = e.clientY - this.drag.startY
+      const moveDeltaPercentage = mouseMovePixel / clientHeight
       const scrollDelta = scrollHeight * moveDeltaPercentage
       let destScrollTop = this.drag.startScrollTop + scrollDelta
-      if (destScrollTop > avaliableScrollSpace) {
-        destScrollTop = avaliableScrollSpace
+      if (destScrollTop > scrollSpacePixel) {
+        destScrollTop = scrollSpacePixel
       }
       if (destScrollTop < 0) {
         destScrollTop = 0
