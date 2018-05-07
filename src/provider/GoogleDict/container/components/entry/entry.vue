@@ -72,7 +72,7 @@
                     <div class="iciba-inline sense-definition-frag" v-for="(frag, index) in sense.definition.fragments" :key="index">
                       <a
                         v-if="frag.isEntryLink"
-                        class="searchable-word"
+                        class="entry-link"
                         @click="handleEntryLinkClick(frag.text)"
                         v-html="frag.text"></a>
                       <div class="iciba-inline" v-else v-html="frag.text"></div>
@@ -184,3 +184,7 @@
     <etymology :etymology="entry.etymology"></etymology>
   </div>
 </template>
+
+<script lang="ts" src="./entry.ts"></script>
+
+<style lang="less" src="./entry.less" scoped></style>

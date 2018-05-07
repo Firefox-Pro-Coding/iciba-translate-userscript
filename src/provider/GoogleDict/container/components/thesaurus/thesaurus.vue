@@ -28,10 +28,14 @@
             <div
               v-for="(nym, index) in thesaurusItem.nyms"
               class="nym-item iciba-inline"
-              :class="{ 'has-entry': nym.numEntries, 'is-core': nym.isCore }"
-              @click="handleNymClick(nym)"
+              :class="{ 'is-core': nym.isCore }"
+              @click="handleNymClick(nym.nym)"
               :key="index">
-              <div class="nym-content iciba-inline">{{ nym.nym }}</div>
+              <div
+                :class="{ 'entry-link': nym.numEntries }"
+                class="nym-content iciba-inline">
+                {{ nym.nym }}
+              </div>
               <div
                 v-if="index !== thesaurusItem.nyms.length - 1"
                 class="nym-split iciba-inline">,</div>

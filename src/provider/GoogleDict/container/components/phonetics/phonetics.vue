@@ -17,7 +17,7 @@
 
 <script lang="ts" src="./phonetics.ts"></script>
 
-<style media="screen" lang="less">
+<style lang="less" scoped>
   @import '~assets/styles/variables.less';
   @import '~assets/styles/hardreset.less';
 

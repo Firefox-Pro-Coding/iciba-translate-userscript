@@ -3,9 +3,10 @@
     <div class="iciba-inline etymology-frag" v-for="(frag, index) in fragment" :key="index">
       <a
         v-if="frag.isEntryLink"
-        class="searchable-word"
+        class="entry-link"
         @click="handleEntryLinkClick(frag.text)"
-        v-html="frag.text"></a>
+        v-html="frag.text">
+      </a>
       <div class="iciba-inline" v-else v-html="frag.text"></div>
     </div>
   </div>

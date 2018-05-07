@@ -14,6 +14,7 @@ import fragment from './components/fragment/fragment.vue'
 import etymology from './components/etymology/etymology.vue'
 import imageLoader from './components/imageLoader/imageLoader.vue'
 import exampleGroups from './components/exampleGroups/exampleGroups.vue'
+import entry from './components/entry/entry.vue'
 
 @Component({
   name: 'GoogleDictContainer',
@@ -25,6 +26,7 @@ import exampleGroups from './components/exampleGroups/exampleGroups.vue'
     etymology,
     imageLoader,
     exampleGroups,
+    entry,
   },
 })
 export default class App extends Vue {
