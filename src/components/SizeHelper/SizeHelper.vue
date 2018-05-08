@@ -13,9 +13,10 @@
 
   .iciba-size-helper {
     .hard-reset();
-  }
-  div.iciba-size-helper {
+
     position: fixed;
+    top: auto;
+    left: auto;
     right: 0;
     bottom: 0;
     height: 0;
