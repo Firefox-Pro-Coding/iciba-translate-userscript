@@ -1,6 +1,6 @@
-<template>
+<template lang="icibahtml">
   <div class="fragment-box iciba-inline" v-if="fragment && fragment.length">
-    <div class="iciba-inline etymology-frag" v-for="(frag, index) in fragment" :key="index">
+    <div class="iciba-inline fragment-item" v-for="(frag, index) in fragment" :key="index">
       <a
         v-if="frag.isEntryLink"
         class="entry-link"

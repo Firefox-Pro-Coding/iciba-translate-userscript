@@ -1,10 +1,10 @@
-<template>
+<template lang="icibahtml">
   <!-- thesaurus -->
   <div
-    class="thesaurus-container flex-co"
+    class="thesaurus-container flex-co flex-stretch"
     v-if="thesaurusEntries && thesaurusEntries.length">
     <div
-      class="thesaurus-entry-item flex-co"
+      class="thesaurus-entry-item flex-co flex-stretch"
       v-for="(thesaurus, index) in thesaurusEntries"
       :key="index">
       <!-- synonyms antonyms -->
@@ -13,8 +13,8 @@
         v-for="type in ['synonyms', 'antonyms']"
         :key="type"
         v-if="thesaurus[type] && thesaurus[type].length">
-        <div class="title">{{ type }}:</div>
-        <div class="thesaurus-word-box flex-co" :class="[`${type}-box`]">
+        <div class="thesaurus-item-title">{{ type }}:</div>
+        <div class="thesaurus-word-box flex-co flex-stretch" :class="[`${type}-box`]">
           <div
             class="thesaurus-word-item"
             :class="[`${type}-item`]"
@@ -47,13 +47,17 @@
 
       <!-- examples -->
       <div
-        class="example-box flex-co"
+        class="example-box flex-co flex-stretch"
         v-if="thesaurus.examples && thesaurus.examples.length">
         <div
-          class="example-item"
-          v-html="`${addQoute(example)}`"
+          class="example-item flex"
           v-for="(example, index) in thesaurus.examples"
           :key="index">
+          <div class="example-padding-text">
+            <!-- placeholder only -->
+            synonyms:
+          </div>
+          <div class="example-text" v-html="`${addQoute(example)}`"></div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-<template>
+<template lang="icibahtml">
   <div class="iciba-size-helper"></div>
 </template>
 

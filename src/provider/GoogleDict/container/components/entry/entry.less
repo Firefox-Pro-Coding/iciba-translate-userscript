@@ -1,29 +1,16 @@
 @import '~assets/styles/variables.less';
 @import '~assets/styles/hardreset.less';
 
-.label-type-main () {
-  background: #5BA6E6;
-  color: white;
-}
-
-.label-type-light() {
-  background: @background-level-5;
-  color: @main-level-5;
-}
-
-.label-type-pink() {
-  background: #F9DCDC;
-  color: @main-level-3;
-}
-
 .entry-item {
   .headword {
-    font-size: 28px;
-    line-height: 1.5;
-    align-items: flex-start;
+    .headword-word {
+      font-size: 28px;
+      line-height: 1.5;
+      align-items: flex-start;
+    }
 
     .headword-graph-index {
-      font-size: 12px;
+      font-size: 14px;
       margin: 0 0 0 2px;
     }
   }
@@ -34,18 +21,15 @@
     }
   }
 
-  .note {
+  .entry-label-set-box {
+    margin: 5px 0 3px 0;
+  }
+
+  .dict-note {
     margin: 10px 0;
 
     .note-type-box {
       margin: 0 0 3px 0;
-
-      .note-type-label {
-        .label-type-main();
-
-        flex: 0 0 auto;
-        padding: 2px 6px;
-      }
     }
 
     .note-text {
@@ -76,18 +60,20 @@
         color: @main-level-5;
 
         .morph-units-item {
+          font-size: 0;
+
+          * {
+            font-size: 14px;
+          }
 
           .morph-units-word-form {
             color: @main-level-4-5;
             font-weight: bold;
           }
 
-          &:not(:last-child) {
-            padding: 0 3px 0 0;
-
-            &::after {
-              content: ';';
-            }
+          .morph-units-description,
+          .morph-units-split {
+            margin: 0 4px 0 0;
           }
         }
       }
@@ -112,23 +98,15 @@
 
             .definition-box {
               flex: 1 1 auto;
-            }
 
-            .sense-label {
-              font-size: 12px;
-              padding: 1px 4px;
-              margin: 0 0 0 3px;
+              .difinition {
+                .sense-labels {
+                  font-size: 0;
 
-              span:not(:last-child) {
-                margin: 0 5px 0 0;
-              }
-
-              &.domain-label {
-                .label-type-light();
-              }
-
-              &.semantic-label {
-                .label-type-pink();
+                  .sense-difinition-label-box:not(:last-child) {
+                    margin-right: 5px;
+                  }
+                }
               }
             }
           }
@@ -137,27 +115,26 @@
             margin: 2px 0 0 0;
 
             .subsense-item {
-              margin: 2px 0 0 20px;
-              display: list-item;
+              margin: 2px 0 0 0;
+              display: flex;
 
-              .subsense-definition {
-                align-items: center;
+              .subsense-number {
+                flex: 0 0 32px;
+                color: @main-level-4;
+                line-height: 21px;
+                font-family: 'consolas', monospace;
+              }
 
-                .subsense-label {
-                  font-size: 12px;
-                  padding: 1px 4px;
-                  margin: 0 0 0 3px;
+              .subsense-item-container {
+                flex: 1 1 auto;
 
-                  span:not(:last-child) {
-                    margin: 0 5px 0 0;
-                  }
+                .subsense-definition {
+                  .subsense-labels {
+                    font-size: 0;
 
-                  &.domain-label {
-                    .label-type-light();
-                  }
-
-                  &.semantic-label {
-                    .label-type-pink();
+                    .subsense-label-box:not(:last-child) {
+                      margin-right: 5px;
+                    }
                   }
                 }
               }

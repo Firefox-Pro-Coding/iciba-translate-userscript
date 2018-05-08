@@ -1,20 +1,23 @@
-<template>
+<template lang="icibahtml">
   <!-- example group -->
   <div
-    class="example-group-box flex-co"
+    class="example-group-box flex-co flex-stretch"
     v-if="exampleGroups && exampleGroups.length">
     <div
-      class="example-group-item flex-co"
+      class="example-group-item flex-co flex-stretch"
       v-for="(exampleGroupItem, index) in exampleGroups"
       :key="index">
       <div
-        class="example-item-box flex-co"
+        class="example-item-box flex-co flex-stretch"
         v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
         <!-- labels -->
         <div
           class="example-registers-box"
           v-if="exampleGroupItem.registers && exampleGroupItem.registers.length">
-          <labels :labels="exampleGroupItem.registers"></labels>
+          <labels
+            color="registers"
+            :labels="exampleGroupItem.registers">
+          </labels>
         </div>
         <div
           class="example-item"
@@ -35,7 +38,6 @@
 
   .example-group-box {
     .example-group-item {
-
       .example-item-box {
         .example-item {
           color: @main-level-4;

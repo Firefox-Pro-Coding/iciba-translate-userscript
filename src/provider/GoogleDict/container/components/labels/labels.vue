@@ -1,10 +1,12 @@
-<template>
+<template lang="icibahtml">
   <div
     class="iciba-google-dict-label-box iciba-inline"
+    :class="[colorClass, sizeClass]"
     v-if="labels && labels.length">
     <div
-      :class="[labelClass, 'iciba-label', 'iciba-inline']"
+      :class="[labelClass, 'iciba-label', 'iciba-inline-block']"
       v-for="(label, index) in labels"
+      :title="type"
       :key="index">
       {{ label }}
     </div>
@@ -13,22 +15,4 @@
 
 <script lang="ts" src="./labels.ts"></script>
 
-<style lang="less" scoped>
-  @import '~assets/styles/variables.less';
-  @import '~assets/styles/hardreset.less';
-
-  .iciba-google-dict-label-box {
-    font-size: 0;
-
-    .iciba-label {
-      font-size: 12px;
-      background: @background-level-4;
-      color: @main-level-4;
-      padding: 1px 4px;
-
-      &:not(:last-child) {
-        margin-right: 5px;
-      }
-    }
-  }
-</style>
+<style lang="less" src="./labels.less" scoped></style>

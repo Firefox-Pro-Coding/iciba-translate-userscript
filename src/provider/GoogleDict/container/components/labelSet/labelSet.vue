@@ -1,12 +1,14 @@
-<template>
+<template lang="icibahtml">
   <div
-    class="label-set-box"
+    class="label-set-box iciba-inline"
     v-if="isValid">
     <labels
+      :size="size"
       class="inner-label-box"
       v-for="key in Object.keys(labelSet)"
       :labels="labelSet[key]"
       :type="key"
+      :color="color || key"
       :key="key">
     </labels>
   </div>

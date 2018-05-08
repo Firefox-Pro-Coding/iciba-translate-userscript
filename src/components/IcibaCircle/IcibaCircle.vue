@@ -1,4 +1,4 @@
-<template>
+<template lang="icibahtml">
   <div
     v-show="visible"
     :style="internalStyle"

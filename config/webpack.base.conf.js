@@ -25,6 +25,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.icibahtml$/,
+        loaders: [
+          path.join(__dirname, '../utils/icibahtml-loader.js'),
+        ],
+      },
+      {
         test: /\.ts$/,
         loaders: [
           'babel-loader',

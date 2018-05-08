@@ -1,13 +1,26 @@
 @import './variables.less';
 
 // *, *:hover, *:active, *:focus {
+.hard-reset-internal() {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-weight: normal;
+  text-align: left;
+
+  // non inheritable
+  width: initial;
+  max-width: initial;
+  min-width: initial;
+  text-decoration: none;
+}
+
 .hard-reset() {
-  &, &:hover, &:active, &:focus {
-    all: unset;
-    box-sizing: border-box;
-    font-weight: normal;
-    text-align: left;
-  }
+  .hard-reset-internal();
+  // &:hover { .hard-reset-internal(); }
+  // &:active { .hard-reset-internal(); }
+  // &:focus { .hard-reset-internal(); }
 }
 
 .container-reset() {

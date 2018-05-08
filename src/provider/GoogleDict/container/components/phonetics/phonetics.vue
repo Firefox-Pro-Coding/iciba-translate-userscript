@@ -1,6 +1,6 @@
-<template>
+<template lang="icibahtml">
   <!-- phonetics -->
-  <div class="phonetics-box flex" v-if="phonetics && phonetics.length">
+  <div class="phonetics-component-box flex" v-if="phonetics && phonetics.length">
     <div class="phonetics flex">
       {{ `${phonetics.map(v => `/${v.text}/`).join(' ')}` }}
     </div>
@@ -21,8 +21,7 @@
   @import '~assets/styles/variables.less';
   @import '~assets/styles/hardreset.less';
 
-  .phonetics-box {
-    margin: 0 0 5px 0;
+  .phonetics-component-box {
     height: 20px;
     line-height: 20px;
     align-items: center;

@@ -1,11 +1,12 @@
 import Vue from 'vue'
 
-// tslint:disable-next-line no-import-side-effect
-import '~/src/assets/styles/global.less'
-
 import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
 import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
 import SizeHelper from '~/src/components/SizeHelper/SizeHelper.vue'
+
+Vue.config.ignoredElements = [
+  'iciba-div',
+]
 
 const icibaMain = new IcibaMain({ el: document.createElement('div') })
 const icibaCircle = new IcibaCircle({ el: document.createElement('div') })

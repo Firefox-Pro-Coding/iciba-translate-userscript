@@ -12,6 +12,12 @@ export default class extends Vue {
   @Prop()
   public labelSet: any
 
+  @Prop({ default: 'medium' })
+  public size!: string
+
+  @Prop({ default: null })
+  public color!: string
+
   public get isValid() {
     const l = this.labelSet
 

@@ -1,0 +1,53 @@
+@import '~assets/styles/variables.less';
+@import '~assets/styles/hardreset.less';
+
+.entry-item {
+  .headword {
+    .headword-word {
+      font-size: 16px;
+      line-height: 1.5;
+      align-items: flex-start;
+    }
+    .headword-graph-index {
+      font-size: 12px;
+      margin: 0 0 0 2px;
+    }
+  }
+
+  .phonetics-box {
+    margin: 0 0 2px 0;
+  }
+
+  .sense-family-box {
+    .sense-family-item {
+      & + .sense-family-item {
+        margin: 6px 0 0 0;
+      }
+
+      .poss {
+        font-style: italic;
+
+        .pos + .pos {
+          margin: 0 0 0 5px;
+        }
+      }
+
+      .sense-list {
+        margin: 2px 0 0 0;
+
+        .sense-item {
+          .sense-item-number {
+            flex: 0 0 30px;
+            text-align: right;
+            padding: 0 8px 0 0;
+            font-weight: bold;
+          }
+
+          .definition-box {
+            flex: 1 1 auto;
+          }
+        }
+      }
+    }
+  }
+}

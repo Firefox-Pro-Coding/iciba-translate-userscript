@@ -15,7 +15,7 @@
   flex-flow: column nowrap;
   max-height: 400px;
   position: relative;
-  font-family: 'Noto Sans', 'Arial', sans-serif;
+  font-family: 'Arial', 'Microsoft Yahei', sans-serif;
 
   /deep/ .entry-link {
     color: @primary;
@@ -105,61 +105,14 @@
 
     .entry-box {
       .entry-item {
+        &:first-child {
+          margin-top: -2px;
+        }
+
         & + .entry-item {
           border-top: 1px solid @border-level-1;
           margin: 10px 0 0 0;
           padding: 4px 0 0 0;
-        }
-
-        &:first-child {
-          .headword {
-            margin-top: -3px;
-          }
-        }
-
-        .headword {
-          font-size: 20px;
-          line-height: 1.5;
-          align-items: flex-start;
-
-          .headword-graph-index {
-            font-size: 12px;
-            margin: 0 0 0 2px;
-          }
-        }
-
-        .sense-family-box {
-          .sense-family-item {
-            & + .sense-family-item {
-              margin: 6px 0 0 0;
-            }
-
-            .poss {
-              margin: 0 0 3px 0;
-              font-style: italic;
-
-              .pos + .pos {
-                margin: 0 0 0 5px;
-              }
-            }
-
-            .sense-list {
-              margin: 2px 0 0 0;
-
-              .sense-item {
-                .sense-item-number {
-                  flex: 0 0 30px;
-                  text-align: right;
-                  padding: 0 8px 0 0;
-                  font-weight: bold;
-                }
-
-                .definition-box {
-                  flex: 1 1 auto;
-                }
-              }
-            }
-          }
         }
       }
     }

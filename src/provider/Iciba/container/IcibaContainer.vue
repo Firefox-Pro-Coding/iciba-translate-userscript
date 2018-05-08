@@ -1,12 +1,12 @@
-<template>
+<template lang="icibahtml">
   <div class="iciba-result-container no-matter-what-this-class-is reset">
     <!-- symbols -->
     <div
-      class="symbols-box flex-co"
+      class="symbols-box flex-co flex-stretch"
       v-if="data.baseInfo && data.baseInfo.symbols && data.baseInfo.symbols.length">
-      <div class="symbol-item flex-co" v-for="(symbomItem, index) in data.baseInfo.symbols" :key="index">
+      <div class="symbol-item flex-co flex-stretch" v-for="(symbomItem, index) in data.baseInfo.symbols" :key="index">
         <!-- pronunciation -->
-        <div class="pronunciation-box flex-co">
+        <div class="pronunciation-box flex-co flex-stretch">
           <!-- en -->
           <div class="pronunciation-item pron-en flex" v-if="symbomItem.ph_en_mp3">
             <div class="ipa-type-name">英</div>
@@ -37,7 +37,7 @@
 
         <!-- meaning -->
         <div
-          class="part-box flex-co"
+          class="part-box flex-co flex-stretch"
           :class="{ 'no-margin-top': !symbomItem.ph_en_mp3 && !symbomItem.ph_am_mp3 && !symbomItem.ph_tts_mp3 }"
           v-if="symbomItem.parts.length">
           <div class="part-item flex" v-for="(partItem, index) in symbomItem.parts" :key="index">
@@ -60,7 +60,7 @@
     </div>
 
     <!-- translation -->
-    <div class="translation-box flex-co" v-if="data.baseInfo && data.baseInfo.translate_type === 2 && data.baseInfo.translate_result">
+    <div class="translation-box flex-co flex-stretch" v-if="data.baseInfo && data.baseInfo.translate_type === 2 && data.baseInfo.translate_result">
       <div class="translate-content">
         {{ data.baseInfo.translate_result }}
       </div>
@@ -70,7 +70,7 @@
     </div>
 
     <!-- suggest -->
-    <div class="suggest-box flex-co" v-if="data.baseInfo && data.baseInfo.translate_type === 3">
+    <div class="suggest-box flex-co flex-stretch" v-if="data.baseInfo && data.baseInfo.translate_type === 3">
       {{ data.baseInfo.suggest.map(v => v.key).join('; ') }}
     </div>
   </div>

@@ -43,15 +43,16 @@
 
 .flex {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: row;
 }
 
 .flex-co {
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.flex-stretch {
   align-items: stretch;
 }
 

@@ -1,0 +1,72 @@
+@import '~assets/styles/variables.less';
+@import '~assets/styles/hardreset.less';
+
+.iciba-google-dict-label-box {
+  // size
+  &.iciba-label-size-small .iciba-label {
+    font-size: 12px;
+    padding: 1px 4px;
+  }
+
+  &.iciba-label-size-medium .iciba-label {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+
+  &.iciba-label-size-large .iciba-label {
+    font-size: 14px;
+    padding: 3px 8px;
+  }
+
+  // color
+  &.iciba-label-color-main .iciba-label {
+    background: hsl(206, 50%, 60%);
+    color: white;
+  }
+
+  &.iciba-label-color-plain .iciba-label {
+    background: @background-level-4;
+    color: @main-level-3-5;
+  }
+
+  &.iciba-label-color-light .iciba-label {
+    background: @background-level-5;
+    color: @main-level-4-5;
+  }
+
+  &.iciba-label-color-lightpink .iciba-label {
+    background: #FBE0E0;
+    color: @main-level-3-5;
+  }
+
+  &.iciba-label-color-lightblue .iciba-label {
+    background: #D7EAF9;
+    color: @main-level-3-5;
+  }
+
+  &.iciba-label-color-geographics .iciba-label {
+    background: #DDF7BA;
+    color: @main-level-3-5;
+    text-transform: uppercase;
+  }
+
+  &.iciba-label-color-registers .iciba-label {
+    background: @background-level-4;
+    color: @main-level-3-5;
+    text-transform: uppercase;
+  }
+
+  &.iciba-label-color-subjects .iciba-label {
+    background: #F2E0FA;
+    color: @main-level-3-5;
+    text-transform: uppercase;
+  }
+
+  .iciba-label {
+    line-height: 1.5;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+}

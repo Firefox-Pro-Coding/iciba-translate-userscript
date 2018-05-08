@@ -1,8 +1,8 @@
-<template>
+<template lang="icibahtml">
   <div
     class="google-dict-result-container no-matter-what-this-class-is reset"
     :class="{ 'has-scroll-bar': !noScrollBar }">
-    <div class="real-container flex-co">
+    <div class="real-container flex-co flex-stretch">
       <div
         :class="{ moving: drag.start }"
         class="scroll-bar-track"
@@ -20,13 +20,23 @@
         <div class="expand-button" title="展开" @click="handleOpenModal"></div>
         <!-- simple result -->
         <div class="content-box">
-          <div class="dictionary-data-box flex-co" v-if="dictionaryData && dictionaryData.length">
+          <div class="dictionary-data-box flex-co flex-stretch" v-if="dictionaryData && dictionaryData.length">
             <div class="dictionary-data-item" v-for="(dicDataItem, index) in dictionaryData" :key="index">
 
               <!-- entry -->
-              <div class="entry-box flex-co" v-if="dicDataItem.entries && dicDataItem.entries.length">
+              <div class="entry-box flex-co flex-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length">
+                <simple-entry
+                  class="entry-item"
+                  :entry="entry"
+                  v-for="(entry, index) in dicDataItem.entries"
+                  :key="index">
+                </simple-entry>
+              </div>
+
+              <!-- <div class="entry-box flex-co flex-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length"> -->
+              <div class="entry-box flex-co flex-stretch" v-if="false">
                 <div
-                  class="entry-item flex-co"
+                  class="entry-item flex-co flex-stretch"
                   v-for="(entry, index) in dicDataItem.entries"
                   :key="index">
 
@@ -42,9 +52,9 @@
                   <phonetics class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
 
                   <!-- sense-family -->
-                  <div class="sense-family-box flex-co" v-if="entry.senseFamilies && entry.senseFamilies.length">
+                  <div class="sense-family-box flex-co flex-stretch" v-if="entry.senseFamilies && entry.senseFamilies.length">
                     <div
-                      class="sense-family-item flex-co"
+                      class="sense-family-item flex-co flex-stretch"
                       v-for="(senseFamilyItem, index) in entry.senseFamilies"
                       :key="index">
                       <div
@@ -56,7 +66,7 @@
                       </div>
 
                       <!-- sense-list -->
-                      <div class="sense-list flex-co" v-if="senseFamilyItem.senses && senseFamilyItem.senses.length">
+                      <div class="sense-list flex-co flex-stretch" v-if="senseFamilyItem.senses && senseFamilyItem.senses.length">
                         <div
                           class="sense-item flex"
                           :class="{ collapsable: index !== 0 }"
@@ -89,12 +99,12 @@
           <div class="google-dict-modal-content content-box">
 
             <!-- TODO: Maybe render subentries, e.g. for "pan out". -->
-            <div class="dictionary-data-box flex-co" v-if="dictionaryData && dictionaryData.length">
+            <div class="dictionary-data-box flex-co flex-stretch" v-if="dictionaryData && dictionaryData.length">
               <div class="dictionary-data-item" v-for="(dicDataItem, index) in dictionaryData" :key="index">
 
                 <!-- entry -->
-                <!-- <div class="entry-box flex-co" v-if="false"> -->
-                <div class="entry-box flex-co" v-if="dicDataItem.entries && dicDataItem.entries.length">
+                <!-- <div class="entry-box flex-co flex-stretch" v-if="false"> -->
+                <div class="entry-box flex-co flex-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length">
                   <entry
                     class="entry-item"
                     v-for="(entry, index) in dicDataItem.entries"
@@ -104,7 +114,7 @@
                 </div>
 
                 <!-- usage over time -->
-                <div class="usage-overtime flex-co" v-if="dicDataItem.usageOverTimeImage">
+                <div class="usage-overtime flex-co flex-stretch" v-if="dicDataItem.usageOverTimeImage">
                   <div class="title">
                     Use over time for: {{ dicDataItem.queryTerm }}
                   </div>
@@ -143,5 +153,6 @@
 </template>
 
 <script lang="ts" src="./GoogleDictContainer.ts"></script>
-
+<style media="screen">
+</style>
 <style lang="less" src="./GoogleDictContainer.less" scoped></style>

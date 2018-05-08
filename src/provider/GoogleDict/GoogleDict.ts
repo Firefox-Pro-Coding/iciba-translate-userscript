@@ -44,14 +44,38 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       this.componentInstance.dictionaryData = null
       this.componentInstance.modalVisible = false
     }
+
+    let data: any = this.fetchData(word, 'uk')
+      .catch(() => this.fetchData(word, 'us').catch((e) => e))
+    data = await data
+    if (data instanceof Error) {
+      return Promise.reject(data)
+    }
+
+    const copy = JSON.parse(JSON.stringify(data))
+    check(copy)
+
+    if (this.componentInstance === null) {
+      return Promise.reject(new Error('查询结果挂载失败！'))
+    }
+    this.componentInstance.modalVisible = false
+    this.componentInstance.dictionaryData = data.dictionaryData
+
+    return Promise.resolve()
+  }
+
+  private async fetchData(word: string, lang: string = 'uk') {
     const apiUrlBase = 'https://content.googleapis.com/dictionaryextension/v1/knowledge/search?'
     const query = {
       term: word,
       language: 'en',
-      corpus: 'en-US',
-      country: 'US',
-      // corpus: 'en',
-      // country: 'UK',
+      ...(lang === 'uk' ? {
+        corpus: 'en',
+        country: 'UK',
+      } : {
+        corpus: 'en-US',
+        country: 'US',
+      }),
       // this key is hard coded in background.min.js
       // https://chrome.google.com/webstore/detail/google-dictionary-by-goog/mgijmajocgfcbeboacabfgobmjgjcoja
       key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',
@@ -77,22 +101,16 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         timeout: 10000,
       })
       const data = JSON.parse(response.responseText)
-      const copy = JSON.parse(response.responseText)
-
-      check(copy)
-
-      if (this.componentInstance === null) {
-        return Promise.reject(new Error('查询结果挂载失败！'))
+      if (Reflect.ownKeys(data).length === 0) {
+        return Promise.reject(new Error('无查询结果！'))
       }
-      this.componentInstance.modalVisible = false
-      this.componentInstance.dictionaryData = data.dictionaryData
+      return data
     } catch (e) {
       if (e.response && e.response.status === 500) {
         return Promise.reject(new Error('无查询结果！'))
       }
       return Promise.reject(new Error(`遇到错误: ${e.message}`))
     }
-    return Promise.resolve()
   }
 }
 
