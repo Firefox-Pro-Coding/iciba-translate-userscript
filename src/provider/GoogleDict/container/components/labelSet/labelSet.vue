@@ -18,7 +18,6 @@
 
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
-  @import '~assets/styles/hardreset.less';
 
   .label-set-box {
     font-size: 0;

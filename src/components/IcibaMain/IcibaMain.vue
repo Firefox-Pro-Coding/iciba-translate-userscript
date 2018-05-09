@@ -9,6 +9,7 @@
           <div class="iciba-input-box flex">
             <input
               class="iciba-search-input"
+              size="1"
               type="text"
               @keypress.13="handleInputSearch"
               v-model="inputText" />

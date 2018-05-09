@@ -11,6 +11,8 @@ baseWebpackConfig.module.rules.forEach((rule) => {
   }
 })
 
+baseWebpackConfig.entry.index.push('./src/devClient.ts')
+
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
   devtool: '#inline-source-map',

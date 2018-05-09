@@ -1,11 +1,11 @@
 import Vue from 'vue'
 
-/* eslint-disable camelcase */
-import type_1_translate_281759 from '~/src/assets/img/googleTranslate/type_1_translate_281759.svg'
-import type_2_translate_281776 from '~/src/assets/img/googleTranslate/type_2_translate_281776.svg'
-import type_2_translate_324121 from '~/src/assets/img/googleTranslate/type_2_translate_324121.svg'
-import type_3_google_814137 from '~/src/assets/img/googleTranslate/type_3_google_814137.svg'
-/* eslint-enable camelcase */
+/* eslint-disable camelcase, max-len */
+import type_1_translate_281759 from '~/src/assets/img/providerIcon/googleTranslate/type_1_translate_281759.svg'
+import type_2_translate_281776 from '~/src/assets/img/providerIcon/googleTranslate/type_2_translate_281776.svg'
+import type_2_translate_324121 from '~/src/assets/img/providerIcon/googleTranslate/type_2_translate_324121.svg'
+import type_3_google_814137 from '~/src/assets/img/providerIcon/googleTranslate/type_3_google_814137.svg'
+/* eslint-enable camelcase, max-len */
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 
 // import icibaContainer from './container/icibaContainer.vue'
@@ -24,7 +24,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       type_2_translate_324121,
       type_3_google_814137,
       /* eslint-enable camelcase */
-    ].map(icon => AbstractTranslateProvider.createIcon(icon))
+    ]
   }
 
   public async translate(word: string) {

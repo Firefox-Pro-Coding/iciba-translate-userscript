@@ -19,7 +19,6 @@
 
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
-  @import '~assets/styles/hardreset.less';
 
   .phonetics-component-box {
     height: 20px;

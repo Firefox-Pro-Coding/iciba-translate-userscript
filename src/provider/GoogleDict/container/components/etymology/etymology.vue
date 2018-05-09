@@ -21,7 +21,6 @@
 
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
-  @import '~assets/styles/hardreset.less';
 
   .etymology-box {
     margin: 10px 0 0 0;

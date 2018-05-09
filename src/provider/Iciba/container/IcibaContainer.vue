@@ -45,14 +45,14 @@
               {{ partItem.part }}
             </div>
             <div class="part-item-meaning-box">
-              <span class="meaning-item" v-for="(meanItem, index) in partItem.means" :key="index">
+              <div class="meaning-item iciba-inline" v-for="(meanItem, index) in partItem.means" :key="index">
                 <template v-if="index === partItem.means.length - 1">
                   {{ meanItem }}
                 </template>
                 <template v-else>
                   {{ meanItem }};
                 </template>
-              </span>
+              </div>
             </div>
           </div>
         </div>

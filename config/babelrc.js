@@ -52,14 +52,8 @@ module.exports = {
     'transform-object-rest-spread',
     'transform-async-generator-functions',
 
-    // "syntax-object-rest-spread",
-    // "async-to-promises" // this transform async directly into promise. no need for runtime
+    // 'syntax-object-rest-spread',
 
-    ['transform-runtime', {
-      'helpers': false,
-      'polyfill': true,
-      'regenerator': false,
-      'moduleName': 'babel-runtime',
-    }],
+    'transform-runtime',
   ],
 }

@@ -1,5 +1,10 @@
 import Vue from 'vue'
 
+export interface IIconType {
+  data: string
+  hash: string
+}
+
 export interface IVue extends Vue {
   [name: string]: any
 }

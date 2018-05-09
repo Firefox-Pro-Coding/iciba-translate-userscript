@@ -4,24 +4,30 @@
   "description": "iciba划词翻译",
   "main": "server.js",
   "scripts": {
-    "dev": "webpack --config ./config/webpack.dev.conf.js --watch",
+    "dev": "npm run clean:dist && node ./build/dev-server.js",
+    "watch": "webpack --config ./config/webpack.dev.conf.js --watch",
     "build": "npm run lint && webpack --config ./config/webpack.prod.conf.js && ts-node -P ./utils/tsconfig-util.json ./utils/addMetaData.ts && npm run clean",
     "a": "npm run analyze",
     "ac": "npm run analyze:cat",
     "analyze": "webpack --config ./config/webpack.prod.analyze.conf.js",
     "analyze:cat": "webpack --config ./config/webpack.prod.analyze-concatenated.conf.js",
     "clean": "ts-node -P ./utils/tsconfig-util.json ./utils/apiBuildCleanup.ts",
+    "clean:dist": "ts-node -P ./utils/tsconfig-util.json ./utils/apiDistCleanup.ts",
     "lint": "ts-node -P ./utils/tsconfig-util.json ./build/lint.ts",
     "lint:eslint": "eslint --ext \"js,ts,vue\" ./src/",
     "lint:tslint": "node ./tslintRules/compile.js && tslint -p ./tsconfig.json ./src/** | ts-node -P ./utils/tsconfig-util.json utils/tslintFormatter.ts",
     "lint:css": "stylelint ./src"
   },
-  "keywords": [],
+  "keywords": [
+    "iciba",
+    "typescript",
+    "userscript",
+    "translate"
+  ],
   "author": "noe132",
   "license": "MIT",
   "dependencies": {
     "google-translate-token": "^1.0.0",
-    "md5": "^2.2.1",
     "typescript": "^2.8.3",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
@@ -37,7 +43,6 @@
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-minify": "^0.4.1",
-    "babel-plugin-async-to-promises": "^1.0.5",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -50,6 +55,7 @@
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-typescript": "^0.12.0",
     "eslint-plugin-vue": "^4.5.0",
+    "express": "^4.16.3",
     "fast-async": "^6.3.7",
     "less": "^3.0.2",
     "less-loader": "^4.1.0",
@@ -71,6 +77,8 @@
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^2.0.15",
+    "webpack-dev-middleware": "^3.1.3",
+    "webpack-hot-client": "^2.2.2",
     "webpack-merge": "^4.1.2"
   }
 }

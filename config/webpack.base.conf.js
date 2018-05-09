@@ -5,14 +5,17 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
+const port = process.env.PORT || 3000
+
 module.exports = {
   mode: 'none',
   entry: {
-    index: './src/index.ts',
+    index: ['./src/index.ts'],
   },
   output: {
     path: resolve('dist'),
     filename: '[name].js',
+    publicPath: `http://localhost:${port}/`,
   },
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],
@@ -36,15 +39,14 @@ module.exports = {
           'babel-loader',
           'ts-loader',
         ],
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
         loaders: [
           'babel-loader',
         ],
-        exclude: [
-          resolve('node_modules/vue'),
-        ],
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -79,8 +81,19 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loaders: [
-          'url-loader',
+        oneOf: [
+          {
+            loaders: [
+              'url-loader',
+            ],
+            exclude: resolve('src/assets/img/providerIcon'),
+          },
+          {
+            loaders: [
+              path.join(__dirname, '../utils/svg-hash-loader.js'),
+            ],
+            include: resolve('src/assets/img/providerIcon'),
+          },
         ],
       },
     ],

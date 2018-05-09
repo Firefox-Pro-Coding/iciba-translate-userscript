@@ -153,6 +153,4 @@
 </template>
 
 <script lang="ts" src="./GoogleDictContainer.ts"></script>
-<style media="screen">
-</style>
 <style lang="less" src="./GoogleDictContainer.less" scoped></style>

@@ -1,6 +1,5 @@
 // import * as crypto from 'crypto'
 import Vue from 'vue'
-import md5 from 'md5'
 
 import {
   ITranslateProviderSettingItem,
@@ -15,14 +14,6 @@ export interface IIconType {
 }
 
 export default abstract class AbstractTranslateProvider {
-  // handy ways to create icon objects
-  public static createIcon(icon: string): IIconType {
-    return {
-      data: icon,
-      hash: md5(icon),
-    }
-  }
-
   // the container component visible status. used and controlled by IcibaMain
   public visible = false
 

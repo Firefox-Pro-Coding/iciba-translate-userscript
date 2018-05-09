@@ -2,11 +2,11 @@ import querystring from 'querystring'
 import { got } from '~/src/lib/gmapi'
 
 /* eslint-disable camelcase */
-import type_0_google from '~/src/assets/img/googleDict/type_0_google.svg'
-import type_1_google_299386 from '~/src/assets/img/googleDict/type_1_google_299386.svg'
-import type_2_search_281764 from '~/src/assets/img/googleDict/type_2_search_281764.svg'
-import type_3_search_281781 from '~/src/assets/img/googleDict/type_3_search_281781.svg'
-import type_4_google_356049 from '~/src/assets/img/googleDict/type_4_google_356049.svg'
+import type_0_google from '~/src/assets/img/providerIcon/googleDict/type_0_google.svg'
+import type_1_google_299386 from '~/src/assets/img/providerIcon/googleDict/type_1_google_299386.svg'
+import type_2_search_281764 from '~/src/assets/img/providerIcon/googleDict/type_2_search_281764.svg'
+import type_3_search_281781 from '~/src/assets/img/providerIcon/googleDict/type_3_search_281781.svg'
+import type_4_google_356049 from '~/src/assets/img/providerIcon/googleDict/type_4_google_356049.svg'
 /* eslint-enable camelcase */
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
@@ -30,7 +30,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       type_3_search_281781,
       type_4_google_356049,
       /* eslint-enable camelcase */
-    ].map(icon => AbstractTranslateProvider.createIcon(icon))
+    ]
   }
 
   public translateCallback() {

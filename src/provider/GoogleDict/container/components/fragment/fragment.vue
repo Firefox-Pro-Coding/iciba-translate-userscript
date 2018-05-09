@@ -13,8 +13,3 @@
 </template>
 
 <script lang="ts" src="./fragment.ts"></script>
-
-<style lang="less" scoped>
-  @import '~assets/styles/variables.less';
-  @import '~assets/styles/hardreset.less';
-</style>

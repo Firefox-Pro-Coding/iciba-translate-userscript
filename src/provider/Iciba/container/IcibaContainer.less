@@ -10,6 +10,8 @@
 
   .container-reset();
 
+  font-size: 14px;
+  line-height: 1.5;
   display: flex;
   flex-flow: column nowrap;
   word-break: break-word;
@@ -23,11 +25,14 @@
       }
 
       .pronunciation-box {
+        flex: 0 0 auto;
+
         .pronunciation-item {
           @pron-height: 20px;
 
           align-items: center;
           height: @pron-height;
+          flex: 0 0 @pron-height;
           line-height: @pron-height;
 
           .ipa-type-name {
@@ -67,6 +72,7 @@
 
       .part-box {
         margin: @medium-margin 0 0 0;
+        flex: 0 0 auto;
 
         &.no-margin-top {
           margin: 0;

@@ -1,6 +1,6 @@
 import * as querystring from 'querystring'
 
-import icibaIcon from '~/src/assets/img/iciba/search.svg'
+import icibaIcon from '~/src/assets/img/providerIcon/iciba/search.svg'
 import { got } from '~/src/lib/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
@@ -15,7 +15,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     super()
     this.icons = [
       icibaIcon,
-    ].map(icon => AbstractTranslateProvider.createIcon(icon))
+    ]
   }
 
   public async translate(word: string) {

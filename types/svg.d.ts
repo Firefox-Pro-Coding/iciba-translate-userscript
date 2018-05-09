@@ -1,6 +1,8 @@
 // svg.d.ts
-// tslint:disable
+
 declare module '*.svg' {
-  const data: string
+  import { IIconType } from '~/src/interfaces/index'
+
+  const data: IIconType
   export default data
 }
