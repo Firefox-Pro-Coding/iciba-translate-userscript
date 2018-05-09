@@ -22,6 +22,9 @@ yarn dev
 ### Hot Reload
 Hot Reload 使用 Websocket 来通讯。所以在CSP严格的页面(e.g. github.com)，hmr不会起作用。
 
+### svg
+使用[https://jakearchibald.github.io/svgomg/](https://jakearchibald.github.io/svgomg/)压缩
+
 ## troubleshooting
 分析包大小
 ```shell
