@@ -20,6 +20,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
   }
 
   public async translate(word: string) {
+    console.log(word)
     return Promise.resolve()
   }
 }

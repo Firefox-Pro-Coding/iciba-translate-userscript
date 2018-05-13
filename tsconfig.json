@@ -5,6 +5,7 @@
     "module": "ESNext",
     "sourceMap": true,
     "strict": true,
+    "pretty": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,
@@ -15,5 +16,8 @@
     "paths": {
       "~/src/*": ["src/*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+  ],
 }

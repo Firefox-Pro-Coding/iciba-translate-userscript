@@ -54,7 +54,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
           'Connection': 'keep-alive',
           'Host': 'www.iciba.com',
           'Pragma': 'no-cache',
-          'Referer': `http://www.iciba.com`,
+          'Referer': 'http://www.iciba.com',
           'X-Requested-With': 'XMLHttpRequest',
           'User-Agent': window.navigator.userAgent,
         },

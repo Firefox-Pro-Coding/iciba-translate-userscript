@@ -8,7 +8,7 @@ import { IAudioCache } from '~/src/interfaces/index'
   name: 'IcibaContainer',
 })
 export default class App extends Vue {
-  public data: string = ''
+  public data = ''
   private audioCache: IAudioCache = {}
 
   public async handlePlay(mp3Url: string): Promise<void> {

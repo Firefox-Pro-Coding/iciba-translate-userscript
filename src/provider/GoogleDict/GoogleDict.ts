@@ -46,7 +46,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     }
 
     let data: any = this.fetchData(word, 'uk')
-      .catch(() => this.fetchData(word, 'us').catch((e) => e))
+      .catch(() => this.fetchData(word, 'us').catch(e => e))
     data = await data
     if (data instanceof Error) {
       return Promise.reject(data)

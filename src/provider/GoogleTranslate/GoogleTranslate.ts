@@ -1,11 +1,11 @@
 import Vue from 'vue'
 
-/* eslint-disable camelcase, max-len */
+/* eslint-disable camelcase */
 import type_1_translate_281759 from '~/src/assets/img/providerIcon/googleTranslate/type_1_translate_281759.svg'
 import type_2_translate_281776 from '~/src/assets/img/providerIcon/googleTranslate/type_2_translate_281776.svg'
 import type_2_translate_324121 from '~/src/assets/img/providerIcon/googleTranslate/type_2_translate_324121.svg'
 import type_3_google_814137 from '~/src/assets/img/providerIcon/googleTranslate/type_3_google_814137.svg'
-/* eslint-enable camelcase, max-len */
+/* eslint-enable camelcase */
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 
 // import icibaContainer from './container/icibaContainer.vue'

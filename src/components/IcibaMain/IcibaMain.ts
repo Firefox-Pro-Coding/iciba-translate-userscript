@@ -125,7 +125,7 @@ export default class App extends Vue {
     const word = this.inputText.trim()
     this.errorMessage = ''
 
-    this.providers.forEach(p => { p.visible = false })
+    this.providers.forEach((p) => { p.visible = false })
     if (!word) {
       this.errorMessage = '查询不能为空！'
       return
@@ -163,7 +163,7 @@ export default class App extends Vue {
   }
 
   private initProviders() {
-    this.providers = this.providerClasses.map(C => {
+    this.providers = this.providerClasses.map((C) => {
       const instance = new C()
       instance.loadSetting([
         { name: 'icon', value: 'hash' },

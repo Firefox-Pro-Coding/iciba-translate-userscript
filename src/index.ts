@@ -8,17 +8,21 @@ Vue.config.ignoredElements = [
   'iciba-div',
 ]
 
-const icibaMain = new IcibaMain({ el: document.createElement('div') })
-const icibaCircle = new IcibaCircle({ el: document.createElement('div') })
-const sizeHelper = new SizeHelper({ el: document.createElement('div') })
+const main = async () => {
+  const icibaMain = new IcibaMain({ el: document.createElement('div') })
+  const icibaCircle = new IcibaCircle({ el: document.createElement('div') })
+  const sizeHelper = new SizeHelper({ el: document.createElement('div') })
 
-icibaCircle.$on('translate', (param: { word: string, e: MouseEvent}) => {
-  icibaMain.translate(param)
-})
-icibaCircle.setIcibaMain(icibaMain.$el)
+  icibaCircle.$on('translate', (param: { word: string, e: MouseEvent}) => {
+    icibaMain.translate(param)
+  })
+  icibaCircle.setIcibaMain(icibaMain.$el)
 
-icibaMain.sizeHelper = sizeHelper.$el
+  icibaMain.sizeHelper = sizeHelper.$el
 
-document.body.appendChild(icibaCircle.$el)
-document.body.appendChild(icibaMain.$el)
-document.body.appendChild(sizeHelper.$el)
+  document.body.appendChild(icibaCircle.$el)
+  document.body.appendChild(icibaMain.$el)
+  document.body.appendChild(sizeHelper.$el)
+}
+
+main()

@@ -1,33 +1,8 @@
 {
   "rules": {
-    "array-bracket-spacing": true,
-    "block-spacing": true,
-    "brace-style": true,
-    "handle-callback-err": true,
-    "no-control-regex": true,
-    "no-duplicate-case": true,
-    "no-empty-character-class": true,
-    "no-ex-assign": true,
-    "no-extra-boolean-cast": true,
-    "no-extra-semi": true,
-    "no-inner-declarations": true,
-    "no-invalid-regexp": true,
-    "no-multi-spaces": true,
-    "no-regex-spaces": true,
-    "no-unexpected-multiline": true,
-    "object-curly-spacing": true,
-    "space-in-parens": true,
-    "ter-arrow-body-style": true,
-    "ter-arrow-parens": true,
-    "ter-arrow-spacing": true,
-    "ter-computed-property-spacing": true,
-    "ter-func-call-spacing": true,
-    "ter-indent": true,
-    "ter-no-irregular-whitespace": true,
-    "ter-no-mixed-spaces-and-tabs": true,
-    "ter-no-sparse-arrays": true,
-    "ter-no-tabs": true,
-    "ter-prefer-arrow-callback": true,
-    "valid-typeof": true
+    "ter-indent": [
+      true,
+      2
+    ]
   }
 }

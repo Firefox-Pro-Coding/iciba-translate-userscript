@@ -1,7 +1,9 @@
 let scrollBarWidth: number
 
 export default () => {
-  if (scrollBarWidth !== undefined) return scrollBarWidth
+  if (scrollBarWidth !== undefined) {
+    return scrollBarWidth
+  }
 
   const outer = document.createElement('div')
   outer.style.overflow = 'scroll'

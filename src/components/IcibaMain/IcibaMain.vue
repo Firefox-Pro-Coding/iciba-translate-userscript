@@ -51,7 +51,6 @@
 <style lang="less" src="./IcibaMain.less" scoped></style>
 <style lang="less">
   @import '~assets/styles/global.less';
-  @import '~assets/styles/variables.less';
   @import '~assets/styles/hardreset.less';
 
   // to make sure no other site use this
