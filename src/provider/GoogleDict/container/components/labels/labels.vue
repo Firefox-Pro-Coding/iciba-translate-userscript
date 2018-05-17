@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <div
     class="iciba-google-dict-label-box iciba-inline"
     :class="[colorClass, sizeClass]"

@@ -8,8 +8,6 @@ import type_3_google_814137 from '~/src/assets/img/providerIcon/googleTranslate/
 /* eslint-enable camelcase */
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 
-// import icibaContainer from './container/icibaContainer.vue'
-
 class GoogleTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'GoogleTranslate'
   public settingDescriptor = []

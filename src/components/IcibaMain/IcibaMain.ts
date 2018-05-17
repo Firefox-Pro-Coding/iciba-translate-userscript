@@ -9,9 +9,9 @@ import {
 // import IcibaTranslateProvider from '~/src/provider/iciba/index'
 import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
 
-import IcibaProvider from '~/src/provider/Iciba/Iciba'
-import GoogleDictProvider from '~/src/provider/GoogleDict/GoogleDict'
-import GoogleTranslateProvider from '~/src/provider/GoogleTranslate/GoogleTranslate'
+// import IcibaProvider from '~/src/provider/Iciba/Iciba'
+// import GoogleDictProvider from '~/src/provider/GoogleDict/GoogleDict'
+// import GoogleTranslateProvider from '~/src/provider/GoogleTranslate/GoogleTranslate'
 import BaiduTranslateProvider from '~/src/provider/BaiduTranslate/BaiduTranslate'
 
 import insideOf from '~/src/lib/insideOf'
@@ -33,9 +33,9 @@ interface IProviderConstructor {
 export default class App extends Vue {
   // providers is offered while created this instance
   public providerClasses: Array<IProviderConstructor> = [
-    IcibaProvider,
-    GoogleDictProvider,
-    GoogleTranslateProvider,
+    // IcibaProvider,
+    // GoogleDictProvider,
+    // GoogleTranslateProvider,
     BaiduTranslateProvider,
   ]
   public providers: Array<AbstractTranslateProvider> = []

@@ -5,8 +5,6 @@ import iconBase64 from '~/src/assets/img/providerIcon/baiduTranslate/baidu.svg'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 
-// import icibaContainer from './container/icibaContainer.vue'
-
 class BaiduTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'BaiduTranslate'
   public settingDescriptor = []

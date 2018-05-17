@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <img
     :style="{
       height: `${Number(height) / 2 }px`,

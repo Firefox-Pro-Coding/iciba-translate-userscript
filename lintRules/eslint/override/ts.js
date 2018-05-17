@@ -6,13 +6,24 @@ module.exports = {
         'parser': 'typescript-eslint-parser',
       },
       'rules': {
-        'indent': 'off', // use tslint-eslint-rules ter-indent. sometimes there is false negetive.
+        // use tslint-eslint-rules ter-indent.
+        // false negetive on decorators
+        'indent': 'off',
+
         // 'no-dupe-class-members': 'off',
         // 'no-restricted-globals': 'off',
-        'no-undef': 'off', // false position on interface names
 
-        'no-unused-vars': 'off', // using codestyle no-unused
+        // false position on interface names
+        'no-undef': 'off',
+
+        // using codestyle no-unused.
+        // false positive on decorators
+        'no-unused-vars': 'off',
         'vue/script-indent': 'off',
+
+        // eslint can't resolve typescript module.
+        // use typescript tsc instead
+        'import/no-unresolved': 'off',
       },
     },
   ],

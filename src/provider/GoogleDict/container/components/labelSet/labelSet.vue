@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <div
     class="label-set-box iciba-inline"
     v-if="isValid">

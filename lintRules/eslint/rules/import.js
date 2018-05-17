@@ -18,9 +18,7 @@ module.exports = {
 
   'rules': {
     'import/no-absolute-path': 'off',
-    'import/extensions': ['error', 'always', {
-      'js': 'never',
-      'ts': 'never',
+    'import/extensions': ['error', 'never', {
       'vue': 'always',
     }],
     'import/no-extraneous-dependencies': ['error', {

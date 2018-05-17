@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <div class="fragment-box iciba-inline" v-if="fragment && fragment.length">
     <div class="iciba-inline fragment-item" v-for="(frag, index) in fragment" :key="index">
       <a
@@ -13,3 +13,7 @@
 </template>
 
 <script lang="ts" src="./fragment.ts"></script>
+
+<style lang="less" scoped>
+  @import '~assets/styles/variables.less';
+</style>

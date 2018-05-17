@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <!-- entry item -->
   <div class="entry-item">
 

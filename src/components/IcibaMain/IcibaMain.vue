@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <transition name="iciba-main">
     <div
       class="iciba-main reset iciba-main-the-long-class"

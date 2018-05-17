@@ -1,7 +1,4 @@
 module.exports = {
-  'presets': [
-    'minify',
-  ],
   'plugins': [
     // es2015
     'check-es2015-constants',
@@ -52,7 +49,7 @@ module.exports = {
     'transform-object-rest-spread',
     'transform-async-generator-functions',
 
-    // 'syntax-object-rest-spread',
+    'syntax-object-rest-spread',
 
     'transform-runtime',
   ],

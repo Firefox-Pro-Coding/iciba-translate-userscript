@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <!-- thesaurus -->
   <div
     class="thesaurus-container flex-co flex-stretch"

@@ -77,6 +77,11 @@ module.exports = {
       },
       {
         test: /\.vue$/,
+        loader: path.join(__dirname, '../utils/vue-iciba-html-transform-loader.js'),
+        enforce: 'pre',
+      },
+      {
+        test: /\.vue$/,
         loader: 'vue-loader',
       },
       {

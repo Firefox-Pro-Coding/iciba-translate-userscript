@@ -1,4 +1,6 @@
 /* eslint-disable global-require */
+// const path = require('path')
+
 module.exports = {
   'parserOptions': {
     'parser': 'babel-eslint',
@@ -8,13 +10,15 @@ module.exports = {
     },
     'sourceType': 'module',
   },
-
+  'plugins': [
+    'typescript',
+  ],
   'extends': [
     'airbnb-base',
-    './eslint/rules/airbnbOverride.js',
-    './eslint/rules/vue.js',
-    './eslint/rules/import.js',
-    './eslint/override/vue.js',
-    './eslint/override/ts.js',
+    './rules/airbnbOverride.js',
+    './rules/vue.js',
+    './rules/import.js',
+    './override/vue.js',
+    './override/ts.js',
   ],
 }

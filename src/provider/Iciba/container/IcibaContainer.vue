@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <div class="iciba-result-container no-matter-what-this-class-is reset">
     <!-- symbols -->
     <div

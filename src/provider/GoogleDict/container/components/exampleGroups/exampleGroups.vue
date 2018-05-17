@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <!-- example group -->
   <div
     class="example-group-box flex-co flex-stretch"

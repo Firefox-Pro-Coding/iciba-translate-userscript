@@ -10,7 +10,7 @@ module.exports = {
   },
 
   'extends': [
-    './lintRules/eslint.js',
+    './lintRules/eslint/eslint.js',
   ],
 
   'env': {

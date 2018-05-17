@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <div id="iciba-setting-modal">
     <div id="iciba-setting-window">
       <div class="tabs">

@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <div
     class="google-dict-result-container no-matter-what-this-class-is reset"
     :class="{ 'has-scroll-bar': !noScrollBar }">

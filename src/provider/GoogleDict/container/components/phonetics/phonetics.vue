@@ -1,4 +1,4 @@
-<template lang="icibahtml">
+<template>
   <!-- phonetics -->
   <div class="phonetics-component-box flex" v-if="phonetics && phonetics.length">
     <div class="phonetics flex">

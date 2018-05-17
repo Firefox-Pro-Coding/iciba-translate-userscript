@@ -1,9 +1,9 @@
 {
   "defaultSeverity": "error",
   "extends": [
-    "./tslintRules/coreRules.json",
-    "./tslintRules/codestyle.json",
-    "./tslintRules/tslintEslint.json",
+    "./lintRules/tslint/coreRules.json",
+    "./lintRules/tslint/codestyle.json",
+    "./lintRules/tslint/tslintEslint.json",
     "tslint-eslint-rules",
     "tslint-consistent-codestyle"
     // "tslint-config-airbnb"
@@ -11,31 +11,6 @@
   "jsRules": {},
   "rules": {
     "interface-delimiter": true
-    // "align": false,
-    // "array-type": [true, "generic"],
-    // "import-name": [false, {
-    //   "*.vue": "*"
-    // }],
-    // "variable-name": false,
-    // "max-line-length": false,
-    // "no-console": { "severity": "warning" },
-    // "no-unused-variable": true,
-    // "no-as-type-assertion": false,
-    // "no-inferrable-types": false,
-    // "object-literal-key-quotes": false,
-    // "object-literal-sort-keys": false,
-    // "object-shorthand-properties-first": false,
-    // "ordered-imports": [false],
-    // "prefer-array-literal": [true, { "allow-type-parameters": true }],
-    // "semicolon": [true, "never"],
-    // "strict-boolean-expressions": false,
-    // "ter-arrow-parens": [false],
-    // "trailing-comma": [true,
-    //   {
-    //     "multiline": "always",
-    //     "esSpecCompliant": true
-    //   }
-    // ]
   },
-  "rulesDirectory": ["./tslintRules/customRules"]
+  "rulesDirectory": ["./lintRules/tslint/customRules"]
 }
