@@ -94,6 +94,7 @@ export default class App extends Vue {
     this.$nextTick(() => {
       const box = this.$refs.scrollBox as any
       box.scrollToTop()
+      box.recalcScrollbar()
     })
   }
 

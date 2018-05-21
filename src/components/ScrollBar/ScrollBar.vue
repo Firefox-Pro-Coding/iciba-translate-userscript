@@ -1,13 +1,13 @@
 <template>
   <div
     class="scroll-container"
-    :class="{ 'has-scroll-bar': !noScrollBar }">
+    :class="{ 'no-scroll-bar': noScrollBar }">
     <div
-      :class="{ moving: drag.start }"
+      :class="{ moving: drag.start, 'no-scroll-bar': noScrollBar }"
       class="scroll-bar-track"
-      v-if="!noScrollBar"
       ref="scroll-bar-track">
       <div
+        v-if="!noScrollBar"
         class="scroll-bar-thumb"
         ref="scroll-bar-thumb"
         @mousewheel.prevent

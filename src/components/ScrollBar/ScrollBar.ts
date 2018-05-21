@@ -25,7 +25,6 @@ export default class App extends Vue {
   public scrollbarWidth = getScrollBarWidth()
 
   public mounted() {
-    console.log(this.$refs.container)
     this.container = this.$refs.container as HTMLElement
     this.container.addEventListener('scroll', this.scrollBarListener, false)
     this.container.addEventListener('resize', this.scrollBarListener, false)
@@ -98,6 +97,10 @@ export default class App extends Vue {
 
   public handleScrollbarThumbMouseup() {
     this.drag.start = false
+  }
+
+  public recalcScrollbar() {
+    this.scrollBarListener()
   }
 
   private scrollBarListener() {

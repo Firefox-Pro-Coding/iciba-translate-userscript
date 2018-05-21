@@ -10,7 +10,7 @@
 
   .container-reset();
 
-  padding: 8px 10px 10px 10px;
+  padding: 7px 0 10px 10px;
   display: flex;
   word-break: break-word;
   flex-flow: column nowrap;
@@ -23,63 +23,15 @@
     cursor: pointer;
   }
 
-  &.has-scroll-bar {
-    padding-right: 4px;
-
-    .real-container {
-      .scroll-content {
-        padding-right: 10px;
-
-        .expand-button {
-          right: 8px;
-        }
-      }
-    }
-  }
-
-  .real-container {
-    position: relative;
-    overflow: hidden;
-
-    .scroll-bar-track {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 8px;
-      height: 100%;
-      z-index: 2;
-
-      &:hover, &.moving {
-        .scroll-bar-thumb {
-          left: 0;
-          width: 8px;
-          background: rgba(0, 0, 0, 0.25);
-        }
-      }
-
-      .scroll-bar-thumb {
-        display: flex;
-        justify-content: center;
-        position: absolute;
-        width: 6px;
-        height: 0;
-        left: 1px;
-        top: 0;
-        border-radius: 100px;
-        background: rgba(0, 0, 0, 0.15);
-        cursor: pointer;
-      }
-    }
-
-    .scroll-content {
+  .scroll-container {
+    .google-content-simple {
+      padding-right: 10px;
       position: relative;
-      overflow-y: scroll;
-      padding-right: 0;
 
       .expand-button {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: -2px;
+        right: 6px;
         height: 24px;
         width: 24px;
         background: url('~assets/img/expand_128456.svg');
@@ -88,6 +40,7 @@
         background-repeat: no-repeat;
         opacity: 0.3;
         cursor: pointer;
+        z-index: 2;
 
         &:hover {
           opacity: 0.6;

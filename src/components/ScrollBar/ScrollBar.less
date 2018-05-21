@@ -34,19 +34,20 @@
     }
   }
 
-  &.has-scroll-bar {
-    .scroll-content-box {
-      .scroll-content {
-        padding-right: 10px;
-      }
-    }
-  }
-
   .scroll-content-box {
     overflow: hidden;
 
     .scroll-content {
-      overflow-y: auto;
+      padding-right: 8px;
+      overflow-y: scroll;
+    }
+  }
+
+  &.no-scroll-bar {
+    .scroll-content-box {
+      .scroll-content {
+        padding-right: 0;
+      }
     }
   }
 }

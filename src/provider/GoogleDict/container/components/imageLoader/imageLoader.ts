@@ -3,7 +3,7 @@ import { Component, Prop } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 
 @Component({
-  name: 'GoogleDictContainerImageCanvas',
+  name: 'GoogleDictContainerImageLoader',
 })
 export default class extends Vue {
   @Prop()
