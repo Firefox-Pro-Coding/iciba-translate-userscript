@@ -6,6 +6,7 @@ import getScrollBarWidth from '~/src/lib/scrollbar-width'
 import { IAudioCache } from '~/src/interfaces/index'
 import bus from '~/src/provider/GoogleDict/bus'
 
+import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
 
 import labelSet from './components/labelSet/labelSet.vue'
 import thesaurus from './components/thesaurus/thesaurus.vue'
@@ -29,59 +30,18 @@ import simpleEntry from './components/simpleEntry/simpleEntry.vue'
     exampleGroups,
     entry,
     simpleEntry,
+    ScrollBar,
   },
 })
 export default class App extends Vue {
   public dictionaryData: any = null
-  public scrollbar = {
-    track: {
-      top: 0,
-    },
-    thumb: {
-      size: '0',
-      position: '0',
-    },
-  }
-  public scrollbarWidth = getScrollBarWidth()
   public modalVisible = false
-  public drag = {
-    start: false,
-    startY: 0,
-    startScrollTop: 0,
-  }
-  public container: HTMLElement = null as any as HTMLElement
-  public noScrollBar = true
   private audioCache: IAudioCache = {}
 
-  public get scrollbarStyle() {
-    return {
-      track: {
-        top: `${this.scrollbar.track.top}px`,
-      },
-      thumb: {
-        height: `${this.scrollbar.thumb.size}%`,
-        top: `${this.scrollbar.thumb.position}%`,
-      },
-    }
-  }
-
   public mounted() {
-    this.container = this.$refs.container as HTMLElement
-    this.container.addEventListener('scroll', this.scrollBarListener, false)
-    this.container.addEventListener('resize', this.scrollBarListener, false)
-    this.container.addEventListener('mouseenter', this.scrollBarListener, false)
-    window.addEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
-    window.addEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
-
     bus.on('play-audio', this.handlePlay)
     bus.on('nym-click', this.handleNymClick)
     bus.on('entry-click', this.handleEntryLinkClick)
-  }
-
-  public beforeDestroy() {
-    this.container.addEventListener('scroll', this.scrollBarListener, false)
-    this.container.addEventListener('resize', this.scrollBarListener, false)
-    this.container.addEventListener('mouseenter', this.scrollBarListener, false)
   }
 
   public handleOpenModal() {
@@ -90,42 +50,6 @@ export default class App extends Vue {
 
   public handleCloseModal() {
     this.modalVisible = false
-  }
-
-  public handleScrollbarThumbClick(e: MouseEvent) {
-    e.preventDefault()
-    this.drag.start = true
-    this.drag.startY = e.clientY
-    this.drag.startScrollTop = this.container.scrollTop
-  }
-
-  public handleScrollbarThumbMousemove(e: MouseEvent) {
-    if (this.drag.start) {
-      e.preventDefault()
-
-      const {
-        scrollHeight,
-        clientHeight,
-      } = this.container
-
-      const scrollSpacePixel = scrollHeight - clientHeight
-      const mouseMovePixel = e.clientY - this.drag.startY
-      const moveDeltaPercentage = mouseMovePixel / clientHeight
-      const scrollDelta = scrollHeight * moveDeltaPercentage
-      let destScrollTop = this.drag.startScrollTop + scrollDelta
-      if (destScrollTop > scrollSpacePixel) {
-        destScrollTop = scrollSpacePixel
-      }
-      if (destScrollTop < 0) {
-        destScrollTop = 0
-      }
-
-      this.container.scrollTop = destScrollTop
-    }
-  }
-
-  public handleScrollbarThumbMouseup() {
-    this.drag.start = false
   }
 
   public async handlePlay(url: string): Promise<void> {
@@ -168,8 +92,8 @@ export default class App extends Vue {
 
   public visibleCallback() {
     this.$nextTick(() => {
-      this.container.scrollTop = 0
-      this.scrollBarListener()
+      const box = this.$refs.scrollBox as any
+      box.scrollToTop()
     })
   }
 
@@ -183,32 +107,5 @@ export default class App extends Vue {
 
   public handleCustomEvent() {
     console.log('custom!')
-  }
-
-  private scrollBarListener() {
-    const {
-      scrollTop,
-      scrollHeight,
-      clientHeight,
-    } = this.container
-
-    const sizePercentage = clientHeight / scrollHeight
-    const avaliableScrollSpace = scrollHeight - clientHeight
-    const currentScrollPercentage = scrollTop / avaliableScrollSpace
-
-    // console.log(currentScrollPercentage)
-
-    const thumbMaxHeightPercentage = 1 - sizePercentage
-    const thumbTop = thumbMaxHeightPercentage * currentScrollPercentage * 100
-
-    this.noScrollBar = sizePercentage === 1
-
-    this.scrollbar.track = {
-      top: scrollTop,
-    }
-    this.scrollbar.thumb = {
-      size: (sizePercentage * 100).toFixed(4),
-      position: thumbTop.toFixed(4),
-    }
   }
 }

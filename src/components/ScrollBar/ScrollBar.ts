@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import getScrollBarWidth from '~/src/lib/scrollbar-width'
 
 @Component({
   name: 'IcibaSrollbarContainer',
@@ -21,20 +22,46 @@ export default class App extends Vue {
       position: '0',
     },
   }
+  public scrollbarWidth = getScrollBarWidth()
 
   public mounted() {
+    console.log(this.$refs.container)
     this.container = this.$refs.container as HTMLElement
     this.container.addEventListener('scroll', this.scrollBarListener, false)
     this.container.addEventListener('resize', this.scrollBarListener, false)
     this.container.addEventListener('mouseenter', this.scrollBarListener, false)
+    window.addEventListener('resize', this.calcScrollbarWidth, false)
     window.addEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
     window.addEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
   }
 
   public beforeDestroy() {
-    this.container.addEventListener('scroll', this.scrollBarListener, false)
-    this.container.addEventListener('resize', this.scrollBarListener, false)
-    this.container.addEventListener('mouseenter', this.scrollBarListener, false)
+    this.container.removeEventListener('scroll', this.scrollBarListener, false)
+    this.container.removeEventListener('resize', this.scrollBarListener, false)
+    this.container.removeEventListener('mouseenter', this.scrollBarListener, false)
+    window.removeEventListener('resize', this.calcScrollbarWidth, false)
+    window.removeEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
+    window.removeEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
+  }
+
+  public calcScrollbarWidth() {
+    this.scrollbarWidth = getScrollBarWidth()
+  }
+
+  public scrollToTop() {
+    this.container.scrollTop = 0
+  }
+
+  public get scrollbarStyle() {
+    return {
+      track: {
+        top: `${this.scrollbar.track.top}px`,
+      },
+      thumb: {
+        height: `${this.scrollbar.thumb.size}%`,
+        top: `${this.scrollbar.thumb.position}%`,
+      },
+    }
   }
 
   public handleScrollbarThumbClick(e: MouseEvent) {
