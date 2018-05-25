@@ -49,7 +49,10 @@
     "no-reference": true,
     "no-unnecessary-type-assertion": true,
     "no-var-requires": true,
-    "only-arrow-functions": true,
+    "only-arrow-functions": [
+      true,
+      "allow-named-functions"
+    ],
     "unified-signatures": true,
     "await-promise": true,
     "ban-comma-operator": true,
@@ -83,7 +86,6 @@
     ],
     "no-unsafe-finally": true,
     "no-unused-expression": true,
-    "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-void-expression": true,

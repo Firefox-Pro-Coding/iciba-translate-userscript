@@ -1,23 +1,33 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "moduleResolution": "Node",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "checkJs": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "module": "ESNext",
+    "moduleResolution": "Node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "tsc_dist/",
+    "pretty": true,
     "sourceMap": true,
     "strict": true,
-    "pretty": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "noImplicitAny": true,
-    "emitDecoratorMetadata": true,
     "strictNullChecks": true,
-    "outDir": "tsc_dist/",
-    "baseUrl": "./",
+    "target": "ESNext",
     "paths": {
       "~/src/*": ["src/*"]
-    }
+    },
+    "plugins": [{
+      "name": "../tsserver-plugin-vue"
+    }]
   },
-  "exclude": [
-    "node_modules",
-  ],
+  "include": [
+    "src"
+  ]
 }

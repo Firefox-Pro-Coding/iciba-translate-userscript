@@ -66,7 +66,7 @@ module.exports = {
   'no-var-requires': true,
 
   // Disallows traditional (non-arrow) function expressions.
-  'only-arrow-functions': true,
+  'only-arrow-functions': [true, 'allow-named-functions'],
 
   // Recommends a ‘for-of’ loop over a standard ‘for’ loop if the index is only used to access the array being iterated.
   // 'prefer-for-of': true,
@@ -252,7 +252,7 @@ module.exports = {
   // Disallows unused imports, variables, functions and
   // private class members. Similar to tsc’s –noUnusedParameters and –noUnusedLocals
   // options, but does not interrupt code compilation.
-  'no-unused-variable': true,
+  // 'no-unused-variable': true,
 
   // Requires Type Info
   // Disallows usage of variables before their declaration.

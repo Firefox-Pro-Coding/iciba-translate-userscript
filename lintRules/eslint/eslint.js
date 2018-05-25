@@ -18,6 +18,7 @@ module.exports = {
     './rules/airbnbOverride.js',
     './rules/vue.js',
     './rules/import.js',
+    './rules/jsdoc.js',
     './override/vue.js',
     './override/ts.js',
   ],

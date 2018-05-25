@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
-import getScrollBarWidth from '~/src/lib/scrollbar-width'
 import { IAudioCache } from '~/src/interfaces/index'
 import bus from '~/src/provider/GoogleDict/bus'
 
