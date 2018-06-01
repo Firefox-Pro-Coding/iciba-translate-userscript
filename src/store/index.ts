@@ -1,21 +1,21 @@
-import {
-  Provider,
-  BaseSetting,
-} from './types'
-
-interface Store {
-  provider: Provider
-  core: BaseSetting
-}
-
-const stateProvider: Provider = {} as any
-const stateCore: BaseSetting = {} as any
-
-const store: Store = {
-  provider: stateProvider,
-  core: stateCore,
-}
-
+// import {
+//   Provider,
+//   BaseSetting,
+// } from './types'
+//
+// interface Store {
+//   provider: Provider
+//   core: BaseSetting
+// }
+//
+// const stateProvider: Provider = {} as any
+// const stateCore: BaseSetting = {} as any
+//
+// const store: Store = {
+//   provider: stateProvider,
+//   core: stateCore,
+// }
+//
 // const providerProxyHandler: ProxyHandler<Store> = {
 //   get(target, prop: string) {
 //     if (prop === 'provider') {
@@ -36,7 +36,7 @@ const store: Store = {
 //     return true
 //   },
 // }
-
-const providerProxy = new Proxy<Store>(store, providerProxyHandler)
-
-export default providerProxy
+//
+// const providerProxy = new Proxy<Store>(store, providerProxyHandler)
+//
+// export default providerProxy

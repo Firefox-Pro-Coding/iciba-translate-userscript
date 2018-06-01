@@ -23,9 +23,7 @@
     "paths": {
       "~/src/*": ["src/*"]
     },
-    "plugins": [{
-      "name": "../tsserver-plugin-vue"
-    }]
+    "plugins": []
   },
   "include": [
     "src"

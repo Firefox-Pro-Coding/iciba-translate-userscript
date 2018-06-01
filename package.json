@@ -28,6 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "google-translate-token": "^1.0.0",
+    "tslint-language-service": "^0.9.9",
     "typescript": "^2.8.3",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
@@ -36,7 +37,7 @@
   "devDependencies": {
     "@types/greasemonkey": "^0.0.28",
     "@types/md5": "^2.1.32",
-    "@types/node": "^10.1.2",
+    "@types/node": "^10.1.3",
     "@types/rimraf": "^2.0.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -70,9 +71,9 @@
     "tslint-loader": "^3.6.0",
     "typescript-eslint-parser": "^15.0.0",
     "url-loader": "^1.0.1",
-    "vue-loader": "^15.2.0",
+    "vue-loader": "^15.2.1",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.6.0",
+    "webpack": "^4.9.1",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^2.1.4",
     "webpack-dev-middleware": "^3.1.3",

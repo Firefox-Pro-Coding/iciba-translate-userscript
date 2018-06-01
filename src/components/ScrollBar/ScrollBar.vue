@@ -18,7 +18,7 @@
     <div
       class="scroll-content-box flex-co">
       <div
-        class="scroll-content"
+        class="scroll-content flex"
         ref="container"
         :style="{ 'margin-right': `${-scrollbarWidth}px` }">
         <slot></slot>

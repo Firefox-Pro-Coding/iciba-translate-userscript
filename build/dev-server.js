@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const chalk = require('chalk')
 const client = require('webpack-hot-client')
 const webpack = require('webpack')
@@ -12,8 +13,8 @@ const app = express()
 const port = process.env.PORT || 3000
 
 const server = app.listen(port, 'localhost', () => {
-  console.log()
   client(compiler, {
+    logLevel: 'warn',
     server,
   })
   const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
@@ -33,14 +34,13 @@ const server = app.listen(port, 'localhost', () => {
   app.use(webpackDevMiddlewareInstance)
 
   console.log([
-    chalk.bgMagentaBright.black(` INFO: `),
-    chalk.bgBlueBright.black(` building now.... `),
+    chalk.bgMagentaBright.black(' INFO: '),
+    chalk.bgBlueBright.black(' building now.... '),
   ].join(''))
   webpackDevMiddlewareInstance.waitUntilValid(() => {
     console.log([
-      chalk.bgMagentaBright.black(` INFO: `),
+      chalk.bgMagentaBright.black(' INFO: '),
       chalk.bgGreenBright.black(` dev server is now up at port ${port}! `),
     ].join(''))
-    // app.listen(port)
   })
 })
