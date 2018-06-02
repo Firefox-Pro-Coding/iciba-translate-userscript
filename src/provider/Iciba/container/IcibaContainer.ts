@@ -3,13 +3,25 @@ import { Component } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
 import { IAudioCache } from '~/src/interfaces/index'
+import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
 
 @Component({
   name: 'IcibaContainer',
+  components: {
+    ScrollBar,
+  },
 })
 export default class App extends Vue {
   public data = ''
   private audioCache: IAudioCache = {}
+
+  public visibleCallback() {
+    this.$nextTick(() => {
+      const box = this.$refs.scrollBox as any
+      box.scrollToTop()
+      box.recalcScrollbar()
+    })
+  }
 
   public async handlePlay(mp3Url: string): Promise<void> {
     const volume = 0.4

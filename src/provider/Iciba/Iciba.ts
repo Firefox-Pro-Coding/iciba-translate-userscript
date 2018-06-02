@@ -18,6 +18,12 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     ]
   }
 
+  public translateCallback() {
+    if (this.componentInstance) {
+      this.componentInstance.visibleCallback()
+    }
+  }
+
   public async translate(word: string) {
     /*
     http://www.iciba.com/index.php?
