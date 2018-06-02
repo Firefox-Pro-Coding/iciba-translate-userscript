@@ -11,7 +11,7 @@
     </div>
 
     <!-- phonetics -->
-    <phonetics class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
+    <phonetics class="phonetics-box" v-if="entry.phonetics" :phonetics="entry.phonetics"></phonetics>
 
     <!-- sense-family -->
     <div class="sense-family-box flex-co flex-stretch" v-if="entry.senseFamilies && entry.senseFamilies.length">
@@ -26,6 +26,9 @@
           :key="index">
           {{ item.value }}
         </div>
+
+        <!-- phonetics -->
+        <phonetics class="phonetics-box" v-if="senseFamilyItem.phonetics" :phonetics="senseFamilyItem.phonetics"></phonetics>
 
         <!-- sense-list -->
         <div class="sense-list flex-co flex-stretch" v-if="senseFamilyItem.senses && senseFamilyItem.senses.length">
@@ -45,6 +48,16 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- sub entries -->
+    <div class="sub-entry-box" v-if="entry.subentries && entry.subentries.length">
+      <simple-sub-entry
+        class="sub-entry"
+        :entry="subentry"
+        v-for="(subentry, index) in entry.subentries"
+        :key="index">
+      </simple-sub-entry>
     </div>
   </div>
 </template>

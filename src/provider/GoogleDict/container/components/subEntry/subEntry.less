@@ -1,0 +1,104 @@
+@import '~assets/styles/variables.less';
+@import '~assets/styles/hardreset.less';
+
+.entry-item {
+  .headword {
+    .headword-word {
+      font-size: 28px;
+      line-height: 1.5;
+      align-items: flex-start;
+    }
+
+    .headword-graph-index {
+      font-size: 14px;
+      margin: 0 0 0 2px;
+    }
+  }
+
+  .phonetics-box {
+    .play-button {
+      margin: 0 0 0 3px;
+    }
+  }
+
+  .entry-label-set-box {
+    margin: 5px 0 3px 0;
+  }
+
+  .dict-note {
+    margin: 10px 0;
+
+    .note-type-box {
+      margin: 0 0 3px 0;
+    }
+
+    .note-text {
+      font-size: 12px;
+      color: @main-level-4;
+    }
+  }
+
+  .sense-list {
+    margin: 2px 0 0 0;
+
+    .sense-item {
+      & + .sense-item {
+        margin: 5px 0 0 0;
+      }
+
+      .sense-item-number {
+        flex: 0 0 50px;
+        text-align: right;
+        padding: 0 10px 0 0;
+        font-weight: bold;
+      }
+
+      .sense-item-box {
+        flex: 1 1 auto;
+
+        .definition-box {
+          flex: 1 1 auto;
+
+          .difinition {
+            .sense-labels {
+              font-size: 0;
+
+              .sense-difinition-label-box:not(:last-child) {
+                margin-right: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .subsense-box {
+        margin: 2px 0 0 0;
+
+        .subsense-item {
+          margin: 2px 0 0 0;
+
+          .subsense-number {
+            flex: 0 0 32px;
+            color: @main-level-4;
+            line-height: 21px;
+            font-family: 'consolas', monospace;
+          }
+
+          .subsense-item-container {
+            flex: 1 1 auto;
+
+            .subsense-definition {
+              .subsense-labels {
+                font-size: 0;
+
+                .subsense-label-box:not(:last-child) {
+                  margin-right: 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

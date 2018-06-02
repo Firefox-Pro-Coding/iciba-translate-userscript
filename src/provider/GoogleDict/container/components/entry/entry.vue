@@ -24,22 +24,15 @@
     </div>
 
     <!-- note -->
-    <div class="dict-note flex-co flex-stretch" v-if="entry.note">
-      <div class="note-type-box flex">
-        <labels
-          class="note-label-box"
-          color="plain"
-          size="large"
-          :labels="[entry.note.type]"
-          type="note">
-        </labels>
-      </div>
-      <div class="note-text iciba-inline" v-html="entry.note.text"></div>
-    </div>
+    <note :note="entry.note"></note>
 
     <!-- sense-family -->
     <div class="sense-family-box flex-co flex-stretch" v-if="entry.senseFamilies && entry.senseFamilies.length">
       <div class="sense-family-item flex-co flex-stretch" v-for="(senseFamilyItem, index) in entry.senseFamilies" :key="index">
+        <!-- note -->
+        <note :note="senseFamilyItem.note"></note>
+
+        <!-- poss -->
         <div class="poss" v-if="senseFamilyItem.partsOfSpeechs && senseFamilyItem.partsOfSpeechs.length">
           <div
             :title="item.qualifier"
@@ -134,7 +127,7 @@
                   class="subsense-box"
                   v-if="sense.subsenses && sense.subsenses.length">
                   <div
-                    class="subsense-item"
+                    class="subsense-item flex"
                     v-for="(subsense, index) in sense.subsenses"
                     :key="index">
                     <div class="subsense-number">
@@ -205,6 +198,16 @@
 
     <!-- etymology -->
     <etymology :etymology="entry.etymology"></etymology>
+
+    <!-- sub entries -->
+    <div class="sub-entry-box" v-if="entry.subentries && entry.subentries.length">
+      <sub-entry
+        class="sub-entry"
+        :entry="subentry"
+        v-for="(subentry, index) in entry.subentries"
+        :key="index">
+      </sub-entry>
+    </div>
   </div>
 </template>
 

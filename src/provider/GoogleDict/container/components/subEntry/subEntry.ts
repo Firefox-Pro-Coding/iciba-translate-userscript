@@ -8,8 +8,6 @@ import phonetics from '../phonetics/phonetics.vue'
 import fragment from '../fragment/fragment.vue'
 import etymology from '../etymology/etymology.vue'
 import exampleGroups from '../exampleGroups/exampleGroups.vue'
-import subEntry from '../subEntry/subEntry.vue'
-import note from '../note/note.vue'
 
 @Component({
   name: 'GoogleDictContainerEntry',
@@ -21,8 +19,6 @@ import note from '../note/note.vue'
     fragment,
     etymology,
     exampleGroups,
-    subEntry,
-    note,
   },
 })
 export default class extends Vue {

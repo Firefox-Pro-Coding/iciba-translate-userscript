@@ -3,14 +3,12 @@ import { Component, Prop } from 'vue-property-decorator'
 
 import phonetics from '../phonetics/phonetics.vue'
 import fragment from '../fragment/fragment.vue'
-import simpleSubEntry from '../simpleSubEntry/simpleSubEntry.vue'
 
 @Component({
-  name: 'GoogleDictContainerSimpleEntry',
+  name: 'GoogleDictContainerSimpleSubEntry',
   components: {
     phonetics,
     fragment,
-    simpleSubEntry,
   },
 })
 export default class extends Vue {
