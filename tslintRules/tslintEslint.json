@@ -1,8 +1,0 @@
-{
-  "rules": {
-    "ter-indent": [
-      true,
-      2
-    ]
-  }
-}
