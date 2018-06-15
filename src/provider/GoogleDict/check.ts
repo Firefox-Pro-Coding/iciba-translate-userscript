@@ -14,6 +14,8 @@ const knowkeys: any = [
   "root,dictionaryData,!number,entries,!number,labelSet,registers,!number",
   "root,dictionaryData,!number,entries,!number,labelSet,geographics",
   "root,dictionaryData,!number,entries,!number,labelSet,geographics,!number",
+  "root,dictionaryData,!number,entries,!number,labelSet,subjects",
+  "root,dictionaryData,!number,entries,!number,labelSet,subjects,!number",
   "root,dictionaryData,!number,entries,!number,locale",
   "root,dictionaryData,!number,entries,!number,note",
   "root,dictionaryData,!number,entries,!number,note,text",

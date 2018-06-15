@@ -20,10 +20,6 @@ module.exports = {
         // false positive on decorators
         'no-unused-vars': 'off',
         'vue/script-indent': 'off',
-
-        // eslint can't resolve typescript module.
-        // use typescript tsc instead
-        'import/no-unresolved': 'off',
       },
     },
   ],

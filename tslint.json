@@ -6,7 +6,6 @@
     "./lintRules/tslint/tslintEslint.json",
     "tslint-eslint-rules",
     "tslint-consistent-codestyle"
-    // "tslint-config-airbnb"
   ],
   "jsRules": {},
   "rules": {

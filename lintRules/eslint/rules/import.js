@@ -28,9 +28,18 @@ module.exports = {
     'import/no-dynamic-require': ['error'],
     'import/export': ['error'],
     'import/no-mutable-exports': ['error'],
-    'import/order': ['error', {
-      'newlines-between': 'ignore',
-    }],
+    'import/order': [
+      'error',
+      {
+        'groups': [
+          'builtin',
+          ['external', 'internal'],
+          'parent',
+          'sibling',
+          'index',
+        ],
+      },
+    ],
     'import/newline-after-import': ['error'],
     'import/prefer-default-export': ['off'],
   },
