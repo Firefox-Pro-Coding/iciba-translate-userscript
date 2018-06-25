@@ -6,6 +6,7 @@
     "checkJs": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
@@ -26,6 +27,7 @@
     "plugins": []
   },
   "include": [
-    "src"
+    "src",
+    "node_modules/vue-tsx-support/enable-check.d.ts"
   ]
 }

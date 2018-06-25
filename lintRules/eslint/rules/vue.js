@@ -3,7 +3,6 @@ module.exports = {
     'parser': 'babel-eslint',
     'ecmaVersion': 2018,
     'ecmaFeatures': {
-      'experimentalObjectRestSpread': true,
       'jsx': true,
     },
     'sourceType': 'module',

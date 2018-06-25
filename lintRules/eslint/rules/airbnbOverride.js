@@ -10,5 +10,6 @@ module.exports = {
     'prefer-destructuring': 'off', // it not a common use case
     'quote-props': ['off'], // airbnb this rule was too inflexible
     'semi': ['error', 'never'], // disalow semi
+    'lines-between-class-members': 'off', // allow compact space between class members
   },
 }

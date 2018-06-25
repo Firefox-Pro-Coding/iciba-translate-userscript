@@ -469,7 +469,7 @@ module.exports = {
 
   // Replaces x => f(x) with just f.
   // To catch more cases, enable only-arrow-functions and arrow-return-shorthand too.
-  'no-unnecessary-callback-wrapper': true,
+  'no-unnecessary-callback-wrapper': false,
 
   // Forbids a ‘var’/’let’ statement or destructuring initializer to be initialized to ‘undefined’.
   'no-unnecessary-initializer': true,

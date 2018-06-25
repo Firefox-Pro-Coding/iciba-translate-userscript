@@ -52,5 +52,8 @@ module.exports = {
     'syntax-object-rest-spread',
 
     'transform-runtime',
+
+    // jsx support
+    'transform-vue-jsx',
   ],
 }
