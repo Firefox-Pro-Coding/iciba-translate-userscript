@@ -3,7 +3,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
-    "checkJs": true,
+    "checkJs": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "jsx": "preserve",

@@ -27,7 +27,6 @@
   "author": "noe132",
   "license": "MIT",
   "dependencies": {
-    "google-translate-token": "^1.0.0",
     "typescript": "^2.9.2",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
@@ -35,7 +34,7 @@
   },
   "devDependencies": {
     "@types/greasemonkey": "^0.0.28",
-    "@types/node": "^10.3.5",
+    "@types/node": "^10.3.6",
     "@types/rimraf": "^2.0.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
@@ -50,7 +49,7 @@
     "babel-runtime": "^6.26.0",
     "chalk": "^2.4.1",
     "css-loader": "^0.28.11",
-    "eslint": "^5.0.0",
+    "eslint": "^5.0.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-import-resolver-webpack": "^0.10.1",
     "eslint-plugin-import": "^2.13.0",
