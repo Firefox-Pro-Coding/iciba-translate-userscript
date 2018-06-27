@@ -89,10 +89,8 @@ export default class App extends Vue {
     this.translate({ word: this.inputText })
   }
 
-  public handleTranslateButtonClick(theProvider: AbstractTranslateProvider) {
-    const provider = theProvider
-    provider.visible = true
-    this.internalTranslate(provider)
+  public handleTranslateButtonClick(provider: AbstractTranslateProvider) {
+    this.translateWith(provider)
   }
 
   public setPosition(e: MouseEvent) {
@@ -125,14 +123,12 @@ export default class App extends Vue {
     const word = this.inputText.trim()
     this.errorMessage = ''
 
-    this.providers.forEach((p) => { p.visible = false })
     if (!word) {
       this.errorMessage = '查询不能为空！'
       return
     }
     this.loading = true
     provider.translate(word).then(() => {
-      provider.visible = true
       this.loading = false
       // DON'T CHANGE!
       // call this callback right after setting loading to false
@@ -151,9 +147,13 @@ export default class App extends Vue {
     this.visible = true
     this.inputText = word
 
-    this.internalTranslate(
-      this.providers[1],
-    )
+    this.translateWith(this.providers[1])
+  }
+
+  public translateWith(provider: AbstractTranslateProvider) {
+    this.providers.forEach((p) => { p.visible = false })
+    provider.visible = true
+    this.internalTranslate(provider)
   }
 
   public async handleWindowClick(e: MouseEvent) {
