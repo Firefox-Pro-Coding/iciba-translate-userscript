@@ -29,7 +29,7 @@
         <div class="iciba-content-container">
           <component
             class="provider-container"
-            v-show="!loading && item.visible"
+            v-show="!loading && item.visible && !errorMessage"
             v-for="item in providers"
             :ref="`provider-container-${item.uniqName}`"
             :is="item.containerComponentClass"
