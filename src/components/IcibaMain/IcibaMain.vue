@@ -13,7 +13,7 @@
               type="text"
               @keypress.13="handleInputSearch"
               v-model="inputText" />
-            <div class="iciba-setting-button"></div>
+            <div class="iciba-setting-button" @click="handleOpenSetting"></div>
           </div>
           <div class="provider-button-box flex">
             <div

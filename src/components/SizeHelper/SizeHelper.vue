@@ -2,11 +2,8 @@
   <div class="iciba-size-helper"></div>
 </template>
 
-<script>
-  import Vue from 'vue'
+<script lang="ts" src="./SizeHelper.ts"></script>
 
-  export default class extends Vue {}
-</script>
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
   @import '~assets/styles/hardreset.less';

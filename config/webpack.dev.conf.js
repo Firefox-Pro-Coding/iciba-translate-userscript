@@ -11,11 +11,10 @@ baseWebpackConfig.module.rules.forEach((rule) => {
   }
 })
 
+// add hot update exposure code
 baseWebpackConfig.entry.index.push('./src/devClient.ts')
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
   devtool: '#inline-source-map',
-  plugins: [
-  ],
 })

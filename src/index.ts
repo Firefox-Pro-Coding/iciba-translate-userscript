@@ -1,28 +1,22 @@
 import Vue from 'vue'
-
-import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
-import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
-import SizeHelper from '~/src/components/SizeHelper/SizeHelper.vue'
+import App from '~/src/components/App/App.vue'
 
 Vue.config.ignoredElements = [
   'iciba-div',
 ]
 
+const root: any = {}
+
 const main = async () => {
-  const icibaMain = new IcibaMain({ el: document.createElement('div') })
-  const icibaCircle = new IcibaCircle({ el: document.createElement('div') })
-  const sizeHelper = new SizeHelper({ el: document.createElement('div') })
-
-  icibaCircle.$on('translate', (param: { word: string, e: MouseEvent}) => {
-    icibaMain.translate(param)
+  root.app = new Vue({
+    el: document.createElement('div'),
+    template: '<app></app>',
+    components: {
+      App,
+    },
   })
-  icibaCircle.setIcibaMain(icibaMain.$el)
 
-  icibaMain.sizeHelper = sizeHelper.$el
-
-  document.body.appendChild(icibaCircle.$el)
-  document.body.appendChild(icibaMain.$el)
-  document.body.appendChild(sizeHelper.$el)
+  document.body.appendChild(root.app.$el)
 }
 
 main()

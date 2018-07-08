@@ -1,8 +1,12 @@
-// import { ProviderSetting } from '../types'
+import { BaseProviderSetting, getBaseProviderSetting } from '../base'
 //
-// interface IcibaProviderSetting extends ProviderSetting {
-//   autoFallback: boolean
-//   volume: number
-// }
-//
-// export default IcibaProviderSetting
+export interface ProviderSetting extends BaseProviderSetting {
+  autoFallback: boolean
+  volume: number
+}
+
+export const getDefaultSetting = () => ({
+  ...getBaseProviderSetting(),
+  autoFallback: false,
+  volume: 0.3,
+})

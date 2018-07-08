@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import { EVENT_NAMES } from '~/src/constants/constant'
+import bus from '~/src/bus'
+
 import {
   IPositionStyle,
   IStyle,
   ITranslateProviderSettingDescriptors,
 } from '~/src/interfaces/index'
 
-// import IcibaTranslateProvider from '~/src/provider/iciba/index'
 import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
 
 import IcibaProvider from '~/src/provider/Iciba/Iciba'
@@ -162,6 +164,11 @@ export default class App extends Vue {
     }
   }
 
+  public handleOpenSetting() {
+    this.visible = false
+    bus.emit(EVENT_NAMES.SETTING_PREPARE_OPEN)
+  }
+
   private initProviders() {
     this.providers = this.providerClasses.map((C) => {
       const instance = new C()
@@ -182,28 +189,5 @@ export default class App extends Vue {
         instance.componentInstance = containerInstance
       })
     })
-
-    // this.$nextTick(() => { // nextTick to wait element to be rendered
-    //   this.providers.forEach((provider) => {
-    //     const container = document.querySelector(
-    //       `.mounted-element.provider-container-${provider.uniqName}`,
-    //     )
-    //     if (!container) {
-    //       throw new Error('挂载provider container错误！')
-    //     }
-    //     provider.containerComponent.$mount(container)
-    //   })
-    // })
-    // this.$nextTick(() => { // nextTick to wait element to be rendered
-    //   this.providers.forEach((provider) => {
-    //     const container = document.querySelector(
-    //       `.mounted-element.provider-container-${provider.uniqName}`,
-    //     )
-    //     if (!container) {
-    //       throw new Error('挂载provider container错误！')
-    //     }
-    //     provider.containerComponent.$mount(container)
-    //   })
-    // })
   }
 }
