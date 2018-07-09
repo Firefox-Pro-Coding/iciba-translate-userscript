@@ -6,6 +6,7 @@ import SizeHelper from '~/src/components/SizeHelper/SizeHelper.vue'
 import SettingPage from '~/src/components/SettingPage/SettingPage.vue'
 
 import bus from '~/src/bus'
+import { got } from '~/src/lib/gmapi'
 import { EVENT_NAMES } from '~/src/constants/constant'
 
 @Component({
@@ -19,6 +20,7 @@ import { EVENT_NAMES } from '~/src/constants/constant'
 })
 export default class extends Vue {
   public settingPageVisible = false
+  public isElementLoaded = false
 
   public mounted() {
     const icibaCircle = this.$refs.icibaCircle as any
@@ -34,7 +36,44 @@ export default class extends Vue {
     bus.on(EVENT_NAMES.SETTING_PREPARE_OPEN, this.openSettingPage)
   }
 
-  public openSettingPage() {
+  public async openSettingPage() {
+    if (!this.isElementLoaded) {
+      try {
+        await Promise.all([
+          // load element-ui script
+          (async () => {
+            const script = await got({
+              method: 'get',
+              url: 'https://unpkg.com/element-ui@2.4.3/lib/index.js',
+            })
+
+            const e = script.responseText.match(/^!function\(e,t\).*?this,(.*)\);$/)
+            if (!e) {
+              throw new Error('加载element-ui失败')
+            }
+            const f = new Function('return ' + e[1])
+            const elementModule = f()
+            const elementui = elementModule(Vue)
+            elementui.install(Vue)
+            console.log(Vue)
+          })(),
+          // load element-ui style
+          new Promise((rs) => {
+            const style = document.createElement('link') as HTMLLinkElement
+            style.href = 'https://unpkg.com/element-ui/lib/theme-chalk/index.css'
+            style.rel = 'stylesheet'
+            document.head.appendChild(style)
+            style.onload = () => {
+              rs()
+            }
+          })
+        ])
+        this.isElementLoaded = true
+      } catch (e) {
+        alert(`打开设置失败！(${e.message})`)
+        return
+      }
+    }
     if (!this.settingPageVisible) {
       this.settingPageVisible = true
     }

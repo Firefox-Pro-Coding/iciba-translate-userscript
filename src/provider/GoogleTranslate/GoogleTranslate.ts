@@ -101,4 +101,4 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   }
 }
 
-export default GoogleTranslateProvider
+export default new GoogleTranslateProvider()

@@ -1,16 +1,8 @@
 import { getValue, setValue } from '~/src/lib/gmapi'
 
 import * as iciba from './provider/iciba'
-
-type ProviderTypes = 'iciba' | 'googleDict' | 'googleTranslate' | 'baiduTranslate'
-type SettingType = 'core' | ProviderTypes
-
-export interface CoreStore {
-  pressCtrlToHide: boolean
-  stick: boolean
-  draggable: boolean
-  defaultProvider: ProviderTypes
-}
+import { SettingType } from './types'
+import { CoreStore } from './core'
 
 interface State {
   iciba: iciba.ProviderSetting

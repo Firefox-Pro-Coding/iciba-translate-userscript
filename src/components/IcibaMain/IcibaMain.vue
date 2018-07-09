@@ -28,12 +28,12 @@
         </div>
         <div class="iciba-content-container">
           <component
+            v-for="item in providers"
+            :key="item.uniqName"
             class="provider-container"
             v-show="!loading && item.visible && !errorMessage"
-            v-for="item in providers"
             :ref="`provider-container-${item.uniqName}`"
-            :is="item.containerComponentClass"
-            :key="item.uniqName">
+            :is="item.containerComponentClass">
           </component>
           <div class="loading-tip iciba-content" v-show="loading">
             加载中{{ loadingDots }}

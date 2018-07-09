@@ -25,22 +25,16 @@ const defaultStyle = {
   right: 'auto',
 }
 
-interface IProviderConstructor {
-  new (): AbstractTranslateProvider
-}
-
 @Component({
   name: 'IcibaMain',
 })
 export default class App extends Vue {
-  // providers is offered while created this instance
-  public providerClasses: Array<IProviderConstructor> = [
+  public providers: Array<AbstractTranslateProvider> = [
     IcibaProvider,
     GoogleDictProvider,
     GoogleTranslateProvider,
     BaiduTranslateProvider,
   ]
-  public providers: Array<AbstractTranslateProvider> = []
   public visible: boolean = false
   public loading: boolean = false
   public errorMessage: string = ''
@@ -170,23 +164,15 @@ export default class App extends Vue {
   }
 
   private initProviders() {
-    this.providers = this.providerClasses.map((C) => {
-      const instance = new C()
-      instance.loadSetting([
-        { name: 'icon', value: 'hash' },
-      ])
-      return instance
-    })
-
     this.$nextTick(() => { // nextTick to wait element to be rendered
-      this.providers.forEach((instance) => {
-        const name = `provider-container-${instance.uniqName}`
+      this.providers.forEach((provider) => {
+        const name = `provider-container-${provider.uniqName}`
         const containerInstanceArr = this.$refs[name] as Array<any>
         const containerInstance = containerInstanceArr.length ? containerInstanceArr[0] : null
         if (!containerInstance) {
           throw new Error('挂载provider container错误！')
         }
-        instance.componentInstance = containerInstance
+        provider.componentInstance = containerInstance
       })
     })
   }

@@ -95,4 +95,4 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
   }
 }
 
-export default IcibaTranslateProvider
+export default new IcibaTranslateProvider()

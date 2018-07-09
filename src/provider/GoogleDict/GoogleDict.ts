@@ -114,4 +114,4 @@ class GoogleDictProvider extends AbstractTranslateProvider {
   }
 }
 
-export default GoogleDictProvider
+export default new GoogleDictProvider()

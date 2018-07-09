@@ -14,6 +14,9 @@ export interface IIconType {
 }
 
 export default abstract class AbstractTranslateProvider {
+  // unique name of the translate provider
+  public abstract uniqName: string
+
   // the container component visible status. used and controlled by IcibaMain
   public visible = false
 
@@ -32,9 +35,6 @@ export default abstract class AbstractTranslateProvider {
     }
     return selectedIcon.data || ''
   }
-
-  // unique name of the translate provider
-  public abstract uniqName: string
 
   // container class
   public abstract containerComponentClass: typeof Vue

@@ -65,4 +65,4 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
   // }
 }
 
-export default BaiduTranslateProvider
+export default new BaiduTranslateProvider()
