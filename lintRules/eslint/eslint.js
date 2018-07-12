@@ -13,6 +13,7 @@ module.exports = {
   'plugins': [
     'typescript',
   ],
+
   'extends': [
     'airbnb-base',
     './rules/airbnbOverride.js',
@@ -21,5 +22,6 @@ module.exports = {
     './rules/jsdoc.js',
     './override/vue.js',
     './override/ts.js',
+    './override/js.js',
   ],
 }

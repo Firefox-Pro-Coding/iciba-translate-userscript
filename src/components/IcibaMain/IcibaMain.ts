@@ -86,7 +86,7 @@ export default class App extends Vue {
   }
 
   public handleTranslateButtonClick(provider: AbstractTranslateProvider) {
-    this.translateWith(provider)
+    this.translateWithProvider(provider)
   }
 
   public setPosition(e: MouseEvent) {
@@ -143,10 +143,10 @@ export default class App extends Vue {
     this.visible = true
     this.inputText = word
 
-    this.translateWith(this.providers[1])
+    this.translateWithProvider(this.providers[1])
   }
 
-  public translateWith(provider: AbstractTranslateProvider) {
+  public translateWithProvider(provider: AbstractTranslateProvider) {
     this.providers.forEach((p) => { p.visible = false })
     provider.visible = true
     this.internalTranslate(provider)

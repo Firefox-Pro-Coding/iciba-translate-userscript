@@ -36,6 +36,7 @@ export default class extends Vue {
     bus.on(EVENT_NAMES.SETTING_PREPARE_OPEN, this.openSettingPage)
   }
 
+  /** 打开设置窗口，异步加载element-ui */
   public async openSettingPage() {
     if (!this.isElementLoaded) {
       try {
@@ -51,11 +52,11 @@ export default class extends Vue {
             if (!e) {
               throw new Error('加载element-ui失败')
             }
-            const f = new Function('return ' + e[1])
+            // eslint-disable-next-line
+            const f = new Function(`return ${e[1]}`)
             const elementModule = f()
             const elementui = elementModule(Vue)
-            elementui.install(Vue)
-            console.log(Vue)
+            Vue.use(elementui)
           })(),
           // load element-ui style
           new Promise((rs) => {
@@ -66,7 +67,7 @@ export default class extends Vue {
             style.onload = () => {
               rs()
             }
-          })
+          }),
         ])
         this.isElementLoaded = true
       } catch (e) {

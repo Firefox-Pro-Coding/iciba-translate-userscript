@@ -7,6 +7,12 @@ module.exports = {
   'plugins': ['import'],
 
   'settings': {
+    'import/parsers': {
+      'typescript-eslint-parser': [
+        '.ts',
+        '.tsx',
+      ],
+    },
     'import/extensions': [
       '.js',
       '.mjs',
