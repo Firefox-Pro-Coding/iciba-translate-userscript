@@ -3,7 +3,7 @@ import { Component } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
 import { IAudioCache } from '~/src/interfaces/index'
-import bus from '~/src/provider/GoogleDict/bus'
+import googleDictBus from '~/src/provider/GoogleDict/bus'
 
 import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
 
@@ -38,9 +38,9 @@ export default class App extends Vue {
   private audioCache: IAudioCache = {}
 
   public mounted() {
-    bus.on('play-audio', this.handlePlay)
-    bus.on('nym-click', this.handleNymClick)
-    bus.on('entry-click', this.handleEntryLinkClick)
+    googleDictBus.on('play-audio', this.handlePlay)
+    googleDictBus.on('nym-click', this.handleNymClick)
+    googleDictBus.on('entry-click', this.handleEntryLinkClick)
   }
 
   public handleOpenModal() {
@@ -97,15 +97,13 @@ export default class App extends Vue {
     })
   }
 
-  public handleNymClick(word: string) {
+  private handleNymClick(word: string) {
+    // TODO
     console.log(word)
   }
 
-  public handleEntryLinkClick(word: string) {
+  private handleEntryLinkClick(word: string) {
+    // TODO
     console.log(word)
-  }
-
-  public handleCustomEvent() {
-    console.log('custom!')
   }
 }

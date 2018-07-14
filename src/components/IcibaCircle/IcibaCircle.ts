@@ -4,6 +4,9 @@ import { IPositionStyle, IStyle } from '~/src/interfaces/index'
 import sleep from '~/src/lib/sleep'
 // import insideOf from '~/src/lib/insideOf'
 
+import bus, { IcibaMainTranslatePayload } from '~/src/bus'
+import { EVENT_NAMES } from '~/src/constants/constant'
+
 @Component({
   name: 'IcibaCircle',
 })
@@ -17,7 +20,6 @@ export default class App extends Vue {
     left: 'auto',
     right: 'auto',
   }
-  public icibaMain: Node | null = null
 
   public mounted() {
     window.addEventListener('mouseup', this.handleWindowClick, false)
@@ -27,16 +29,13 @@ export default class App extends Vue {
     window.removeEventListener('mouseup', this.handleWindowClick, false)
   }
 
-  public setIcibaMain(node: Node) {
-    this.icibaMain = node
-  }
-
-  public handleClick(e: MouseEvent) {
+  public handleClick(event: MouseEvent) {
     this.visible = false
-    this.$emit('translate', {
+    const payload: IcibaMainTranslatePayload = {
       word: this.word,
-      e,
-    })
+      event,
+    }
+    bus.emit(EVENT_NAMES.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
   }
 
   public async handleWindowClick(e: MouseEvent) {

@@ -1,6 +1,5 @@
 <template>
   <div id="setting-tab core-setting">
-    <el-input v-model="input" placeholder="请输入内容"></el-input>
   </div>
 </template>
 

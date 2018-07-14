@@ -1,4 +1,5 @@
 // copy from vue-class-component
+/* tslint:disable */
 declare module 'vue-class-component' {
   import Vue, { ComponentOptions } from 'vue'
   import { VueClass } from 'vue-class-component/lib/declarations'

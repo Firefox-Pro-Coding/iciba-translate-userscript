@@ -1,10 +1,10 @@
 <template>
   <div class="iciba-app-root-container">
-    <iciba-main ref="icibaMain"></iciba-main>
     <iciba-circle ref="icibaCircle"></iciba-circle>
     <size-helper ref="sizeHelper"></size-helper>
-    <!-- don't render setting before open it for first time -->
-    <setting-page v-if="settingPageVisible"></setting-page>
+    <!-- lazy load components -->
+    <iciba-main ref="icibaMain" v-if="icibaMainFirstLoaded"></iciba-main>
+    <setting-page v-if="settingPageFirstLoaded"></setting-page>
   </div>
 </template>
 

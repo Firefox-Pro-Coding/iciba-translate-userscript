@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import bus from '~/src/provider/GoogleDict/bus'
+import googleDictBus from '~/src/provider/GoogleDict/bus'
 
 @Component({
   name: 'GoogleDictContainerthesaurus',
@@ -14,6 +14,6 @@ export default class extends Vue {
   }
 
   public handleNymClick(word: string) {
-    bus.emit('nym-click', word)
+    googleDictBus.emit('nym-click', word)
   }
 }

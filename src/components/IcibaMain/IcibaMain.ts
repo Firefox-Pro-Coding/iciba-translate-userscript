@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { EVENT_NAMES } from '~/src/constants/constant'
-import bus from '~/src/bus'
+import bus, { IcibaMainTranslatePayload } from '~/src/bus'
 
 import {
   IPositionStyle,
@@ -64,6 +64,7 @@ export default class App extends Vue {
   }
 
   public mounted() {
+    bus.on(EVENT_NAMES.ICIBA_MAIN_TRANSLATE, this.translate)
     window.addEventListener('mousedown', this.handleWindowClick, false)
     this.loadingDotsInterval = window.setInterval(this.changeLoadingDots, 300)
     this.initProviders()
@@ -136,9 +137,9 @@ export default class App extends Vue {
     })
   }
 
-  public translate({ word, e }: { word: string, e?: MouseEvent }) {
-    if (e) {
-      this.setPosition(e)
+  public translate({ word, event }: IcibaMainTranslatePayload) {
+    if (event) {
+      this.setPosition(event)
     }
     this.visible = true
     this.inputText = word

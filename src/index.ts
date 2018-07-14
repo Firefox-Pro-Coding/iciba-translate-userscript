@@ -10,7 +10,9 @@ const root: any = {}
 const main = async () => {
   root.app = new Vue({
     el: document.createElement('div'),
-    template: '<app></app>',
+    render(h) {
+      return h('app')
+    },
     components: {
       App,
     },
