@@ -23,6 +23,9 @@ module.exports = {
         // false positive on decorators
         'no-unused-vars': 'off',
         'vue/script-indent': 'off',
+
+        // incompatible with typescript
+        'no-useless-constructor': 'off',
       },
     },
   ],

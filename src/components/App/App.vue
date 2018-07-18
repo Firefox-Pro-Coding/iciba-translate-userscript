@@ -3,7 +3,7 @@
     <iciba-circle ref="icibaCircle"></iciba-circle>
     <size-helper ref="sizeHelper"></size-helper>
     <!-- lazy load components -->
-    <iciba-main ref="icibaMain" v-if="icibaMainFirstLoaded"></iciba-main>
+    <iciba-main :size-helper="$refs.sizeHelper" ref="icibaMain" v-if="icibaMainFirstLoaded"></iciba-main>
     <setting-page v-if="settingPageFirstLoaded"></setting-page>
   </div>
 </template>

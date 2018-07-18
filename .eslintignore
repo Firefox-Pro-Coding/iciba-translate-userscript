@@ -1,3 +1,4 @@
 node_modules/
 iciba.user.js
 !.eslintrc.js
+*.d.ts

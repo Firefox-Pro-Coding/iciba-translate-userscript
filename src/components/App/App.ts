@@ -28,18 +28,11 @@ export default class extends Vue {
 
   /** 查词窗口懒加载 */
   private openIcibaMain(payload: IcibaMainTranslatePayload) {
-    let needInitIcibaMain = false
     if (!this.icibaMainFirstLoaded) {
       this.icibaMainFirstLoaded = true
-      needInitIcibaMain = true
     }
     // wait for element to be mounted
     this.$nextTick(() => {
-      if (needInitIcibaMain) {
-        const icibaMain = this.$refs.icibaMain as any
-        const sizeHelper = this.$refs.sizeHelper as any
-        icibaMain.sizeHelper = sizeHelper.$el
-      }
       bus.emit(EVENT_NAMES.ICIBA_MAIN_TRANSLATE, payload)
     })
   }

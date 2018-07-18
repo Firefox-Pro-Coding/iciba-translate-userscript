@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Prop } from 'vue-property-decorator'
 import { EVENT_NAMES } from '~/src/constants/constant'
 import bus, { IcibaMainTranslatePayload } from '~/src/bus'
 
@@ -41,7 +41,7 @@ export default class App extends Vue {
   public style: IStyle = {}
   public loadingDotsNumber: number = 3
   public loadingDotsInterval: number = 0
-  public sizeHelper: HTMLElement | undefined
+  // public sizeHelper: HTMLElement | undefined
   public icibaMainStyle: IPositionStyle = {
     ...defaultStyle,
   }
@@ -58,6 +58,10 @@ export default class App extends Vue {
       options: ['true', 'false'],
     },
   ]
+
+
+  @Prop({ type: Vue })
+  public sizeHelper?: Vue
 
   public get loadingDots() {
     return Array(this.loadingDotsNumber).fill('.').join('')
@@ -94,7 +98,7 @@ export default class App extends Vue {
     if (!this.sizeHelper) {
       throw new Error('sizeHelper 未定义！')
     }
-    const sizeHelperBounding = this.sizeHelper.getBoundingClientRect()
+    const sizeHelperBounding = this.sizeHelper.$el.getBoundingClientRect()
     const availableSpace = {
       x: sizeHelperBounding.left - e.clientX,
       y: sizeHelperBounding.top - e.clientY,
