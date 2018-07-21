@@ -65,6 +65,9 @@ export default class App extends Vue {
   @Prop({ type: Vue })
   public sizeHelper?: Vue
 
+  @Prop({ type: Vue })
+  public icibaCircle!: Vue
+
   public get loadingDots() {
     return Array(this.loadingDotsNumber).fill('.').join('')
   }
@@ -144,7 +147,7 @@ export default class App extends Vue {
   }
 
   public translate({ word, event }: IcibaMainTranslatePayload) {
-    if (event) {
+    if (event && !this.visible) {
       this.setPosition(event)
     }
     this.zIndex = zgen()
@@ -161,7 +164,11 @@ export default class App extends Vue {
   }
 
   public async handleWindowClick(e: MouseEvent) {
-    if (!insideOf(e.target, this.$el)) {
+    const conditions = [
+      insideOf(e.target, this.$el),
+      insideOf(e.target, this.icibaCircle.$el),
+    ]
+    if (conditions.every(v => !v)) {
       this.visible = false
     }
   }
