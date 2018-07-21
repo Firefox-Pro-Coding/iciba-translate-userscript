@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import { EVENT_NAMES } from '~/src/constants/constant'
 import bus, { IcibaMainTranslatePayload } from '~/src/bus'
+import zgen from '~/src/lib/zIndexGenerator'
 
 import {
   IPositionStyle,
@@ -39,6 +40,7 @@ export default class App extends Vue {
   public loading: boolean = false
   public errorMessage: string = ''
   public style: IStyle = {}
+  public zIndex: number = 0
   public loadingDotsNumber: number = 3
   public loadingDotsInterval: number = 0
   // public sizeHelper: HTMLElement | undefined
@@ -145,6 +147,7 @@ export default class App extends Vue {
     if (event) {
       this.setPosition(event)
     }
+    this.zIndex = zgen()
     this.visible = true
     this.inputText = word
 
@@ -166,6 +169,13 @@ export default class App extends Vue {
   public handleOpenSetting() {
     this.visible = false
     bus.emit(EVENT_NAMES.SETTING_PREPARE_OPEN)
+  }
+
+  public get computedStyle() {
+    return {
+      ...this.icibaMainStyle,
+      zIndex: this.zIndex,
+    }
   }
 
   private initProviders() {

@@ -1,0 +1,88 @@
+@import '~assets/styles/variables.less';
+@import '~assets/styles/hardreset.less';
+
+.google-dict-modal-wrapper {
+  // local variables
+  @big-margin: 6px;
+  @medium-margin: 4px;
+  @small-margin: 3px;
+  @tiny-margin: 2px;
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  justify-content: center;
+  align-items: stretch;
+  transition: 0.3s;
+  opacity: 1;
+  font-family: 'Arial', 'Microsoft Yahei', sans-serif;
+
+  /deep/ .entry-link {
+    color: @primary;
+    cursor: pointer;
+  }
+
+  &.modal-enter, &.modal-leave-to {
+    opacity: 0;
+
+    .google-dict-modal-content {
+      transform: scale(0.9);
+    }
+  }
+
+  &.modal-enter-to, &.modal-leave {
+    opacity: 1;
+
+    .google-dict-modal-content {
+      transform: translateY(1);
+    }
+  }
+
+  .google-dict-modal-bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.4);
+    transition: 0.3s;
+    z-index: 1;
+  }
+
+  .google-dict-modal-content {
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow-y: auto;
+    background: white;
+    padding: 20px 20px 30px 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.75);
+    transition: 0.3s ease transform;
+
+    .usage-overtime {
+      border-top: 1px solid @border-level-1;
+      margin-top: 15px;
+
+      .title {
+        font-size: 18px;
+        color: @main-level-4;
+        margin: 12px 0 0 0;
+      }
+
+      .usage-img-wrapper {
+        margin: 8px 0 0 0;
+
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

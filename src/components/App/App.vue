@@ -5,6 +5,8 @@
     <!-- lazy load components -->
     <iciba-main :size-helper="$refs.sizeHelper" ref="icibaMain" v-if="icibaMainFirstLoaded"></iciba-main>
     <setting-page v-if="settingPageFirstLoaded"></setting-page>
+
+    <google-dict-modal v-if="googleDictModalFirstLoaded"></google-dict-modal>
   </div>
 </template>
 

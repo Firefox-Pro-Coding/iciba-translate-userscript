@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 
 @Component({
@@ -15,9 +15,13 @@ export default class extends Vue {
   public data: string = ''
 
   public mounted() {
-    const url = this.url
-    if (url) {
-      this.handleDraw(url)
+    this.loadImage()
+  }
+
+  public loadImage() {
+    if (this.url) {
+      this.data = ''
+      this.handleDraw(this.url)
     }
   }
 
@@ -53,5 +57,10 @@ export default class extends Vue {
       return Promise.reject(e)
     }
     return Promise.resolve()
+  }
+
+  @Watch('url')
+  public handleUrlChange() {
+    this.loadImage()
   }
 }

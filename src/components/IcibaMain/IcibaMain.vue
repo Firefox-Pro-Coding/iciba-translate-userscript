@@ -2,7 +2,7 @@
   <transition name="iciba-main">
     <div
       class="iciba-main reset iciba-main-the-long-class"
-      :style="icibaMainStyle"
+      :style="computedStyle"
       v-show="visible">
       <div class="iciba-container flex-co flex-stretch" :style="icibaContainerStyle">
         <div class="iciba-input-container flex">

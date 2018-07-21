@@ -1,23 +1,14 @@
 import Vue from 'vue'
 
-// #!dev_only
+/* eslint-disable no-underscore-dangle */
+// #!dev_only attach Vue to the devtools hook
 const install = (top: any) => {
-  try {
-    const checkVuePropName = 'is_iciba_dev_global_vue_installed'
-    if (process.env.NODE_ENV !== 'production' && !top.Vue && !top[checkVuePropName]) {
-      top[checkVuePropName] = true
-      const v = Vue as any
-      const script = document.createElement('script')
-      script.setAttribute('src', `https://cdn.bootcss.com/vue/${v.version}/vue.js`)
-      setTimeout(() => {
-        document.body.appendChild(script)
-      }, 3000)
-    }
-  } catch (e) {
-    //
+  top.Vue = top.Vue || { config: {} }
+  top.Vue.config.devtools = true
+  if (top.__VUE_DEVTOOLS_GLOBAL_HOOK__ && !top.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue) {
+    top.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = Vue
   }
 }
-
 
 // expose webpackHotUpdate out of sandbox
 const exposeWebpackHotUpdate = (_module: any, _top: any, _unsafeWindow: any) => {
@@ -31,5 +22,6 @@ const exposeWebpackHotUpdate = (_module: any, _top: any, _unsafeWindow: any) => 
   }
 }
 
-install(window)
+// install(window)
+install(unsafeWindow)
 exposeWebpackHotUpdate(module, top, unsafeWindow)

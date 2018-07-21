@@ -5,7 +5,9 @@ import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
 import SizeHelper from '~/src/components/SizeHelper/SizeHelper.vue'
 import SettingPage from '~/src/components/SettingPage/SettingPage.vue'
 
-import bus, { IcibaMainTranslatePayload } from '~/src/bus'
+import GoogleDictModal from '~/src/provider/GoogleDict/container/GoogleDictModal.vue'
+
+import globalBus, { IcibaMainTranslatePayload } from '~/src/bus'
 import { EVENT_NAMES } from '~/src/constants/constant'
 
 @Component({
@@ -15,36 +17,49 @@ import { EVENT_NAMES } from '~/src/constants/constant'
     IcibaCircle,
     SizeHelper,
     SettingPage,
+    GoogleDictModal,
   },
 })
 export default class extends Vue {
   public icibaMainFirstLoaded = false
   public settingPageFirstLoaded = false
+  public googleDictModalFirstLoaded = false
+
+  public googleDictModalVisible = false
 
   public mounted() {
-    bus.on(EVENT_NAMES.SETTING_PREPARE_OPEN, this.openSettingPage)
-    bus.on(EVENT_NAMES.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
+    globalBus.on(EVENT_NAMES.SETTING_PREPARE_OPEN, this.openSettingPage)
+    globalBus.on(EVENT_NAMES.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
+    globalBus.on(EVENT_NAMES.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)
   }
 
   /** 查词窗口懒加载 */
-  private openIcibaMain(payload: IcibaMainTranslatePayload) {
+  private async openIcibaMain(payload: IcibaMainTranslatePayload) {
     if (!this.icibaMainFirstLoaded) {
       this.icibaMainFirstLoaded = true
+      // wait for element to be mounted
+      await new Promise(rs => this.$nextTick(() => rs()))
     }
-    // wait for element to be mounted
-    this.$nextTick(() => {
-      bus.emit(EVENT_NAMES.ICIBA_MAIN_TRANSLATE, payload)
-    })
+    globalBus.emit(EVENT_NAMES.ICIBA_MAIN_TRANSLATE, payload)
   }
 
   /** 设置窗口懒加载 */
-  private openSettingPage() {
+  private async openSettingPage() {
     if (!this.settingPageFirstLoaded) {
       this.settingPageFirstLoaded = true
+      // wait for element to be mounted
+      await new Promise(rs => this.$nextTick(() => rs()))
+    }
+    globalBus.emit(EVENT_NAMES.SETTING_OPEN)
+  }
+
+  private async openGoogleDictModal(dicData: any) {
+    if (!this.googleDictModalFirstLoaded) {
+      this.googleDictModalFirstLoaded = true
+      // wait for element to be mounted
+      await new Promise(rs => this.$nextTick(() => rs()))
     }
     // wait for element to be mounted
-    this.$nextTick(() => {
-      bus.emit(EVENT_NAMES.SETTING_OPEN)
-    })
+    globalBus.emit(EVENT_NAMES.GOOGLE_DICT_MODAL_OPEN, dicData)
   }
 }

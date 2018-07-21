@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 import { IPositionStyle, IStyle } from '~/src/interfaces/index'
 import sleep from '~/src/lib/sleep'
-// import insideOf from '~/src/lib/insideOf'
+import zgen from '~/src/lib/zIndexGenerator'
 
 import bus, { IcibaMainTranslatePayload } from '~/src/bus'
 import { EVENT_NAMES } from '~/src/constants/constant'
@@ -14,6 +14,7 @@ export default class App extends Vue {
   public visible = false
   public word: string = ''
   public style: IStyle = {}
+  public zIndex: number = 0
   public internalStyle: IPositionStyle = {
     top: 'auto',
     bottom: 'auto',
@@ -60,12 +61,20 @@ export default class App extends Vue {
     if (selection.length) {
       this.visible = true
       this.word = selection
+      this.zIndex = zgen()
       this.style = {
         top: e.pageY + 7,
         left: e.pageX + 7,
       }
     } else {
       this.visible = false
+    }
+  }
+
+  public get computedStyle() {
+    return {
+      ...this.internalStyle,
+      zIndex: this.zIndex,
     }
   }
 

@@ -3,6 +3,7 @@ import { Component } from 'vue-property-decorator'
 
 import CoreSetting from './coreSetting/coreSetting.vue'
 import bus from '~/src/bus'
+import zgen from '~/src/lib/zIndexGenerator'
 import { EVENT_NAMES } from '~/src/constants/constant'
 
 type TabNames = 'core' | 'iciba'
@@ -16,6 +17,7 @@ type TabNames = 'core' | 'iciba'
 export default class App extends Vue {
   public currentTab: TabNames = 'core'
   public visible: boolean = false
+  public zIndex: number = 0
   public bodyOverflowXValue: string = ''
   public bodyOverflowYValue: string = ''
 
@@ -26,6 +28,7 @@ export default class App extends Vue {
   public openSetting() {
     this.bodyOverflowXValue = document.body.style.overflowX || ''
     this.bodyOverflowYValue = document.body.style.overflowY || ''
+    this.zIndex = zgen()
     this.visible = true
   }
 

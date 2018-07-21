@@ -3,6 +3,7 @@
     <div
       class="iciba-setting-modal"
       :class="{ visible }"
+      :style="{ zIndex: zIndex }"
       @click="handleCloseSetting"
       v-show="visible">
       <div class="iciba-setting-window">

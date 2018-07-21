@@ -2,35 +2,43 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
-import { IAudioCache } from '~/src/interfaces/index'
 import googleDictBus from '~/src/provider/GoogleDict/bus'
-
 import globalBus from '~/src/bus'
 import { EVENT_NAMES } from '~/src/constants/constant'
+import zgen from '~/src/lib/zIndexGenerator'
 
-import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
-import simpleEntry from './components/simpleEntry/simpleEntry.vue'
+import audioCache from '../audioCache'
+import imageLoader from './components/imageLoader/imageLoader.vue'
+import entry from './components/entry/entry.vue'
 
 @Component({
-  name: 'GoogleDictContainer',
+  name: 'GoogleDictModal',
   components: {
-    simpleEntry,
-    ScrollBar,
+    imageLoader,
+    entry,
   },
 })
 export default class App extends Vue {
   public dictionaryData: any = null
   public modalVisible = false
-  private audioCache: IAudioCache = {}
+  public zIndex: number = 0
+  private audioCache = audioCache
 
   public mounted() {
     googleDictBus.on('play-audio', this.handlePlay)
     googleDictBus.on('nym-click', this.handleNymClick)
     googleDictBus.on('entry-click', this.handleEntryLinkClick)
+    globalBus.on(EVENT_NAMES.GOOGLE_DICT_MODAL_OPEN, this.handleOpenModal)
   }
 
-  public handleOpenModal() {
-    globalBus.emit(EVENT_NAMES.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.dictionaryData)
+  public handleOpenModal(payload: any) {
+    this.zIndex = zgen()
+    this.dictionaryData = payload
+    this.modalVisible = true
+  }
+
+  public handleCloseModal() {
+    this.modalVisible = false
   }
 
   public async handlePlay(url: string): Promise<void> {
@@ -69,14 +77,6 @@ export default class App extends Vue {
       }
     }
     return Promise.resolve()
-  }
-
-  public visibleCallback() {
-    this.$nextTick(() => {
-      const box = this.$refs.scrollBox as any
-      box.scrollToTop()
-      box.recalcScrollbar()
-    })
   }
 
   private handleNymClick(word: string) {
