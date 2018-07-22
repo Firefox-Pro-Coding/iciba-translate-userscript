@@ -26,6 +26,9 @@ module.exports = {
 
         // incompatible with typescript
         'no-useless-constructor': 'off',
+
+        // conficts with typescript overload
+        'no-dupe-class-members': 'off',
       },
     },
   ],

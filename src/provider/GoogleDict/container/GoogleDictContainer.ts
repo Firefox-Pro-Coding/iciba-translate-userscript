@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
-import { IAudioCache } from '~/src/interfaces/index'
+import { IAudioCache } from '~/src/types/index'
 import googleDictBus from '~/src/provider/GoogleDict/bus'
 
 import globalBus from '~/src/bus'

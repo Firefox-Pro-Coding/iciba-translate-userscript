@@ -6,7 +6,7 @@ import {
   ITranslateProviderSettingDescriptors,
   ITranslateProviderSettings,
   IVue,
-} from '~/src/interfaces/index'
+} from '~/src/types/index'
 
 export interface IIconType {
   data: string

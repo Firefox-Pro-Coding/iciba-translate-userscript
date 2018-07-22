@@ -1,4 +1,4 @@
-import { IAudioCache } from '~/src/interfaces/index'
+import { IAudioCache } from '~/src/types/index'
 
 const audioCache: IAudioCache = {}
 

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
-import { IPositionStyle, IStyle } from '~/src/interfaces/index'
+import { IPositionStyle, IStyle } from '~/src/types/index'
 import sleep from '~/src/lib/sleep'
 import zgen from '~/src/lib/zIndexGenerator'
 

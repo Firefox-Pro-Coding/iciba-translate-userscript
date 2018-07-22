@@ -8,7 +8,7 @@ import {
   IPositionStyle,
   IStyle,
   ITranslateProviderSettingDescriptors,
-} from '~/src/interfaces/index'
+} from '~/src/types/index'
 
 import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
 

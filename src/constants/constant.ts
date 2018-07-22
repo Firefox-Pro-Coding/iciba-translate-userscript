@@ -7,4 +7,6 @@ export const enum EVENT_NAMES {
 
   GOOGLE_DICT_MODAL_PREPARE_OPEN = 'google-dict:modal-prepare-open',
   GOOGLE_DICT_MODAL_OPEN = 'google-dict:modal-open',
+
+  SETTING_STORE_UPDATE = 'setting-store:update'
 }
