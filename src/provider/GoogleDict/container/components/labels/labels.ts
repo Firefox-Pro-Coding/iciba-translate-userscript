@@ -5,6 +5,7 @@ import { Component, Prop } from 'vue-property-decorator'
   name: 'GoogleDictContainerLabels',
 })
 export default class extends Vue {
+  public popoverVisible = false
   @Prop([Array])
   public labels!: Array<string>
 
@@ -16,6 +17,14 @@ export default class extends Vue {
 
   @Prop({ default: 'medium' })
   public size!: string
+
+  public handleShowPopover() {
+    this.popoverVisible = true
+  }
+
+  public handleHidePopover() {
+    this.popoverVisible = false
+  }
 
   public get labelClass() {
     return `${this.type}-label`

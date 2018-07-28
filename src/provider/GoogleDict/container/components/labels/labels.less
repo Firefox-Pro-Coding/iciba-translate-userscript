@@ -63,10 +63,51 @@
   }
 
   .iciba-label {
+    position: relative;
     line-height: 1.5;
 
     &:not(:last-child) {
       margin-right: 5px;
+    }
+
+    .popover-tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 0 10px;
+      line-height: 22px;
+      border-radius: 6px;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      color: white;
+      top: 0;
+      left: 50%;
+      margin: -7px 0 0 0;
+      transform: translate(-50%, -100%);
+      transition: 0.12s;
+
+      &::after {
+        @size: 6px;
+
+        content: '';
+        z-index: 1;
+        position: absolute;
+        top: 22px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-top: @size solid rgba(0, 0, 0, 0.7);
+        border-left: @size solid transparent;
+        border-bottom: @size solid transparent;
+        border-right: @size solid transparent;
+      }
+
+      &.popover-leave-to, &.popover-enter {
+        transform: translate(-50%, -90%);
+        opacity: 0;
+      }
+
+      &.popover-enter-to, &.popover-leave {
+        transform: translate(-50%, -100%);
+        opacity: 1;
+      }
     }
   }
 }
