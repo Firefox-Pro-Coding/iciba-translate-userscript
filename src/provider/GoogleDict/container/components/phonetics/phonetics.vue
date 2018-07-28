@@ -28,7 +28,7 @@
     font-family: 'Noto Sans', 'Arial', sans-serif;
 
     .play-button {
-      transform: translateY(1px);
+      cursor: pointer;
       height: 20px;
       width: 22px;
       background: url('~assets/img/play/speaker-filled-audio-tool_59284.svg');

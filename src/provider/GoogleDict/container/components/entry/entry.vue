@@ -15,7 +15,7 @@
     <phonetics class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
 
     <!-- labelSet -->
-    <div class="entry-label-set-box">
+    <div class="entry-label-set-box" v-if="entry.labelSet && entry.labelSet.length">
       <label-set
         class="entry-label-set"
         size="large"
