@@ -18,6 +18,7 @@ import GoogleTranslateProvider from '~/src/provider/GoogleTranslate/GoogleTransl
 import BaiduTranslateProvider from '~/src/provider/BaiduTranslate/BaiduTranslate'
 
 import insideOf from '~/src/lib/insideOf'
+import calcMouseEventPosition from '~/src/lib/calcMouseEventPosition'
 
 const defaultStyle = {
   top: 'auto',
@@ -116,11 +117,14 @@ export default class App extends Vue {
       ...defaultStyle,
       ...style,
     }
+
+    const calcedPosition = calcMouseEventPosition(e)
+
     this.icibaMainStyle = {
       ...defaultStyle,
       ...{
-        top: `${e.pageY}px`,
-        left: `${e.pageX}px`,
+        top: `${calcedPosition.top}px`,
+        left: `${calcedPosition.left}px`,
       },
     }
   }

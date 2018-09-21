@@ -6,6 +6,7 @@ import zgen from '~/src/lib/zIndexGenerator'
 
 import bus, { IcibaMainTranslatePayload } from '~/src/bus'
 import { EVENT_NAMES } from '~/src/constants/constant'
+import calcMouseEventPosition from '~/src/lib/calcMouseEventPosition'
 
 @Component({
   name: 'IcibaCircle',
@@ -62,9 +63,12 @@ export default class App extends Vue {
       this.visible = true
       this.word = selection
       this.zIndex = zgen()
+
+      const calcedPosition = calcMouseEventPosition(e)
+
       this.style = {
-        top: e.pageY + 7,
-        left: e.pageX + 7,
+        top: calcedPosition.top + 7,
+        left: calcedPosition.left + 7,
       }
     } else {
       this.visible = false
