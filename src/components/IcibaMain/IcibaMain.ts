@@ -85,6 +85,7 @@ export default class App extends Vue {
     window.clearInterval(this.loadingDotsInterval)
   }
 
+  /** loading 文字动态变化 */
   public changeLoadingDots() {
     this.loadingDotsNumber += 1
     if (this.loadingDotsNumber > 10) {
@@ -92,10 +93,12 @@ export default class App extends Vue {
     }
   }
 
+  /** 输入框查词 */
   public handleInputSearch() {
     this.translate({ word: this.inputText })
   }
 
+  /* provider icon click */
   public handleTranslateButtonClick(provider: AbstractTranslateProvider) {
     this.translateWithProvider(provider)
   }
@@ -168,11 +171,21 @@ export default class App extends Vue {
   }
 
   public async handleWindowClick(e: MouseEvent) {
-    const conditions = [
-      insideOf(e.target, this.$el),
-      insideOf(e.target, this.icibaCircle.$el),
+    const hasCloseClass = (_target: HTMLElement) => {
+      let target: HTMLElement | null = _target
+      while (target) {
+        if (target.classList.contains('close-iciba-main')) {
+          return true
+        }
+        target = target.parentElement
+      }
+      return false
+    }
+    const closeConditions = [
+      !insideOf(e.target, this.$el.parentElement),
+      hasCloseClass(e.target as HTMLElement),
     ]
-    if (conditions.every(v => !v)) {
+    if (closeConditions.some(v => v)) {
       this.visible = false
     }
   }
