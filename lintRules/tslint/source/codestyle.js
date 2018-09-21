@@ -40,7 +40,6 @@ module.exports = {
   'no-unnecessary-type-annotation': true,
 
   // Find dead code and unused declarations.
-  // supported by typescript core
   // 'no-unused': { severity: 'warning' },
 
   // Checks if the returned variable is declared right before the return statement.

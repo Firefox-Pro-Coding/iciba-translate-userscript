@@ -2,7 +2,9 @@ module.exports = {
   rules: {
     'class-methods-use-this': ['off'], // some time it needed
     'function-paren-newline': ['error', 'consistent'],
+    'max-len': 'off',
     'no-await-in-loop': 'off', // somtime need it
+    'no-loop-func': 'off',
     'no-param-reassign': ['error', { 'props': false }], // allow object prop mutation
     'no-restricted-globals': 'off', // sometime need it
     'no-use-before-define': ['error', { 'classes': false, 'functions': false }],

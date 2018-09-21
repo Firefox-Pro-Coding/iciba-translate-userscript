@@ -49,10 +49,6 @@
     "no-reference": true,
     "no-unnecessary-type-assertion": true,
     "no-var-requires": true,
-    "only-arrow-functions": [
-      true,
-      "allow-named-functions"
-    ],
     "unified-signatures": true,
     "await-promise": true,
     "ban-comma-operator": true,
@@ -88,7 +84,6 @@
     "no-unused-expression": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
-    "no-void-expression": true,
     "prefer-object-spread": true,
     "radix": true,
     "restrict-plus-operands": true,
@@ -96,7 +91,6 @@
     "triple-equals": true,
     "use-default-type-parameter": true,
     "use-isnan": true,
-    "cyclomatic-complexity": true,
     "deprecation": true,
     "eofline": true,
     "linebreak-style": [

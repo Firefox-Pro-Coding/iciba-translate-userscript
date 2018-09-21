@@ -66,7 +66,7 @@ module.exports = {
   'no-var-requires': true,
 
   // Disallows traditional (non-arrow) function expressions.
-  'only-arrow-functions': [true, 'allow-named-functions'],
+  // 'only-arrow-functions': true,
 
   // Recommends a ‘for-of’ loop over a standard ‘for’ loop if the index is only used to access the array being iterated.
   // 'prefer-for-of': true,
@@ -263,7 +263,7 @@ module.exports = {
 
   // Requires Type Info
   // Requires expressions of type void to appear in statement position.
-  'no-void-expression': true,
+  // 'no-void-expression': true,
 
   // Recommends to use a conditional expression instead of
   // assigning to the same thing in each branch of an if statement.
@@ -321,7 +321,7 @@ module.exports = {
    * Maintainability
    */
   // Enforces a threshold of cyclomatic complexity.
-  'cyclomatic-complexity': true,
+  // 'cyclomatic-complexity': true,
 
   // Requires Type Info
   // Warns when deprecated APIs are used.
