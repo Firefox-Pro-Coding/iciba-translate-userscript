@@ -49,7 +49,6 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   }
 
   public async translate(word: string) {
-    console.log(word)
     let result
     try {
       result = await this.getGoogleTranslateResult(word)
@@ -73,19 +72,19 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       ...GoogleTranslateProvider.apiQuery,
       ['tl', encodeURIComponent(tl)],
       ['tk', encodeURIComponent(token)],
+      ['q', word],
     ]
     const url = GoogleTranslateProvider.apiUrl + query.map(([k, v]) => `${k}=${v}`).join('&')
 
     try {
       const result = await got({
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Referer': 'https://translate.google.cn/',
           'Cache-Control': 'max-age=0',
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         },
         url,
-        data: `q=${word}`,
         timeout: 5000,
         responseType: 'json',
       })
