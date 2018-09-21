@@ -6,12 +6,12 @@
     <div
       :class="[labelClass, 'iciba-label', 'iciba-inline-block']"
       v-for="(label, index) in labels"
-      @mouseover="handleShowPopover"
-      @mouseleave="handleHidePopover"
+      @mouseover="handleShowPopover(label)"
+      @mouseleave="handleHidePopover(label)"
       :key="index">
       {{ label }}
       <transition name="popover">
-        <div class="popover-tooltip" v-if="popoverVisible">
+        <div class="popover-tooltip" v-if="popoverVisibleMap[label]">
           {{ type }}
         </div>
       </transition>
