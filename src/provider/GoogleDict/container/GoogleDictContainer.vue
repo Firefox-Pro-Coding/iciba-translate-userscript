@@ -4,7 +4,7 @@
       <div class="google-content-simple">
         <div class="expand-button" title="展开" @click="handleOpenModal"></div>
         <!-- simple result -->
-        <div class="content-box">
+        <div class="google-content-box">
           <div class="dictionary-data-box flex-co flex-stretch" v-if="dictionaryData && dictionaryData.length">
             <div class="dictionary-data-item" v-for="(dicDataItem, index) in dictionaryData" :key="index">
 

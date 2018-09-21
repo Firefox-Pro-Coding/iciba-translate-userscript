@@ -51,7 +51,7 @@ export default class extends Vue {
       const reader = new FileReader()
       reader.readAsDataURL(blob)
       reader.onloadend = () => {
-        this.data = reader.result.replace('data:;base64,', 'data:image/png;base64,')
+        this.data = (reader.result as string).replace('data:;base64,', 'data:image/png;base64,')
       }
     } catch (e) {
       return Promise.reject(e)

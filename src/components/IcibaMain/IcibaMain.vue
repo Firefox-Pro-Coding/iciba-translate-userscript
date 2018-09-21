@@ -38,7 +38,7 @@
           <div class="loading-tip iciba-content" v-show="loading">
             加载中{{ loadingDots }}
           </div>
-          <div class="error-message iciba-content" v-show="!loading && errorMessage">
+          <div class="provider-error-message iciba-content" v-show="!loading && errorMessage">
             {{ errorMessage }}
           </div>
         </div>
