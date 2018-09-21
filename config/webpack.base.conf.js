@@ -36,6 +36,7 @@ module.exports = {
       {
         test: /\.ts$/,
         loaders: [
+          'cache-loader',
           'babel-loader',
           'ts-loader',
         ],
@@ -82,7 +83,14 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
+        loader: {
+          loader: 'vue-loader',
+          options: {
+            compilerOptions: {
+              preserveWhitespace: false,
+            },
+          },
+        },
       },
       {
         test: /\.svg$/,
