@@ -10,6 +10,6 @@ export default class extends Vue {
   public fragment: any
 
   public handleEntryLinkClick(word: string) {
-    googleDictBus.emit('entry-click', word)
+    googleDictBus.emit(googleDictBus.ENTRY_CLICK, word)
   }
 }

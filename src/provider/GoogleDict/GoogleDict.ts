@@ -9,16 +9,20 @@ import type_3_search_281781 from '~/src/assets/img/providerIcon/googleDict/type_
 import type_4_google_356049 from '~/src/assets/img/providerIcon/googleDict/type_4_google_356049.svg'
 /* eslint-enable camelcase */
 
+import playAudio from '~/src/lib/playAudio'
+import googleDictBus from '~/src/provider/GoogleDict/bus'
+
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
-
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
-
 import check from './check'
+import audioCache from './audioCache'
+
 
 class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = 'GoogleDict'
   public settingDescriptor = []
   public containerComponentClass = GoogleDictContainer
+  private audioCache = audioCache
 
   public constructor() {
     super()
@@ -31,6 +35,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       type_4_google_356049,
       /* eslint-enable camelcase */
     ]
+    googleDictBus.on(googleDictBus.PLAY_AUDIO, this.handlePlay)
   }
 
   public translateCallback() {
@@ -111,6 +116,45 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       }
       return Promise.reject(new Error(`遇到错误: ${e.message}`))
     }
+  }
+
+  /** 播放音频 */
+  private async handlePlay(url: string): Promise<void> {
+    const volume = 0.6
+    const mp3Url = `https:${url}`
+    // check cache
+    if (mp3Url in this.audioCache) {
+      playAudio(this.audioCache[mp3Url], volume)
+    } else {
+      const urlObj = new URL(mp3Url)
+      try {
+        const response = await got({
+          method: 'GET',
+          binary: true,
+          headers: {
+            'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'Host': urlObj.host,
+            'Pragma': 'no-cache',
+            'upgrade-insecure-requests': 1,
+            'User-Agent': window.navigator.userAgent,
+          },
+          responseType: 'arraybuffer',
+          url: mp3Url,
+          timeout: 5000,
+        })
+
+        const arrayBuffer = response.response
+        this.audioCache[mp3Url] = arrayBuffer
+        playAudio(arrayBuffer, volume)
+      } catch (e) {
+        return Promise.reject(e)
+      }
+    }
+    return Promise.resolve()
   }
 }
 

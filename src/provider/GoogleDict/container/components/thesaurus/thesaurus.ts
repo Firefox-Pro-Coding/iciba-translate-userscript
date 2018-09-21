@@ -14,6 +14,6 @@ export default class extends Vue {
   }
 
   public handleNymClick(word: string) {
-    googleDictBus.emit('nym-click', word)
+    googleDictBus.emit(googleDictBus.NYM_CLICK, word)
   }
 }

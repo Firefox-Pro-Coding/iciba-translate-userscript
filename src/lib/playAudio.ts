@@ -1,7 +1,7 @@
 // using web audio api play sound
 let context: AudioContext
 
-export default async (arrayBuffer: ArrayBuffer, volume: number = 1): Promise<void> => {
+const playAudio = async (arrayBuffer: ArrayBuffer, volume: number = 1): Promise<void> => {
   // https://goo.gl/7K7WLu
   context = context || new AudioContext()
   if (context.state === 'suspended') {
@@ -26,3 +26,5 @@ export default async (arrayBuffer: ArrayBuffer, volume: number = 1): Promise<voi
 
   source.start()
 }
+
+export default playAudio
