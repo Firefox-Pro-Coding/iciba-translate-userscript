@@ -36,7 +36,6 @@ module.exports = {
       {
         test: /\.ts$/,
         loaders: [
-          'cache-loader',
           'babel-loader',
           'ts-loader',
         ],

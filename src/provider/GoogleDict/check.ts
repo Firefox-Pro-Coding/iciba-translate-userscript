@@ -287,7 +287,6 @@ export default (copy: any) => {
   })
 
   const allkeys = Array.from(new Set<string>(arr))
-  console.log(copy)
   const un = allkeys.filter(v => knowkeys.indexOf(v) === -1)
   if (un.length !== 0) {
     alert('unhandle google dict keys')

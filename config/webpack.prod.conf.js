@@ -10,6 +10,4 @@ module.exports = merge(baseWebpackConfig, {
     },
   },
   devtool: '#source-map',
-  plugins: [
-  ],
 })

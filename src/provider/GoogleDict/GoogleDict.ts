@@ -17,7 +17,6 @@ import GoogleDictContainer from './container/GoogleDictContainer.vue'
 import check from './check'
 import audioCache from './audioCache'
 
-
 class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = 'GoogleDict'
   public settingDescriptor = []
@@ -26,6 +25,10 @@ class GoogleDictProvider extends AbstractTranslateProvider {
 
   public constructor() {
     super()
+
+    // bind methods
+    this.handlePlay = this.handlePlay.bind(this)
+
     this.icons = [
       /* eslint-disable camelcase */
       type_0_google,
