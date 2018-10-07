@@ -43,6 +43,14 @@
     flex: 1 1 auto;
 
     .thesaurus-word-item {
+      & + .thesaurus-word-item {
+        margin-top: 2px;
+      }
+
+      .nym-register {
+        margin-right: 5px;
+      }
+
       .nym-item {
         display: inline-flex;
         color: @main-level-4;

@@ -25,6 +25,8 @@
   @import '~assets/styles/variables.less';
 
   .etymology-box {
+    border-top: 1px solid @border-level-1;
+    padding: 10px 0 0 0;
     margin: 10px 0 0 0;
 
     .etymology-title {

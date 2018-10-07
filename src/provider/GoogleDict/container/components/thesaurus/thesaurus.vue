@@ -20,11 +20,12 @@
             :class="[`${type}-item`]"
             v-for="(thesaurusItem, index) in thesaurus[type]"
             :key="index">
-            <div
+            <labels
+              class="nym-register"
+              type="register"
               v-if="thesaurusItem.register"
-              class="nym-item nym-register-item nym-label iciba-inline">
-              {{ thesaurusItem.register }}
-            </div>
+              :labels="[thesaurusItem.register]">
+            </labels>
             <div
               v-for="(nym, index) in thesaurusItem.nyms"
               class="nym-item iciba-inline"

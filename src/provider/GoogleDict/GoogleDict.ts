@@ -109,7 +109,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         timeout: 10000,
       })
       const data = JSON.parse(response.responseText)
-      if (Reflect.ownKeys(data).length === 0) {
+      if (Object.getOwnPropertyNames(data).length === 0) {
         return Promise.reject(new Error('无查询结果！'))
       }
       return data
