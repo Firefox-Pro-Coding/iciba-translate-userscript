@@ -27,10 +27,10 @@ const updateTKK = async () => {
     url: 'https://translate.google.cn',
     timeout: 5000,
   })
-  const match = result.responseText.match(/TKK='(.*?)'/)
+  const match = result.responseText.match(/tkk:'(.*?)'/)
 
   if (!match) {
-    return
+    throw new Error('failed to get ttk')
   }
 
   const TKK = match[1]

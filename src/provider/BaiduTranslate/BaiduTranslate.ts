@@ -1,7 +1,20 @@
+import * as queryString from 'querystring'
+
 import iconBase64 from '~/src/assets/img/providerIcon/baiduTranslate/baidu.svg'
-// import { got } from '~/src/lib/gmapi'
+import { got } from '~/src/lib/gmapi'
+
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
+import getToken from './helpers/token'
 import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
+
+interface TranslateParams {
+  from: string
+  query: string
+  // transtype: 'translang'
+  // simple_means_flag: 3
+  sign: string
+  token: string
+}
 
 class BaiduTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'BaiduTranslate'
@@ -16,53 +29,87 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
   }
 
   public async translate(word: string) {
-    console.log(word)
+    let result
+    try {
+      result = await this.internalTranslate(word)
+      if (this.componentInstance) {
+        this.componentInstance.translateResult = result
+      }
+    } catch (e) {
+      return Promise.reject(e)
+    }
     return Promise.resolve()
   }
 
+  private async internalTranslate(word: string) {
+    const fromLang = await this.detectLang(word)
+    try {
+      const token = await getToken(word)
 
-  // public detectLang(word: string) {
-  //   const formdata = new FormData()
-  //   formdata.append('query', encodeURIComponent(Array.from(word).splice(0, 25).join('')))
-  //   const langDetect = await got({
-  //     method: 'POST',
-  //     headers: {
-  //       referer: 'http://fanyi.baidu.com',
-  //     },
-  //     url: 'http://fanyi.baidu.com/langdetect',
-  //     data: formdata,
-  //     timeout: 5000,
-  //   })
-  //   let result = JSON.parse(langDetect)
-  //   if (result.error === 0) {
-  //     return result.lan
-  //   } else {
-  //     throw new Error('翻译文本语言未知！')
-  //   }
-  // }
-  //
-  // public async getTranslateResult (lang_detect, target_lang, word) {
-  //   let translation_formData = new FormData()
-  //   translation_formData.append('from', lang_detect)
-  //   translation_formData.append('to', target_lang)
-  //   translation_formData.append('query', word)
-  //   translation_formData.append('transtype', 'translang')
-  //
-  //   let result = await got({
-  //     method: 'POST',
-  //     referer: 'http://fanyi.baidu.com',
-  //     url: 'http://fanyi.baidu.com/v2transapi',
-  //     data: translation_formData,
-  //     timeout: 5000
-  //   })
-  //
-  //   result = JSON.parse(result)
-  //   if (result.trans_result.type === 2 && result.trans_result.status === 0) {
-  //     return result.trans_result.data[0].dst
-  //   } else {
-  //     throw new Error('翻译出错！')
-  //   }
-  // }
+      return this.getTranslateResult({
+        query: word,
+        from: fromLang,
+        ...token,
+      })
+    } catch (e) {
+      // 若请求失败则强制刷新token
+      const token = await getToken(word, true)
+
+      return this.getTranslateResult({
+        query: word,
+        from: fromLang,
+        ...token,
+      })
+    }
+  }
+
+  private async detectLang(word: string): Promise<string> {
+    const formdata = {
+      query: Array.from(word).splice(0, 50).join(''),
+    }
+    const response = await got({
+      method: 'POST',
+      headers: {
+        'referer': 'https://fanyi.baidu.com',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      },
+      url: 'https://fanyi.baidu.com/langdetect',
+      data: queryString.stringify(formdata),
+      timeout: 5000,
+    })
+    const result = JSON.parse(response.responseText)
+    if (result.error === 0) {
+      return result.lan
+    }
+    throw new Error('检测翻译文本语言失败！')
+  }
+
+  private async getTranslateResult(params: TranslateParams) {
+    const translationFormData = {
+      ...params,
+      to: params.from === 'zh' ? 'en' : 'zh',
+      transtype: 'translang',
+      simple_means_flag: 3,
+    }
+
+    const response = await got({
+      method: 'POST',
+      headers: {
+        'referer': 'https://fanyi.baidu.com',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'User-Agent': window.navigator.userAgent,
+      },
+      url: 'https://fanyi.baidu.com/v2transapi',
+      data: queryString.stringify(translationFormData),
+      timeout: 5000,
+    })
+
+    const result = JSON.parse(response.responseText)
+    if (result.trans_result.type === 2 && result.trans_result.status === 0) {
+      return result.trans_result.data[0].dst
+    }
+    throw new Error('翻译出错！')
+  }
 }
 
 export default new BaiduTranslateProvider()

@@ -22,6 +22,7 @@ export const setValue = (name: string, value: string): Promise<void> => {
 
 interface IExtendedGMOption extends GMXMLHttpRequestOptions {
   responseType?: string
+  anonymous?: boolean
 }
 
 interface IExtendedGMXMLHttpRequestResponse extends GMXMLHttpRequestResponse {
@@ -52,7 +53,7 @@ export const got = (params: IExtendedGMOption) => {
       },
       onload(response) {
         if (response.status !== 200) {
-          const err = new GMXMLError('网络错误！')
+          const err = new GMXMLError(`response with status code ${response.status}`)
           err.response = response
           rj(err)
         }

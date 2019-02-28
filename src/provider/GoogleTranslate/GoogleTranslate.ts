@@ -35,7 +35,6 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   public settingDescriptor = []
   public containerComponentClass = GoogleTranslateContainer
 
-
   public constructor() {
     super()
     this.icons = [

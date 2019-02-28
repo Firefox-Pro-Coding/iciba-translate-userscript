@@ -8,6 +8,7 @@
         <div class="iciba-input-container flex">
           <div class="iciba-input-box flex">
             <input
+              id="iciba-search-input"
               class="iciba-search-input"
               size="1"
               type="text"

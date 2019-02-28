@@ -132,27 +132,6 @@ export default class App extends Vue {
     }
   }
 
-  public internalTranslate(provider: AbstractTranslateProvider) {
-    const word = this.inputText.trim()
-    this.errorMessage = ''
-
-    if (!word) {
-      this.errorMessage = '查询不能为空！'
-      return
-    }
-    this.loading = true
-    provider.translate(word).then(() => {
-      this.loading = false
-      // DON'T CHANGE!
-      // call this callback right after setting loading to false
-      // this insure that provider container is visible
-      provider.translateCallback()
-    }).catch((e) => {
-      this.errorMessage = `${provider.uniqName}: ${e.message}`
-      this.loading = false
-    })
-  }
-
   public translate({ word, event }: IcibaMainTranslatePayload) {
     if (event && !this.visible) {
       this.setPosition(event)
@@ -195,13 +174,6 @@ export default class App extends Vue {
     bus.emit(EVENT_NAMES.SETTING_PREPARE_OPEN)
   }
 
-  public get computedStyle() {
-    return {
-      ...this.icibaMainStyle,
-      zIndex: this.zIndex,
-    }
-  }
-
   private initProviders() {
     this.$nextTick(() => { // nextTick to wait element to be rendered
       this.providers.forEach((provider) => {
@@ -214,5 +186,34 @@ export default class App extends Vue {
         provider.componentInstance = containerInstance
       })
     })
+  }
+
+  private internalTranslate(provider: AbstractTranslateProvider) {
+    const word = this.inputText.trim()
+    this.errorMessage = ''
+
+    if (!word) {
+      this.errorMessage = '查询不能为空！'
+      return
+    }
+    this.loading = true
+    provider.translate(word).then(() => {
+      this.loading = false
+      // DON'T CHANGE!
+      // call this callback right after setting loading to false
+      // this insure that provider container is visible
+      provider.translateCallback()
+    }).catch((e) => {
+      console.error(e)
+      this.errorMessage = `${provider.uniqName}: ${e.message}`
+      this.loading = false
+    })
+  }
+
+  public get computedStyle() {
+    return {
+      ...this.icibaMainStyle,
+      zIndex: this.zIndex,
+    }
   }
 }

@@ -1,13 +1,15 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
+import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
 
 @Component({
-  name: 'IcibaContainer',
+  name: 'BaiduTranslateContainer',
   components: {
+    ScrollBar,
   },
 })
 export default class App extends Vue {
-  public data = ''
+  public translateResult = ''
 
   public visibleCallback() {
     // this.$nextTick(() => {
