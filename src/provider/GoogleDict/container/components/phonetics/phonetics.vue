@@ -5,13 +5,14 @@
       {{ `${phonetics.map(v => `/${v.text}/`).join(' ')}` }}
     </div>
 
-    <div
-      class="play-button"
-      v-for="(item, index) in phonetics"
-      :key="index"
-      @click="handlePlay(item.oxfordAudio)"
-      v-if="item.oxfordAudio">
-    </div>
+    <template v-if="item.oxfordAudio">
+      <div
+        class="play-button"
+        v-for="(item, index) in phonetics"
+        :key="index"
+        @click="handlePlay(item.oxfordAudio)">
+      </div>
+    </template>
   </div>
 </template>
 

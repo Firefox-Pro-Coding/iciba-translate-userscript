@@ -15,15 +15,18 @@ rl.on('line', (inputLine) => {
   if (reg.test(inputLine)) {
     hasError = true
     const match = inputLine.match(reg)
-    const [
-      ,
+
+    if (!match) {
+      return
+    }
+    const [,
       type,
       ruleName,
       filePath,
       line,
       column,
       desc,
-    ] = match
+    ] = Array.from(match)
 
     const simpPath = filePath.replace(basePath, '')
 
@@ -40,7 +43,6 @@ rl.on('line', (inputLine) => {
 })
 
 rl.on('close', () => {
-  console.log(basePath)
   if (hasError) {
     process.exit(1)
   }

@@ -1,54 +1,7 @@
 {
   "rules": {
-    "ban-types": {
-      "options": [
-        [
-          "Object",
-          "Avoid using the `Object` type. Did you mean `object`?"
-        ],
-        [
-          "Function",
-          "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."
-        ],
-        [
-          "Boolean",
-          "Avoid using the `Boolean` type. Did you mean `boolean`?"
-        ],
-        [
-          "Number",
-          "Avoid using the `Number` type. Did you mean `number`?"
-        ],
-        [
-          "String",
-          "Avoid using the `String` type. Did you mean `string`?"
-        ],
-        [
-          "Symbol",
-          "Avoid using the `Symbol` type. Did you mean `symbol`?"
-        ]
-      ]
-    },
-    "member-access": [
-      true,
-      "check-accessor",
-      "check-constructor",
-      "check-parameter-property"
-    ],
-    "member-ordering": [
-      true,
-      {
-        "order": "statics-first"
-      }
-    ],
-    "no-empty-interface": true,
     "no-import-side-effect": true,
-    "no-internal-module": true,
-    "no-namespace": true,
-    "no-non-null-assertion": true,
     "no-parameter-reassignment": true,
-    "no-reference": true,
-    "no-unnecessary-type-assertion": true,
-    "no-var-requires": true,
     "unified-signatures": true,
     "await-promise": true,
     "ban-comma-operator": true,
@@ -65,28 +18,19 @@
     "no-dynamic-delete": true,
     "no-empty": true,
     "no-eval": true,
-    "no-for-in-array": true,
     "no-inferred-empty-object-type": true,
     "no-invalid-template-strings": true,
-    "no-misused-new": true,
-    "no-object-literal-type-assertion": true,
     "no-return-await": true,
     "no-shadowed-variable": true,
     "no-sparse-arrays": true,
     "no-string-literal": true,
     "no-string-throw": true,
-    "no-this-assignment": true,
-    "no-unnecessary-class": [
-      true,
-      "allow-empty-class"
-    ],
     "no-unsafe-finally": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "prefer-object-spread": true,
     "radix": true,
-    "restrict-plus-operands": true,
     "switch-default": true,
     "triple-equals": true,
     "use-default-type-parameter": true,
@@ -103,25 +47,18 @@
     ],
     "no-duplicate-imports": true,
     "no-mergeable-namespace": true,
-    "no-require-imports": true,
     "prefer-const": true,
-    "array-type": [
-      true,
-      "generic"
-    ],
     "arrow-return-shorthand": [
       true,
       "multiline"
     ],
     "binary-expression-operand-order": true,
-    "class-name": true,
     "comment-format": [
       true,
       "check-space"
     ],
     "encoding": true,
     "import-spacing": true,
-    "interface-over-type-literal": true,
     "jsdoc-format": [
       true,
       "check-multiline-start"
@@ -133,7 +70,6 @@
       2
     ],
     "no-irregular-whitespace": true,
-    "no-parameter-properties": true,
     "no-redundant-jsdoc": true,
     "no-reference-import": true,
     "no-trailing-whitespace": true,

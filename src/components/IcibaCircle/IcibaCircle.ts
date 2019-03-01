@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
-import { IPositionStyle, IStyle } from '~/src/types/index'
+import { IcibaPositionStyle, IcibaStyle } from '~/src/types/index'
 import sleep from '~/src/lib/sleep'
 import zgen from '~/src/lib/zIndexGenerator'
 
@@ -14,9 +14,9 @@ import calcMouseEventPosition from '~/src/lib/calcMouseEventPosition'
 export default class App extends Vue {
   public visible = false
   public word: string = ''
-  public style: IStyle = {}
+  public style: IcibaStyle = {}
   public zIndex: number = 0
-  public internalStyle: IPositionStyle = {
+  public internalStyle: IcibaPositionStyle = {
     top: 'auto',
     bottom: 'auto',
     left: 'auto',
@@ -84,7 +84,7 @@ export default class App extends Vue {
 
   @Watch('style')
   public onStyleChange() {
-    const init: IPositionStyle = {}
+    const init: IcibaPositionStyle = {}
     this.internalStyle = {
       ...{
         top: 'auto',

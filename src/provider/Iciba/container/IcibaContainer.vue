@@ -42,13 +42,13 @@
               class="part-box flex-co flex-stretch"
               :class="{ 'no-margin-top': !symbomItem.ph_en_mp3 && !symbomItem.ph_am_mp3 && !symbomItem.ph_tts_mp3 }"
               v-if="symbomItem.parts.length">
-              <div class="part-item flex" v-for="(partItem, index) in symbomItem.parts" :key="index">
+              <div class="part-item flex" v-for="(partItem, partItemIndex) in symbomItem.parts" :key="partItemIndex">
                 <div class="part-item-part" v-if="partItem.part">
                   {{ partItem.part }}
                 </div>
                 <div class="part-item-meaning-box">
-                  <div class="meaning-item iciba-inline" v-for="(meanItem, index) in partItem.means" :key="index">
-                    <template v-if="index === partItem.means.length - 1">
+                  <div class="meaning-item iciba-inline" v-for="(meanItem, meanItemIndex) in partItem.means" :key="meanItemIndex">
+                    <template v-if="meanItemIndex === partItem.means.length - 1">
                       {{ meanItem }}
                     </template>
                     <template v-else>

@@ -1,7 +1,6 @@
 <template>
   <!-- entry item -->
   <div class="sub-entry-item">
-
     <div class="sub-entry-lemma">
       {{ entry.lemma }}
       <labels
@@ -124,13 +123,12 @@
               v-if="sense.subsenses && sense.subsenses.length">
               <div
                 class="subsense-item flex"
-                v-for="(subsense, index) in sense.subsenses"
-                :key="index">
+                v-for="(subsense, subsenseIndex) in sense.subsenses"
+                :key="subsenseIndex">
                 <div class="subsense-number">
                   {{ index + 1 }})
                 </div>
                 <div class="subsense-item-container flex-co flex-stretch">
-
                   <!-- definition -->
                   <div class="subsense-definition">
                     <!-- label -->

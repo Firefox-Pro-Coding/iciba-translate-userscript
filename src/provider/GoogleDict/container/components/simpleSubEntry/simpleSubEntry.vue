@@ -1,7 +1,6 @@
 <template>
   <!-- entry item -->
   <div class="sub-entry-item flex-co flex-stretch">
-
     <!-- headword -->
     <div class="headword flex flex-wrap">
       <div class="headword-word">
@@ -20,7 +19,7 @@
       <div
         class="sense-item flex"
         :class="{ collapsable: index !== 0 }"
-        v-if="index < 2"
+        v-show="index < 2"
         v-for="(sense, index) in entry.senseFamily.senses"
         :key="index">
         <div class="sense-item-number">{{ index + 1 }}.</div>
@@ -36,5 +35,4 @@
 </template>
 
 <script lang="ts" src="./simpleSubEntry.ts"></script>
-
 <style lang="less" src="./simpleSubEntry.less" scoped></style>

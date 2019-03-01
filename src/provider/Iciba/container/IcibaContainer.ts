@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { got } from '~/src/lib/gmapi'
 import playAudio from '~/src/lib/playAudio'
-import { IAudioCache } from '~/src/types/index'
+import { IcibaAudioCache } from '~/src/types/index'
 import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
 
 @Component({
@@ -13,7 +13,7 @@ import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
 })
 export default class App extends Vue {
   public data = ''
-  private audioCache: IAudioCache = {}
+  private audioCache: IcibaAudioCache = {}
 
   public visibleCallback() {
     this.$nextTick(() => {

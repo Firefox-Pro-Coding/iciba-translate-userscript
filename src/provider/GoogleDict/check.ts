@@ -289,7 +289,7 @@ export default (copy: any) => {
   const allkeys = Array.from(new Set<string>(arr))
   const un = allkeys.filter(v => knowkeys.indexOf(v) === -1)
   if (un.length !== 0) {
-    alert('unhandle google dict keys')
-    console.log(un)
+    alert('unhandle google dict keys')  // eslint-disable-line
+    console.log(un)  // eslint-disable-line
   }
 }

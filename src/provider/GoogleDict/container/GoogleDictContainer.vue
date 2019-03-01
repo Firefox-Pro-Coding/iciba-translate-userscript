@@ -7,14 +7,13 @@
         <div class="google-content-box">
           <div class="dictionary-data-box flex-co flex-stretch" v-if="dictionaryData && dictionaryData.length">
             <div class="dictionary-data-item" v-for="(dicDataItem, index) in dictionaryData" :key="index">
-
               <!-- entry -->
               <div class="entry-box flex-co flex-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length">
                 <simple-entry
                   class="entry-item"
                   :entry="entry"
-                  v-for="(entry, index) in dicDataItem.entries"
-                  :key="index">
+                  v-for="(entry, entryIndex) in dicDataItem.entries"
+                  :key="entryIndex">
                 </simple-entry>
               </div>
             </div>

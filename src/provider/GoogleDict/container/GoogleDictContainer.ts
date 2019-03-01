@@ -37,12 +37,12 @@ export default class App extends Vue {
   }
 
   private handleNymClick(word: string) {
-    // TODO
-    console.log(word)
+    // TODO:
+    console.log(word)  // eslint-disable-line
   }
 
   private handleEntryLinkClick(word: string) {
-    // TODO
-    console.log(word)
+    // TODO:
+    console.log(word)  // eslint-disable-line
   }
 }

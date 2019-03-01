@@ -1,5 +1,5 @@
-import { IAudioCache } from '~/src/types/index'
+import { IcibaAudioCache } from '~/src/types/index'
 
-const audioCache: IAudioCache = {}
+const audioCache: IcibaAudioCache = {}
 
 export default audioCache

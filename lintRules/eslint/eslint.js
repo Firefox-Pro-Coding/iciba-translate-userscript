@@ -2,6 +2,7 @@
 // const path = require('path')
 
 module.exports = {
+  'parser': 'babel-eslint',
   'parserOptions': {
     'ecmaVersion': 2018,
     'ecmaFeatures': {
@@ -10,17 +11,16 @@ module.exports = {
     'sourceType': 'module',
   },
   'plugins': [
-    'typescript',
+    '@typescript-eslint',
   ],
 
   'extends': [
     'airbnb-base',
-    './rules/airbnbOverride.js',
-    './rules/vue.js',
-    './rules/import.js',
-    './rules/jsdoc.js',
-    './override/vue.js',
-    './override/ts.js',
-    './override/js.js',
+    './rules/airbnb-override.js',
+    './rules/import-plugin.js',
+    './rules/jsdoc-plugin.js',
+    // './rules/react-plugin.js',
+    './rules/typescript-plugin.js',
+    './rules/vue-plugin.js',
   ],
 }

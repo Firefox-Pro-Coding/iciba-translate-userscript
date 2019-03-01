@@ -1,29 +1,29 @@
 import Vue from 'vue'
 
-export interface IIconType {
+export interface IcibaIconType {
   data: string
   hash: string
 }
 
-export interface IVue extends Vue {
+export interface IcibaVue extends Vue {
   [name: string]: any
 }
 
-export interface IPositionStyle {
+export interface IcibaPositionStyle {
   top?: string
   bottom?: string
   left?: string
   right?: string
 }
 
-export interface IStyle {
+export interface IcibaStyle {
   top?: number
   bottom?: number
   left?: number
   right?: number
 }
 
-export interface ITranslateProviderSettingDescriptorItem {
+export interface IcibaTranslateProviderSettingDescriptorItem {
   name: string // uniq name of this setting
   description: string // description text display to user
   type: 'string' | 'select' | 'number' // setting item type
@@ -33,14 +33,14 @@ export interface ITranslateProviderSettingDescriptorItem {
   validator?: (value: string) => Promise<void> // optional validator. reject if invalid.
 }
 
-export interface ITranslateProviderSettingItem {
+export interface IcibaTranslateProviderSettingItem {
   name: string
   value: string
 }
 
-export type ITranslateProviderSettingDescriptors = Array<ITranslateProviderSettingDescriptorItem>
-export type ITranslateProviderSettings = Array<ITranslateProviderSettingItem>
+export type ITranslateProviderSettingDescriptors = Array<IcibaTranslateProviderSettingDescriptorItem>
+export type ITranslateProviderSettings = Array<IcibaTranslateProviderSettingItem>
 
-export interface IAudioCache {
+export interface IcibaAudioCache {
   [propName: string]: ArrayBuffer
 }

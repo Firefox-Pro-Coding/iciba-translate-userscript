@@ -1,7 +1,6 @@
 <template>
   <!-- entry item -->
   <div class="entry-item">
-
     <!-- headword -->
     <div class="headword flex flex-wrap">
       <div class="headword-word">
@@ -37,8 +36,8 @@
           <div
             :title="item.qualifier"
             class="pos flex flex-wrap"
-            v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
-            :key="index">
+            v-for="(item, itemIndex) in senseFamilyItem.partsOfSpeechs"
+            :key="itemIndex">
             {{ item.value }}
           </div>
         </div>
@@ -60,8 +59,8 @@
           <div
             class="morph-units-item iciba-inline"
             :title="item.formType.posTag"
-            v-for="(item, index) in senseFamilyItem.morphUnits"
-            :key="index">
+            v-for="(item, morphIndex) in senseFamilyItem.morphUnits"
+            :key="morphIndex">
             <div class="morph-units-description iciba-inline">{{ item.formType.description }}</div>
             <div class="morph-units-word-form iciba-inline">{{ item.wordForm }}</div>
             <div class="morph-units-split iciba-inline" v-if="index !== senseFamilyItem.morphUnits.length">;</div>
@@ -73,8 +72,8 @@
           <div
             class="sense-item flex"
             :class="{ collapsable: index !== 0 }"
-            v-for="(sense, index) in senseFamilyItem.senses"
-            :key="index">
+            v-for="(sense, senseIndex) in senseFamilyItem.senses"
+            :key="senseIndex">
             <div class="sense-item-number">{{ index + 1 }}.</div>
             <div class="sense-item-box flex-co flex-stretch">
               <!-- difinition -->
@@ -128,13 +127,12 @@
                   v-if="sense.subsenses && sense.subsenses.length">
                   <div
                     class="subsense-item flex"
-                    v-for="(subsense, index) in sense.subsenses"
-                    :key="index">
+                    v-for="(subsense, subsenseIndex) in sense.subsenses"
+                    :key="subsenseIndex">
                     <div class="subsense-number">
                       {{ index + 1 }})
                     </div>
                     <div class="subsense-item-container flex-co flex-stretch">
-
                       <!-- definition -->
                       <div class="subsense-definition">
                         <!-- label -->

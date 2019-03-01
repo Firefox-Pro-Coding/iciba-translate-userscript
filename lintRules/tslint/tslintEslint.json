@@ -1,11 +1,3 @@
 {
-  "rules": {
-    "ter-indent": [
-      true,
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ]
-  }
+  "rules": {}
 }

@@ -3,7 +3,7 @@
     <div class="list">
       <div class="list-item">
         <div class="label">查词引擎优先级</div>
-        <!-- TODO draggable components -->
+        <!-- TODO: draggable components -->
       </div>
     </div>
   </div>

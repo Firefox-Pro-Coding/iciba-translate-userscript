@@ -5,8 +5,8 @@ import bus, { IcibaMainTranslatePayload } from '~/src/bus'
 import zgen from '~/src/lib/zIndexGenerator'
 
 import {
-  IPositionStyle,
-  IStyle,
+  IcibaPositionStyle,
+  IcibaStyle,
   ITranslateProviderSettingDescriptors,
 } from '~/src/types/index'
 
@@ -40,15 +40,15 @@ export default class App extends Vue {
   public visible: boolean = false
   public loading: boolean = false
   public errorMessage: string = ''
-  public style: IStyle = {}
+  public style: IcibaStyle = {}
   public zIndex: number = 0
   public loadingDotsNumber: number = 3
   public loadingDotsInterval: number = 0
   // public sizeHelper: HTMLElement | undefined
-  public icibaMainStyle: IPositionStyle = {
+  public icibaMainStyle: IcibaPositionStyle = {
     ...defaultStyle,
   }
-  public icibaContainerStyle: IPositionStyle = {
+  public icibaContainerStyle: IcibaPositionStyle = {
     ...defaultStyle,
   }
   public inputText: string = ''
@@ -204,7 +204,7 @@ export default class App extends Vue {
       // this insure that provider container is visible
       provider.translateCallback()
     }).catch((e) => {
-      console.error(e)
+      console.error(e) // eslint-disable-line
       this.errorMessage = `${provider.uniqName}: ${e.message}`
       this.loading = false
     })

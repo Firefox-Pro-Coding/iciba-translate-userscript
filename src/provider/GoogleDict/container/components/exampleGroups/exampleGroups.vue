@@ -22,8 +22,8 @@
         <div
           class="example-item"
           v-html="example"
-          v-for="(example, index) in exampleGroupItem.examples"
-          :key="index">
+          v-for="(example, exampleIndex) in exampleGroupItem.examples"
+          :key="exampleIndex">
         </div>
       </div>
     </div>

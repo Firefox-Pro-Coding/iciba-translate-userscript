@@ -5,46 +5,48 @@
     v-if="thesaurusEntries && thesaurusEntries.length">
     <div
       class="thesaurus-entry-item flex-co flex-stretch"
-      v-for="(thesaurus, index) in thesaurusEntries"
-      :key="index">
+      v-for="(thesaurus, thesaurusIndex) in thesaurusEntries"
+      :key="thesaurusIndex">
       <!-- synonyms antonyms -->
-      <div
-        class="thesaurus-item flex"
-        v-for="type in ['synonyms', 'antonyms']"
-        :key="type"
-        v-if="thesaurus[type] && thesaurus[type].length">
-        <div class="thesaurus-item-title">{{ type }}:</div>
-        <div class="thesaurus-word-box flex-co flex-stretch" :class="[`${type}-box`]">
-          <div
-            class="thesaurus-word-item"
-            :class="[`${type}-item`]"
-            v-for="(thesaurusItem, index) in thesaurus[type]"
-            :key="index">
-            <labels
-              class="nym-register"
-              type="register"
-              v-if="thesaurusItem.register"
-              :labels="[thesaurusItem.register]">
-            </labels>
+      <template v-if="thesaurus[type] && thesaurus[type].length">
+        <div
+          class="thesaurus-item flex"
+          v-for="type in ['synonyms', 'antonyms']"
+          :key="type">
+          <div class="thesaurus-item-title">{{ type }}:</div>
+          <div class="thesaurus-word-box flex-co flex-stretch" :class="[`${type}-box`]">
             <div
-              v-for="(nym, index) in thesaurusItem.nyms"
-              class="nym-item iciba-inline"
-              :class="{ 'is-core': nym.isCore }"
-              @click="handleNymClick(nym.nym)"
-              :key="index">
+              class="thesaurus-word-item"
+              :class="[`${type}-item`]"
+              v-for="(thesaurusItem, thesaurusItemIndex) in thesaurus[type]"
+              :key="thesaurusItemIndex">
+              <labels
+                class="nym-register"
+                type="register"
+                v-if="thesaurusItem.register"
+                :labels="[thesaurusItem.register]">
+              </labels>
               <div
-                :class="{ 'entry-link': nym.numEntries }"
-                class="nym-content iciba-inline">
-                {{ nym.nym }}
+                v-for="(nym, index) in thesaurusItem.nyms"
+                class="nym-item iciba-inline"
+                :class="{ 'is-core': nym.isCore }"
+                @click="handleNymClick(nym.nym)"
+                :key="index">
+                <div
+                  :class="{ 'entry-link': nym.numEntries }"
+                  class="nym-content iciba-inline">
+                  {{ nym.nym }}
+                </div>
+                <div
+                  v-if="index !== thesaurusItem.nyms.length - 1"
+                  class="nym-split iciba-inline">
+                  ,
+                </div>
               </div>
-              <div
-                v-if="index !== thesaurusItem.nyms.length - 1"
-                class="nym-split iciba-inline">,</div>
             </div>
           </div>
         </div>
-
-      </div>
+      </template>
 
       <!-- examples -->
       <div

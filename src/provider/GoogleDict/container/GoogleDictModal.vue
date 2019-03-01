@@ -4,16 +4,15 @@
       <div class="google-dict-modal-bg" @click="handleCloseModal"></div>
       <div class="google-dict-modal-content google-content-box close-iciba-main">
         <div class="dictionary-data-box flex-co flex-stretch" v-if="dictionaryData && dictionaryData.length">
-          <div class="dictionary-data-item" v-for="(dicDataItem, index) in dictionaryData" :key="index">
-
+          <div class="dictionary-data-item" v-for="(dicDataItem, dicDataItemIndex) in dictionaryData" :key="dicDataItemIndex">
             <!-- entry -->
             <!-- <div class="entry-box flex-co flex-stretch" v-if="false"> -->
             <div class="entry-box flex-co flex-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length">
               <entry
                 class="entry-item"
-                v-for="(entry, index) in dicDataItem.entries"
+                v-for="(entry, entryIndex) in dicDataItem.entries"
                 :entry="entry"
-                :key="index">
+                :key="entryIndex">
               </entry>
             </div>
 

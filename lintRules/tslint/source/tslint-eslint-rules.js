@@ -111,7 +111,7 @@ const style = {
 
   // enforce consistent indentation
   // ESLint: indent
-  'ter-indent': [true, 2, { 'SwitchCase': 1 } ],
+  // 'ter-indent': [true, 2, { 'SwitchCase': 1 } ],
 
   // enforce a maximum line length
   // ESLint: max-len

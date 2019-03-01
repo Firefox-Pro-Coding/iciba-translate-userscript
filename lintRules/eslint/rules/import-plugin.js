@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   'extends': [
     'plugin:import/errors',
@@ -8,7 +10,7 @@ module.exports = {
 
   'settings': {
     'import/parsers': {
-      'typescript-eslint-parser': [
+      '@typescript-eslint/parser': [
         '.ts',
         '.tsx',
       ],
@@ -20,7 +22,34 @@ module.exports = {
       '.ts',
       '.tsx',
     ],
+
+    'import/resolver': {
+      'webpack': {
+        'config': {
+          'resolve': {
+            'extensions': [
+              '.js',
+              '.mjs',
+              '.jsx',
+              '.json',
+              '.ts',
+              '.tsx',
+              '.d.ts',
+              '.vue',
+            ],
+            'alias': {
+              '~': path.resolve(__dirname),
+              '@': path.resolve(__dirname),
+              '~~': process.cwd(),
+              '@@': process.cwd(),
+              'property-decorator$': path.resolve(__dirname, './utils/property-decorator.ts'),
+            },
+          },
+        },
+      },
+    },
   },
+
 
   'rules': {
     'import/no-absolute-path': 'off',

@@ -10,28 +10,28 @@ module.exports = {
 
   // Bans specific types from being used. Does not ban the
   // corresponding runtime objects from being used.
-  'ban-types': {
-    options: [
-      ['Object', 'Avoid using the `Object` type. Did you mean `object`?'],
-      ['Function', 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.'],
-      ['Boolean', 'Avoid using the `Boolean` type. Did you mean `boolean`?'],
-      ['Number', 'Avoid using the `Number` type. Did you mean `number`?'],
-      ['String', 'Avoid using the `String` type. Did you mean `string`?'],
-      ['Symbol', 'Avoid using the `Symbol` type. Did you mean `symbol`?'],
-    ],
-  },
+  // 'ban-types': {
+  //   options: [
+  //     ['Object', 'Avoid using the `Object` type. Did you mean `object`?'],
+  //     ['Function', 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.'],
+  //     ['Boolean', 'Avoid using the `Boolean` type. Did you mean `boolean`?'],
+  //     ['Number', 'Avoid using the `Number` type. Did you mean `number`?'],
+  //     ['String', 'Avoid using the `String` type. Did you mean `string`?'],
+  //     ['Symbol', 'Avoid using the `Symbol` type. Did you mean `symbol`?'],
+  //   ],
+  // },
 
   // Requires explicit visibility declarations for class members.
-  'member-access': [true, 'check-accessor', 'check-constructor', 'check-parameter-property'],
+  // 'member-access': [true, 'check-accessor', 'check-constructor', 'check-parameter-property'],
 
   // Enforces member ordering.
-  'member-ordering': [true, { 'order': 'statics-first' }],
+  // 'member-ordering': [true, { 'order': 'statics-first' }],
 
   // Disallows usages of any as a type declaration.
   // 'no-any': false,
 
   // Forbids empty interfaces.
-  'no-empty-interface': true,
+  // 'no-empty-interface': true,
 
   // Avoid import statements with side-effect.
   'no-import-side-effect': true,
@@ -40,30 +40,30 @@ module.exports = {
   // 'no-inferrable-types': [true, 'ignore-params'],
 
   // Disallows internal module
-  'no-internal-module': true,
+  // 'no-internal-module': true,
 
   // Disallows the use constant number values outside of variable assignments.
   // When no list of allowed values is specified, -1, 0 and 1 are allowed by default.
   // 'no-magic-numbers': false,
 
   // Disallows use of internal modules and namespaces.
-  'no-namespace': true,
+  // 'no-namespace': true,
 
   // Disallows non-null assertions using the ! postfix operator.
-  'no-non-null-assertion': true,
+  // 'no-non-null-assertion': false,
 
   // Disallows reassigning parameters.
   'no-parameter-reassignment': true,
 
   // Disallows /// <reference path=> imports (use ES6-style imports instead).
-  'no-reference': true,
+  // 'no-reference': true,
 
   // Requires Type Info
   // Warns if a type assertion does not change the type of an expression.
-  'no-unnecessary-type-assertion': true,
+  // 'no-unnecessary-type-assertion': true,
 
   // Disallows the use of require statements except in import statements.
-  'no-var-requires': true,
+  // 'no-var-requires': true,
 
   // Disallows traditional (non-arrow) function expressions.
   // 'only-arrow-functions': true,
@@ -175,7 +175,7 @@ module.exports = {
 
   // Requires Type Info
   // Disallows iterating over an array with a for-in loop.
-  'no-for-in-array': true,
+  // 'no-for-in-array': true,
 
   // Disallows importing modules that are not listed as dependency in the project’s package.json
   // 'no-implicit-dependencies': false,
@@ -192,14 +192,14 @@ module.exports = {
   // 'no-invalid-this': false,
 
   // Warns on apparent attempts to define constructors for interfaces or new for classes.
-  'no-misused-new': true,
+  // 'no-misused-new': true,
 
   // Disallows use of the null keyword literal.
   // 'no-null-keyword': false,
 
   // Forbids an object literal to appear in a type assertion expression.
   // Casting to any is still allowed.
-  'no-object-literal-type-assertion': true,
+  // 'no-object-literal-type-assertion': true,
 
   // Disallows unnecessary return await.
   'no-return-await': true,
@@ -225,14 +225,14 @@ module.exports = {
   // 'no-switch-case-fall-through': true,
 
   // Disallows unnecessary references to this.
-  'no-this-assignment': true,
+  // 'no-this-assignment': true,
 
   // Requires Type Info
   // Warns when a method is used outside of a method call.
   // 'no-unbound-method': true,
 
   // Disallows classes that are not strictly necessary.
-  'no-unnecessary-class': [true, 'allow-empty-class'],
+  // 'no-unnecessary-class': [true, 'allow-empty-class'],
 
   // Requires Type Info
   // Warns when using an expression of type ‘any’ in a dynamic way.
@@ -277,7 +277,7 @@ module.exports = {
 
   // Requires Type Info
   // When adding two variables, operands must both be of type number or of type string.
-  'restrict-plus-operands': true,
+  // 'restrict-plus-operands': true,
 
   // Requires Type Info
   // Restricts the types allowed in boolean expressions. By default only booleans are allowed.
@@ -357,7 +357,7 @@ module.exports = {
   'no-mergeable-namespace': true,
 
   // Disallows invocation of require().
-  'no-require-imports': true,
+  // 'no-require-imports': true,
 
   // Checks ordering of keys in object literals.
   //
@@ -384,7 +384,8 @@ module.exports = {
   // 'align': false,
 
   // Requires using either ‘T[]’ or ‘Array' for arrays.
-  'array-type': [true, 'generic'],
+  // using @typescript-eslint/eslint-plugin
+  // 'array-type': [true, 'generic'],
 
   // Requires parentheses around the parameters of arrow function definitions.
   // handled by eslint
@@ -401,7 +402,7 @@ module.exports = {
   // 'callable-types': false,
 
   // Enforces PascalCased class and interface names.
-  'class-name': true,
+  // 'class-name': true,
 
   // Enforces formatting rules for single-line comments.
   'comment-format': [true, 'check-space'],
@@ -423,7 +424,7 @@ module.exports = {
   // 'interface-name': false,
 
   // Prefer an interface declaration over a type literal (type T = { ... })
-  'interface-over-type-literal': true,
+  // 'interface-over-type-literal': true,
 
   // Enforces basic format rules for JSDoc comments.
   'jsdoc-format': [true, 'check-multiline-start'],
@@ -456,7 +457,7 @@ module.exports = {
   'no-irregular-whitespace': true,
 
   // Disallows parameter properties in class constructors.
-  'no-parameter-properties': true,
+  // 'no-parameter-properties': true,
 
   // Forbids JSDoc which duplicates TypeScript functionality.
   'no-redundant-jsdoc': true,

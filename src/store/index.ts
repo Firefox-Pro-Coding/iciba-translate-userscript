@@ -12,10 +12,10 @@ import * as baiduTranslate from './settingProvider/baiduTranslate'
 type SettingType = 'core' | 'iciba' | 'googleDict' | 'googleTranslate' | 'baiduTranslate'
 
 type SetSettingValueType = core.CoreSetting
-  | iciba.ProviderSetting
-  | googleDict.ProviderSetting
-  | googleTranslate.ProviderSetting
-  | baiduTranslate.ProviderSetting
+| iciba.ProviderSetting
+| googleDict.ProviderSetting
+| googleTranslate.ProviderSetting
+| baiduTranslate.ProviderSetting
 
 interface State {
   core: core.CoreSetting

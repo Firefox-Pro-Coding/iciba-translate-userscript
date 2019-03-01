@@ -1,10 +1,10 @@
-import { spawn } from 'child_process'
+import { spawn, SpawnOptions } from 'child_process'
 import * as os from 'os'
 import chalk from 'chalk'
 
 const platform = os.platform()
 const getcmd = (cmd: string) => (platform === 'win32' ? `${cmd}.cmd` : cmd)
-const option = { stdio: 'inherit' }
+const option = { stdio: 'inherit' } as SpawnOptions
 
 // tslint:disable no-console
 const lints = [
@@ -25,7 +25,7 @@ const lints = [
   }),
 ]
 
-const main = async() => {
+const main = async () => {
   const errs = []
   for (const lint of lints) {
     errs.push(await lint())

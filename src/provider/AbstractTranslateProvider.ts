@@ -2,26 +2,19 @@
 import Vue from 'vue'
 
 import {
-  ITranslateProviderSettingItem,
+  IcibaTranslateProviderSettingItem,
   ITranslateProviderSettingDescriptors,
   ITranslateProviderSettings,
-  IVue,
+  IcibaVue,
+  IcibaIconType,
 } from '~/src/types/index'
 
-export interface IIconType {
-  data: string
-  hash: string
-}
-
 export default abstract class AbstractTranslateProvider {
-  // unique name of the translate provider
-  public abstract uniqName: string
-
   // the container component visible status. used and controlled by IcibaMain
   public visible = false
 
   // base64 value of the traslator icon (square). svg format preferred
-  public icons: Array<IIconType> = []
+  public icons: Array<IcibaIconType> = []
 
   // get currect set icon or default icon
   public get icon(): string {
@@ -36,23 +29,11 @@ export default abstract class AbstractTranslateProvider {
     return selectedIcon.data || ''
   }
 
-  // container class
-  public abstract containerComponentClass: typeof Vue
-
   // container instance
-  public componentInstance: IVue | null = null
-
-  // setting descriptor
-  public abstract settingDescriptor: ITranslateProviderSettingDescriptors
+  public componentInstance: IcibaVue | null = null
 
   // setting stored array
   protected settings: ITranslateProviderSettings = []
-
-  /**
-   * translate the word. return a rejected promise if any error occured
-   * and the error message will show as translate result
-   */
-  public abstract translate(word: string): Promise<void>
 
   // this callback is called when setting visible to true
   public translateCallback() {
@@ -72,7 +53,7 @@ export default abstract class AbstractTranslateProvider {
   protected getSettingItem(
     name: string,
     defaultValue = null,
-  ): ITranslateProviderSettingItem | null {
+  ): IcibaTranslateProviderSettingItem | null {
     const item = this.settings.find(v => v.name === name)
     return item || defaultValue
   }
@@ -81,4 +62,19 @@ export default abstract class AbstractTranslateProvider {
     const defaultIcon = this.icons[0]
     return defaultIcon ? defaultIcon.data : ''
   }
+
+  // unique name of the translate provider
+  public abstract uniqName: string
+
+  // container class
+  public abstract containerComponentClass: typeof Vue
+
+  // setting descriptor
+  public abstract settingDescriptor: ITranslateProviderSettingDescriptors
+
+  /**
+   * translate the word. return a rejected promise if any error occured
+   * and the error message will show as translate result
+   */
+  public abstract translate(word: string): Promise<void>
 }

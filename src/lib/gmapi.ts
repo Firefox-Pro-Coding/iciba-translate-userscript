@@ -20,12 +20,12 @@ export const setValue = (name: string, value: string): Promise<void> => {
   return Promise.resolve()
 }
 
-interface IExtendedGMOption extends GMXMLHttpRequestOptions {
+interface IcibaExtendedGMOption extends GMXMLHttpRequestOptions {
   responseType?: string
   anonymous?: boolean
 }
 
-interface IExtendedGMXMLHttpRequestResponse extends GMXMLHttpRequestResponse {
+interface IcibaExtendedGMXMLHttpRequestResponse extends GMXMLHttpRequestResponse {
   response: any
 }
 
@@ -33,15 +33,15 @@ class GMXMLError extends Error {
   public response: any
 }
 
-export const got = (params: IExtendedGMOption) => {
+export const got = (params: IcibaExtendedGMOption) => {
   const api = GM.xmlHttpRequest || GM_xmlhttpRequest
 
   if (!api) {
     throw new Error('not running in greasymonkey or tampermonkey enviroment')
   }
 
-  return new Promise<IExtendedGMXMLHttpRequestResponse>((rs, rj) => {
-    const option: IExtendedGMOption = {
+  return new Promise<IcibaExtendedGMXMLHttpRequestResponse>((rs, rj) => {
+    const option: IcibaExtendedGMOption = {
       method: 'GET',
       url: '',
       timeout: 10000,
@@ -57,7 +57,7 @@ export const got = (params: IExtendedGMOption) => {
           err.response = response
           rj(err)
         }
-        rs(response as IExtendedGMXMLHttpRequestResponse)
+        rs(response as IcibaExtendedGMXMLHttpRequestResponse)
       },
       ...params,
     }
