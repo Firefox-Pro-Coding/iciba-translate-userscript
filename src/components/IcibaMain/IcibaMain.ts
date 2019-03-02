@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import bus, { IcibaMainTranslatePayload } from '~/src/bus/bus'
-import zgen from '~/src/util/zIndexGenerator'
+import bus, { IcibaCircleClickTranslatePayload } from '~/src/bus/bus'
+import zgen, { isTop } from '~/src/util/zIndexGenerator'
 
 import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
 
@@ -10,10 +10,12 @@ import GoogleDictProvider from '~/src/provider/GoogleDict/GoogleDict'
 import GoogleTranslateProvider from '~/src/provider/GoogleTranslate/GoogleTranslate'
 import BaiduTranslateProvider from '~/src/provider/BaiduTranslate/BaiduTranslate'
 
-import LoadindText from './helper/LoadingText/LoadingText.vue'
-
 import insideOf from '~/src/util/insideOf'
 import calcMouseEventPosition from '~/src/util/calcMouseEventPosition'
+
+import store from '~/src/store'
+
+import LoadindText from './helper/LoadingText/LoadingText.vue'
 
 const defaultStyle = {
   top: 'auto',
@@ -37,8 +39,11 @@ export default class App extends Vue {
   @Prop({ type: Vue })
   public sizeHelper?: Vue
 
+  @Prop({ type: Vue })
+  public icibaCircle!: Vue
+
   @Prop()
-  public rootElement!: HTMLDivElement
+  public getGoogleDictModal!: () => Vue | undefined
 
   public $refs!: {
     icibaMain: HTMLDivElement
@@ -78,6 +83,7 @@ export default class App extends Vue {
     window.addEventListener('mouseup', this.handleDragEnd, true)
     window.addEventListener('keyup', this.handleDragEnd, true)
     // this.initProviders()
+    bus.on(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.checkWhenModalOpen)
   }
 
   public destroyed() {
@@ -86,11 +92,13 @@ export default class App extends Vue {
     window.removeEventListener('mousemove', this.handleDragMove, true)
     window.removeEventListener('mouseup', this.handleDragEnd, true)
     window.removeEventListener('keyup', this.handleDragEnd, true)
+    bus.removeListener(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.checkWhenModalOpen)
   }
 
   /** 输入框查词 */
   public handleInputSearch() {
-    this.translate({ word: this.inputText })
+    // TODO: with current provider
+    this.translateWithProvider(this.providers[0])
   }
 
   /** 点击右上翻译按钮 */
@@ -104,10 +112,8 @@ export default class App extends Vue {
     bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
-  private translate({ word, event }: IcibaMainTranslatePayload) {
-    if (event && !this.visible) {
-      this.setPosition(event)
-    }
+  private translate({ word, event }: IcibaCircleClickTranslatePayload) {
+    this.setPosition(event)
     this.visible = true
     this.inputText = word
 
@@ -122,7 +128,13 @@ export default class App extends Vue {
 
 
   private async handleWindowClick(e: MouseEvent) {
-    if (insideOf(e.target, this.rootElement)) {
+    const googleDictModal = this.getGoogleDictModal()
+    const ignoreCondition = [
+      Boolean(googleDictModal && insideOf(e.target, googleDictModal.$el) && !isTop(this.icibaMainStyle.zIndex)),
+      insideOf(e.target, this.$refs.icibaMain),
+      insideOf(e.target, this.icibaCircle.$el),
+    ]
+    if (ignoreCondition.some(v => v)) {
       return
     }
     this.visible = false
@@ -149,6 +161,12 @@ export default class App extends Vue {
     if (!this.sizeHelper) {
       throw new Error('sizeHelper 未定义！')
     }
+
+    if (this.visible && isTop(this.icibaMainStyle.zIndex)) {
+      return
+    }
+
+    // calc position
     const sizeHelperBounding = this.sizeHelper.$el.getBoundingClientRect()
     const availableSpace = {
       x: sizeHelperBounding.left - e.clientX,
@@ -171,6 +189,12 @@ export default class App extends Vue {
       bottom: 'auto',
       right: 'auto',
       zIndex: zgen(),
+    }
+  }
+
+  private checkWhenModalOpen() {
+    if (store.googleDictModalVisible) {
+      this.visible = false
     }
   }
 

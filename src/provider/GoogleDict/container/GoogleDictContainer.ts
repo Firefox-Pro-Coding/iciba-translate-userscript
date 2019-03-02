@@ -25,6 +25,11 @@ export default class App extends Vue {
     googleDictBus.on(googleDictBus.ENTRY_CLICK, this.handleEntryLinkClick)
   }
 
+  public destroyed() {
+    googleDictBus.removeListener(googleDictBus.NYM_CLICK, this.handleNymClick)
+    googleDictBus.removeListener(googleDictBus.ENTRY_CLICK, this.handleEntryLinkClick)
+  }
+
   public handleOpenModal() {
     globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.dictionaryData)
   }

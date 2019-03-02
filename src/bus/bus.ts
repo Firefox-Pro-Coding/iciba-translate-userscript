@@ -15,8 +15,8 @@ enum NAMES {
 interface EventHandler<T> {
   (p: T): void
 }
-type OnParameterOverride = [NAMES.ICIBA_MAIN_TRANSLATE, EventHandler<IcibaMainTranslatePayload>]
-| [NAMES.ICIBA_MAIN_PREPARE_TRANSLATE, EventHandler<IcibaMainTranslatePayload>]
+type OnParameterOverride = [NAMES.ICIBA_MAIN_TRANSLATE, EventHandler<IcibaCircleClickTranslatePayload>]
+| [NAMES.ICIBA_MAIN_PREPARE_TRANSLATE, EventHandler<IcibaCircleClickTranslatePayload>]
 | [NAMES.SETTING_OPEN, EventHandler<void>]
 | [NAMES.SETTING_PREPARE_OPEN, EventHandler<void>]
 | [NAMES.GOOGLE_DICT_MODAL_PREPARE_OPEN, EventHandler<void>]
@@ -36,7 +36,7 @@ bus.setMaxListeners(20)
 
 export default bus
 
-export interface IcibaMainTranslatePayload {
+export interface IcibaCircleClickTranslatePayload {
   word: string
-  event?: MouseEvent
+  event: MouseEvent
 }

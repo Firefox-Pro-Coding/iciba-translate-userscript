@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import App from '~/src/App.vue'
-import store from '~/src/store/index'
 
 Vue.config.ignoredElements = [
   'iciba-div',
@@ -9,9 +8,6 @@ Vue.config.ignoredElements = [
 const root: any = {}
 
 const main = async () => {
-  // loading settings before mount root element
-  await store.loadSetting()
-
   root.app = new Vue({
     el: document.createElement('div'),
     render(h) {

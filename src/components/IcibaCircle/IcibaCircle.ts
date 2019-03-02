@@ -4,7 +4,7 @@ import { IcibaPositionStyle, IcibaStyle } from '~/src/types/index'
 import sleep from '~/src/util/sleep'
 import zgen from '~/src/util/zIndexGenerator'
 
-import bus, { IcibaMainTranslatePayload } from '~/src/bus/bus'
+import bus, { IcibaCircleClickTranslatePayload } from '~/src/bus/bus'
 import calcMouseEventPosition from '~/src/util/calcMouseEventPosition'
 
 @Component({
@@ -32,7 +32,7 @@ export default class App extends Vue {
 
   public handleClick(event: MouseEvent) {
     this.visible = false
-    const payload: IcibaMainTranslatePayload = {
+    const payload: IcibaCircleClickTranslatePayload = {
       word: this.word,
       event,
     }

@@ -7,7 +7,7 @@ import SettingPage from '~/src/components/SettingPage/SettingPage.vue'
 
 import GoogleDictModal from '~/src/provider/GoogleDict/container/GoogleDictModal.vue'
 
-import globalBus, { IcibaMainTranslatePayload } from '~/src/bus/bus'
+import globalBus, { IcibaCircleClickTranslatePayload } from '~/src/bus/bus'
 
 @Component({
   name: 'IcibaAppRoot',
@@ -32,8 +32,18 @@ export default class extends Vue {
     globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)
   }
 
+  public destroyed() {
+    globalBus.removeListener(globalBus.events.SETTING_PREPARE_OPEN, this.openSettingPage)
+    globalBus.removeListener(globalBus.events.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
+    globalBus.removeListener(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)
+  }
+
+  public getGoogleDictModal() {
+    return this.$refs.googleDictModal
+  }
+
   /** 查词窗口懒加载 */
-  private async openIcibaMain(payload: IcibaMainTranslatePayload) {
+  private async openIcibaMain(payload: IcibaCircleClickTranslatePayload) {
     if (!this.icibaMainFirstLoaded) {
       this.icibaMainFirstLoaded = true
       // wait for element to be mounted
@@ -59,6 +69,8 @@ export default class extends Vue {
       await new Promise<void>(rs => this.$nextTick(() => rs()))
     }
     // wait for element to be mounted
-    globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_OPEN, dicData)
+    this.$nextTick(() => {
+      globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_OPEN, dicData)
+    })
   }
 }

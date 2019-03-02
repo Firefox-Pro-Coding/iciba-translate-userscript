@@ -8,7 +8,6 @@ import calcToken from './calcToken'
 
 let commonToken = '0'
 let gtk = ''
-// const cookie = ''
 
 const updateGTK = async (force?: boolean) => {
   if (!force && gtk) {
