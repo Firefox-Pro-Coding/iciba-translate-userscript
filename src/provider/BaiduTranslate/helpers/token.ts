@@ -7,7 +7,7 @@ import { got } from '~/src/util/gmapi'
 import calcToken from './calcToken'
 
 let commonToken = '0'
-let gtk = '0'
+let gtk = ''
 // const cookie = ''
 
 const updateGTK = async (force?: boolean) => {
