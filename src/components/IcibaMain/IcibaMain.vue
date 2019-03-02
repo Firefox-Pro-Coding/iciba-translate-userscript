@@ -2,6 +2,8 @@
   <transition name="iciba-main">
     <div
       class="iciba-main reset iciba-main-the-long-class"
+      :class="{ dragging: drag.dragging }"
+      ref="icibaMain"
       :style="icibaMainStyle"
       v-show="visible">
       <div class="iciba-container flex-co flex-stretch" :style="icibaContainerStyle">

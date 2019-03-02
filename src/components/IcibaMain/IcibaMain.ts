@@ -40,6 +40,10 @@ export default class App extends Vue {
   @Prop()
   public rootElement!: HTMLDivElement
 
+  public $refs!: {
+    icibaMain: HTMLDivElement
+  }
+
   public providers: Array<Provider> = [
     { visible: false, provider: IcibaProvider },
     { visible: false, provider: GoogleDictProvider },
@@ -51,6 +55,14 @@ export default class App extends Vue {
   public loading = false
   public inputText: string = ''
   public errorMessage = ''
+  public drag = {
+    dragging: false,
+    startPoint: {
+      x: 0,
+      y: 0,
+    },
+    startStyle: { ...defaultStyle, zIndex: 0 },
+  }
 
   public icibaContainerStyle = { ...defaultStyle }
   public icibaMainStyle = {
@@ -61,11 +73,19 @@ export default class App extends Vue {
   public mounted() {
     bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.translate)
     window.addEventListener('mousedown', this.handleWindowClick, false)
+    window.addEventListener('mousedown', this.handleDragStart, true)
+    window.addEventListener('mousemove', this.handleDragMove, true)
+    window.addEventListener('mouseup', this.handleDragEnd, true)
+    window.addEventListener('keyup', this.handleDragEnd, true)
     // this.initProviders()
   }
 
   public destroyed() {
     window.removeEventListener('mousedown', this.handleWindowClick, false)
+    window.removeEventListener('mousedown', this.handleDragStart, true)
+    window.removeEventListener('mousemove', this.handleDragMove, true)
+    window.removeEventListener('mouseup', this.handleDragEnd, true)
+    window.removeEventListener('keyup', this.handleDragEnd, true)
   }
 
   /** 输入框查词 */
@@ -152,5 +172,47 @@ export default class App extends Vue {
       right: 'auto',
       zIndex: zgen(),
     }
+  }
+
+  private handleDragStart(e: MouseEvent) {
+    if (!insideOf(e.target, this.$refs.icibaMain) || !e.ctrlKey) {
+      return
+    }
+    e.preventDefault()
+    this.drag.dragging = true
+    this.drag.startPoint = {
+      x: e.screenX,
+      y: e.screenY,
+    }
+    this.drag.startStyle = this.icibaMainStyle
+  }
+
+  private handleDragMove(e: MouseEvent) {
+    if (!this.drag.dragging || !e.ctrlKey) {
+      return
+    }
+    e.preventDefault()
+    const deltaX = e.screenX - this.drag.startPoint.x
+    const deltaY = e.screenY - this.drag.startPoint.y
+
+    const style = { ...this.drag.startStyle }
+
+    if (style.top === 'auto') {
+      style.bottom = `${parseInt(style.bottom, 10) - deltaY}px`
+    } else {
+      style.top = `${parseInt(style.top, 10) + deltaY}px`
+    }
+
+    if (style.left === 'auto') {
+      style.right = `${parseInt(style.right, 10) - deltaX}px`
+    } else {
+      style.left = `${parseInt(style.left, 10) + deltaX}px`
+    }
+
+    this.icibaMainStyle = style
+  }
+
+  private handleDragEnd() {
+    this.drag.dragging = false
   }
 }
