@@ -1,11 +1,12 @@
 import * as queryString from 'querystring'
 
 import iconBase64 from '~/src/assets/img/providerIcon/baiduTranslate/baidu.svg'
-import { got } from '~/src/lib/gmapi'
+import { got } from '~/src/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import getToken from './helpers/token'
 import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
+import containerData from './containerData'
 
 interface TranslateParams {
   from: string
@@ -18,23 +19,15 @@ interface TranslateParams {
 
 class BaiduTranslateProvider extends AbstractTranslateProvider {
   public uniqName = 'BaiduTranslate'
+  public icons = [iconBase64]
   public settingDescriptor = []
   public containerComponentClass = BaiduTranslateContainer
-
-  public constructor() {
-    super()
-    this.icons = [
-      iconBase64,
-    ]
-  }
 
   public async translate(word: string) {
     let result
     try {
       result = await this.internalTranslate(word)
-      if (this.componentInstance) {
-        this.componentInstance.translateResult = result
-      }
+      containerData.data = result
     } catch (e) {
       return Promise.reject(e)
     }
@@ -105,7 +98,8 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     })
 
     const result = JSON.parse(response.responseText)
-    if (result.trans_result.type === 2 && result.trans_result.status === 0) {
+
+    if (result.trans_result && result.trans_result.type === 2 && result.trans_result.status === 0) {
       return result.trans_result.data[0].dst
     }
     throw new Error('翻译出错！')

@@ -2,10 +2,10 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import googleDictBus from '~/src/provider/GoogleDict/bus'
 
-import globalBus from '~/src/bus'
-import { EVENT_NAMES } from '~/src/constants/constant'
-
+import globalBus from '~/src/bus/bus'
 import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
+
+import containerData from '../containerData'
 import simpleEntry from './components/simpleEntry/simpleEntry.vue'
 
 @Component({
@@ -16,8 +16,9 @@ import simpleEntry from './components/simpleEntry/simpleEntry.vue'
   },
 })
 export default class App extends Vue {
-  public dictionaryData: any = null
-  public modalVisible = false
+  public get dictionaryData() {
+    return containerData.data
+  }
 
   public mounted() {
     googleDictBus.on(googleDictBus.NYM_CLICK, this.handleNymClick)
@@ -25,15 +26,7 @@ export default class App extends Vue {
   }
 
   public handleOpenModal() {
-    globalBus.emit(EVENT_NAMES.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.dictionaryData)
-  }
-
-  public visibleCallback() {
-    this.$nextTick(() => {
-      const box = this.$refs.scrollBox as any
-      box.scrollToTop()
-      box.recalcScrollbar()
-    })
+    globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.dictionaryData)
   }
 
   private handleNymClick(word: string) {

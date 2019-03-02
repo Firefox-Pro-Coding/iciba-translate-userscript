@@ -1,7 +1,6 @@
-import { getValue, setValue } from '~/src/lib/gmapi'
+import { getValue, setValue } from '~/src/util/gmapi'
 
-import globalBus from '~/src/bus'
-import { EVENT_NAMES } from '~/src/constants/constant'
+import globalBus from '~/src/bus/bus'
 
 import * as core from './settingProvider/core'
 import * as iciba from './settingProvider/iciba'
@@ -102,7 +101,7 @@ class Store {
       this.state[type] = (value as baiduTranslate.ProviderSetting)
     }
 
-    globalBus.emit(EVENT_NAMES.SETTING_STORE_UPDATE)
+    globalBus.emit(globalBus.events.SETTING_STORE_UPDATE)
     this.saveSetting()
   }
 

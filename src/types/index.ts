@@ -38,7 +38,7 @@ export interface IcibaTranslateProviderSettingItem {
   value: string
 }
 
-export type ITranslateProviderSettingDescriptors = Array<IcibaTranslateProviderSettingDescriptorItem>
+export type IcibaTranslateProviderSettingDescriptors = Array<IcibaTranslateProviderSettingDescriptorItem>
 export type ITranslateProviderSettings = Array<IcibaTranslateProviderSettingItem>
 
 export interface IcibaAudioCache {

@@ -3,18 +3,14 @@ import Vue from 'vue'
 
 import {
   IcibaTranslateProviderSettingItem,
-  ITranslateProviderSettingDescriptors,
+  IcibaTranslateProviderSettingDescriptors,
   ITranslateProviderSettings,
-  IcibaVue,
   IcibaIconType,
 } from '~/src/types/index'
 
 export default abstract class AbstractTranslateProvider {
-  // the container component visible status. used and controlled by IcibaMain
-  public visible = false
-
-  // base64 value of the traslator icon (square). svg format preferred
-  public icons: Array<IcibaIconType> = []
+  /** setting stored array */
+  protected settings: ITranslateProviderSettings = []
 
   // get currect set icon or default icon
   public get icon(): string {
@@ -27,17 +23,6 @@ export default abstract class AbstractTranslateProvider {
       return this.getDefaultIcon()
     }
     return selectedIcon.data || ''
-  }
-
-  // container instance
-  public componentInstance: IcibaVue | null = null
-
-  // setting stored array
-  protected settings: ITranslateProviderSettings = []
-
-  // this callback is called when setting visible to true
-  public translateCallback() {
-    //
   }
 
   // get current settings
@@ -66,11 +51,14 @@ export default abstract class AbstractTranslateProvider {
   // unique name of the translate provider
   public abstract uniqName: string
 
+  /** base64 value of the traslator icon (square). svg format preferred */
+  public abstract icons: Array<IcibaIconType>
+
   // container class
   public abstract containerComponentClass: typeof Vue
 
   // setting descriptor
-  public abstract settingDescriptor: ITranslateProviderSettingDescriptors
+  public abstract settingDescriptor: IcibaTranslateProviderSettingDescriptors
 
   /**
    * translate the word. return a rejected promise if any error occured

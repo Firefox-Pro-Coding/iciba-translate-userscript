@@ -1,6 +1,6 @@
 <template>
   <div class="google-translate-result-container flex-co">
-    <scroll-bar class="scroll-container" ref="scrollBox">
+    <scroll-bar class="scroll-container">
       <div class="google-translate-result-scroll-container flex-co">
         {{ translateResult }}
       </div>

@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 import { IcibaPositionStyle, IcibaStyle } from '~/src/types/index'
-import sleep from '~/src/lib/sleep'
-import zgen from '~/src/lib/zIndexGenerator'
+import sleep from '~/src/util/sleep'
+import zgen from '~/src/util/zIndexGenerator'
 
-import bus, { IcibaMainTranslatePayload } from '~/src/bus'
-import { EVENT_NAMES } from '~/src/constants/constant'
-import calcMouseEventPosition from '~/src/lib/calcMouseEventPosition'
+import bus, { IcibaMainTranslatePayload } from '~/src/bus/bus'
+import calcMouseEventPosition from '~/src/util/calcMouseEventPosition'
 
 @Component({
   name: 'IcibaCircle',
@@ -37,7 +36,7 @@ export default class App extends Vue {
       word: this.word,
       event,
     }
-    bus.emit(EVENT_NAMES.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
+    bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
   }
 
   public async handleWindowClick(e: MouseEvent) {

@@ -28,6 +28,7 @@
   },
   "include": [
     "src",
-    "node_modules/vue-tsx-support/enable-check.d.ts"
+    "node_modules/vue-tsx-support/enable-check.d.ts",
+    "build/devClient.ts"
   ]
 }

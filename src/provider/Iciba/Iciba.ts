@@ -1,28 +1,17 @@
 import * as querystring from 'querystring'
 
 import icibaIcon from '~/src/assets/img/providerIcon/iciba/search.svg'
-import { got } from '~/src/lib/gmapi'
+import { got } from '~/src/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import IcibaContainer from './container/IcibaContainer.vue'
+import containerData from './containerData'
 
 class IcibaTranslateProvider extends AbstractTranslateProvider {
+  public icons = [icibaIcon]
   public uniqName = 'Iciba'
   public containerComponentClass = IcibaContainer
   public settingDescriptor = []
-
-  public constructor() {
-    super()
-    this.icons = [
-      icibaIcon,
-    ]
-  }
-
-  public translateCallback() {
-    if (this.componentInstance) {
-      this.componentInstance.visibleCallback()
-    }
-  }
 
   public async translate(word: string) {
     /*
@@ -87,10 +76,8 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     if (result.errno !== 0) {
       return Promise.reject(new Error(result.errmsg))
     }
-    if (this.componentInstance === null) {
-      return Promise.reject(new Error('查询结果挂载失败！'))
-    }
-    this.componentInstance.data = JSON.parse(JSON.stringify(result))
+
+    containerData.data = JSON.parse(JSON.stringify(result))
     return Promise.resolve()
   }
 }

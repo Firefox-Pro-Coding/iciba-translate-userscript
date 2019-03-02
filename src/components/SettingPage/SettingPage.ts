@@ -2,9 +2,8 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 
 import CoreSetting from './coreSetting/coreSetting.vue'
-import bus from '~/src/bus'
-import zgen from '~/src/lib/zIndexGenerator'
-import { EVENT_NAMES } from '~/src/constants/constant'
+import bus from '~/src/bus/bus'
+import zgen from '~/src/util/zIndexGenerator'
 
 type TabNames = 'core' | 'iciba'
 
@@ -22,7 +21,7 @@ export default class App extends Vue {
   public bodyOverflowYValue: string = ''
 
   public mounted() {
-    bus.on(EVENT_NAMES.SETTING_OPEN, this.openSetting)
+    bus.on(bus.events.SETTING_OPEN, this.openSetting)
   }
 
   public openSetting() {

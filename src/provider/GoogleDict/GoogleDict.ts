@@ -1,5 +1,5 @@
 import querystring from 'querystring'
-import { got } from '~/src/lib/gmapi'
+import { got } from '~/src/util/gmapi'
 
 /* eslint-disable camelcase */
 import type_0_google from '~/src/assets/img/providerIcon/googleDict/type_0_google.svg'
@@ -9,16 +9,26 @@ import type_3_search_281781 from '~/src/assets/img/providerIcon/googleDict/type_
 import type_4_google_356049 from '~/src/assets/img/providerIcon/googleDict/type_4_google_356049.svg'
 /* eslint-enable camelcase */
 
-import playAudio from '~/src/lib/playAudio'
+import playAudio from '~/src/util/playAudio'
 import googleDictBus from '~/src/provider/GoogleDict/bus'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
 import check from './check'
 import audioCache from './audioCache'
+import containerData from './containerData'
 
 class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = 'GoogleDict'
+  public icons = [
+    /* eslint-disable camelcase */
+    type_0_google,
+    type_1_google_299386,
+    type_2_search_281764,
+    type_3_search_281781,
+    type_4_google_356049,
+    /* eslint-enable camelcase */
+  ]
   public settingDescriptor = []
   public containerComponentClass = GoogleDictContainer
   private audioCache = audioCache
@@ -28,31 +38,10 @@ class GoogleDictProvider extends AbstractTranslateProvider {
 
     // bind methods
     this.handlePlay = this.handlePlay.bind(this)
-
-    this.icons = [
-      /* eslint-disable camelcase */
-      type_0_google,
-      type_1_google_299386,
-      type_2_search_281764,
-      type_3_search_281781,
-      type_4_google_356049,
-      /* eslint-enable camelcase */
-    ]
     googleDictBus.on(googleDictBus.PLAY_AUDIO, this.handlePlay)
   }
 
-  public translateCallback() {
-    if (this.componentInstance) {
-      this.componentInstance.visibleCallback()
-    }
-  }
-
   public async translate(word: string) {
-    if (this.componentInstance) {
-      this.componentInstance.dictionaryData = null
-      this.componentInstance.modalVisible = false
-    }
-
     let data: any = this.fetchData(word, 'uk')
       .catch(() => this.fetchData(word, 'us').catch(e => e))
     data = await data
@@ -63,11 +52,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     const copy = JSON.parse(JSON.stringify(data))
     check(copy)
 
-    if (this.componentInstance === null) {
-      return Promise.reject(new Error('查询结果挂载失败！'))
-    }
-    this.componentInstance.modalVisible = false
-    this.componentInstance.dictionaryData = data.dictionaryData
+    containerData.data = data.dictionaryData
 
     return Promise.resolve()
   }

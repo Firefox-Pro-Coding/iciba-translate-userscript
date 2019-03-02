@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from '~/src/components/App/App.vue'
+import App from '~/src/App.vue'
 import store from '~/src/store/index'
 
 Vue.config.ignoredElements = [

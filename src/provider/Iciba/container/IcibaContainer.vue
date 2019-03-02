@@ -1,12 +1,12 @@
 <template>
   <div class="iciba-result-container flex-co">
-    <scroll-bar class="scroll-container" ref="scrollBox">
+    <scroll-bar class="scroll-container">
       <div class="iciba-result-scroll-container flex-co">
         <!-- symbols -->
         <div
           class="symbols-box flex-co flex-stretch"
-          v-if="data.baseInfo && data.baseInfo.symbols && data.baseInfo.symbols.length">
-          <div class="symbol-item flex-co flex-stretch" v-for="(symbomItem, index) in data.baseInfo.symbols" :key="index">
+          v-if="result && result.baseInfo && result.baseInfo.symbols && result.baseInfo.symbols.length">
+          <div class="symbol-item flex-co flex-stretch" v-for="(symbomItem, index) in result.baseInfo.symbols" :key="index">
             <!-- pronunciation -->
             <div class="pronunciation-box flex-co flex-stretch">
               <!-- en -->
@@ -47,7 +47,10 @@
                   {{ partItem.part }}
                 </div>
                 <div class="part-item-meaning-box">
-                  <div class="meaning-item iciba-inline" v-for="(meanItem, meanItemIndex) in partItem.means" :key="meanItemIndex">
+                  <div
+                    class="meaning-item iciba-inline"
+                    v-for="(meanItem, meanItemIndex) in partItem.means"
+                    :key="meanItemIndex">
                     <template v-if="meanItemIndex === partItem.means.length - 1">
                       {{ meanItem }}
                     </template>
@@ -62,18 +65,22 @@
         </div>
 
         <!-- translation -->
-        <div class="translation-box flex-co flex-stretch" v-if="data.baseInfo && data.baseInfo.translate_type === 2 && data.baseInfo.translate_result">
+        <div
+          class="translation-box flex-co flex-stretch"
+          v-if="result && result.baseInfo && result.baseInfo.translate_type === 2 && result.baseInfo.translate_result">
           <div class="translate-content">
-            {{ data.baseInfo.translate_result }}
+            {{ result.baseInfo.translate_result }}
           </div>
           <div class="translate-tip">
-            {{ data.baseInfo.translate_msg }}
+            {{ result.baseInfo.translate_msg }}
           </div>
         </div>
 
         <!-- suggest -->
-        <div class="suggest-box flex-co flex-stretch" v-if="data.baseInfo && data.baseInfo.translate_type === 3">
-          {{ data.baseInfo.suggest.map(v => v.key).join('; ') }}
+        <div
+          class="suggest-box flex-co flex-stretch"
+          v-if="result && result.baseInfo && result.baseInfo.translate_type === 3">
+          {{ result.baseInfo.suggest.map(v => v.key).join('; ') }}
         </div>
       </div>
     </scroll-bar>

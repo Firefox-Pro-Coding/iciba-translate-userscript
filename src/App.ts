@@ -7,8 +7,7 @@ import SettingPage from '~/src/components/SettingPage/SettingPage.vue'
 
 import GoogleDictModal from '~/src/provider/GoogleDict/container/GoogleDictModal.vue'
 
-import globalBus, { IcibaMainTranslatePayload } from '~/src/bus'
-import { EVENT_NAMES } from '~/src/constants/constant'
+import globalBus, { IcibaMainTranslatePayload } from '~/src/bus/bus'
 
 @Component({
   name: 'IcibaAppRoot',
@@ -28,9 +27,9 @@ export default class extends Vue {
   public googleDictModalVisible = false
 
   public mounted() {
-    globalBus.on(EVENT_NAMES.SETTING_PREPARE_OPEN, this.openSettingPage)
-    globalBus.on(EVENT_NAMES.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
-    globalBus.on(EVENT_NAMES.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)
+    globalBus.on(globalBus.events.SETTING_PREPARE_OPEN, this.openSettingPage)
+    globalBus.on(globalBus.events.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
+    globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)
   }
 
   /** 查词窗口懒加载 */
@@ -40,7 +39,7 @@ export default class extends Vue {
       // wait for element to be mounted
       await new Promise<void>(rs => this.$nextTick(() => rs()))
     }
-    globalBus.emit(EVENT_NAMES.ICIBA_MAIN_TRANSLATE, payload)
+    globalBus.emit(globalBus.events.ICIBA_MAIN_TRANSLATE, payload)
   }
 
   /** 设置窗口懒加载 */
@@ -50,7 +49,7 @@ export default class extends Vue {
       // wait for element to be mounted
       await new Promise<void>(rs => this.$nextTick(() => rs()))
     }
-    globalBus.emit(EVENT_NAMES.SETTING_OPEN)
+    globalBus.emit(globalBus.events.SETTING_OPEN)
   }
 
   private async openGoogleDictModal(dicData: any) {
@@ -60,6 +59,6 @@ export default class extends Vue {
       await new Promise<void>(rs => this.$nextTick(() => rs()))
     }
     // wait for element to be mounted
-    globalBus.emit(EVENT_NAMES.GOOGLE_DICT_MODAL_OPEN, dicData)
+    globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_OPEN, dicData)
   }
 }

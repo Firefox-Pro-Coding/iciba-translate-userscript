@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import getScrollBarWidth from '~/src/lib/scrollbar-width'
+import getScrollBarWidth from '~/src/util/scrollbar-width'
 
 @Component({
   name: 'IcibaSrollbarContainer',

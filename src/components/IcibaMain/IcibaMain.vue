@@ -2,7 +2,7 @@
   <transition name="iciba-main">
     <div
       class="iciba-main reset iciba-main-the-long-class"
-      :style="computedStyle"
+      :style="icibaMainStyle"
       v-show="visible">
       <div class="iciba-container flex-co flex-stretch" :style="icibaContainerStyle">
         <div class="iciba-input-container flex">
@@ -19,27 +19,27 @@
           <div class="provider-button-box flex">
             <div
               v-for="item in providers"
-              :key="item.uniqName"
+              :key="item.provider.uniqName"
               @keydown.32.prevent
               class="provider-button"
               @click="handleTranslateButtonClick(item)"
-              :style="{ backgroundImage: `url('${item.icon}')` }">
+              :style="{ backgroundImage: `url('${item.provider.icon}')` }">
             </div>
           </div>
         </div>
         <div class="iciba-content-container">
-          <component
-            v-for="item in providers"
-            :key="item.uniqName"
-            class="provider-container"
-            v-show="!loading && item.visible && !errorMessage"
-            :ref="`provider-container-${item.uniqName}`"
-            :is="item.containerComponentClass">
-          </component>
-          <div class="loading-tip iciba-content" v-show="loading">
-            加载中{{ loadingDots }}
+          <template v-for="item in providers">
+            <component
+              :key="item.provider.uniqName"
+              class="provider-container"
+              v-if="!loading && item.visible && !errorMessage"
+              :is="item.provider.containerComponentClass">
+            </component>
+          </template>
+          <div class="loading-tip iciba-content" v-if="loading">
+            <loadind-text />
           </div>
-          <div class="provider-error-message iciba-content" v-show="!loading && errorMessage">
+          <div class="provider-error-message iciba-content" v-if="!loading && errorMessage">
             {{ errorMessage }}
           </div>
         </div>

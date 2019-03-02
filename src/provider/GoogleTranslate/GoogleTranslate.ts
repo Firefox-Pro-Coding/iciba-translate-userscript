@@ -1,4 +1,4 @@
-import { got } from '~/src/lib/gmapi'
+import { got } from '~/src/util/gmapi'
 
 /* eslint-disable camelcase */
 import type_1_translate_281759 from '~/src/assets/img/providerIcon/googleTranslate/type_1_translate_281759.svg'
@@ -6,9 +6,11 @@ import type_2_translate_281776 from '~/src/assets/img/providerIcon/googleTransla
 import type_2_translate_324121 from '~/src/assets/img/providerIcon/googleTranslate/type_2_translate_324121.svg'
 import type_3_google_814137 from '~/src/assets/img/providerIcon/googleTranslate/type_3_google_814137.svg'
 /* eslint-enable camelcase */
+
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
+import containerData from './containerData'
 
 class GoogleTranslateProvider extends AbstractTranslateProvider {
   public static apiUrl = 'https://translate.google.cn/translate_a/single?'
@@ -33,27 +35,21 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
   public uniqName = 'GoogleTranslate'
   public settingDescriptor = []
+  public icons = [
+    /* eslint-disable camelcase */
+    type_1_translate_281759,
+    type_2_translate_281776,
+    type_2_translate_324121,
+    type_3_google_814137,
+    /* eslint-enable camelcase */
+  ]
   public containerComponentClass = GoogleTranslateContainer
-
-  public constructor() {
-    super()
-    this.icons = [
-      /* eslint-disable camelcase */
-      type_1_translate_281759,
-      type_2_translate_281776,
-      type_2_translate_324121,
-      type_3_google_814137,
-      /* eslint-enable camelcase */
-    ]
-  }
 
   public async translate(word: string) {
     let result
     try {
       result = await this.getGoogleTranslateResult(word)
-      if (this.componentInstance) {
-        this.componentInstance.translateResult = result
-      }
+      containerData.data = result
     } catch (e) {
       return Promise.reject(e)
     }

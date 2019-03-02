@@ -1,14 +1,7 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import { EVENT_NAMES } from '~/src/constants/constant'
-import bus, { IcibaMainTranslatePayload } from '~/src/bus'
-import zgen from '~/src/lib/zIndexGenerator'
-
-import {
-  IcibaPositionStyle,
-  IcibaStyle,
-  ITranslateProviderSettingDescriptors,
-} from '~/src/types/index'
+import bus, { IcibaMainTranslatePayload } from '~/src/bus/bus'
+import zgen from '~/src/util/zIndexGenerator'
 
 import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
 
@@ -17,8 +10,10 @@ import GoogleDictProvider from '~/src/provider/GoogleDict/GoogleDict'
 import GoogleTranslateProvider from '~/src/provider/GoogleTranslate/GoogleTranslate'
 import BaiduTranslateProvider from '~/src/provider/BaiduTranslate/BaiduTranslate'
 
-import insideOf from '~/src/lib/insideOf'
-import calcMouseEventPosition from '~/src/lib/calcMouseEventPosition'
+import LoadindText from './helper/LoadingText/LoadingText.vue'
+
+import insideOf from '~/src/util/insideOf'
+import calcMouseEventPosition from '~/src/util/calcMouseEventPosition'
 
 const defaultStyle = {
   top: 'auto',
@@ -27,70 +22,50 @@ const defaultStyle = {
   right: 'auto',
 }
 
+interface Provider {
+  visible: boolean
+  provider: AbstractTranslateProvider
+}
+
 @Component({
   name: 'IcibaMain',
+  components: {
+    LoadindText,
+  },
 })
 export default class App extends Vue {
-  public providers: Array<AbstractTranslateProvider> = [
-    IcibaProvider,
-    GoogleDictProvider,
-    GoogleTranslateProvider,
-    BaiduTranslateProvider,
-  ]
-  public visible: boolean = false
-  public loading: boolean = false
-  public errorMessage: string = ''
-  public style: IcibaStyle = {}
-  public zIndex: number = 0
-  public loadingDotsNumber: number = 3
-  public loadingDotsInterval: number = 0
-  // public sizeHelper: HTMLElement | undefined
-  public icibaMainStyle: IcibaPositionStyle = {
-    ...defaultStyle,
-  }
-  public icibaContainerStyle: IcibaPositionStyle = {
-    ...defaultStyle,
-  }
-  public inputText: string = ''
-  public settingDescriptor: ITranslateProviderSettingDescriptors = [
-    {
-      name: 'draggable',
-      description: '查询结果窗口是否可拖拽',
-      type: 'select',
-      default: 'false',
-      options: ['true', 'false'],
-    },
-  ]
-
-
   @Prop({ type: Vue })
   public sizeHelper?: Vue
 
-  @Prop({ type: Vue })
-  public icibaCircle!: Vue
+  @Prop()
+  public rootElement!: HTMLDivElement
 
-  public get loadingDots() {
-    return Array(this.loadingDotsNumber).fill('.').join('')
+  public providers: Array<Provider> = [
+    { visible: false, provider: IcibaProvider },
+    { visible: false, provider: GoogleDictProvider },
+    { visible: false, provider: GoogleTranslateProvider },
+    { visible: false, provider: BaiduTranslateProvider },
+  ]
+
+  public visible = false
+  public loading = false
+  public inputText: string = ''
+  public errorMessage = ''
+
+  public icibaContainerStyle = { ...defaultStyle }
+  public icibaMainStyle = {
+    ...defaultStyle,
+    zIndex: 0,
   }
 
   public mounted() {
-    bus.on(EVENT_NAMES.ICIBA_MAIN_TRANSLATE, this.translate)
+    bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.translate)
     window.addEventListener('mousedown', this.handleWindowClick, false)
-    this.loadingDotsInterval = window.setInterval(this.changeLoadingDots, 300)
-    this.initProviders()
+    // this.initProviders()
   }
 
   public destroyed() {
     window.removeEventListener('mousedown', this.handleWindowClick, false)
-    window.clearInterval(this.loadingDotsInterval)
-  }
-
-  /** loading 文字动态变化 */
-  public changeLoadingDots() {
-    this.loadingDotsNumber += 1
-    if (this.loadingDotsNumber > 10) {
-      this.loadingDotsNumber = 3
-    }
   }
 
   /** 输入框查词 */
@@ -98,97 +73,42 @@ export default class App extends Vue {
     this.translate({ word: this.inputText })
   }
 
-  /* provider icon click */
-  public handleTranslateButtonClick(provider: AbstractTranslateProvider) {
+  /** 点击右上翻译按钮 */
+  public handleTranslateButtonClick(provider: Provider) {
     this.translateWithProvider(provider)
   }
 
-  public setPosition(e: MouseEvent) {
-    if (!this.sizeHelper) {
-      throw new Error('sizeHelper 未定义！')
-    }
-    const sizeHelperBounding = this.sizeHelper.$el.getBoundingClientRect()
-    const availableSpace = {
-      x: sizeHelperBounding.left - e.clientX,
-      y: sizeHelperBounding.top - e.clientY,
-    }
-    const style = {
-      ...(availableSpace.x < 300 ? { right: '0' } : { left: '0' }),
-      ...(availableSpace.y < 200 ? { bottom: '0' } : { top: '0' }),
-    }
-    this.icibaContainerStyle = {
-      ...defaultStyle,
-      ...style,
-    }
-
-    const calcedPosition = calcMouseEventPosition(e)
-
-    this.icibaMainStyle = {
-      ...defaultStyle,
-      ...{
-        top: `${calcedPosition.top}px`,
-        left: `${calcedPosition.left}px`,
-      },
-    }
+  /** 打开设置 */
+  public handleOpenSetting() {
+    this.visible = false
+    bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
-  public translate({ word, event }: IcibaMainTranslatePayload) {
+  private translate({ word, event }: IcibaMainTranslatePayload) {
     if (event && !this.visible) {
       this.setPosition(event)
     }
-    this.zIndex = zgen()
     this.visible = true
     this.inputText = word
 
-    this.translateWithProvider(this.providers[1])
+    this.translateWithProvider(this.providers[0])
   }
 
-  public translateWithProvider(provider: AbstractTranslateProvider) {
+  private translateWithProvider(provider: Provider) {
     this.providers.forEach((p) => { p.visible = false })
     provider.visible = true
     this.internalTranslate(provider)
   }
 
-  public async handleWindowClick(e: MouseEvent) {
-    const hasCloseClass = (_target: HTMLElement) => {
-      let target: HTMLElement | null = _target
-      while (target) {
-        if (target.classList.contains('close-iciba-main')) {
-          return true
-        }
-        target = target.parentElement
-      }
-      return false
-    }
-    const closeConditions = [
-      !insideOf(e.target, this.$el.parentElement),
-      hasCloseClass(e.target as HTMLElement),
-    ]
-    if (closeConditions.some(v => v)) {
-      this.visible = false
-    }
-  }
 
-  public handleOpenSetting() {
+  private async handleWindowClick(e: MouseEvent) {
+    if (insideOf(e.target, this.rootElement)) {
+      return
+    }
     this.visible = false
-    bus.emit(EVENT_NAMES.SETTING_PREPARE_OPEN)
   }
 
-  private initProviders() {
-    this.$nextTick(() => { // nextTick to wait element to be rendered
-      this.providers.forEach((provider) => {
-        const name = `provider-container-${provider.uniqName}`
-        const containerInstanceArr = this.$refs[name] as Array<any>
-        const containerInstance = containerInstanceArr.length ? containerInstanceArr[0] : null
-        if (!containerInstance) {
-          throw new Error('挂载provider container错误！')
-        }
-        provider.componentInstance = containerInstance
-      })
-    })
-  }
-
-  private internalTranslate(provider: AbstractTranslateProvider) {
+  private internalTranslate(item: Provider) {
     const word = this.inputText.trim()
     this.errorMessage = ''
 
@@ -197,23 +117,40 @@ export default class App extends Vue {
       return
     }
     this.loading = true
-    provider.translate(word).then(() => {
-      this.loading = false
-      // DON'T CHANGE!
-      // call this callback right after setting loading to false
-      // this insure that provider container is visible
-      provider.translateCallback()
-    }).catch((e) => {
+    item.provider.translate(word).catch((e) => {
       console.error(e) // eslint-disable-line
-      this.errorMessage = `${provider.uniqName}: ${e.message}`
+      this.errorMessage = `${item.provider.uniqName}: ${e.message}`
+    }).finally(() => {
       this.loading = false
     })
   }
 
-  public get computedStyle() {
-    return {
-      ...this.icibaMainStyle,
-      zIndex: this.zIndex,
+  private setPosition(e: MouseEvent) {
+    if (!this.sizeHelper) {
+      throw new Error('sizeHelper 未定义！')
+    }
+    const sizeHelperBounding = this.sizeHelper.$el.getBoundingClientRect()
+    const availableSpace = {
+      x: sizeHelperBounding.left - e.clientX,
+      y: sizeHelperBounding.top - e.clientY,
+    }
+
+    this.icibaContainerStyle = {
+      ...defaultStyle,
+      ...{
+        ...(availableSpace.x < 300 ? { right: '0' } : { left: '0' }),
+        ...(availableSpace.y < 200 ? { bottom: '0' } : { top: '0' }),
+      },
+    }
+
+    const calcedPosition = calcMouseEventPosition(e)
+
+    this.icibaMainStyle = {
+      top: `${calcedPosition.top}px`,
+      left: `${calcedPosition.left}px`,
+      bottom: 'auto',
+      right: 'auto',
+      zIndex: zgen(),
     }
   }
 }
