@@ -1,7 +1,7 @@
 <template>
   <!-- phonetics -->
-  <div class="phonetics-component-box flex" v-if="phonetics && phonetics.length">
-    <div class="phonetics flex">
+  <div class="phonetics-component-box q-flex" v-if="phonetics && phonetics.length">
+    <div class="phonetics q-flex">
       {{ `${phonetics.map(v => `/${v.text}/`).join(' ')}` }}
     </div>
 

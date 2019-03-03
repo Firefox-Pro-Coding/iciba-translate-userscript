@@ -13,7 +13,7 @@
     </div>
 
     <!-- headword -->
-    <div class="headword flex flex-wrap">
+    <div class="headword q-flex flex-wrap">
       <div class="headword-word">
         {{ entry.syllabifiedHeadword || entry.headword }}
       </div>
@@ -33,8 +33,8 @@
     </div>
 
     <!-- note -->
-    <div class="dict-note flex-co flex-stretch" v-if="entry.note">
-      <div class="note-type-box flex">
+    <div class="dict-note q-flex-co align-stretch" v-if="entry.note">
+      <div class="note-type-box q-flex">
         <labels
           class="note-label-box"
           color="plain"
@@ -63,17 +63,17 @@
 
     <!-- sense-list -->
     <div
-      class="sense-list flex-co flex-stretch"
+      class="sense-list q-flex-co align-stretch"
       v-if="entry.senseFamily && entry.senseFamily.senses && entry.senseFamily.senses.length">
       <div
-        class="sense-item flex"
+        class="sense-item q-flex"
         :class="{ collapsable: index !== 0 }"
         v-for="(sense, index) in entry.senseFamily.senses"
         :key="index">
         <div class="sense-item-number">{{ index + 1 }}.</div>
-        <div class="sense-item-box flex-co flex-stretch">
+        <div class="sense-item-box q-flex-co align-stretch">
           <!-- difinition -->
-          <div class="definition-box flex-co flex-stretch">
+          <div class="definition-box q-flex-co align-stretch">
             <div class="difinition">
               <!-- labelSet -->
               <label-set
@@ -122,13 +122,13 @@
               class="subsense-box"
               v-if="sense.subsenses && sense.subsenses.length">
               <div
-                class="subsense-item flex"
+                class="subsense-item q-flex"
                 v-for="(subsense, subsenseIndex) in sense.subsenses"
                 :key="subsenseIndex">
                 <div class="subsense-number">
                   {{ index + 1 }})
                 </div>
-                <div class="subsense-item-container flex-co flex-stretch">
+                <div class="subsense-item-container q-flex-co align-stretch">
                   <!-- definition -->
                   <div class="subsense-definition">
                     <!-- label -->

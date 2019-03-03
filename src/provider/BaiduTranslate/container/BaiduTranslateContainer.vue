@@ -1,7 +1,7 @@
 <template>
-  <div class="baidu-translate-container flex-co">
+  <div class="baidu-translate-container q-flex-co">
     <scroll-bar class="scroll-container">
-      <div class="baidu-translate-result-scroll-container flex-co">
+      <div class="baidu-translate-result-scroll-container q-flex-co">
         {{ translateResult }}
       </div>
     </scroll-bar>

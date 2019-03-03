@@ -1,13 +1,13 @@
 <template>
   <transition name="modal">
-    <div class="google-dict-modal-wrapper flex" :style="{ zIndex: zIndex }" v-if="modalVisible">
+    <div class="google-dict-modal-wrapper q-flex" :style="{ zIndex: zIndex }" v-if="modalVisible">
       <div class="google-dict-modal-bg" @click="handleCloseModal"></div>
       <div class="google-dict-modal-content google-content-box close-iciba-main">
-        <div class="dictionary-data-box flex-co flex-stretch" v-if="dictionaryData && dictionaryData.length">
+        <div class="dictionary-data-box q-flex-co align-stretch" v-if="dictionaryData && dictionaryData.length">
           <div class="dictionary-data-item" v-for="(dicDataItem, dicDataItemIndex) in dictionaryData" :key="dicDataItemIndex">
             <!-- entry -->
-            <!-- <div class="entry-box flex-co flex-stretch" v-if="false"> -->
-            <div class="entry-box flex-co flex-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length">
+            <!-- <div class="entry-box q-flex-co align-stretch" v-if="false"> -->
+            <div class="entry-box q-flex-co align-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length">
               <entry
                 class="entry-item"
                 v-for="(entry, entryIndex) in dicDataItem.entries"
@@ -17,7 +17,7 @@
             </div>
 
             <!-- usage over time -->
-            <div class="usage-overtime flex-co flex-stretch" v-if="dicDataItem.usageOverTimeImage">
+            <div class="usage-overtime q-flex-co align-stretch" v-if="dicDataItem.usageOverTimeImage">
               <div class="title">
                 Use over time for: {{ dicDataItem.queryTerm }}
               </div>

@@ -1,8 +1,8 @@
 <template>
   <!-- entry item -->
-  <div class="sub-entry-item flex-co flex-stretch">
+  <div class="sub-entry-item q-flex-co align-stretch">
     <!-- headword -->
-    <div class="headword flex flex-wrap">
+    <div class="headword q-flex flex-wrap">
       <div class="headword-word">
         {{ entry.syllabifiedHeadword || entry.headword }}
       </div>
@@ -14,10 +14,10 @@
 
     <!-- sense-list -->
     <div
-      class="sense-list flex-co flex-stretch"
+      class="sense-list q-flex-co align-stretch"
       v-if="entry.senseFamily && entry.senseFamily.senses && entry.senseFamily.senses.length">
       <div
-        class="sense-item flex"
+        class="sense-item q-flex"
         :class="{ collapsable: index !== 0 }"
         v-show="index < 2"
         v-for="(sense, index) in entry.senseFamily.senses"

@@ -6,9 +6,9 @@
       ref="icibaMain"
       :style="icibaMainStyle"
       v-show="visible">
-      <div class="iciba-container flex-co flex-stretch" :style="icibaContainerStyle">
-        <div class="iciba-input-container flex">
-          <div class="iciba-input-box flex">
+      <div class="iciba-container q-flex-co align-stretch" :style="icibaContainerStyle">
+        <div class="iciba-input-container q-flex">
+          <div class="iciba-input-box q-flex">
             <input
               id="iciba-search-input"
               class="iciba-search-input"
@@ -18,7 +18,7 @@
               v-model="inputText" />
             <div class="iciba-setting-button" @click="handleOpenSetting"></div>
           </div>
-          <div class="provider-button-box flex">
+          <div class="provider-button-box q-flex">
             <div
               v-for="item in providers"
               :key="item.provider.uniqName"

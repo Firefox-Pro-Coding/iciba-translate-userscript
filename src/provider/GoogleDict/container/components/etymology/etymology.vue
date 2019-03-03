@@ -1,5 +1,5 @@
 <template>
-  <div class="etymology-box flex-co flex-stretch" v-if="etymology">
+  <div class="etymology-box q-flex-co align-stretch" v-if="etymology">
     <div class="etymology-title">Origin</div>
     <div
       class="etymology-img-box"
