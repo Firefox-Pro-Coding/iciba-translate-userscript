@@ -136,7 +136,7 @@ module.exports = {
         }],
         'vue/space-infix-ops': ['error'],
         'vue/space-unary-ops': ['error'],
-        'vue/v-on-function-call': ['error'],
+        'vue/v-on-function-call': ['off'],
       },
     },
   ],

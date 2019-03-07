@@ -537,7 +537,7 @@ module.exports = {
   'return-undefined': true,
 
   // Enforces consistent semicolon usage at the end of every statement.
-  'semicolon': [true, 'never'],
+  // 'semicolon': [true, 'never'],
 
   // Require or disallow a space before function parenthesis
   'space-before-function-paren': [true, {

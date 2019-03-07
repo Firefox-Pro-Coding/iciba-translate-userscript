@@ -99,10 +99,6 @@
       "avoid-template"
     ],
     "return-undefined": true,
-    "semicolon": [
-      true,
-      "never"
-    ],
     "space-before-function-paren": [
       true,
       {

@@ -69,8 +69,8 @@ module.exports = {
         // note you must disable the base rule as it can report incorrect errors
         'indent': ['off'],
         '@typescript-eslint/indent': ['error', 2, {
-          // 'SwitchCase': 1,
-          // 'VariableDeclarator': 1,
+          'SwitchCase': 1,
+          'VariableDeclarator': 1,
         }],
 
         '@typescript-eslint/interface-name-prefix': ['error', 'never'],
@@ -85,30 +85,29 @@ module.exports = {
           },
         }],
         '@typescript-eslint/member-naming': ['off'],
-        '@typescript-eslint/member-ordering': ['error'],
-        // '@typescript-eslint/member-ordering': ['error', {
-        //   'default': [
-        //     'public-static-field',
-        //     'protected-static-field',
-        //     'private-static-field',
+        '@typescript-eslint/member-ordering': ['error', {
+          'default': [
+            'public-static-field',
+            'protected-static-field',
+            'private-static-field',
 
-        //     'public-static-method',
-        //     'protected-static-method',
-        //     'private-static-method',
+            'public-static-method',
+            'protected-static-method',
+            'private-static-method',
 
-        //     'public-instance-field',
-        //     'protected-instance-field',
-        //     'private-instance-field',
+            'public-instance-field',
+            'protected-instance-field',
+            'private-instance-field',
 
-        //     'public-constructor',
-        //     'protected-constructor',
-        //     'private-constructor',
+            'public-constructor',
+            'protected-constructor',
+            'private-constructor',
 
-        //     'public-instance-method',
-        //     'protected-instance-method',
-        //     'private-instance-method',
-        //   ],
-        // }],
+            'public-instance-method',
+            'protected-instance-method',
+            'private-instance-method',
+          ],
+        }],
         '@typescript-eslint/no-angle-bracket-type-assertion': ['error'],
         '@typescript-eslint/no-array-constructor': ['error'],
         '@typescript-eslint/no-empty-interface': ['error'],
