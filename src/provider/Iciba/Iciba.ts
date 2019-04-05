@@ -54,7 +54,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
           'User-Agent': window.navigator.userAgent,
         },
         url: apiUrl,
-        timeout: 10000,
+        timeout: 5000,
       })
       const content = response.responseText
       const contentMatch = content.match(/callbackFnName\((.*)\)/)

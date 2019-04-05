@@ -45,11 +45,15 @@ export const got = (params: IcibaExtendedGMOption) => {
       method: 'GET',
       url: '',
       timeout: 10000,
-      ontimeout(e) {
-        rj(e)
+      ontimeout(res) {
+        const error = new Error('timeout exceeded') as any
+        error.response = res
+        rj(error)
       },
-      onerror(e) {
-        rj(e)
+      onerror(res) {
+        const error = new Error(`request failed ${res.status} ${res.statusText} `) as any
+        error.response = res
+        rj(error)
       },
       onload(response) {
         if (response.status !== 200) {

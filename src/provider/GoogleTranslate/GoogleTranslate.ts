@@ -13,7 +13,7 @@ import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
 
 class GoogleTranslateProvider extends AbstractTranslateProvider {
-  public static apiUrl = 'https://translate.google.cn/translate_a/single?'
+  public static apiUrl = 'https://translate.google.com/translate_a/single?'
   public static apiQuery = [
     ['client', 't'],
     ['sl', 'auto'],
@@ -75,7 +75,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       const result = await got({
         method: 'GET',
         headers: {
-          'Referer': 'https://translate.google.cn/',
+          'Referer': 'https://translate.google.com/',
           'Cache-Control': 'max-age=0',
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         },

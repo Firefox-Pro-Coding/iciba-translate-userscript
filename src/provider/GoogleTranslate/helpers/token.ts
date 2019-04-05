@@ -24,7 +24,7 @@ const updateTKK = async () => {
   }
   const result = await got({
     method: 'GET',
-    url: 'https://translate.google.cn',
+    url: 'https://translate.google.com',
     timeout: 5000,
   })
   const match = result.responseText.match(/tkk:'(.*?)'/)

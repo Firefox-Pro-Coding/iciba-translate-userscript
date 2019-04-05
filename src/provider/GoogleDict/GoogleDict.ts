@@ -42,8 +42,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
   }
 
   public async translate(word: string) {
-    let data: any = this.fetchData(word, 'uk')
-      .catch(() => this.fetchData(word, 'us').catch(e => e))
+    let data: any = this.fetchData(word, 'uk').catch(e => e)
     data = await data
     if (data instanceof Error) {
       return Promise.reject(data)
@@ -74,6 +73,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',
     }
     const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
+
     try {
       const response = await got({
         method: 'GET',
@@ -95,14 +95,16 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       })
       const data = JSON.parse(response.responseText)
       if (Object.getOwnPropertyNames(data).length === 0) {
-        return Promise.reject(new Error('无查询结果！'))
+        throw new Error('无查询结果！')
       }
       return data
     } catch (e) {
-      if (e.response && e.response.status === 500) {
-        return Promise.reject(new Error('无查询结果！'))
+      const responseText = e.response.responseText
+      if (responseText) {
+        const result = JSON.parse(responseText)
+        throw new Error(result.error.errors[0].message)
       }
-      return Promise.reject(new Error(`遇到错误: ${e.message}`))
+      throw new Error(`遇到错误: ${e.message} ${e.response.status}`)
     }
   }
 
