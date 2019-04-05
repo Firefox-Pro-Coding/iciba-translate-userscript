@@ -56,11 +56,15 @@ export default class App extends Vue {
     }
 
     await sleep(10)
-    const selection = window.getSelection().toString().trim()
+    const selection = window.getSelection()
+    if (!selection) {
+      return
+    }
+    const selectionString = selection.toString().trim()
     // only show button if selection is valid
-    if (selection.length) {
+    if (selectionString.length) {
       this.visible = true
-      this.word = selection
+      this.word = selectionString
       this.zIndex = zgen()
 
       const calcedPosition = calcMouseEventPosition(e)

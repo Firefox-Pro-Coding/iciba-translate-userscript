@@ -39,7 +39,7 @@ export default class extends Vue {
           'Connection': 'keep-alive',
           'Host': urlObj.host,
           'Pragma': 'no-cache',
-          'upgrade-insecure-requests': 1,
+          'upgrade-insecure-requests': '1',
           'User-Agent': window.navigator.userAgent,
         },
         responseType: 'blob',

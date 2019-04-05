@@ -129,7 +129,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
             'Connection': 'keep-alive',
             'Host': urlObj.host,
             'Pragma': 'no-cache',
-            'upgrade-insecure-requests': 1,
+            'upgrade-insecure-requests': '1',
             'User-Agent': window.navigator.userAgent,
           },
           responseType: 'arraybuffer',

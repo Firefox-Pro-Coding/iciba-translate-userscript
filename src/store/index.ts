@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import * as t from 'io-ts'
-
+import { getValue } from '~/src/util/gmapi'
 import * as common from './modules/common'
 
 const GM_VALUE_KEY = 'iciba_store'
@@ -29,7 +29,7 @@ class Store {
   public async loadData() {
     let dataString
     try {
-      dataString = await GM.getValue(GM_VALUE_KEY, '')
+      dataString = await getValue(GM_VALUE_KEY, '') as string
     } catch (e) {
       dataString = ''
     }

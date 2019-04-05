@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-export const getValue = (name: string, def: string): Promise<string> => {
+export const getValue = (name: string, def: string): Promise<string | number | boolean> => {
   if (GM.getValue) {
-    return Promise.resolve(GM.getValue(name, def))
+    return Promise.resolve(GM.getValue(name, def) as Promise<string | number | boolean>)
   }
   if (GM_getValue) {
     return Promise.resolve(GM_getValue(name, def))
@@ -20,12 +20,12 @@ export const setValue = (name: string, value: string): Promise<void> => {
   return Promise.resolve()
 }
 
-interface IcibaExtendedGMOption extends GMXMLHttpRequestOptions {
+interface IcibaExtendedGMOption extends GM.Request {
   responseType?: string
   anonymous?: boolean
 }
 
-interface IcibaExtendedGMXMLHttpRequestResponse extends GMXMLHttpRequestResponse {
+interface IcibaExtendedGMXMLHttpRequestResponse extends GM.Response<any> {
   response: any
 }
 
