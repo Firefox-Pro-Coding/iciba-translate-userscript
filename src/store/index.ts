@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import * as t from 'io-ts'
-import { getValue } from '~/util/gmapi'
+import { getValue, setValue } from '~/util/gmapi'
 import * as common from './modules/common'
 
 const GM_VALUE_KEY = 'iciba_store'
@@ -55,6 +55,11 @@ class Store {
     }
 
     this.config = Vue.observable(data)
+  }
+
+  public saveData() {
+    const dataString = JSON.stringify(this.config)
+    setValue(GM_VALUE_KEY, dataString)
   }
 
   private setDefaultDataByPath(path: Array<string>, _data: any) {

@@ -5,8 +5,6 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const port = process.env.PORT || 3000
-
 module.exports = {
   mode: 'none',
   entry: {
@@ -15,7 +13,6 @@ module.exports = {
   output: {
     path: resolve('dist'),
     filename: '[name].js',
-    publicPath: `http://localhost:${port}/`,
   },
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],

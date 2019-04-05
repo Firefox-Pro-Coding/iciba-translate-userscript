@@ -4,7 +4,7 @@ import chalk from 'chalk'
 
 const platform = os.platform()
 const getcmd = (cmd: string) => (platform === 'win32' ? `${cmd}.cmd` : cmd)
-const option = { stdio: 'inherit' } as SpawnOptions
+const option: SpawnOptions = { stdio: 'inherit' }
 
 // tslint:disable no-console
 const lints = [
@@ -27,8 +27,8 @@ const lints = [
 
 const main = async () => {
   const errs = []
-  for (const lint of lints) {
-    errs.push(await lint())
+  for (let i = 0; i < lints.length; i += 1) {
+    errs.push(await lints[i]())
   }
   const code = errs.every(i => i === 0) ? 0 : 1
   if (code === 0) {
