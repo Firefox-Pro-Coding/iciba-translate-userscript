@@ -1,16 +1,16 @@
 import querystring from 'querystring'
-import { got } from '~/src/util/gmapi'
+import { got } from '~/util/gmapi'
 
 /* eslint-disable camelcase */
-import type_0_google from '~/src/assets/img/providerIcon/googleDict/type_0_google.svg'
-import type_1_google_299386 from '~/src/assets/img/providerIcon/googleDict/type_1_google_299386.svg'
-import type_2_search_281764 from '~/src/assets/img/providerIcon/googleDict/type_2_search_281764.svg'
-import type_3_search_281781 from '~/src/assets/img/providerIcon/googleDict/type_3_search_281781.svg'
-import type_4_google_356049 from '~/src/assets/img/providerIcon/googleDict/type_4_google_356049.svg'
+import type_0_google from '~/assets/img/providerIcon/googleDict/type_0_google.svg'
+import type_1_google_299386 from '~/assets/img/providerIcon/googleDict/type_1_google_299386.svg'
+import type_2_search_281764 from '~/assets/img/providerIcon/googleDict/type_2_search_281764.svg'
+import type_3_search_281781 from '~/assets/img/providerIcon/googleDict/type_3_search_281781.svg'
+import type_4_google_356049 from '~/assets/img/providerIcon/googleDict/type_4_google_356049.svg'
 /* eslint-enable camelcase */
 
-import playAudio from '~/src/util/playAudio'
-import googleDictBus from '~/src/provider/GoogleDict/bus'
+import playAudio from '~/util/playAudio'
+import googleDictBus from '~/provider/GoogleDict/bus'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'

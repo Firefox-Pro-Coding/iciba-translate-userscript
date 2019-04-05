@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import googleDictBus from '~/src/provider/GoogleDict/bus'
+import googleDictBus from '~/provider/GoogleDict/bus'
 
-import globalBus from '~/src/bus/bus'
-import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
+import globalBus from '~/bus/bus'
+import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
 
 import containerData from '../containerData'
 import simpleEntry from './components/simpleEntry/simpleEntry.vue'

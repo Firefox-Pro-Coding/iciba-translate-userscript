@@ -1,7 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-// tslint:disable-next-line
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const packageInfo = require('../package.json')
 
 const metaData = fs.readFileSync(path.join(__dirname, '../config/metaData.js'))

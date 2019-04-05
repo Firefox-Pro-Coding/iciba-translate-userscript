@@ -2,8 +2,8 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 
 import CoreSetting from './coreSetting/coreSetting.vue'
-import bus from '~/src/bus/bus'
-import zgen from '~/src/util/zIndexGenerator'
+import bus from '~/bus/bus'
+import zgen from '~/util/zIndexGenerator'
 
 type TabNames = 'core' | 'iciba'
 

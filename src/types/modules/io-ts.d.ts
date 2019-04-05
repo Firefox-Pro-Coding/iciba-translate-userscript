@@ -1,5 +1,5 @@
 import * as t from 'io-ts'
-import { createEnumType } from '~/src/util/extendIoTs'
+import { createEnumType } from '~/util/extendIoTs'
 
 type createEnumTypeFunction = typeof createEnumType
 

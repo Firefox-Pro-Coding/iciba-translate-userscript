@@ -6,7 +6,7 @@
  * Everything between 'BEGIN' and 'END' was copied from the url above.
  */
 
-import { got } from '~/src/util/gmapi'
+import { got } from '~/util/gmapi'
 import calcToken from './calcToken'
 
 // var config = new Configstore('google-translate-api');

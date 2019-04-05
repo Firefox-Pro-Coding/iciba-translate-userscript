@@ -22,7 +22,7 @@
     "strictNullChecks": true,
     "target": "ESNext",
     "paths": {
-      "~/src/*": ["src/*"]
+      "~/*": ["src/*"]
     },
     "plugins": []
   },

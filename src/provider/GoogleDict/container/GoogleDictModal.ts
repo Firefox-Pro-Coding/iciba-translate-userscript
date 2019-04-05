@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import globalBus from '~/src/bus/bus'
-import zgen from '~/src/util/zIndexGenerator'
-import store from '~/src/store'
+import globalBus from '~/bus/bus'
+import zgen from '~/util/zIndexGenerator'
+import store from '~/store'
 
 import imageLoader from './components/imageLoader/imageLoader.vue'
 import entry from './components/entry/entry.vue'

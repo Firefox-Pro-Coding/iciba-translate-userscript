@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
-import { IcibaPositionStyle, IcibaStyle } from '~/src/types/index'
-import sleep from '~/src/util/sleep'
-import zgen from '~/src/util/zIndexGenerator'
+import { IcibaPositionStyle, IcibaStyle } from '~/types/index'
+import sleep from '~/util/sleep'
+import zgen from '~/util/zIndexGenerator'
 
-import bus, { IcibaCircleClickTranslatePayload } from '~/src/bus/bus'
-import calcMouseEventPosition from '~/src/util/calcMouseEventPosition'
+import bus, { IcibaCircleClickTranslatePayload } from '~/bus/bus'
+import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
 @Component({
   name: 'IcibaCircle',

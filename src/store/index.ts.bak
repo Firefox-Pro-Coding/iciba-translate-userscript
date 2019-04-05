@@ -1,6 +1,6 @@
-import { getValue, setValue } from '~/src/util/gmapi'
+import { getValue, setValue } from '~/util/gmapi'
 
-import globalBus from '~/src/bus/bus'
+import globalBus from '~/bus/bus'
 
 import * as core from './settingProvider/core'
 import * as iciba from './settingProvider/iciba'

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import * as t from 'io-ts'
-import { getValue } from '~/src/util/gmapi'
+import { getValue } from '~/util/gmapi'
 import * as common from './modules/common'
 
 const GM_VALUE_KEY = 'iciba_store'

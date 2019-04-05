@@ -1,9 +1,9 @@
 // tslint:disable-next-line:no-import-side-effect
-import '~/src/util/extendIoTs'
+import '~/util/extendIoTs'
 
 import Vue from 'vue'
-import App from '~/src/App.vue'
-import store from '~/src/store'
+import App from '~/App.vue'
+import store from '~/store'
 
 
 Vue.config.ignoredElements = [

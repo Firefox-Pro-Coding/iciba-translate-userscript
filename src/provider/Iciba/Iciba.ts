@@ -1,7 +1,7 @@
 import * as querystring from 'querystring'
 
-import icibaIcon from '~/src/assets/img/providerIcon/iciba/search.svg'
-import { got } from '~/src/util/gmapi'
+import icibaIcon from '~/assets/img/providerIcon/iciba/search.svg'
+import { got } from '~/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import IcibaContainer from './container/IcibaContainer.vue'

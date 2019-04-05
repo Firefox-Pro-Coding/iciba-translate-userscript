@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
 import Labels from '../labels/labels.vue'
 
-import googleDictBus from '~/src/provider/GoogleDict/bus'
+import googleDictBus from '~/provider/GoogleDict/bus'
 
 @Component({
   name: 'GoogleDictContainerthesaurus',

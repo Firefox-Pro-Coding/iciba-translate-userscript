@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import { got } from '~/src/util/gmapi'
-import playAudio from '~/src/util/playAudio'
-import { IcibaAudioCache } from '~/src/types/index'
-import ScrollBar from '~/src/components/ScrollBar/ScrollBar.vue'
+import { got } from '~/util/gmapi'
+import playAudio from '~/util/playAudio'
+import { IcibaAudioCache } from '~/types/index'
+import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
 import containerData from '../containerData'
 
 @Component({

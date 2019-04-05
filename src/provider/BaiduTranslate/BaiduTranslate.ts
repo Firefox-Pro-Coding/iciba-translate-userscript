@@ -1,7 +1,7 @@
 import * as queryString from 'querystring'
 
-import iconBase64 from '~/src/assets/img/providerIcon/baiduTranslate/baidu.svg'
-import { got } from '~/src/util/gmapi'
+import iconBase64 from '~/assets/img/providerIcon/baiduTranslate/baidu.svg'
+import { got } from '~/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import getToken from './helpers/token'

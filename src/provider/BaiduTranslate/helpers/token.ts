@@ -3,7 +3,7 @@
  * https://www.jianshu.com/p/38a65d8d3e80
  */
 
-import { got } from '~/src/util/gmapi'
+import { got } from '~/util/gmapi'
 import calcToken from './calcToken'
 
 let commonToken = '0'

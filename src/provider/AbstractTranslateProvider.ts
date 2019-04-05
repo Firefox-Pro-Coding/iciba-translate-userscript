@@ -6,7 +6,7 @@ import {
   IcibaTranslateProviderSettingDescriptors,
   ITranslateProviderSettings,
   IcibaIconType,
-} from '~/src/types/index'
+} from '~/types/index'
 
 export default abstract class AbstractTranslateProvider {
   /** setting stored array */

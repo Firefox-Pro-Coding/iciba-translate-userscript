@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import IcibaMain from '~/src/components/IcibaMain/IcibaMain.vue'
-import IcibaCircle from '~/src/components/IcibaCircle/IcibaCircle.vue'
-import SizeHelper from '~/src/components/SizeHelper/SizeHelper.vue'
-import SettingPage from '~/src/components/SettingPage/SettingPage.vue'
+import IcibaMain from '~/components/IcibaMain/IcibaMain.vue'
+import IcibaCircle from '~/components/IcibaCircle/IcibaCircle.vue'
+import SizeHelper from '~/components/SizeHelper/SizeHelper.vue'
+import SettingPage from '~/components/SettingPage/SettingPage.vue'
 
-import GoogleDictModal from '~/src/provider/GoogleDict/container/GoogleDictModal.vue'
+import GoogleDictModal from '~/provider/GoogleDict/container/GoogleDictModal.vue'
 
-import globalBus, { IcibaCircleClickTranslatePayload } from '~/src/bus/bus'
+import globalBus, { IcibaCircleClickTranslatePayload } from '~/bus/bus'
 
 @Component({
   name: 'IcibaAppRoot',

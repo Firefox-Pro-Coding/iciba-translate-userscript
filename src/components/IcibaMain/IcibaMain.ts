@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import bus, { IcibaCircleClickTranslatePayload } from '~/src/bus/bus'
-import zgen, { isTop } from '~/src/util/zIndexGenerator'
+import bus, { IcibaCircleClickTranslatePayload } from '~/bus/bus'
+import zgen, { isTop } from '~/util/zIndexGenerator'
 
-import AbstractTranslateProvider from '~/src/provider/AbstractTranslateProvider'
+import AbstractTranslateProvider from '~/provider/AbstractTranslateProvider'
 
-import IcibaProvider from '~/src/provider/Iciba/Iciba'
-import GoogleDictProvider from '~/src/provider/GoogleDict/GoogleDict'
-import GoogleTranslateProvider from '~/src/provider/GoogleTranslate/GoogleTranslate'
-import BaiduTranslateProvider from '~/src/provider/BaiduTranslate/BaiduTranslate'
+import IcibaProvider from '~/provider/Iciba/Iciba'
+import GoogleDictProvider from '~/provider/GoogleDict/GoogleDict'
+import GoogleTranslateProvider from '~/provider/GoogleTranslate/GoogleTranslate'
+import BaiduTranslateProvider from '~/provider/BaiduTranslate/BaiduTranslate'
 
-import insideOf from '~/src/util/insideOf'
-import calcMouseEventPosition from '~/src/util/calcMouseEventPosition'
+import insideOf from '~/util/insideOf'
+import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
-import store from '~/src/store'
+import store from '~/store'
 
 import LoadindText from './helper/LoadingText/LoadingText.vue'
 

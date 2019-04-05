@@ -1,4 +1,4 @@
-import { IcibaAudioCache } from '~/src/types/index'
+import { IcibaAudioCache } from '~/types/index'
 
 const audioCache: IcibaAudioCache = {}
 
