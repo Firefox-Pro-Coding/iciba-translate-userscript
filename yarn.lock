@@ -2889,6 +2889,11 @@ forwarded@~0.1.2:
   version "0.1.2"
   resolved "http://registry.npm.taobao.org/forwarded/download/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
 
+fp-ts@^1.0.0:
+  version "1.14.3"
+  resolved "http://registry.npm.taobao.org/fp-ts/download/fp-ts-1.14.3.tgz#48b3aeee6bdda3b24aa44f900ad039813d2c3f01"
+  integrity sha1-SLOu7mvdo7JKpE+QCtA5gT0sPwE=
+
 fragment-cache@^0.2.1:
   version "0.2.1"
   resolved "http://registry.npm.taobao.org/fragment-cache/download/fragment-cache-0.2.1.tgz#4290fad27f13e89be7f33799c6bc5a0abfff0d19"
@@ -3433,6 +3438,13 @@ inversify@^5.0.0:
 invert-kv@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/invert-kv/download/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
+
+io-ts@^1.8.2:
+  version "1.8.2"
+  resolved "http://registry.npm.taobao.org/io-ts/download/io-ts-1.8.2.tgz#4fe3878c147c9851604d36982ee6f64d3e6a4a1e"
+  integrity sha1-T+OHjBR8mFFgTTaYLub2TT5qSh4=
+  dependencies:
+    fp-ts "^1.0.0"
 
 ipaddr.js@1.6.0:
   version "1.6.0"

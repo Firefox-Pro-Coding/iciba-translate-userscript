@@ -26,14 +26,14 @@ export default class App extends Vue {
   public handleOpenModal(payload: any) {
     this.zIndex = zgen()
     this.dictionaryData = payload
-    store.googleDictModalVisible = true
+    store.state.googleDictModalVisible = true
   }
 
   public handleCloseModal() {
-    store.googleDictModalVisible = false
+    store.state.googleDictModalVisible = false
   }
 
   public get modalVisible() {
-    return store.googleDictModalVisible
+    return store.state.googleDictModalVisible
   }
 }

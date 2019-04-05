@@ -193,7 +193,7 @@ export default class App extends Vue {
   }
 
   private checkWhenModalOpen() {
-    if (store.googleDictModalVisible) {
+    if (store.state.googleDictModalVisible) {
       this.visible = false
     }
   }

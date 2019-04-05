@@ -8,9 +8,7 @@
     "watch": "webpack --config ./config/webpack.dev.conf.js --watch",
     "build": "npm run lint && webpack --config ./config/webpack.prod.conf.js && ts-node -P ./utils/tsconfig-util.json ./utils/addMetaData.ts && npm run clean",
     "a": "npm run analyze",
-    "ac": "npm run analyze:cat",
     "analyze": "webpack --config ./config/webpack.prod.analyze.conf.js",
-    "analyze:cat": "webpack --config ./config/webpack.prod.analyze-concatenated.conf.js",
     "clean": "ts-node -P ./utils/tsconfig-util.json ./utils/apiBuildCleanup.ts",
     "clean:dist": "ts-node -P ./utils/tsconfig-util.json ./utils/apiDistCleanup.ts",
     "lint": "ts-node -P ./utils/tsconfig-util.json ./build/lint.ts",
@@ -29,6 +27,7 @@
   "dependencies": {
     "@babel/runtime": "^7.3.4",
     "@babel/runtime-corejs2": "^7.3.4",
+    "io-ts": "^1.8.2",
     "typescript": "^3.3.3333",
     "vue": "^2.6.8",
     "vue-property-decorator": "^7.3.0"

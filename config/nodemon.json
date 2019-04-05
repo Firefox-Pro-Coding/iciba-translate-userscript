@@ -1,8 +1,0 @@
-{
-  "verbose": true,
-  "watch": [
-    "src",
-    "config"
-  ],
-  "ext": "js json ts vue less"
-}
