@@ -57,13 +57,13 @@
         <!-- morph-units -->
         <div class="morph-units-box" v-if="senseFamilyItem.morphUnits && senseFamilyItem.morphUnits.length">
           <div
-            class="morph-units-item iciba-inline"
+            class="morph-units-item q-inline"
             :title="item.formType.posTag"
             v-for="(item, morphIndex) in senseFamilyItem.morphUnits"
             :key="morphIndex">
-            <div class="morph-units-description iciba-inline">{{ item.formType.description }}</div>
-            <div class="morph-units-word-form iciba-inline">{{ item.wordForm }}</div>
-            <div class="morph-units-split iciba-inline" v-if="index !== senseFamilyItem.morphUnits.length">;</div>
+            <div class="morph-units-description q-inline">{{ item.formType.description }}</div>
+            <div class="morph-units-word-form q-inline">{{ item.wordForm }}</div>
+            <div class="morph-units-split q-inline" v-if="index !== senseFamilyItem.morphUnits.length">;</div>
           </div>
         </div>
 
@@ -91,7 +91,7 @@
                     :fragment="sense.definition.fragments">
                   </fragment>
 
-                  <div class="sense-labels iciba-inline">
+                  <div class="sense-labels q-inline">
                     <!-- domain class -->
                     <labels
                       v-if="sense.domainClasses && sense.domainClasses.length"
@@ -150,7 +150,7 @@
                         <!-- etymology -->
                         <etymology :etymology="subsense.etymology"></etymology>
 
-                        <div class="subsense-labels iciba-inline">
+                        <div class="subsense-labels q-inline">
                           <!-- domain class -->
                           <labels
                             v-if="subsense.domainClasses && subsense.domainClasses.length"

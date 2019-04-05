@@ -4,7 +4,6 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const webpackConfig = require('./webpack.prod.conf')
 
 module.exports = merge(webpackConfig, {
-  mode: 'none',
   plugins: [
     new BundleAnalyzerPlugin(),
     new SpeedMeasurePlugin(),

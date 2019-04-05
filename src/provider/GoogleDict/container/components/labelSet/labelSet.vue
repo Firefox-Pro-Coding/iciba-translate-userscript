@@ -1,6 +1,6 @@
 <template>
   <div
-    class="label-set-box iciba-inline"
+    class="label-set-box q-inline"
     v-if="isValid">
     <labels
       :size="size"

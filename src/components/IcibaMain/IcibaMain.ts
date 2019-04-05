@@ -78,20 +78,26 @@ export default class App extends Vue {
   public mounted() {
     bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.translate)
     window.addEventListener('mousedown', this.handleWindowClick, false)
-    window.addEventListener('mousedown', this.handleDragStart, true)
-    window.addEventListener('mousemove', this.handleDragMove, true)
-    window.addEventListener('mouseup', this.handleDragEnd, true)
-    window.addEventListener('keyup', this.handleDragEnd, true)
+    this.shadowRoot.addEventListener('mousedown', this.handleDragStart, true)
+    this.shadowRoot.addEventListener('mousemove', this.handleDragMove, true)
+    this.shadowRoot.addEventListener('mouseup', this.handleDragEnd, true)
+    this.shadowRoot.addEventListener('keyup', this.handleDragEnd, true)
+
+    this.shadowRoot.addEventListener('mousedown', this.handleShadowRootClick, false)
+
     // this.initProviders()
     bus.on(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.checkWhenModalOpen)
   }
 
   public destroyed() {
     window.removeEventListener('mousedown', this.handleWindowClick, false)
-    window.removeEventListener('mousedown', this.handleDragStart, true)
-    window.removeEventListener('mousemove', this.handleDragMove, true)
-    window.removeEventListener('mouseup', this.handleDragEnd, true)
-    window.removeEventListener('keyup', this.handleDragEnd, true)
+    this.shadowRoot.removeEventListener('mousedown', this.handleDragStart, true)
+    this.shadowRoot.removeEventListener('mousemove', this.handleDragMove, true)
+    this.shadowRoot.removeEventListener('mouseup', this.handleDragEnd, true)
+    this.shadowRoot.removeEventListener('keyup', this.handleDragEnd, true)
+
+    this.shadowRoot.removeEventListener('mousedown', this.handleShadowRootClick, false)
+
     bus.removeListener(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.checkWhenModalOpen)
   }
 
@@ -112,11 +118,15 @@ export default class App extends Vue {
     bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
-  private translate({ word, event }: IcibaCircleClickTranslatePayload) {
-    this.setPosition(event)
-    this.visible = true
-    this.inputText = word
+  private async translate({ word, event }: IcibaCircleClickTranslatePayload) {
+    if (!this.visible) {
+      this.setPosition(event)
+      this.visible = true
+    } else if (!isTop(this.icibaMainStyle.zIndex)) {
+      this.setPosition(event)
+    }
 
+    this.inputText = word
     this.translateWithProvider(this.providers[0])
   }
 
@@ -128,6 +138,13 @@ export default class App extends Vue {
 
 
   private async handleWindowClick(e: MouseEvent) {
+    // outside shadow-root
+    if (e.target !== this.icibaRoot) {
+      this.visible = false
+    }
+  }
+
+  private handleShadowRootClick(e: Event) {
     const googleDictModal = this.getGoogleDictModal()
     const ignoreCondition = [
       Boolean(googleDictModal && insideOf(e.target, googleDictModal.$el) && !isTop(this.icibaMainStyle.zIndex)),
@@ -198,7 +215,8 @@ export default class App extends Vue {
     }
   }
 
-  private handleDragStart(e: MouseEvent) {
+  private handleDragStart(_e: Event) {
+    const e: MouseEvent = _e as any
     if (!insideOf(e.target, this.$refs.icibaMain) || !e.ctrlKey) {
       return
     }
@@ -211,7 +229,8 @@ export default class App extends Vue {
     this.drag.startStyle = this.icibaMainStyle
   }
 
-  private handleDragMove(e: MouseEvent) {
+  private handleDragMove(_e: Event) {
+    const e: MouseEvent = _e as any
     if (!this.drag.dragging || !e.ctrlKey) {
       return
     }

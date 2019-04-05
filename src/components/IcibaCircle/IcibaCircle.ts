@@ -24,10 +24,12 @@ export default class App extends Vue {
 
   public mounted() {
     window.addEventListener('mouseup', this.handleWindowClick, false)
+    this.shadowRoot.addEventListener('mouseup', this.handleShadowRootClick, false)
   }
 
   public destroyed() {
     window.removeEventListener('mouseup', this.handleWindowClick, false)
+    this.shadowRoot.removeEventListener('mouseup', this.handleShadowRootClick, false)
   }
 
   public handleClick(event: MouseEvent) {
@@ -40,21 +42,36 @@ export default class App extends Vue {
   }
 
   public async handleWindowClick(e: MouseEvent) {
-    const notHandleConditions = [
+    if (!this.visible) {
+      this.show(e)
+      return
+    }
+
+    // outside shadow-root
+    if (e.target !== this.icibaRoot) {
+      this.visible = false
+    }
+  }
+
+  public async handleShadowRootClick(_e: Event) {
+    const e: MouseEvent = _e as any
+
+    const ignoreConditions = [
       // click on it self
       e.target === this.$el,
 
       // not left click
       e.button !== 0,
-
-      // inside of result box
-      // insideOf(e.target, this.icibaMain),
     ]
 
-    if (notHandleConditions.some(v => v)) {
+    if (ignoreConditions.some(v => v)) {
       return
     }
 
+    this.visible = false
+  }
+
+  private async show(e: MouseEvent) {
     await sleep(10)
     const selection = window.getSelection()
     if (!selection) {
@@ -85,8 +102,9 @@ export default class App extends Vue {
     }
   }
 
+  /* eslint-disable @typescript-eslint/member-ordering */
   @Watch('style')
-  public onStyleChange() {
+  protected onStyleChange() {
     const init: IcibaPositionStyle = {}
     this.internalStyle = {
       ...{

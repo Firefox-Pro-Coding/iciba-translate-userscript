@@ -1,10 +1,10 @@
 <template>
   <div
-    class="iciba-google-dict-label-box iciba-inline"
+    class="iciba-google-dict-label-box q-inline"
     :class="[colorClass, sizeClass]"
     v-if="labels && labels.length">
     <div
-      :class="[labelClass, 'iciba-label', 'iciba-inline-block']"
+      :class="[labelClass, 'iciba-label', 'q-inline-block']"
       v-for="(label, index) in labels"
       @mouseover="handleShowPopover(label)"
       @mouseleave="handleHidePopover(label)"

@@ -1,22 +1,32 @@
-// tslint:disable-next-line:no-import-side-effect
+/* eslint-disable import/first */
+/* tslint:disable:no-import-side-effect */
 import '~/util/extendIoTs'
+
+// eslint-disable-next-line import/order
+import { shadowRoot } from './createRoot'
 
 import Vue from 'vue'
 import App from '~/App.vue'
 import store from '~/store'
 
+import Vuetify, {
+  VApp,
+} from 'vuetify/lib'
+
+Vue.use(Vuetify, {
+  components: {
+    VApp,
+  },
+})
 
 Vue.config.ignoredElements = [
   'iciba-div',
 ]
 
-const root: any = {}
-
 const main = async () => {
   await store.loadData()
 
-  root.app = new Vue({
-    el: document.createElement('div'),
+  const app = new Vue({
     render(h) {
       return h('app')
     },
@@ -25,7 +35,9 @@ const main = async () => {
     },
   })
 
-  document.body.appendChild(root.app.$el)
+  const appRoot = document.createElement('div')
+  shadowRoot.appendChild(appRoot)
+  app.$mount(appRoot)
 }
 
 main()

@@ -48,7 +48,7 @@
                 </div>
                 <div class="part-item-meaning-box">
                   <div
-                    class="meaning-item iciba-inline"
+                    class="meaning-item q-inline"
                     v-for="(meanItem, meanItemIndex) in partItem.means"
                     :key="meanItemIndex">
                     <template v-if="meanItemIndex === partItem.means.length - 1">

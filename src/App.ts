@@ -6,6 +6,7 @@ import SizeHelper from '~/components/SizeHelper/SizeHelper.vue'
 import SettingPage from '~/components/SettingPage/SettingPage.vue'
 
 import GoogleDictModal from '~/provider/GoogleDict/container/GoogleDictModal.vue'
+import GoogleDictModalClass from '~/provider/GoogleDict/container/GoogleDictModal'
 
 import globalBus, { IcibaCircleClickTranslatePayload } from '~/bus/bus'
 
@@ -20,6 +21,11 @@ import globalBus, { IcibaCircleClickTranslatePayload } from '~/bus/bus'
   },
 })
 export default class extends Vue {
+  public $refs!: {
+    VApp: any
+    googleDictModal: GoogleDictModalClass
+  }
+
   public icibaMainFirstLoaded = false
   public settingPageFirstLoaded = false
   public googleDictModalFirstLoaded = false
@@ -27,6 +33,12 @@ export default class extends Vue {
   public googleDictModalVisible = false
 
   public mounted() {
+    // 将 vuetify 的 theme 劫持到 shadow-root 里
+    const style = this.$refs.VApp.style
+    if (style) {
+      this.shadowRoot.appendChild(this.$refs.VApp.style)
+    }
+
     globalBus.on(globalBus.events.SETTING_PREPARE_OPEN, this.openSettingPage)
     globalBus.on(globalBus.events.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
     globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)

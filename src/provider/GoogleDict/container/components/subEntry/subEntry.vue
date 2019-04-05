@@ -43,7 +43,7 @@
           type="note">
         </labels>
       </div>
-      <div class="note-text iciba-inline" v-html="entry.note.text"></div>
+      <div class="note-text q-inline" v-html="entry.note.text"></div>
     </div>
 
     <!-- morph-units -->
@@ -51,13 +51,13 @@
       class="morph-units-box"
       v-if="entry.senseFamily && entry.senseFamily.morphUnits && entry.senseFamily.morphUnits.length">
       <div
-        class="morph-units-item iciba-inline"
+        class="morph-units-item q-inline"
         :title="item.formType.posTag"
         v-for="(item, index) in entry.senseFamily.morphUnits"
         :key="index">
-        <div class="morph-units-description iciba-inline">{{ item.formType.description }}</div>
-        <div class="morph-units-word-form iciba-inline">{{ item.wordForm }}</div>
-        <div class="morph-units-split iciba-inline" v-if="index !== entry.senseFamily.morphUnits.length">;</div>
+        <div class="morph-units-description q-inline">{{ item.formType.description }}</div>
+        <div class="morph-units-word-form q-inline">{{ item.wordForm }}</div>
+        <div class="morph-units-split q-inline" v-if="index !== entry.senseFamily.morphUnits.length">;</div>
       </div>
     </div>
 
@@ -87,7 +87,7 @@
                 :fragment="sense.definition.fragments">
               </fragment>
 
-              <div class="sense-labels iciba-inline">
+              <div class="sense-labels q-inline">
                 <!-- domain class -->
                 <labels
                   v-if="sense.domainClasses && sense.domainClasses.length"
@@ -146,7 +146,7 @@
                     <!-- etymology -->
                     <etymology :etymology="subsense.etymology"></etymology>
 
-                    <div class="subsense-labels iciba-inline">
+                    <div class="subsense-labels q-inline">
                       <!-- domain class -->
                       <labels
                         v-if="subsense.domainClasses && subsense.domainClasses.length"

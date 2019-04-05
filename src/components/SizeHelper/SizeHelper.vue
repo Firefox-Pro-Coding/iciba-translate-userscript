@@ -6,11 +6,9 @@
 
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
-  @import '~assets/styles/hardreset.less';
+  @import '~assets/styles/mixins.less';
 
   .iciba-size-helper {
-    .hard-reset();
-
     position: fixed;
     top: auto;
     left: auto;

@@ -8,7 +8,7 @@ const webpackConfig = require('../config/webpack.dev.conf.js')
 
 const app = express()
 
-const server = app.listen(0, 'localhost', () => {
+const server = app.listen(13333, 'localhost', () => {
   const address = server.address().address
   const port = server.address().port
   const url = `http://${address}:${port}/`
@@ -18,7 +18,7 @@ const server = app.listen(0, 'localhost', () => {
   const compiler = webpack(webpackConfig)
 
   client(compiler, {
-    logLevel: 'warn',
+    // logLevel: 'warn',
     port,
     server,
   })

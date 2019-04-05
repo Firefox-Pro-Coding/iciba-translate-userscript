@@ -1,12 +1,12 @@
 <template>
   <transition name="iciba-main">
     <div
-      class="iciba-main reset iciba-main-the-long-class"
+      class="iciba-main"
       :class="{ dragging: drag.dragging }"
       ref="icibaMain"
       :style="icibaMainStyle"
       v-show="visible">
-      <div class="iciba-container q-flex-co align-stretch" :style="icibaContainerStyle">
+      <div class="iciba-container q-flex-co align-stretch elevation-6" :style="icibaContainerStyle">
         <div class="iciba-input-container q-flex">
           <div class="iciba-input-box q-flex">
             <input
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div class="iciba-content-container">
+        <div class="iciba-content-container q-flec-co">
           <template v-for="item in providers">
             <component
               :key="item.provider.uniqName"
@@ -52,16 +52,3 @@
 
 <script lang="ts" src="./IcibaMain.ts"></script>
 <style lang="less" src="./IcibaMain.less" scoped></style>
-<style lang="less">
-  @import '~assets/styles/global.less';
-  @import '~assets/styles/hardreset.less';
-
-  // to make sure no other site use this
-  .iciba-main-the-long-class {
-    .hard-reset();
-
-    * {
-      .hard-reset();
-    }
-  }
-</style>

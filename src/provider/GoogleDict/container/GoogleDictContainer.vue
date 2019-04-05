@@ -1,5 +1,5 @@
 <template>
-  <div class="google-dict-result-container reset q-flex-co">
+  <div class="google-dict-result-container q-flex-co">
     <scroll-bar class="scroll-container">
       <div class="google-content-simple">
         <div class="expand-button" title="展开" @click="handleOpenModal"></div>

@@ -76,4 +76,6 @@ class Store {
 
 const store = new Store()
 
+Vue.prototype.store = store.state
+
 export default store

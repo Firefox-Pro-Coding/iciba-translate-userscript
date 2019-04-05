@@ -10,7 +10,7 @@
         type="note">
       </labels>
     </div>
-    <div class="note-text iciba-inline" v-html="note.text"></div>
+    <div class="note-text q-inline" v-html="note.text"></div>
   </div>
 </template>
 

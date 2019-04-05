@@ -2,7 +2,7 @@
   <transition name="modal">
     <div class="google-dict-modal-wrapper q-flex" :style="{ zIndex: zIndex }" v-if="modalVisible">
       <div class="google-dict-modal-bg" @click="handleCloseModal"></div>
-      <div class="google-dict-modal-content google-content-box close-iciba-main">
+      <div class="google-dict-modal-content google-content-box elevation-16">
         <div class="dictionary-data-box q-flex-co align-stretch" v-if="dictionaryData && dictionaryData.length">
           <div class="dictionary-data-item" v-for="(dicDataItem, dicDataItemIndex) in dictionaryData" :key="dicDataItemIndex">
             <!-- entry -->

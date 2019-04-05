@@ -1,17 +1,21 @@
 @import '~assets/styles/variables.less';
-@import '~assets/styles/hardreset.less';
+@import '~assets/styles/mixins.less';
 
 .google-translate-result-container {
-  .container-reset();
+  .container-mixin();
 
   position: relative;
   padding: 7px 0 10px 10px;
-}
 
-.google-translate-result-scroll-container {
-  flex: 1 1 auto;
-  padding: 0 10px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-  word-break: break-word;
+  .scroll-container {
+    max-height: 250px;
+
+    .google-translate-result-scroll-container {
+      flex: 1 1 auto;
+      padding: 0 10px 0 0;
+      font-size: 14px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+  }
 }

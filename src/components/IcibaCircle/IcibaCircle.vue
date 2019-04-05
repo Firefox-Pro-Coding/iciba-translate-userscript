@@ -2,7 +2,7 @@
   <div
     v-show="visible"
     :style="computedStyle"
-    class="iciba-circle the-iciba-circle reset"
+    class="iciba-circle"
     @click="handleClick">
   </div>
 </template>

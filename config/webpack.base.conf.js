@@ -24,12 +24,12 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.icibahtml$/,
-        loaders: [
-          path.join(__dirname, '../utils/icibahtml-loader.js'),
-        ],
-      },
+      // {
+      //   test: /\.icibahtml$/,
+      //   loaders: [
+      //     path.join(__dirname, '../utils/icibahtml-loader.js'),
+      //   ],
+      // },
       {
         test: /\.ts$/,
         loaders: [
@@ -47,36 +47,41 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: [
-          'vue-style-loader',
+        use: [
+          {
+            loader: '@noe132/vue-style-loader',
+            options: { insertInto: "function () { return document.querySelector('.iciba-root').shadowRoot }" },
+          },
           'css-loader',
         ],
       },
       {
         test: /\.less$/,
-        oneOf: [
+        use: [
           {
-            resourceQuery: /^\?vue/,
-            loaders: [
-              'vue-style-loader',
-              'css-loader',
-              'less-loader',
-            ],
+            loader: '@noe132/vue-style-loader',
+            options: { insertInto: "function () { return document.querySelector('.iciba-root').shadowRoot }" },
           },
-          {
-            loaders: [
-              'style-loader',
-              'css-loader',
-              'less-loader',
-            ],
-          },
+          'css-loader',
+          'less-loader',
         ],
       },
       {
-        test: /\.vue$/,
-        loader: path.join(__dirname, '../utils/vue-iciba-html-transform-loader.js'),
-        enforce: 'pre',
+        test: /\.styl(us)?$/,
+        use: [
+          {
+            loader: '@noe132/vue-style-loader',
+            options: { insertInto: "function () { return document.querySelector('.iciba-root').shadowRoot }" },
+          },
+          'css-loader',
+          'stylus-loader',
+        ],
       },
+      // {
+      //   test: /\.vue$/,
+      //   loader: path.join(__dirname, '../utils/vue-iciba-html-transform-loader.js'),
+      //   enforce: 'pre',
+      // },
       {
         test: /\.vue$/,
         loader: {

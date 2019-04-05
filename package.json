@@ -27,10 +27,14 @@
   "dependencies": {
     "@babel/runtime": "^7.4.3",
     "@babel/runtime-corejs2": "^7.4.3",
+    "@noe132/vue-style-loader": "^4.2.0",
     "io-ts": "^1.8.5",
+    "stylus-loader": "^3.0.2",
     "typescript": "^3.4.1",
     "vue": "^2.6.10",
-    "vue-property-decorator": "^8.1.0"
+    "vue-loader": "^15.7.0",
+    "vue-property-decorator": "^8.1.0",
+    "vuetify": "^1.5.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
@@ -63,13 +67,13 @@
     "style-loader": "^0.23.1",
     "stylelint": "^9.10.1",
     "stylelint-processor-html": "^1.0.0",
+    "stylus": "^0.54.5",
     "ts-node": "^8.0.3",
     "tslint": "^5.15.0",
     "tslint-consistent-codestyle": "^1.15.1",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-loader": "^3.6.0",
     "url-loader": "^1.1.2",
-    "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.29.6",
     "webpack-bundle-analyzer": "^3.1.0",

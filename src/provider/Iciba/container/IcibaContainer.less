@@ -1,125 +1,129 @@
 @import '~assets/styles/variables.less';
-@import '~assets/styles/hardreset.less';
+@import '~assets/styles/mixins.less';
 
 .iciba-result-container {
-  .container-reset();
+  .container-mixin();
 
   position: relative;
   padding: 7px 0 10px 10px;
 }
 
-.iciba-result-scroll-container {
-  // local variables
-  @big-margin: 6px;
-  @medium-margin: 4px;
-  @small-margin: 3px;
-  @tiny-margin: 2px;
+.scroll-container {
+  max-height: 250px;
 
-  flex: 1 1 auto;
-  padding: 0 10px 0 0;
-  font-size: 14px;
-  line-height: 1.5;
-  word-break: break-word;
+  .iciba-result-scroll-container {
+    // local variables
+    @big-margin: 6px;
+    @medium-margin: 4px;
+    @small-margin: 3px;
+    @tiny-margin: 2px;
 
-  .symbols-box {
-    .symbol-item {
-      width: 100%;
+    flex: 1 1 auto;
+    padding: 0 10px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: break-word;
 
-      & + .symbol-item {
-        margin: @big-margin 0 0 0;
-      }
+    .symbols-box {
+      .symbol-item {
+        width: 100%;
 
-      .pronunciation-box {
-        flex: 0 0 auto;
+        & + .symbol-item {
+          margin: @big-margin 0 0 0;
+        }
 
-        .pronunciation-item {
-          @pron-height: 20px;
+        .pronunciation-box {
+          flex: 0 0 auto;
 
-          align-items: center;
-          height: @pron-height;
-          flex: 0 0 @pron-height;
-          line-height: @pron-height;
+          .pronunciation-item {
+            @pron-height: 20px;
 
-          .ipa-type-name {
-            margin-right: @medium-margin;
-            color: @main-level-4;
-            font-size: @font-size-base - 2px;
-          }
-
-          .ipa {
-            color: @main-level-3;
-            font-size: @font-size-base - 2px;
-            font-family: 'Microsoft Yahei', 'Arial';
-          }
-
-          .playSound {
-            margin: 0 0 0 @medium-margin;
-            width: @pron-height;
+            align-items: center;
             height: @pron-height;
-            background-image: url('~assets/img/play/speaker-filled-audio-tool_59284.svg');
-            background-size: 16px 16px;
-            background-position: center;
-            background-repeat: no-repeat;
-            cursor: pointer;
-            opacity: 0.45;
+            flex: 0 0 @pron-height;
+            line-height: @pron-height;
 
-            &:hover {
-              opacity: 0.7;
+            .ipa-type-name {
+              margin-right: @medium-margin;
+              color: @main-level-4;
+              font-size: @font-size-base - 2px;
             }
 
-            &:active {
-              background-position: center calc(50% + 1px);
-              opacity: 1;
+            .ipa {
+              color: @main-level-3;
+              font-size: @font-size-base - 2px;
+              font-family: 'Microsoft Yahei', 'Arial';
+            }
+
+            .playSound {
+              margin: 0 0 0 @medium-margin;
+              width: @pron-height;
+              height: @pron-height;
+              background-image: url('~assets/img/play/speaker-filled-audio-tool_59284.svg');
+              background-size: 16px 16px;
+              background-position: center;
+              background-repeat: no-repeat;
+              cursor: pointer;
+              opacity: 0.45;
+
+              &:hover {
+                opacity: 0.7;
+              }
+
+              &:active {
+                background-position: center calc(50% + 1px);
+                opacity: 1;
+              }
             }
           }
         }
-      }
 
-      .part-box {
-        margin: @medium-margin 0 0 0;
-        flex: 0 0 auto;
+        .part-box {
+          margin: @medium-margin 0 0 0;
+          flex: 0 0 auto;
 
-        &.no-margin-top {
-          margin: 0;
-        }
-
-        .part-item {
-          @part-line-height: 20px;
-
-          & + .part-item {
-            margin: @small-margin 0 0 0;
+          &.no-margin-top {
+            margin: 0;
           }
 
-          .part-item-part {
-            flex: 0 0 auto;
-            padding: 0 6px 0 0;
-            color: @main-level-4;
-            line-height: @part-line-height;
-          }
+          .part-item {
+            @part-line-height: 20px;
 
-          .part-item-meaning-box {
-            flex: 1 1 auto;
-            line-height: @part-line-height;
+            & + .part-item {
+              margin: @small-margin 0 0 0;
+            }
 
-            .meaning-item {
-              &:not(:last-child) {
-                padding-right: @small-margin;
+            .part-item-part {
+              flex: 0 0 auto;
+              padding: 0 6px 0 0;
+              color: @main-level-4;
+              line-height: @part-line-height;
+            }
+
+            .part-item-meaning-box {
+              flex: 1 1 auto;
+              line-height: @part-line-height;
+
+              .meaning-item {
+                &:not(:last-child) {
+                  padding-right: @small-margin;
+                }
               }
             }
           }
         }
       }
     }
-  }
 
-  .translation-box {
-    align-items: stretch;
+    .translation-box {
+      align-items: stretch;
 
-    .translate-tip {
-      margin: 5px 0 0 0;
-      text-align: right;
-      color: @main-level-4;
-      font-size: @font-size-base - 2px;
+      .translate-tip {
+        margin: 5px 0 0 0;
+        text-align: right;
+        color: @main-level-4;
+        font-size: @font-size-base - 2px;
+      }
     }
   }
 }

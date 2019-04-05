@@ -2,9 +2,6 @@
 
 .iciba-setting-modal {
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   top: 0;
   bottom: 0;
   left: 0;
@@ -34,8 +31,6 @@
   }
 
   .iciba-setting-window {
-    display: flex;
-    flex-flow: column nowrap;
     position: relative;
     transition: 0.3s;
     transform: translateY(0);
@@ -43,8 +38,7 @@
     width: 500px;
     height: 500px;
     background: white;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    background: red;
     overflow: hidden;
 
     .close-btn {
@@ -54,54 +48,41 @@
       background-repeat: no-repeat;
       height: 40px;
       width: 40px;
-      position: absolute;
-      top: 0;
-      right: 0;
       cursor: pointer;
-      border-radius: 0 10px 0 0;
 
       &:hover {
         background-color: @background-level-3;
       }
     }
 
-    .tabs {
-      flex: 0 0 auto;
-      display: flex;
-      flex-flow: row nowrap;
+    .title-box {
       border-bottom: 1px solid @border-level-1;
 
-      .tab {
-        user-select: none;
-        cursor: pointer;
-        padding: 0 15px;
-        height: 40px;
-        line-height: 40px;
-        border-right: 1px solid @border-level-1;
+      .tab-box {
+        flex: 0 0 auto;
 
-        &:first-child {
-          border-radius: 10px 0 0 0;
-        }
+        .tab {
+          user-select: none;
+          cursor: pointer;
+          padding: 0 15px;
+          height: 40px;
+          line-height: 40px;
+          border-right: 1px solid @border-level-1;
 
-        &:hover {
-          background: @background-level-5;
-        }
+          &:hover {
+            background: @background-level-5;
+          }
 
-        &.active {
-          background: @background-level-3;
+          &.active {
+            background: @background-level-3;
+          }
         }
       }
     }
 
     .setting-container {
       flex: 1 1 auto;
-      display: flex;
-      flex-flow: column nowrap;
       padding: 15px;
-
-      & > * {
-        flex: 1 1 auto;
-      }
     }
   }
 }
