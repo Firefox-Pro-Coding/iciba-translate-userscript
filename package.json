@@ -29,6 +29,7 @@
     "@babel/runtime-corejs2": "^7.4.3",
     "@noe132/vue-style-loader": "^4.2.0",
     "io-ts": "^1.8.5",
+    "material-design-icons-iconfont": "^4.0.5",
     "stylus-loader": "^3.0.2",
     "typescript": "^3.4.1",
     "vue": "^2.6.10",

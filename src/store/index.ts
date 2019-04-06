@@ -55,6 +55,10 @@ class Store {
     }
 
     this.config = Vue.observable(data)
+
+    Vue.prototype.store = this.state
+    Vue.prototype.config = this.config
+    Vue.prototype.$store = this
   }
 
   public saveData() {
@@ -75,7 +79,5 @@ class Store {
 }
 
 const store = new Store()
-
-Vue.prototype.store = store.state
 
 export default store

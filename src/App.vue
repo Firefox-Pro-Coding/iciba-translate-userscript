@@ -21,8 +21,14 @@
 
 <script lang="ts" src="./App.ts"></script>
 
+<style lang="globalless">
+  @import '~assets/styles/md-global.less';
+</style>
+
 <style lang="less">
   @import '~assets/styles/global.less';
+  @import '~assets/styles/md-local.less';
+  @import '~../node_modules/material-design-icons-iconfont/dist/material-design-icons.css';
 </style>
 
 <style lang="less" scoped>

@@ -7,44 +7,26 @@
       @click="handleCloseSetting"
       v-show="visible">
       <div class="iciba-setting-window q-flex-co elevation-8">
-        <div class="title-box q-flex justify-space-between">
-          <div class="tab-box q-flex">
-            <div
-              class="tab"
-              :class="{ active: currentTab === 'core' }"
-              @click="switchTab('core')">
-              core
-            </div>
-            <div
-              class="tab"
-              :class="{ active: currentTab === 'iciba' }"
-              @click="switchTab('iciba')">
-              iciba
-            </div>
-            <div
-              class="tab"
-              :class="{ active: currentTab === 'googleDict' }"
-              @click="switchTab('googleDict')">
-              google
-            </div>
-            <div
-              class="tab"
-              :class="{ active: currentTab === 'googleTranslate' }"
-              @click="switchTab('googleTranslate')">
-              google翻译
-            </div>
-            <div
-              class="tab"
-              :class="{ active: currentTab === 'baiduTranslate' }"
-              @click="switchTab('baiduTranslate')">
-              百度翻译
-            </div>
-          </div>
-          <div class="close-btn" @click="closeSetting"></div>
-        </div>
-        <div class="setting-container">
-          <core-setting v-if="currentTab === 'core'"></core-setting>
-        </div>
+        <v-tabs
+          v-model="tab"
+          color="indigo"
+          dark
+          slider-color="rgba(255,255,255,0.7)">
+          <v-tab ripple>core</v-tab>
+          <v-tab ripple>iciba</v-tab>
+          <v-tab ripple>google</v-tab>
+          <v-tab ripple>google翻译</v-tab>
+          <v-tab ripple>百度翻译</v-tab>
+        </v-tabs>
+        <v-tabs-items class="pa-3" v-model="tab">
+          <v-tab-item>
+            <core-setting></core-setting>
+          </v-tab-item>
+          <v-tab-item>hi2</v-tab-item>
+          <v-tab-item>hi3</v-tab-item>
+          <v-tab-item>hi4</v-tab-item>
+          <v-tab-item>hi5</v-tab-item>
+        </v-tabs-items>
       </div>
     </div>
   </transition>

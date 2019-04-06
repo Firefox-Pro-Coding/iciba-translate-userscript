@@ -4100,6 +4100,11 @@ markdown-table@^1.1.0:
   resolved "http://registry.npm.taobao.org/markdown-table/download/markdown-table-1.1.2.tgz#c78db948fa879903a41bce522e3b96f801c63786"
   integrity sha1-x425SPqHmQOkG85SLjuW+AHGN4Y=
 
+material-design-icons-iconfont@^4.0.5:
+  version "4.0.5"
+  resolved "http://registry.npm.taobao.org/material-design-icons-iconfont/download/material-design-icons-iconfont-4.0.5.tgz#4107ba3b8a9d688a3d9325fc7363af51b17d3aee"
+  integrity sha1-QQe6O4qdaIo9kyX8c2OvUbF9Ou4=
+
 mathml-tag-names@^2.0.1:
   version "2.1.0"
   resolved "http://registry.npm.taobao.org/mathml-tag-names/download/mathml-tag-names-2.1.0.tgz#490b70e062ee24636536e3d9481e333733d00f2c"

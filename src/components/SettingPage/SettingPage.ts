@@ -14,6 +14,7 @@ type TabNames = 'core' | 'iciba'
   },
 })
 export default class App extends Vue {
+  public tab = 0
   public currentTab: TabNames = 'core'
   public visible: boolean = false
   public zIndex: number = 0

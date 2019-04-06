@@ -9,19 +9,7 @@ import Vue from 'vue'
 import App from '~/App.vue'
 import store from '~/store'
 
-import Vuetify, {
-  VApp,
-} from 'vuetify/lib'
-
-Vue.use(Vuetify, {
-  components: {
-    VApp,
-  },
-})
-
-Vue.config.ignoredElements = [
-  'iciba-div',
-]
+import './vuetify'
 
 const main = async () => {
   await store.loadData()

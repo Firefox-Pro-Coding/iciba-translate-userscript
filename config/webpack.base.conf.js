@@ -24,12 +24,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.icibahtml$/,
-      //   loaders: [
-      //     path.join(__dirname, '../utils/icibahtml-loader.js'),
-      //   ],
-      // },
       {
         test: /\.ts$/,
         loaders: [
@@ -56,6 +50,14 @@ module.exports = {
         ],
       },
       {
+        test: /\.globalless$/,
+        use: [
+          '@noe132/vue-style-loader',
+          'css-loader',
+          'less-loader',
+        ],
+      },
+      {
         test: /\.less$/,
         use: [
           {
@@ -77,11 +79,6 @@ module.exports = {
           'stylus-loader',
         ],
       },
-      // {
-      //   test: /\.vue$/,
-      //   loader: path.join(__dirname, '../utils/vue-iciba-html-transform-loader.js'),
-      //   enforce: 'pre',
-      // },
       {
         test: /\.vue$/,
         loader: {
@@ -92,6 +89,17 @@ module.exports = {
             },
           },
         },
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 0,
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
