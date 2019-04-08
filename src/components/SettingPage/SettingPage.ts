@@ -31,6 +31,7 @@ export default class SettingPage extends Vue {
     this.bodyOverflowXValue = document.body.style.overflowX || ''
     this.bodyOverflowYValue = document.body.style.overflowY || ''
     this.zIndex = zgen()
+    this.tab = 1
     this.visible = true
   }
 
