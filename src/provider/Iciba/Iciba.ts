@@ -7,9 +7,11 @@ import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import IcibaContainer from './container/IcibaContainer.vue'
 import containerData from './containerData'
 
+import { PROVIDER } from '~/constants/constant'
+
 class IcibaTranslateProvider extends AbstractTranslateProvider {
   public icons = [icibaIcon]
-  public uniqName = 'Iciba'
+  public uniqName = PROVIDER.ICIBA
   public containerComponentClass = IcibaContainer
   public settingDescriptor = []
 

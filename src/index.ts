@@ -12,7 +12,7 @@ import store from '~/store'
 import './vuetify'
 
 const main = async () => {
-  await store.loadData()
+  await store.loadConfig()
 
   const app = new Vue({
     render(h) {

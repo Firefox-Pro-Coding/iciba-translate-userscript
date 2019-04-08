@@ -9,7 +9,7 @@ import containerData from '../containerData'
     ScrollBar,
   },
 })
-export default class App extends Vue {
+export default class GoogleTranslateContainer extends Vue {
   public get translateResult() {
     return containerData.data
   }

@@ -8,6 +8,8 @@ import getToken from './helpers/token'
 import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
 import containerData from './containerData'
 
+import { PROVIDER } from '~/constants/constant'
+
 interface TranslateParams {
   from: string
   query: string
@@ -18,7 +20,7 @@ interface TranslateParams {
 }
 
 class BaiduTranslateProvider extends AbstractTranslateProvider {
-  public uniqName = 'BaiduTranslate'
+  public uniqName = PROVIDER.BAIDU_TRANSLATE
   public icons = [iconBase64]
   public settingDescriptor = []
   public containerComponentClass = BaiduTranslateContainer

@@ -9,7 +9,7 @@ import containerData from '../containerData'
     ScrollBar,
   },
 })
-export default class App extends Vue {
+export default class BaiduTranslateContainer extends Vue {
   public get translateResult() {
     return containerData.data
   }

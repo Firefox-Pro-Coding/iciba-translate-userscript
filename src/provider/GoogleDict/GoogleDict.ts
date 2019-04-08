@@ -18,8 +18,10 @@ import check from './check'
 import audioCache from './audioCache'
 import containerData from './containerData'
 
+import { PROVIDER } from '~/constants/constant'
+
 class GoogleDictProvider extends AbstractTranslateProvider {
-  public uniqName = 'GoogleDict'
+  public uniqName = PROVIDER.GOOGLE_DICT
   public icons = [
     /* eslint-disable camelcase */
     type_0_google,

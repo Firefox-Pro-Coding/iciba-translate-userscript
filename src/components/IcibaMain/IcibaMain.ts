@@ -16,6 +16,7 @@ import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 import store from '~/store'
 
 import LoadindText from './helper/LoadingText/LoadingText.vue'
+import { PROVIDER } from '~/constants/constant'
 
 const defaultStyle = {
   top: 'auto',
@@ -35,7 +36,7 @@ interface Provider {
     LoadindText,
   },
 })
-export default class App extends Vue {
+export default class IcibaMain extends Vue {
   @Prop({ type: Vue })
   public sizeHelper?: Vue
 
@@ -75,8 +76,10 @@ export default class App extends Vue {
     zIndex: 0,
   }
 
+  public currentProviderName = PROVIDER.ICIBA
+
   public mounted() {
-    bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.translate)
+    bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
     window.addEventListener('mousedown', this.handleWindowClick, false)
     this.shadowRoot.addEventListener('mousedown', this.handleDragStart, true)
     this.shadowRoot.addEventListener('mousemove', this.handleDragMove, true)
@@ -103,8 +106,7 @@ export default class App extends Vue {
 
   /** 输入框查词 */
   public handleInputSearch() {
-    // TODO: with current provider
-    this.translateWithProvider(this.providers[0])
+    this.translateWithProvider(this.getCurrentProvider())
   }
 
   /** 点击右上翻译按钮 */
@@ -118,7 +120,7 @@ export default class App extends Vue {
     bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
-  private async translate({ word, event }: IcibaCircleClickTranslatePayload) {
+  private async handleIcibaCircleTranslate({ word, event }: IcibaCircleClickTranslatePayload) {
     if (!this.visible) {
       this.setPosition(event)
       this.visible = true
@@ -127,15 +129,15 @@ export default class App extends Vue {
     }
 
     this.inputText = word
-    this.translateWithProvider(this.providers[0])
+    this.translateWithProvider(this.getDefaultProvider())
   }
 
   private translateWithProvider(provider: Provider) {
     this.providers.forEach((p) => { p.visible = false })
     provider.visible = true
+    this.currentProviderName = provider.provider.uniqName
     this.internalTranslate(provider)
   }
-
 
   private async handleWindowClick(e: MouseEvent) {
     // outside shadow-root
@@ -172,6 +174,24 @@ export default class App extends Vue {
     }).finally(() => {
       this.loading = false
     })
+  }
+
+  private getDefaultProvider() {
+    const provider = this.providers.find(v => v.provider.uniqName === this.config.common.defaultProvider)
+    if (provider) {
+      return provider
+    }
+
+    return this.providers[0]
+  }
+
+  private getCurrentProvider() {
+    const provider = this.providers.find(v => v.provider.uniqName === this.currentProviderName)
+    if (provider) {
+      return provider
+    }
+
+    return this.providers[0]
   }
 
   private setPosition(e: MouseEvent) {
@@ -220,6 +240,14 @@ export default class App extends Vue {
     if (!insideOf(e.target, this.$refs.icibaMain) || !e.ctrlKey) {
       return
     }
+    if (!this.config.common.pressCtrlToDrag) {
+      return
+    }
+    const selection = window.getSelection()
+    if (selection && selection.removeAllRanges) {
+      selection.removeAllRanges()
+    }
+
     e.preventDefault()
     this.drag.dragging = true
     this.drag.startPoint = {

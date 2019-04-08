@@ -10,7 +10,7 @@ import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 @Component({
   name: 'IcibaCircle',
 })
-export default class App extends Vue {
+export default class IcibaCircle extends Vue {
   public visible = false
   public word: string = ''
   public style: IcibaStyle = {}
@@ -33,6 +33,19 @@ export default class App extends Vue {
   }
 
   public handleClick(event: MouseEvent) {
+    this.visible = false
+    const payload: IcibaCircleClickTranslatePayload = {
+      word: this.word,
+      event,
+    }
+    bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
+  }
+
+  public handleMouseover(event: MouseEvent) {
+    if (!this.config.common.mouseOverTranslate) {
+      return
+    }
+
     this.visible = false
     const payload: IcibaCircleClickTranslatePayload = {
       word: this.word,
@@ -73,6 +86,10 @@ export default class App extends Vue {
 
   private async show(e: MouseEvent) {
     await sleep(10)
+    if (this.config.common.pressCtrlToShowCircle && !e.ctrlKey) {
+      return
+    }
+
     const selection = window.getSelection()
     if (!selection) {
       return
@@ -87,8 +104,8 @@ export default class App extends Vue {
       const calcedPosition = calcMouseEventPosition(e)
 
       this.style = {
-        top: calcedPosition.top + 7,
-        left: calcedPosition.left + 7,
+        top: calcedPosition.top + this.config.common.icibaCircleOffsetY,
+        left: calcedPosition.left + this.config.common.icibaCircleOffsetX,
       }
     } else {
       this.visible = false

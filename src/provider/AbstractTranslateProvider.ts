@@ -7,6 +7,7 @@ import {
   ITranslateProviderSettings,
   IcibaIconType,
 } from '~/types/index'
+import { PROVIDER } from '~/constants/constant'
 
 export default abstract class AbstractTranslateProvider {
   /** setting stored array */
@@ -49,7 +50,7 @@ export default abstract class AbstractTranslateProvider {
   }
 
   // unique name of the translate provider
-  public abstract uniqName: string
+  public abstract uniqName: PROVIDER
 
   /** base64 value of the traslator icon (square). svg format preferred */
   public abstract icons: Array<IcibaIconType>

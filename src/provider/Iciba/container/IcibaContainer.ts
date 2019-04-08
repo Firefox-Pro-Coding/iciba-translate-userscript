@@ -12,7 +12,7 @@ import containerData from '../containerData'
     ScrollBar,
   },
 })
-export default class App extends Vue {
+export default class IcibaContainer extends Vue {
   public get result() {
     return containerData.data
   }

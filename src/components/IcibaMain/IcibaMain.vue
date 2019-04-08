@@ -6,7 +6,7 @@
       ref="icibaMain"
       :style="icibaMainStyle"
       v-show="visible">
-      <div class="iciba-container q-flex-co align-stretch elevation-6" :style="icibaContainerStyle">
+      <div class="iciba-container q-flex-co align-stretch elevation-4" :style="icibaContainerStyle">
         <div class="iciba-input-container q-flex">
           <div class="iciba-input-box q-flex">
             <input

@@ -15,7 +15,7 @@ import simpleEntry from './components/simpleEntry/simpleEntry.vue'
     ScrollBar,
   },
 })
-export default class App extends Vue {
+export default class GoogleDictContainer extends Vue {
   public get dictionaryData() {
     return containerData.data
   }

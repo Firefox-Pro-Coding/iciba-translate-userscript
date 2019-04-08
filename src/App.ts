@@ -39,6 +39,8 @@ export default class extends Vue {
       this.shadowRoot.appendChild(this.$refs.VApp.style)
     }
 
+    Vue.prototype.VApp = this.$refs.VApp
+
     globalBus.on(globalBus.events.SETTING_PREPARE_OPEN, this.openSettingPage)
     globalBus.on(globalBus.events.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
     globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)

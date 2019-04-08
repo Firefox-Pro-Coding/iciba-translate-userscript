@@ -11,7 +11,7 @@ const storeType = t.exact(t.type({
   common: common.type,
 }))
 
-type Config = t.TypeOf<typeof storeType>
+export type Config = t.TypeOf<typeof storeType>
 
 class Store {
   /** global states */
@@ -26,7 +26,7 @@ class Store {
     common: common.defaultData,
   }
 
-  public async loadData() {
+  public async loadConfig() {
     let dataString
     try {
       dataString = await getValue(GM_VALUE_KEY, '') as string
@@ -61,7 +61,7 @@ class Store {
     Vue.prototype.$store = this
   }
 
-  public saveData() {
+  public saveConfig() {
     const dataString = JSON.stringify(this.config)
     setValue(GM_VALUE_KEY, dataString)
   }

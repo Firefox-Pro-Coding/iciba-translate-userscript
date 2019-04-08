@@ -5,7 +5,7 @@ import getScrollBarWidth from '~/util/scrollbar-width'
 @Component({
   name: 'IcibaSrollbarContainer',
 })
-export default class App extends Vue {
+export default class IcibaSrollbarContainer extends Vue {
   public container: HTMLElement = null as any as HTMLElement
   public drag = {
     start: false,

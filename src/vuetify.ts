@@ -9,6 +9,9 @@ import Vuetify, {
   VSpacer,
   VLayout,
   VCheckbox,
+  VRadioGroup,
+  VRadio,
+  VSlider,
 } from 'vuetify/lib'
 
 Vue.use(Vuetify, {
@@ -21,6 +24,9 @@ Vue.use(Vuetify, {
     VSpacer,
     VLayout,
     VCheckbox,
+    VRadioGroup,
+    VRadio,
+    VSlider,
   },
   iconfont: 'md',
 })

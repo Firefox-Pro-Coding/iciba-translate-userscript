@@ -12,6 +12,8 @@ import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
 
+import { PROVIDER } from '~/constants/constant'
+
 class GoogleTranslateProvider extends AbstractTranslateProvider {
   public static apiUrl = 'https://translate.google.com/translate_a/single?'
   public static apiQuery = [
@@ -33,7 +35,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     ['source', 'btn'],
   ]
 
-  public uniqName = 'GoogleTranslate'
+  public uniqName = PROVIDER.GOOGLE_TRANSLATE
   public settingDescriptor = []
   public icons = [
     /* eslint-disable camelcase */

@@ -3,6 +3,7 @@
     v-show="visible"
     :style="computedStyle"
     class="iciba-circle"
+    @mouseover="handleMouseover"
     @click="handleClick">
   </div>
 </template>

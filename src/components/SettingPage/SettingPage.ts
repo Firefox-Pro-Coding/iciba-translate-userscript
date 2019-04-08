@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 
+import about from './about/about.vue'
 import CoreSetting from './coreSetting/coreSetting.vue'
 import bus from '~/bus/bus'
 import zgen from '~/util/zIndexGenerator'
@@ -10,11 +11,12 @@ type TabNames = 'core' | 'iciba'
 @Component({
   name: 'SettingPage',
   components: {
+    about,
     CoreSetting,
   },
 })
-export default class App extends Vue {
-  public tab = 0
+export default class SettingPage extends Vue {
+  public tab = 1
   public currentTab: TabNames = 'core'
   public visible: boolean = false
   public zIndex: number = 0

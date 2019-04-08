@@ -15,7 +15,7 @@ import entry from './components/entry/entry.vue'
     entry,
   },
 })
-export default class App extends Vue {
+export default class GoogleDictModal extends Vue {
   public dictionaryData: any = null
   public zIndex: number = 0
 
