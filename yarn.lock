@@ -2461,13 +2461,13 @@ eslint-plugin-import@^2.16.0:
     read-pkg-up "^2.0.0"
     resolve "^1.9.0"
 
-eslint-plugin-jsdoc@^4.8.0:
-  version "4.8.0"
-  resolved "http://registry.npm.taobao.org/eslint-plugin-jsdoc/download/eslint-plugin-jsdoc-4.8.0.tgz#f0e4fae74bd6b83654025bb77d1f39cfe4916152"
-  integrity sha1-8OT650vWuDZUAlu3fR85z+SRYVI=
+eslint-plugin-jsdoc@^4.8.1:
+  version "4.8.1"
+  resolved "http://registry.npm.taobao.org/eslint-plugin-jsdoc/download/eslint-plugin-jsdoc-4.8.1.tgz#36b02d3b3edb6d350b84225b3358a34ca90e6440"
+  integrity sha1-NrAtOz7bbTULhCJbM1ijTKkOZEA=
   dependencies:
     comment-parser "^0.5.4"
-    jsdoctypeparser "^2.0.0-alpha-8"
+    jsdoctypeparser "3.1.0"
     lodash "^4.17.11"
 
 eslint-plugin-vue@^5.2.2:
@@ -3790,10 +3790,10 @@ jsbn@~0.1.0:
   resolved "http://registry.npm.taobao.org/jsbn/download/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
 
-jsdoctypeparser@^2.0.0-alpha-8:
-  version "2.0.0-alpha-8"
-  resolved "http://registry.npm.taobao.org/jsdoctypeparser/download/jsdoctypeparser-2.0.0-alpha-8.tgz#baf137fb8e2a558810adcf19d2d2a2f680e90a5f"
-  integrity sha1-uvE3+44qVYgQrc8Z0tKi9oDpCl8=
+jsdoctypeparser@3.1.0:
+  version "3.1.0"
+  resolved "http://registry.npm.taobao.org/jsdoctypeparser/download/jsdoctypeparser-3.1.0.tgz#2f65f75165c4d9c632bb4fda13ed36b78321a43b"
+  integrity sha1-L2X3UWXE2cYyu0/aE+02t4MhpDs=
 
 jsesc@^2.5.1:
   version "2.5.2"
@@ -6802,10 +6802,10 @@ watchpack@^1.5.0:
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
 
-webpack-bundle-analyzer@^3.1.0:
-  version "3.1.0"
-  resolved "http://registry.npm.taobao.org/webpack-bundle-analyzer/download/webpack-bundle-analyzer-3.1.0.tgz#2f19cbb87bb6d4f3cb4e59cb67c837bd9436e89d"
-  integrity sha1-LxnLuHu21PPLTlnLZ8g3vZQ26J0=
+webpack-bundle-analyzer@^3.2.0:
+  version "3.2.0"
+  resolved "http://registry.npm.taobao.org/webpack-bundle-analyzer/download/webpack-bundle-analyzer-3.2.0.tgz#0630d298e88511d036d7c823705d7b852593d5c4"
+  integrity sha1-BjDSmOiFEdA218gjcF17hSWT1cQ=
   dependencies:
     acorn "^6.0.7"
     acorn-walk "^6.1.1"
