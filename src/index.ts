@@ -1,15 +1,15 @@
 /* eslint-disable import/first */
 /* tslint:disable:no-import-side-effect */
-import '~/util/extendIoTs'
-
-// eslint-disable-next-line import/order
 import { shadowRoot } from './createRoot'
+
+import '~/util/extendIoTs'
+import '~/plugin/toast/toastPlugin'
+import './vuetify'
 
 import Vue from 'vue'
 import App from '~/App.vue'
 import store from '~/store'
 
-import './vuetify'
 
 const main = async () => {
   await store.loadConfig()

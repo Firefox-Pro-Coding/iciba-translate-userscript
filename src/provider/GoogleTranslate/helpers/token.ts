@@ -17,14 +17,14 @@ import calcToken from './calcToken'
 
 let googleTranslateTKK = '0'
 
-const updateTKK = async () => {
+const updateTKK = async (domain: string) => {
   const now = Math.floor(Date.now() / 3600000)
   if (Number(googleTranslateTKK.split('.')[0]) === now) {
     return
   }
   const result = await got({
     method: 'GET',
-    url: 'https://translate.google.com',
+    url: `https://${domain}`,
     timeout: 5000,
   })
   const match = result.responseText.match(/tkk:'(.*?)'/)
@@ -40,8 +40,8 @@ const updateTKK = async () => {
   }
 }
 
-const getToken = async (word: string) => {
-  await updateTKK()
+const getToken = async (word: string, domain: string) => {
+  await updateTKK(domain)
   const token = calcToken(word, googleTranslateTKK)
   return token
 }

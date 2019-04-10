@@ -15,7 +15,6 @@ export default class CoreSettings extends Vue {
     sliderX: any
     sliderY: any
   }
-  public currentTab: string = 'core'
   public form: Config['common'] = {
     defaultProvider: PROVIDER.ICIBA,
     pressCtrlToDrag: false,
@@ -24,7 +23,6 @@ export default class CoreSettings extends Vue {
     icibaCircleOffsetX: 7,
     icibaCircleOffsetY: 7,
   }
-  public x = 7
   public loadingSetting = true
 
   public providerOptions = [
@@ -33,6 +31,8 @@ export default class CoreSettings extends Vue {
     { label: PROVIDER_MAP[PROVIDER.GOOGLE_TRANSLATE], value: PROVIDER.GOOGLE_TRANSLATE },
     { label: PROVIDER_MAP[PROVIDER.BAIDU_TRANSLATE], value: PROVIDER.BAIDU_TRANSLATE },
   ]
+
+  public toastTimeout = 0
 
   public mounted() {
     this.loadSettings()
@@ -73,5 +73,18 @@ export default class CoreSettings extends Vue {
     this.config.common.icibaCircleOffsetY = this.form.icibaCircleOffsetY
 
     this.$store.saveConfig()
+
+    if (!this.toastTimeout) {
+      this.$toast('设置已保存！', 1000)
+      this.toastTimeout = window.setTimeout(() => {
+        this.toastTimeout = 0
+      }, 1000)
+    } else {
+      window.clearTimeout(this.toastTimeout)
+      this.toastTimeout = window.setTimeout(() => {
+        this.$toast('设置已保存！', 1000)
+        this.toastTimeout = 0
+      }, 1000)
+    }
   }
 }

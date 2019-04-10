@@ -12,10 +12,10 @@ import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
 
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants/constant'
+import store from '~/store/index'
 
 class GoogleTranslateProvider extends AbstractTranslateProvider {
-  public static apiUrl = 'https://translate.google.com/translate_a/single?'
   public static apiQuery = [
     ['client', 't'],
     ['sl', 'auto'],
@@ -58,10 +58,10 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     return Promise.resolve()
   }
 
-  public async getGoogleTranslateResult(word: string, tl = 'zh-CN'): Promise<string> {
+  private async getGoogleTranslateResult(word: string, tl = 'zh-CN'): Promise<string> {
     let token
     try {
-      token = await getToken(word)
+      token = await getToken(word, this.getApiDomain())
     } catch (e) {
       throw new Error(`获取token失败！请检查网络。(${e.message})`)
     }
@@ -71,13 +71,14 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       ['tk', encodeURIComponent(token)],
       ['q', word],
     ]
-    const url = GoogleTranslateProvider.apiUrl + query.map(([k, v]) => `${k}=${v}`).join('&')
+
+    const url = `https://${this.getApiDomain()}/translate_a/single?${query.map(([k, v]) => `${k}=${v}`).join('&')}`
 
     try {
       const result = await got({
         method: 'GET',
         headers: {
-          'Referer': 'https://translate.google.com/',
+          'Referer': `https://${this.getApiDomain()}/`,
           'Cache-Control': 'max-age=0',
           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
         },
@@ -94,6 +95,13 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     } catch (e) {
       throw e
     }
+  }
+
+  private getApiDomain() {
+    return {
+      [GOOGLE_TRANSLATE_HOST.GOOGLE_COM]: 'translate.google.com',
+      [GOOGLE_TRANSLATE_HOST.GOOGLE_CN]: 'translate.google.cn',
+    }[store.config.googleTranslate.translateHost]
   }
 }
 

@@ -4,10 +4,18 @@ export enum PROVIDER {
   GOOGLE_TRANSLATE = 'GOOGLE_TRANSLATE',
   BAIDU_TRANSLATE = 'BAIDU_TRANSLATE',
 }
-
 export const PROVIDER_MAP = {
   [PROVIDER.ICIBA]: 'iciba查词',
   [PROVIDER.GOOGLE_DICT]: 'google字典',
   [PROVIDER.GOOGLE_TRANSLATE]: 'google翻译',
   [PROVIDER.BAIDU_TRANSLATE]: 'baidu翻译',
+}
+
+export enum GOOGLE_TRANSLATE_HOST {
+  GOOGLE_COM = 'GOOGLE_COM',
+  GOOGLE_CN = 'GOOGLE_CN',
+}
+export const GOOGLE_TRANSLATE_HOST_MAP = {
+  [GOOGLE_TRANSLATE_HOST.GOOGLE_COM]: 'translate.google.com',
+  [GOOGLE_TRANSLATE_HOST.GOOGLE_CN]: 'translate.google.cn',
 }

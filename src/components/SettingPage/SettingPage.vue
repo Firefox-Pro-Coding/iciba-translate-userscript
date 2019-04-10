@@ -28,7 +28,7 @@
           <v-tab-item><core-setting /></v-tab-item>
           <v-tab-item>别问，问就是还在写</v-tab-item>
           <v-tab-item>别问，问就是还在写</v-tab-item>
-          <v-tab-item>别问，问就是还在写</v-tab-item>
+          <v-tab-item><google-translate /></v-tab-item>
           <v-tab-item>别问，问就是还在写</v-tab-item>
         </v-tabs-items>
       </div>

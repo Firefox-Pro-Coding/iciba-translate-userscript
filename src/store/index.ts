@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import * as t from 'io-ts'
 import { getValue, setValue } from '~/util/gmapi'
+
 import * as common from './modules/common'
+import * as googleTranslate from './modules/googleTranslate'
 
 const GM_VALUE_KEY = 'iciba_store'
 
@@ -9,6 +11,7 @@ const copy: <T>(p: T) => T = (p: any) => (typeof p === 'object' ? JSON.parse(JSO
 
 const storeType = t.exact(t.type({
   common: common.type,
+  googleTranslate: googleTranslate.type,
 }))
 
 export type Config = t.TypeOf<typeof storeType>
@@ -24,6 +27,7 @@ class Store {
 
   private defaultData: Config = {
     common: common.defaultData,
+    googleTranslate: googleTranslate.defaultData,
   }
 
   public async loadConfig() {

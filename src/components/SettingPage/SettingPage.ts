@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 
-import about from './about/about.vue'
-import CoreSetting from './coreSetting/coreSetting.vue'
 import bus from '~/bus/bus'
 import zgen from '~/util/zIndexGenerator'
+
+import about from './about/about.vue'
+import CoreSetting from './coreSetting/coreSetting.vue'
+import googleTranslate from './googleTranslate/googleTranslate.vue'
 
 type TabNames = 'core' | 'iciba'
 
@@ -13,6 +15,7 @@ type TabNames = 'core' | 'iciba'
   components: {
     about,
     CoreSetting,
+    googleTranslate,
   },
 })
 export default class SettingPage extends Vue {
