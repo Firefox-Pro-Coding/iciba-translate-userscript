@@ -1,6 +1,9 @@
 Changelog
 ----------
 
+### 4.0.3
+修复 greasemonkey 支持
+
 ### 4.0.2
 添加字数限制设置和google翻译域名设置
 

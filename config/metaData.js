@@ -6,10 +6,11 @@
 // @include            https://*
 // @exclude            http://www.iciba.com*
 // @grant              GM_xmlhttpRequest
-// @grant              GM_addStyle
 // @grant              GM_getValue
 // @grant              GM_setValue
-// @grant              GM_registerMenuCommand
+// @grant              GM.xmlHttpRequest
+// @grant              GM.getValue
+// @grant              GM.setValue
 // @icon               http://tb.himg.baidu.com/sys/portrait/item/d4346e6f65313332ac06
 // @version            {{ version }}
 // @supportURL         https://github.com/Firefox-Pro-Coding/iciba-translate-userscript
