@@ -96,19 +96,26 @@ export default class IcibaCircle extends Vue {
     }
     const selectionString = selection.toString().trim()
     // only show button if selection is valid
-    if (selectionString.length) {
-      this.visible = true
-      this.word = selectionString
-      this.zIndex = zgen()
-
-      const calcedPosition = calcMouseEventPosition(e)
-
-      this.style = {
-        top: calcedPosition.top + this.config.common.icibaCircleOffsetY,
-        left: calcedPosition.left + this.config.common.icibaCircleOffsetX,
-      }
-    } else {
+    if (!selectionString.length) {
       this.visible = false
+      return
+    }
+
+    if (this.config.common.selectionMaxLengthCut) {
+      if (selectionString.length > this.config.common.selectionMaxLength) {
+        return
+      }
+    }
+
+    this.visible = true
+    this.word = selectionString
+    this.zIndex = zgen()
+
+    const calcedPosition = calcMouseEventPosition(e)
+
+    this.style = {
+      top: calcedPosition.top + this.config.common.icibaCircleOffsetY,
+      left: calcedPosition.left + this.config.common.icibaCircleOffsetX,
     }
   }
 

@@ -14,6 +14,7 @@ export default class CoreSettings extends Vue {
   public $refs!: {
     sliderX: any
     sliderY: any
+    sliderCut: any
   }
   public form: Config['common'] = {
     defaultProvider: PROVIDER.ICIBA,
@@ -22,6 +23,8 @@ export default class CoreSettings extends Vue {
     mouseOverTranslate: false,
     icibaCircleOffsetX: 7,
     icibaCircleOffsetY: 7,
+    selectionMaxLengthCut: false,
+    selectionMaxLength: 150,
   }
   public loadingSetting = true
 
@@ -52,11 +55,26 @@ export default class CoreSettings extends Vue {
       mouseOverTranslate: this.config.common.mouseOverTranslate,
       icibaCircleOffsetX: this.config.common.icibaCircleOffsetX,
       icibaCircleOffsetY: this.config.common.icibaCircleOffsetY,
+      selectionMaxLengthCut: this.config.common.selectionMaxLengthCut,
+      selectionMaxLength: this.config.common.selectionMaxLength,
     }
     this.$nextTick(() => {
       this.loadingSetting = false
     })
   }
+
+  /* eslint-disable-next-line @typescript-eslint/member-ordering */
+  @Watch('form.selectionMaxLengthCut', { deep: true, immediate: true })
+  protected selectionMaxLengthCutChange() {
+    if (this.form.selectionMaxLengthCut) {
+      this.$nextTick(() => {
+        if (this.$refs.sliderCut) {
+          this.$refs.sliderCut.app = this.VApp.$el
+        }
+      })
+    }
+  }
+
 
   /* eslint-disable-next-line @typescript-eslint/member-ordering */
   @Watch('form', { deep: true, immediate: false })
@@ -71,6 +89,8 @@ export default class CoreSettings extends Vue {
     this.config.common.mouseOverTranslate = this.form.mouseOverTranslate
     this.config.common.icibaCircleOffsetX = this.form.icibaCircleOffsetX
     this.config.common.icibaCircleOffsetY = this.form.icibaCircleOffsetY
+    this.config.common.selectionMaxLengthCut = this.form.selectionMaxLengthCut
+    this.config.common.selectionMaxLength = this.form.selectionMaxLength
 
     this.$store.saveConfig()
 

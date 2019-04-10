@@ -9,6 +9,8 @@ export const type = t.type({
   mouseOverTranslate: t.boolean,
   icibaCircleOffsetX: t.number,
   icibaCircleOffsetY: t.number,
+  selectionMaxLengthCut: t.boolean,
+  selectionMaxLength: t.number,
 })
 
 export const defaultData: t.TypeOf<typeof type> = {
@@ -18,4 +20,6 @@ export const defaultData: t.TypeOf<typeof type> = {
   mouseOverTranslate: false,
   icibaCircleOffsetX: 7,
   icibaCircleOffsetY: 7,
+  selectionMaxLengthCut: false,
+  selectionMaxLength: 150,
 }

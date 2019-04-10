@@ -74,6 +74,32 @@
       <br>
       选择文字时小圆圈相对与鼠标的位置。默认为 x=7 y=7
     </p>
+
+    <v-checkbox
+      class="mt-0"
+      color="primary"
+      hide-details
+      v-model="form.selectionMaxLengthCut"
+      label="限制最大查词长度">
+    </v-checkbox>
+    <p class="body-2 grey--text mt-1">
+      当选择文字超过最大长度时不显示小圆圈
+    </p>
+
+    <v-slider
+      v-if="form.selectionMaxLengthCut"
+      ref="sliderCut"
+      class="mr-1 mt-0"
+      :step="10"
+      hide-details
+      min="50"
+      max="500"
+      :thumb-size="24"
+      v-model="form.selectionMaxLength"
+      thumb-label />
+    <p class="body-2 grey--text mt-1" v-if="form.selectionMaxLengthCut">
+      最大查词长度: {{ form.selectionMaxLength }} <span class="ml-1 caption">默认值: 150</span>
+    </p>
   </v-layout>
 </template>
 
