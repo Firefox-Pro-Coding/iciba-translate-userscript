@@ -12,8 +12,10 @@
         :value="n.value">
       </v-radio>
     </v-radio-group>
-    <p class="body-2 grey--text mt-1">
-      google翻译接口域名
+    <p class="body-2 grey--text mt-1 mb-0">
+      google翻译接口域名。
+      <br>
+      translate.google.cn 在国内大部分区域可直接访问
     </p>
   </v-layout>
 </template>
