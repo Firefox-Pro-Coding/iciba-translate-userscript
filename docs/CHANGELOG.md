@@ -1,10 +1,16 @@
-changelog
+Changelog
 ----------
 
-## 4.0.0
+### 4.0.2
+添加字数限制设置和google翻译域名设置
+
+### 4.0.1
+修复版本号bug
+
+### 4.0.0
 refactor by typescript
 
-### old versions:
+#### old versions:
 2017/05/09: bug fix  
 2017/04/20: 添加鼠标悬浮触发查词  
 2017/04/19: 终于搞明白怎么定位了  
