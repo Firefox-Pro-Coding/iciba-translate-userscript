@@ -1,25 +1,29 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
-import { Config } from '~/store/index'
+import { Config, defaultData } from '~/store/index'
+import copy from '~/util/copy'
 
 import {
   GOOGLE_TRANSLATE_HOST,
   GOOGLE_TRANSLATE_HOST_MAP,
 } from '~/constants/constant'
 
+import googleLanguages from '~/constants/googleLanguages'
+
 @Component({
   name: 'GoogleTranslateSettings',
 })
 export default class GoogleTranslateSettings extends Vue {
-  public form: Config['googleTranslate'] = {
-    translateHost: GOOGLE_TRANSLATE_HOST.GOOGLE_COM,
-  }
+  public googleLanguages = googleLanguages
+  public form: Config['googleTranslate'] = copy(defaultData.googleTranslate)
 
   public hostOptions = [
     { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_COM], value: GOOGLE_TRANSLATE_HOST.GOOGLE_COM },
     { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_CN], value: GOOGLE_TRANSLATE_HOST.GOOGLE_CN },
   ]
+  public languageOptions = googleLanguages
 
+  public showMenu = true
   public loadingSetting = true
   public toastTimeout = 0
 
@@ -28,9 +32,7 @@ export default class GoogleTranslateSettings extends Vue {
   }
 
   private loadSettings() {
-    this.form = {
-      translateHost: this.config.googleTranslate.translateHost,
-    }
+    this.form = copy(this.config.googleTranslate)
     this.$nextTick(() => {
       this.loadingSetting = false
     })
@@ -43,7 +45,12 @@ export default class GoogleTranslateSettings extends Vue {
       return
     }
 
-    this.config.googleTranslate.translateHost = this.form.translateHost
+    if (this.form.targetLanguage === this.form.secondTargetLanguage) {
+      return
+    }
+
+    this.config.googleTranslate = copy(this.form)
+
     this.$store.saveConfig()
 
     if (!this.toastTimeout) {

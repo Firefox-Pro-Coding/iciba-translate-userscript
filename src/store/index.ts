@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import * as t from 'io-ts'
 import { getValue, setValue } from '~/util/gmapi'
+import copy from '~/util/copy'
 
 import * as common from './modules/common'
 import * as googleTranslate from './modules/googleTranslate'
 
 const GM_VALUE_KEY = 'iciba_store'
-
-const copy: <T>(p: T) => T = (p: any) => (typeof p === 'object' ? JSON.parse(JSON.stringify(p)) : p)
 
 const storeType = t.exact(t.type({
   common: common.type,
@@ -15,6 +14,11 @@ const storeType = t.exact(t.type({
 }))
 
 export type Config = t.TypeOf<typeof storeType>
+
+export const defaultData: Config = {
+  common: common.defaultData,
+  googleTranslate: googleTranslate.defaultData,
+}
 
 class Store {
   /** global states */
@@ -25,10 +29,7 @@ class Store {
   /** config */
   public config!: Config
 
-  private defaultData: Config = {
-    common: common.defaultData,
-    googleTranslate: googleTranslate.defaultData,
-  }
+  private defaultData = defaultData
 
   public async loadConfig() {
     let dataString
@@ -72,13 +73,13 @@ class Store {
 
   private setDefaultDataByPath(path: Array<string>, _data: any) {
     let data = _data
-    let defaultData = this.defaultData as any
+    let dData = this.defaultData as any
     for (let i = 0; i < path.length - 1; i += 1) {
       data = data[path[i]]
-      defaultData = defaultData[path[i]]
+      dData = dData[path[i]]
     }
     const lastPath = path[path.length - 1]
-    data[lastPath] = copy(defaultData[lastPath])
+    data[lastPath] = copy(dData[lastPath])
   }
 }
 

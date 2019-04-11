@@ -18,6 +18,7 @@ export default class ToastComponent extends Vue {
     setTimeout(() => {
       this.visible = false
       setTimeout(() => {
+        (this.$el.parentNode as Node).removeChild(this.$el)
         this.$destroy()
       }, 3000)
     }, this.timeout)

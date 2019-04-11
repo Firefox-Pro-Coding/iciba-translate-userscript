@@ -2,6 +2,7 @@ import * as querystring from 'querystring'
 
 import icibaIcon from '~/assets/img/providerIcon/iciba/search.svg'
 import { got } from '~/util/gmapi'
+import copy from '~/util/copy'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import IcibaContainer from './container/IcibaContainer.vue'
@@ -79,7 +80,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       return Promise.reject(new Error(result.errmsg))
     }
 
-    containerData.data = JSON.parse(JSON.stringify(result))
+    containerData.data = copy(result)
     return Promise.resolve()
   }
 }

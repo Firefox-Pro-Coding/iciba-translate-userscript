@@ -17,7 +17,7 @@
             <v-tab ripple>设置</v-tab>
             <v-tab ripple>core</v-tab>
             <v-tab ripple>iciba</v-tab>
-            <v-tab ripple>google</v-tab>
+            <v-tab ripple>google字典</v-tab>
             <v-tab ripple>google翻译</v-tab>
             <v-tab ripple>百度翻译</v-tab>
           </v-tabs>

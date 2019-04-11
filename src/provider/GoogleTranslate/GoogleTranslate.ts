@@ -58,13 +58,15 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     return Promise.resolve()
   }
 
-  private async getGoogleTranslateResult(word: string, tl = 'zh-CN'): Promise<string> {
+  private async getGoogleTranslateResult(word: string, _tl?: string): Promise<string> {
     let token
     try {
       token = await getToken(word, this.getApiDomain())
     } catch (e) {
       throw new Error(`获取token失败！请检查网络。(${e.message})`)
     }
+
+    const tl = _tl || store.config.googleTranslate.targetLanguage
     const query = [
       ...GoogleTranslateProvider.apiQuery,
       ['tl', encodeURIComponent(tl)],
@@ -87,9 +89,10 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
         responseType: 'json',
       })
       const data = result.response
-      // if (data[8][0][0] === 'zh-CN') {
-      //   return this.getGoogleTranslateResult(word, 'en-US')
-      // }
+      const detectedLanguage: string = data[2]
+      if (detectedLanguage === tl && detectedLanguage === store.config.googleTranslate.targetLanguage) {
+        return this.getGoogleTranslateResult(word, store.config.googleTranslate.secondTargetLanguage)
+      }
       const translateResult = data[0].map((v: any) => (v[0] ? v[0] : '')).join('')
       return translateResult
     } catch (e) {

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
-import { Config } from '~/store/index'
+import { Config, defaultData } from '~/store/index'
+import copy from '~/util/copy'
 
 import {
   PROVIDER,
@@ -16,16 +17,7 @@ export default class CoreSettings extends Vue {
     sliderY: any
     sliderCut: any
   }
-  public form: Config['common'] = {
-    defaultProvider: PROVIDER.ICIBA,
-    pressCtrlToDrag: false,
-    pressCtrlToShowCircle: false,
-    mouseOverTranslate: false,
-    icibaCircleOffsetX: 7,
-    icibaCircleOffsetY: 7,
-    selectionMaxLengthCut: false,
-    selectionMaxLength: 150,
-  }
+  public form: Config['common'] = copy(defaultData.common)
   public loadingSetting = true
 
   public providerOptions = [
@@ -48,16 +40,7 @@ export default class CoreSettings extends Vue {
   }
 
   private loadSettings() {
-    this.form = {
-      defaultProvider: this.config.common.defaultProvider,
-      pressCtrlToDrag: this.config.common.pressCtrlToDrag,
-      pressCtrlToShowCircle: this.config.common.pressCtrlToShowCircle,
-      mouseOverTranslate: this.config.common.mouseOverTranslate,
-      icibaCircleOffsetX: this.config.common.icibaCircleOffsetX,
-      icibaCircleOffsetY: this.config.common.icibaCircleOffsetY,
-      selectionMaxLengthCut: this.config.common.selectionMaxLengthCut,
-      selectionMaxLength: this.config.common.selectionMaxLength,
-    }
+    this.form = copy(this.config.common)
     this.$nextTick(() => {
       this.loadingSetting = false
     })
@@ -83,14 +66,7 @@ export default class CoreSettings extends Vue {
       return
     }
 
-    this.config.common.defaultProvider = this.form.defaultProvider
-    this.config.common.pressCtrlToDrag = this.form.pressCtrlToDrag
-    this.config.common.pressCtrlToShowCircle = this.form.pressCtrlToShowCircle
-    this.config.common.mouseOverTranslate = this.form.mouseOverTranslate
-    this.config.common.icibaCircleOffsetX = this.form.icibaCircleOffsetX
-    this.config.common.icibaCircleOffsetY = this.form.icibaCircleOffsetY
-    this.config.common.selectionMaxLengthCut = this.form.selectionMaxLengthCut
-    this.config.common.selectionMaxLength = this.form.selectionMaxLength
+    this.config.common = copy(this.form)
 
     this.$store.saveConfig()
 

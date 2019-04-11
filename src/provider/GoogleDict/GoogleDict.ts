@@ -10,6 +10,7 @@ import type_4_google_356049 from '~/assets/img/providerIcon/googleDict/type_4_go
 /* eslint-enable camelcase */
 
 import playAudio from '~/util/playAudio'
+import copy from '~/util/copy'
 import googleDictBus from '~/provider/GoogleDict/bus'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
@@ -50,8 +51,8 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       return Promise.reject(data)
     }
 
-    const copy = JSON.parse(JSON.stringify(data))
-    check(copy)
+    const copyData = copy(data)
+    check(copyData)
 
     containerData.data = data.dictionaryData
 
