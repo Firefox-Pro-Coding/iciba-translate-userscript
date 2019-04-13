@@ -8,7 +8,7 @@ export const PROVIDER_MAP = {
   [PROVIDER.ICIBA]: 'iciba查词',
   [PROVIDER.GOOGLE_DICT]: 'google字典',
   [PROVIDER.GOOGLE_TRANSLATE]: 'google翻译',
-  [PROVIDER.BAIDU_TRANSLATE]: 'baidu翻译',
+  [PROVIDER.BAIDU_TRANSLATE]: '百度翻译',
 }
 
 export enum GOOGLE_TRANSLATE_HOST {

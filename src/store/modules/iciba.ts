@@ -9,6 +9,6 @@ export const type = t.type({
 })
 
 export const defaultData: t.TypeOf<typeof type> = {
-  icon: 'icibaIcon',
+  icon: 'searchIcon',
   display: true,
 }

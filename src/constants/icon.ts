@@ -1,6 +1,7 @@
 import { PROVIDER } from '~/constants/constant'
 
-import icibaIcon from '~/assets/img/providerIcon/iciba/search.svg'
+import searchIcon from '~/assets/img/providerIcon/iciba/search.svg'
+import iciba_1362193 from '~/assets/img/providerIcon/iciba/iciba_1362193.svg'
 
 import type_0_google from '~/assets/img/providerIcon/googleDict/type_0_google.svg'
 import type_2_search_281764 from '~/assets/img/providerIcon/googleDict/type_2_search_281764.svg'
@@ -13,10 +14,12 @@ import type_2_translate_324121 from '~/assets/img/providerIcon/googleTranslate/t
 import type_3_google_814137 from '~/assets/img/providerIcon/googleTranslate/type_3_google_814137.svg'
 
 import baiduIcon from '~/assets/img/providerIcon/baiduTranslate/baidu.svg'
+import baiduCircle from '~/assets/img/providerIcon/baiduTranslate/baiduCircle.svg'
 
 const providerIcon = {
   [PROVIDER.ICIBA]: {
-    icibaIcon,
+    searchIcon,
+    iciba_1362193,
   },
   [PROVIDER.GOOGLE_DICT]: {
     type_0_google,
@@ -32,6 +35,7 @@ const providerIcon = {
   },
   [PROVIDER.BAIDU_TRANSLATE]: {
     baiduIcon,
+    baiduCircle,
   },
 }
 

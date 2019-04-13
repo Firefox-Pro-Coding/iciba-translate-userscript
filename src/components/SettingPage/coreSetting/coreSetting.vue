@@ -19,7 +19,9 @@
       label="仅按住ctrl查词">
     </v-checkbox>
     <p class="body-2 grey--text mt-1 mb-0">
-      选择文字时，只有同时按住ctrl键时才显示小圆圈
+      选择文字时，只有
+      <span class="font-weight-bold">同时按住ctrl键</span>
+      时才显示小圆圈
     </p>
 
     <v-checkbox
