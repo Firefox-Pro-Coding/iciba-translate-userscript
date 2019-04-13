@@ -38,7 +38,7 @@
 
     <v-layout class="mt-4 pt-1">
       <v-layout column class="flex-nogrow pr-5">
-        <div class="grey--text text--darken-1 pr-4 mb-1">语言</div>
+        <div class="grey--text text--darken-1 pr-4 mb-2">语言</div>
         <div
           class="grey--text text--darken-1"
           style="height: 24px; margin-bottom: 8px"
@@ -48,7 +48,7 @@
         </div>
       </v-layout>
       <v-layout align-center column class="flex-nogrow">
-        <div class="grey--text text--darken-1 pr-4">首选语言</div>
+        <div class="grey--text text--darken-1 pr-4 mb-1">首选语言</div>
         <v-radio-group
           class="mt-0 flex-nogrow"
           hide-details
@@ -63,7 +63,7 @@
         </v-radio-group>
       </v-layout>
       <v-layout align-center column class="flex-nogrow">
-        <div class="grey--text text--darken-1 pr-4">备选语言</div>
+        <div class="grey--text text--darken-1 pr-4 mb-1">备选语言</div>
         <v-radio-group
           class="mt-0"
           hide-details

@@ -4,12 +4,12 @@ import { Component } from 'vue-property-decorator'
 import bus from '~/bus/bus'
 import zgen from '~/util/zIndexGenerator'
 
-import about from './about/about.vue'
-import CoreSetting from './coreSetting/coreSetting.vue'
-import Iciba from './iciba/iciba.vue'
-import GoogleDict from './googleDict/googleDict.vue'
-import GoogleTranslate from './googleTranslate/googleTranslate.vue'
-import BaiduTranslate from './baiduTranslate/baiduTranslate.vue'
+import about from './subpage/about/about.vue'
+import CoreSetting from './subpage/coreSetting/coreSetting.vue'
+import Iciba from './subpage/iciba/iciba.vue'
+import GoogleDict from './subpage/googleDict/googleDict.vue'
+import GoogleTranslate from './subpage/googleTranslate/googleTranslate.vue'
+import BaiduTranslate from './subpage/baiduTranslate/baiduTranslate.vue'
 
 type TabNames = 'core' | 'iciba'
 

@@ -12,7 +12,7 @@ import {
 
 import googleLanguages from '~/constants/googleLanguages'
 
-import IconRadioGroup from '../components/IconRadioGroup/IconRadioGroup.vue'
+import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
 @Component({
   name: 'GoogleTranslateSettings',

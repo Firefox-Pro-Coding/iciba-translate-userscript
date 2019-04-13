@@ -5,7 +5,7 @@ import copy from '~/util/copy'
 import providerIcon from '~/constants/icon'
 import { PROVIDER } from '~/constants/constant'
 
-import IconRadioGroup from '../components/IconRadioGroup/IconRadioGroup.vue'
+import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
 @Component({
   name: 'BaiduTranslateSettings',
@@ -14,9 +14,9 @@ import IconRadioGroup from '../components/IconRadioGroup/IconRadioGroup.vue'
   },
 })
 export default class BaiduTranslateSettings extends Vue {
-  public form: Config[PROVIDER.GOOGLE_DICT] = copy(defaultData[PROVIDER.GOOGLE_DICT])
+  public form: Config[PROVIDER.ICIBA] = copy(defaultData[PROVIDER.ICIBA])
   public iconOptions = Object
-    .entries(providerIcon[PROVIDER.GOOGLE_DICT])
+    .entries(providerIcon[PROVIDER.ICIBA])
     .map(([k, v]) => ({
       icon: v,
       key: k,
@@ -30,7 +30,7 @@ export default class BaiduTranslateSettings extends Vue {
   }
 
   private loadSettings() {
-    this.form = copy(this.config[PROVIDER.GOOGLE_DICT])
+    this.form = copy(this.config[PROVIDER.ICIBA])
     this.$nextTick(() => {
       this.loadingSetting = false
     })
@@ -43,7 +43,7 @@ export default class BaiduTranslateSettings extends Vue {
       return
     }
 
-    this.config[PROVIDER.GOOGLE_DICT] = copy(this.form)
+    this.config[PROVIDER.ICIBA] = copy(this.form)
 
     this.$store.saveConfig()
 

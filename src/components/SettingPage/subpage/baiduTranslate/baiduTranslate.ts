@@ -5,7 +5,7 @@ import copy from '~/util/copy'
 import providerIcon from '~/constants/icon'
 import { PROVIDER } from '~/constants/constant'
 
-import IconRadioGroup from '../components/IconRadioGroup/IconRadioGroup.vue'
+import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
 @Component({
   name: 'BaiduTranslateSettings',
