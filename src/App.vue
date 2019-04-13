@@ -32,14 +32,18 @@
 </style>
 
 <style lang="less" scoped>
-  .the-app /deep/ .application--wrap {
-    position: static;
-    height: 0;
-    min-height: 0;
-    max-height: 0;
-    width: 0;
-    min-width: 0;
-    max-width: 0;
+  .the-app {
+    font-size: initial;
+
+    /deep/ .application--wrap {
+      position: static;
+      height: 0;
+      min-height: 0;
+      max-height: 0;
+      width: 0;
+      min-width: 0;
+      max-width: 0;
+    }
   }
 </style>
 
