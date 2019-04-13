@@ -1,6 +1,5 @@
 import * as queryString from 'querystring'
 
-import iconBase64 from '~/assets/img/providerIcon/baiduTranslate/baidu.svg'
 import { got } from '~/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
@@ -21,7 +20,6 @@ interface TranslateParams {
 
 class BaiduTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.BAIDU_TRANSLATE
-  public icons = [iconBase64]
   public settingDescriptor = []
   public containerComponentClass = BaiduTranslateContainer
 

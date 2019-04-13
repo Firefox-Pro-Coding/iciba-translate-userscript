@@ -6,7 +6,10 @@ import zgen from '~/util/zIndexGenerator'
 
 import about from './about/about.vue'
 import CoreSetting from './coreSetting/coreSetting.vue'
-import googleTranslate from './googleTranslate/googleTranslate.vue'
+import Iciba from './iciba/iciba.vue'
+import GoogleDict from './googleDict/googleDict.vue'
+import GoogleTranslate from './googleTranslate/googleTranslate.vue'
+import BaiduTranslate from './baiduTranslate/baiduTranslate.vue'
 
 type TabNames = 'core' | 'iciba'
 
@@ -15,7 +18,10 @@ type TabNames = 'core' | 'iciba'
   components: {
     about,
     CoreSetting,
-    googleTranslate,
+    Iciba,
+    GoogleDict,
+    GoogleTranslate,
+    BaiduTranslate,
   },
 })
 export default class SettingPage extends Vue {

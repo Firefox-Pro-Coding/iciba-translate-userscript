@@ -5,7 +5,7 @@ import googleDictBus from '~/provider/GoogleDict/bus'
 import globalBus from '~/bus/bus'
 import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
 
-import containerData from '../containerData'
+import containerDataStore from '../containerDataStore'
 import simpleEntry from './components/simpleEntry/simpleEntry.vue'
 
 @Component({
@@ -17,7 +17,7 @@ import simpleEntry from './components/simpleEntry/simpleEntry.vue'
 })
 export default class GoogleDictContainer extends Vue {
   public get dictionaryData() {
-    return containerData.data
+    return containerDataStore.data
   }
 
   public mounted() {

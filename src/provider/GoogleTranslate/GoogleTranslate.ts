@@ -66,7 +66,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       throw new Error(`获取token失败！请检查网络。(${e.message})`)
     }
 
-    const tl = _tl || store.config.googleTranslate.targetLanguage
+    const tl = _tl || store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
     const query = [
       ...GoogleTranslateProvider.apiQuery,
       ['tl', encodeURIComponent(tl)],
@@ -90,8 +90,8 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       })
       const data = result.response
       const detectedLanguage: string = data[2]
-      if (detectedLanguage === tl && detectedLanguage === store.config.googleTranslate.targetLanguage) {
-        return this.getGoogleTranslateResult(word, store.config.googleTranslate.secondTargetLanguage)
+      if (detectedLanguage === tl && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage) {
+        return this.getGoogleTranslateResult(word, store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage)
       }
       const translateResult = data[0].map((v: any) => (v[0] ? v[0] : '')).join('')
       return translateResult
@@ -104,7 +104,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     return {
       [GOOGLE_TRANSLATE_HOST.GOOGLE_COM]: 'translate.google.com',
       [GOOGLE_TRANSLATE_HOST.GOOGLE_CN]: 'translate.google.cn',
-    }[store.config.googleTranslate.translateHost]
+    }[store.config[PROVIDER.GOOGLE_TRANSLATE].translateHost]
   }
 }
 

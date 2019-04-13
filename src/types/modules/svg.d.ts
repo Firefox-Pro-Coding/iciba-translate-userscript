@@ -1,8 +1,6 @@
 // svg.d.ts
 
 declare module '*.svg' {
-  import { IcibaIconType } from '~/types/index'
-
-  const data: IcibaIconType
+  const data: string
   export default data
 }

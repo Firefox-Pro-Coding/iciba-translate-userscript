@@ -1,14 +1,6 @@
 import querystring from 'querystring'
 import { got } from '~/util/gmapi'
 
-/* eslint-disable camelcase */
-import type_0_google from '~/assets/img/providerIcon/googleDict/type_0_google.svg'
-import type_1_google_299386 from '~/assets/img/providerIcon/googleDict/type_1_google_299386.svg'
-import type_2_search_281764 from '~/assets/img/providerIcon/googleDict/type_2_search_281764.svg'
-import type_3_search_281781 from '~/assets/img/providerIcon/googleDict/type_3_search_281781.svg'
-import type_4_google_356049 from '~/assets/img/providerIcon/googleDict/type_4_google_356049.svg'
-/* eslint-enable camelcase */
-
 import playAudio from '~/util/playAudio'
 import copy from '~/util/copy'
 import googleDictBus from '~/provider/GoogleDict/bus'
@@ -17,21 +9,12 @@ import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
 import check from './check'
 import audioCache from './audioCache'
-import containerData from './containerData'
+import containerDataStore from './containerDataStore'
 
 import { PROVIDER } from '~/constants/constant'
 
 class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.GOOGLE_DICT
-  public icons = [
-    /* eslint-disable camelcase */
-    type_0_google,
-    type_1_google_299386,
-    type_2_search_281764,
-    type_3_search_281781,
-    type_4_google_356049,
-    /* eslint-enable camelcase */
-  ]
   public settingDescriptor = []
   public containerComponentClass = GoogleDictContainer
   private audioCache = audioCache
@@ -54,7 +37,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     const copyData = copy(data)
     check(copyData)
 
-    containerData.data = data.dictionaryData
+    containerDataStore.data = data.dictionaryData
 
     return Promise.resolve()
   }

@@ -103,20 +103,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        oneOf: [
-          {
-            loaders: [
-              'url-loader',
-            ],
-            exclude: resolve('src/assets/img/providerIcon'),
-          },
-          {
-            loaders: [
-              path.join(__dirname, '../utils/svg-hash-loader.js'),
-            ],
-            include: resolve('src/assets/img/providerIcon'),
-          },
-        ],
+        use: 'url-loader',
       },
     ],
   },

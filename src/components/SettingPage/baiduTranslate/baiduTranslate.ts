@@ -3,34 +3,20 @@ import { Component, Watch } from 'vue-property-decorator'
 import { Config, defaultData } from '~/store/index'
 import copy from '~/util/copy'
 import providerIcon from '~/constants/icon'
-
-import {
-  GOOGLE_TRANSLATE_HOST,
-  GOOGLE_TRANSLATE_HOST_MAP,
-  PROVIDER,
-} from '~/constants/constant'
-
-import googleLanguages from '~/constants/googleLanguages'
+import { PROVIDER } from '~/constants/constant'
 
 import IconRadioGroup from '../components/IconRadioGroup/IconRadioGroup.vue'
 
 @Component({
-  name: 'GoogleTranslateSettings',
+  name: 'BaiduTranslateSettings',
   components: {
     IconRadioGroup,
   },
 })
-export default class GoogleTranslateSettings extends Vue {
-  public googleLanguages = googleLanguages
-  public form: Config[PROVIDER.GOOGLE_TRANSLATE] = copy(defaultData[PROVIDER.GOOGLE_TRANSLATE])
-
-  public hostOptions = [
-    { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_COM], value: GOOGLE_TRANSLATE_HOST.GOOGLE_COM },
-    { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_CN], value: GOOGLE_TRANSLATE_HOST.GOOGLE_CN },
-  ]
-  public languageOptions = googleLanguages
+export default class BaiduTranslateSettings extends Vue {
+  public form: Config[PROVIDER.BAIDU_TRANSLATE] = copy(defaultData[PROVIDER.BAIDU_TRANSLATE])
   public iconOptions = Object
-    .entries(providerIcon[PROVIDER.GOOGLE_TRANSLATE])
+    .entries(providerIcon[PROVIDER.BAIDU_TRANSLATE])
     .map(([k, v]) => ({
       icon: v,
       key: k,
@@ -44,7 +30,7 @@ export default class GoogleTranslateSettings extends Vue {
   }
 
   private loadSettings() {
-    this.form = copy(this.config[PROVIDER.GOOGLE_TRANSLATE])
+    this.form = copy(this.config[PROVIDER.BAIDU_TRANSLATE])
     this.$nextTick(() => {
       this.loadingSetting = false
     })
@@ -57,11 +43,7 @@ export default class GoogleTranslateSettings extends Vue {
       return
     }
 
-    if (this.form.targetLanguage === this.form.secondTargetLanguage) {
-      return
-    }
-
-    this.config[PROVIDER.GOOGLE_TRANSLATE] = copy(this.form)
+    this.config[PROVIDER.BAIDU_TRANSLATE] = copy(this.form)
 
     this.$store.saveConfig()
 

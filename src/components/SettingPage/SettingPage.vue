@@ -26,10 +26,10 @@
         <v-tabs-items class="pa-3 fill-height" style="overflow: auto" v-model="tab">
           <v-tab-item><about /></v-tab-item>
           <v-tab-item><core-setting /></v-tab-item>
-          <v-tab-item>别问，问就是还在写</v-tab-item>
-          <v-tab-item>别问，问就是还在写</v-tab-item>
+          <v-tab-item><iciba /></v-tab-item>
+          <v-tab-item><google-dict /></v-tab-item>
           <v-tab-item><google-translate /></v-tab-item>
-          <v-tab-item>别问，问就是还在写</v-tab-item>
+          <v-tab-item><baidu-translate /></v-tab-item>
         </v-tabs-items>
       </div>
     </div>

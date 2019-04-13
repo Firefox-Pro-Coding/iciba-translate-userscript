@@ -1,6 +1,5 @@
 import * as querystring from 'querystring'
 
-import icibaIcon from '~/assets/img/providerIcon/iciba/search.svg'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
 
@@ -11,7 +10,6 @@ import containerData from './containerData'
 import { PROVIDER } from '~/constants/constant'
 
 class IcibaTranslateProvider extends AbstractTranslateProvider {
-  public icons = [icibaIcon]
   public uniqName = PROVIDER.ICIBA
   public containerComponentClass = IcibaContainer
   public settingDescriptor = []

@@ -12,6 +12,7 @@ import Vuetify, {
   VRadioGroup,
   VRadio,
   VSlider,
+  VIcon,
 } from 'vuetify/lib'
 
 Vue.use(Vuetify, {
@@ -27,6 +28,7 @@ Vue.use(Vuetify, {
     VRadioGroup,
     VRadio,
     VSlider,
+    VIcon,
   },
   iconfont: 'md',
 })

@@ -3,21 +3,32 @@ import * as t from 'io-ts'
 import { getValue, setValue } from '~/util/gmapi'
 import copy from '~/util/copy'
 
+import { PROVIDER } from '~/constants/constant'
+
 import * as common from './modules/common'
+import * as iciba from './modules/iciba'
+import * as googleDict from './modules/googleDict'
 import * as googleTranslate from './modules/googleTranslate'
+import * as baiduTranslate from './modules/baiduTranslate'
 
 const GM_VALUE_KEY = 'iciba_store'
 
 const storeType = t.exact(t.type({
   common: common.type,
-  googleTranslate: googleTranslate.type,
+  [PROVIDER.ICIBA]: iciba.type,
+  [PROVIDER.GOOGLE_DICT]: googleDict.type,
+  [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.type,
+  [PROVIDER.BAIDU_TRANSLATE]: baiduTranslate.type,
 }))
 
 export type Config = t.TypeOf<typeof storeType>
 
 export const defaultData: Config = {
   common: common.defaultData,
-  googleTranslate: googleTranslate.defaultData,
+  [PROVIDER.ICIBA]: iciba.defaultData,
+  [PROVIDER.GOOGLE_DICT]: googleDict.defaultData,
+  [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.defaultData,
+  [PROVIDER.BAIDU_TRANSLATE]: baiduTranslate.defaultData,
 }
 
 class Store {

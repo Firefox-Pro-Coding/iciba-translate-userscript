@@ -1,7 +1,14 @@
 <template>
   <v-layout column>
+    <icon-radio-group
+      v-model="form.icon"
+      :icons="iconOptions" />
+    <p class="body-2 grey--text mt-1 mb-0">
+      小图标
+    </p>
+
     <v-radio-group
-      class="mt-0"
+      class="mt-4"
       hide-details
       v-model="form.translateHost">
       <v-radio
