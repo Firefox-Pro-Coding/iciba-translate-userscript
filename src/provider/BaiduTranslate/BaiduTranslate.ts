@@ -8,6 +8,7 @@ import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
 import containerData from './containerData'
 
 import { PROVIDER } from '~/constants/constant'
+import store from '~/store'
 
 interface TranslateParams {
   from: string
@@ -78,9 +79,15 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
   }
 
   private async getTranslateResult(params: TranslateParams) {
+    let to = store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage
+
+    if (params.from === to) {
+      to = store.config[PROVIDER.BAIDU_TRANSLATE].secondTargetLanguage
+    }
+
     const translationFormData = {
       ...params,
-      to: params.from === 'zh' ? 'en' : 'zh',
+      to,
       transtype: 'translang',
       simple_means_flag: 3,
     }

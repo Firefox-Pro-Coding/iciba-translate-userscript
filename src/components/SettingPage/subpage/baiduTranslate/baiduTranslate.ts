@@ -4,6 +4,7 @@ import { Config, defaultData } from '~/store/index'
 import copy from '~/util/copy'
 import providerIcon from '~/constants/icon'
 import { PROVIDER } from '~/constants/constant'
+import baiduLanguages from '~/constants/baiduLanguages'
 
 import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
@@ -21,6 +22,7 @@ export default class BaiduTranslateSettings extends Vue {
       icon: v,
       key: k,
     }))
+  public languageOptions = baiduLanguages
 
   public loadingSetting = true
   public toastTimeout = 0
@@ -40,6 +42,10 @@ export default class BaiduTranslateSettings extends Vue {
   @Watch('form', { deep: true, immediate: false })
   protected formChange() {
     if (this.loadingSetting) {
+      return
+    }
+
+    if (this.form.targetLanguage === this.form.secondTargetLanguage) {
       return
     }
 

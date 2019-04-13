@@ -115,10 +115,10 @@ export default [
   //   key: 'ka',
   //   text: 'Georgian',
   // },
-  // {
-  //   key: 'de',
-  //   text: 'German',
-  // },
+  {
+    key: 'de',
+    text: 'German',
+  },
   // {
   //   key: 'el',
   //   text: 'Greek',
