@@ -5,8 +5,10 @@ import providerIcon from '~/constants/icon'
 
 export const type = t.type({
   icon: t.keyof(providerIcon[PROVIDER.ICIBA]),
+  display: t.boolean,
 })
 
 export const defaultData: t.TypeOf<typeof type> = {
   icon: 'icibaIcon',
+  display: true,
 }

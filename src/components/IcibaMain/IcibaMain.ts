@@ -120,6 +120,10 @@ export default class IcibaMain extends Vue {
     bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
+  protected isProviderVisible(name: PROVIDER) {
+    return this.config[name].display
+  }
+
   private async handleIcibaCircleTranslate({ word, event }: IcibaCircleClickTranslatePayload) {
     if (!this.visible) {
       this.setPosition(event)

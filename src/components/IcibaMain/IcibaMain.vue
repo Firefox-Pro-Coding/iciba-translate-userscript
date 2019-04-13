@@ -19,14 +19,17 @@
             <div class="iciba-setting-button" @click="handleOpenSetting"></div>
           </div>
           <div class="provider-button-box q-flex">
-            <div
-              v-for="item in providers"
-              :key="item.provider.uniqName"
-              @keydown.32.prevent
-              class="provider-button"
-              @click="handleTranslateButtonClick(item)"
-              :style="{ backgroundImage: `url('${item.provider.icon}')` }">
-            </div>
+            <template
+              v-for="item in providers">
+              <div
+                :key="item.provider.uniqName"
+                v-if="isProviderVisible(item.provider.uniqName)"
+                @keydown.32.prevent
+                @click="handleTranslateButtonClick(item)"
+                class="provider-button"
+                :style="{ backgroundImage: `url('${item.provider.icon}')` }">
+              </div>
+            </template>
           </div>
         </div>
         <div class="iciba-content-container q-flec-co">
