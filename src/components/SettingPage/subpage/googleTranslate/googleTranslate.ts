@@ -10,7 +10,7 @@ import {
   PROVIDER,
 } from '~/constants/constant'
 
-import googleLanguages from '~/constants/googleLanguages'
+import { googleLanguagesOptions } from '~/constants/googleLanguages'
 
 import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
@@ -21,14 +21,13 @@ import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
   },
 })
 export default class GoogleTranslateSettings extends Vue {
-  public googleLanguages = googleLanguages
   public form: Config[PROVIDER.GOOGLE_TRANSLATE] = copy(defaultData[PROVIDER.GOOGLE_TRANSLATE])
 
   public hostOptions = [
     { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_COM], value: GOOGLE_TRANSLATE_HOST.GOOGLE_COM },
     { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_CN], value: GOOGLE_TRANSLATE_HOST.GOOGLE_CN },
   ]
-  public languageOptions = googleLanguages
+  public languageOptions = googleLanguagesOptions
   public iconOptions = Object
     .entries(providerIcon[PROVIDER.GOOGLE_TRANSLATE])
     .map(([k, v]) => ({

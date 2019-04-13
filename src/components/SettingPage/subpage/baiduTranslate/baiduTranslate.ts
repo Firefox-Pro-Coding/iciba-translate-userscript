@@ -4,7 +4,7 @@ import { Config, defaultData } from '~/store/index'
 import copy from '~/util/copy'
 import providerIcon from '~/constants/icon'
 import { PROVIDER } from '~/constants/constant'
-import baiduLanguages from '~/constants/baiduLanguages'
+import { baiduLanguagesOptions } from '~/constants/baiduLanguages'
 
 import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
@@ -22,7 +22,7 @@ export default class BaiduTranslateSettings extends Vue {
       icon: v,
       key: k,
     }))
-  public languageOptions = baiduLanguages
+  public languageOptions = baiduLanguagesOptions
 
   public loadingSetting = true
   public toastTimeout = 0
