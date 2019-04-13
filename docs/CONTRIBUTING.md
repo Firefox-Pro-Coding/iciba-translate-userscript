@@ -22,7 +22,7 @@ yarn dev
 并添加，实现自动加载最新构建版本
 ```js
 
-// @require   file:///path/to/repo/iciba-translate-userscript/dist/index.js
+// @require   file:///path/to/repo/iciba-translate-userscript/dist/iciba.user.js
 ```
 
 ### Hot Reload

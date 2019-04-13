@@ -12,7 +12,7 @@ module.exports = {
   },
   output: {
     path: resolve('dist'),
-    filename: '[name].js',
+    filename: 'iciba.user.js',
   },
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],
