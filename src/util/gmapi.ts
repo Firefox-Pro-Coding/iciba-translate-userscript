@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 export const getValue = (name: string, def: string): Promise<string | number | boolean> => {
-  if (GM.getValue) {
+  if (typeof GM !== 'undefined' && GM.getValue) {
     return Promise.resolve(GM.getValue(name, def) as Promise<string | number | boolean>)
   }
   if (GM_getValue) {
@@ -10,7 +10,7 @@ export const getValue = (name: string, def: string): Promise<string | number | b
 }
 
 export const setValue = (name: string, value: string): Promise<void> => {
-  if (GM.setValue) {
+  if (typeof GM !== 'undefined' && GM.setValue) {
     return Promise.resolve(GM.setValue(name, value))
   }
   if (GM_setValue) {
@@ -34,7 +34,13 @@ class GMXMLError extends Error {
 }
 
 export const got = (params: IcibaExtendedGMOption) => {
-  const api = GM.xmlHttpRequest || GM_xmlhttpRequest
+  let api: typeof GM_xmlhttpRequest | typeof GM.xmlHttpRequest
+
+  if (typeof GM !== 'undefined' && GM.xmlHttpRequest) {
+    api = GM.xmlHttpRequest
+  } else {
+    api = GM_xmlhttpRequest
+  }
 
   if (!api) {
     throw new Error('not running in greasymonkey or tampermonkey enviroment')
