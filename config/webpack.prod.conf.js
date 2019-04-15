@@ -9,5 +9,9 @@ module.exports = merge(baseWebpackConfig, {
       'vue$': 'vue/dist/vue.runtime.esm.js',
     },
   },
+  performance: {
+    maxEntrypointSize: (1024 ** 2) * 5,
+    maxAssetSize: (1024 ** 2) * 5,
+  },
   devtool: '#source-map',
 })
