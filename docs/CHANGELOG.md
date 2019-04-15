@@ -1,19 +1,22 @@
 Changelog
 ----------
 
+### 4.0.5
+fix: 修复 Violentmonket GM ReferenceError
+
 ### 4.0.4
-添加google翻译，百度翻译 首选备选语言选项
-添加图标选择选项
-添加隐藏按钮选项
+feat: 添加google翻译，百度翻译 首选备选语言选项
+feat: 添加图标选择选项
+feat: 添加隐藏按钮选项
 
 ### 4.0.3
-修复 greasemonkey 支持
+fix: 修复 greasemonkey 支持
 
 ### 4.0.2
-添加字数限制设置和google翻译域名设置
+fix: 添加字数限制设置和google翻译域名设置
 
 ### 4.0.1
-修复版本号bug
+fix: 修复版本号bug
 
 ### 4.0.0
 refactor by typescript
