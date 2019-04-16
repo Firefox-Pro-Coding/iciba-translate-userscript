@@ -25,8 +25,8 @@
       <div class="mt-3">
         changelog:
         <br>
-        <a target="_blank" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/blob/master/docs/CHANGELOG.md">
-          https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/blob/master/docs/CHANGELOG.md
+        <a target="_blank" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/releases">
+          Github Release
         </a>
       </div>
 
