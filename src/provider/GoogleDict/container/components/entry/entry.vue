@@ -74,7 +74,7 @@
             :class="{ collapsable: index !== 0 }"
             v-for="(sense, senseIndex) in senseFamilyItem.senses"
             :key="senseIndex">
-            <div class="sense-item-number">{{ index + 1 }}.</div>
+            <div class="sense-item-number">{{ senseIndex + 1 }}.</div>
             <div class="sense-item-box q-flex-co align-stretch">
               <!-- difinition -->
               <div class="definition-box q-flex-co align-stretch">
@@ -122,65 +122,65 @@
                 <thesaurus :thesaurus-entries="sense.thesaurusEntries"></thesaurus>
 
                 <!-- subsense -->
-                <div
-                  class="subsense-box"
-                  v-if="sense.subsenses && sense.subsenses.length">
-                  <div
-                    class="subsense-item q-flex"
-                    v-for="(subsense, subsenseIndex) in sense.subsenses"
-                    :key="subsenseIndex">
-                    <div class="subsense-number">
-                      {{ subsenseIndex + 1 }})
-                    </div>
-                    <div class="subsense-item-container q-flex-co align-stretch">
-                      <!-- definition -->
-                      <div class="subsense-definition">
-                        <!-- label -->
-                        <label-set
-                          class="subsense-definition-label"
-                          size="medium"
-                          :label-set="subsense.labelSet">
-                        </label-set>
-
-                        <fragment
-                          class="subsense-frag"
-                          :fragment="subsense.definition.fragments">
-                        </fragment>
-
-                        <!-- etymology -->
-                        <etymology :etymology="subsense.etymology"></etymology>
-
-                        <div class="subsense-labels q-inline">
-                          <!-- domain class -->
-                          <labels
-                            v-if="subsense.domainClasses && subsense.domainClasses.length"
-                            class="subsense-label-box"
-                            color="lightpink"
-                            size="small"
-                            :labels="subsense.domainClasses"
-                            type="domain">
-                          </labels>
-
-                          <!-- semantic class -->
-                          <labels
-                            v-if="subsense.semanticClasses && subsense.semanticClasses.length"
-                            class="subsense-label-box"
-                            color="lightblue"
-                            size="small"
-                            :labels="subsense.semanticClasses"
-                            type="semantic">
-                          </labels>
-                        </div>
+                <foldable :fold="store.googleDict.subsenseFolded" v-if="sense.subsenses && sense.subsenses.length">
+                  <div class="subsense-box" v-if="sense.subsenses && sense.subsenses.length">
+                    <div
+                      v-for="(subsense, subsenseIndex) in sense.subsenses"
+                      :key="subsenseIndex"
+                      class="subsense-item q-flex">
+                      <div class="subsense-number">
+                        {{ subsenseIndex + 1 }})
                       </div>
+                      <div class="subsense-item-container q-flex-co align-stretch">
+                        <!-- definition -->
+                        <div class="subsense-definition">
+                          <!-- label -->
+                          <label-set
+                            class="subsense-definition-label"
+                            size="medium"
+                            :label-set="subsense.labelSet">
+                          </label-set>
 
-                      <!-- example groups -->
-                      <example-groups :example-groups="subsense.exampleGroups"></example-groups>
+                          <fragment
+                            class="subsense-frag"
+                            :fragment="subsense.definition.fragments">
+                          </fragment>
 
-                      <!-- thesaurus -->
-                      <thesaurus :thesaurus-entries="subsense.thesaurusEntries"></thesaurus>
+                          <!-- etymology -->
+                          <etymology :etymology="subsense.etymology"></etymology>
+
+                          <div class="subsense-labels q-inline">
+                            <!-- domain class -->
+                            <labels
+                              v-if="subsense.domainClasses && subsense.domainClasses.length"
+                              class="subsense-label-box"
+                              color="lightpink"
+                              size="small"
+                              :labels="subsense.domainClasses"
+                              type="domain">
+                            </labels>
+
+                            <!-- semantic class -->
+                            <labels
+                              v-if="subsense.semanticClasses && subsense.semanticClasses.length"
+                              class="subsense-label-box"
+                              color="lightblue"
+                              size="small"
+                              :labels="subsense.semanticClasses"
+                              type="semantic">
+                            </labels>
+                          </div>
+                        </div>
+
+                        <!-- example groups -->
+                        <example-groups :example-groups="subsense.exampleGroups" />
+
+                        <!-- thesaurus -->
+                        <thesaurus :thesaurus-entries="subsense.thesaurusEntries" />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </foldable>
               </div>
 
               <!-- etymology -->

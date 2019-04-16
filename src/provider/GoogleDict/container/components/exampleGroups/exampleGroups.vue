@@ -1,33 +1,33 @@
 <template>
   <!-- example group -->
-  <div
-    class="example-group-box q-flex-co align-stretch"
-    v-if="exampleGroups && exampleGroups.length">
-    <div
-      class="example-group-item q-flex-co align-stretch"
-      v-for="(exampleGroupItem, index) in exampleGroups"
-      :key="index">
+  <foldable :fold="store.googleDict.detailFolded" v-if="exampleGroups && exampleGroups.length">
+    <div class="example-group-box q-flex-co align-stretch">
       <div
-        class="example-item-box q-flex-co align-stretch"
-        v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
-        <!-- labels -->
+        class="example-group-item q-flex-co align-stretch"
+        v-for="(exampleGroupItem, index) in exampleGroups"
+        :key="index">
         <div
-          class="example-registers-box"
-          v-if="exampleGroupItem.registers && exampleGroupItem.registers.length">
-          <labels
-            color="registers"
-            :labels="exampleGroupItem.registers">
-          </labels>
-        </div>
-        <div
-          class="example-item"
-          v-html="example"
-          v-for="(example, exampleIndex) in exampleGroupItem.examples"
-          :key="exampleIndex">
+          class="example-item-box q-flex-co align-stretch"
+          v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
+          <!-- labels -->
+          <div
+            class="example-registers-box"
+            v-if="exampleGroupItem.registers && exampleGroupItem.registers.length">
+            <labels
+              color="registers"
+              :labels="exampleGroupItem.registers">
+            </labels>
+          </div>
+          <div
+            class="example-item"
+            v-html="example"
+            v-for="(example, exampleIndex) in exampleGroupItem.examples"
+            :key="exampleIndex">
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </foldable>
 </template>
 
 <script lang="ts" src="./exampleGroups.ts"></script>

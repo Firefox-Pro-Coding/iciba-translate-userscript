@@ -10,6 +10,7 @@ import etymology from '../etymology/etymology.vue'
 import exampleGroups from '../exampleGroups/exampleGroups.vue'
 import subEntry from '../subEntry/subEntry.vue'
 import note from '../note/note.vue'
+import foldable from '../foldable/foldable.vue'
 
 @Component({
   name: 'GoogleDictContainerEntry',
@@ -23,6 +24,7 @@ import note from '../note/note.vue'
     exampleGroups,
     subEntry,
     note,
+    foldable,
   },
 })
 export default class extends Vue {

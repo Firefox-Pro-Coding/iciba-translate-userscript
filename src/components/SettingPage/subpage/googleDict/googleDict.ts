@@ -3,7 +3,11 @@ import { Component, Watch } from 'vue-property-decorator'
 import { Config, defaultData } from '~/store/index'
 import copy from '~/util/copy'
 import providerIcon from '~/constants/icon'
-import { PROVIDER } from '~/constants/constant'
+import {
+  PROVIDER,
+  GOOGLE_DICT_FOLD_STATUS,
+  GOOGLE_DICT_FOLD_STATUS_MAP,
+} from '~/constants/constant'
 
 import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
@@ -21,6 +25,12 @@ export default class BaiduTranslateSettings extends Vue {
       icon: v,
       key: k,
     }))
+
+  public foldOptions = [
+    { label: GOOGLE_DICT_FOLD_STATUS_MAP[GOOGLE_DICT_FOLD_STATUS.FOLD], value: GOOGLE_DICT_FOLD_STATUS.FOLD },
+    { label: GOOGLE_DICT_FOLD_STATUS_MAP[GOOGLE_DICT_FOLD_STATUS.HALF_FOLD], value: GOOGLE_DICT_FOLD_STATUS.HALF_FOLD },
+    { label: GOOGLE_DICT_FOLD_STATUS_MAP[GOOGLE_DICT_FOLD_STATUS.UNFOLD], value: GOOGLE_DICT_FOLD_STATUS.UNFOLD },
+  ]
 
   public loadingSetting = true
   public toastTimeout = 0

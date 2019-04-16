@@ -34,7 +34,11 @@ export const defaultData: Config = {
 class Store {
   /** global states */
   public state = Vue.observable({
-    googleDictModalVisible: false,
+    googleDict: {
+      modalVisible: false,
+      subsenseFolded: false,
+      detailFolded: false,
+    },
   })
 
   /** config */

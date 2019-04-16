@@ -18,7 +18,24 @@
       在查词框右侧显示按钮
     </p>
 
-    <p class="body-2 grey--text mt-3 mb-0">
+
+    <v-radio-group
+      class="mt-4"
+      hide-details
+      v-model="form.foldStatus">
+      <v-radio
+        color="primary"
+        v-for="n of foldOptions"
+        :key="n.value"
+        :label="n.label"
+        :value="n.value">
+      </v-radio>
+    </v-radio-group>
+    <p class="body-2 grey--text mt-1 mb-0">
+      查词详细结果默认折叠状态
+    </p>
+
+    <p class="body-2 grey--text mt-5 mb-0">
       如果你经常出现 request failed 0，这不是脚本出问题也不是网络问题。
     </p>
     <p class="body-2 grey--text mt-1 mb-0">

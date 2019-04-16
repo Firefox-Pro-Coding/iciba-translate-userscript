@@ -1,6 +1,10 @@
 <template>
   <transition name="modal">
     <div class="google-dict-modal-wrapper q-flex" :style="{ zIndex: zIndex }" v-if="modalVisible">
+      <div class="fold-control q-flex elevation-2">
+        <div :class="{ disable: !shrinkable }" class="button shrink" @click="handleShrink"></div>
+        <div :class="{ disable: !expandable }" class="button expand" @click="handleExpand"></div>
+      </div>
       <div class="google-dict-modal-bg" @click="handleCloseModal"></div>
       <div class="google-dict-modal-content google-content-box elevation-16">
         <div class="dictionary-data-box q-flex-co align-stretch" v-if="dictionaryData && dictionaryData.length">

@@ -265,7 +265,7 @@ export default class IcibaMain extends Vue {
   }
 
   private checkWhenModalOpen() {
-    if (store.state.googleDictModalVisible) {
+    if (store.state.googleDict.modalVisible) {
       this.visible = false
     }
   }

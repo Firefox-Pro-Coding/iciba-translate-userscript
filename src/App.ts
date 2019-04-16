@@ -30,8 +30,6 @@ export default class extends Vue {
   public settingPageFirstLoaded = false
   public googleDictModalFirstLoaded = false
 
-  public googleDictModalVisible = false
-
   public mounted() {
     // 将 vuetify 的 theme 劫持到 shadow-root 里
     const style = this.$refs.VApp.style
