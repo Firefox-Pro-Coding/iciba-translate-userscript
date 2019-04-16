@@ -20,7 +20,7 @@ greasefork 地址： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻�
 [创建issue](https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/issues) 即可。
 
 ## Changelog
-[docs/CHANGELOG.md](docs/CHANGELOG.md)
+[Github Release](https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/releases)
 
 ## Contruibution
 [docs/CONTRIBUTION.md](docs/CONTRIBUTING.md)
