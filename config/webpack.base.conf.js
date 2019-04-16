@@ -28,7 +28,7 @@ module.exports = {
         test: /\.ts$/,
         loaders: [
           'babel-loader',
-          'awesome-typescript-loader',
+          { loader: 'awesome-typescript-loader', options: { silent: true } },
         ],
         exclude: /node_modules/,
       },

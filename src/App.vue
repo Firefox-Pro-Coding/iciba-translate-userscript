@@ -28,7 +28,6 @@
 <style lang="less">
   @import '~assets/styles/global.less';
   @import '~assets/styles/md-local.less';
-  @import '~../node_modules/material-design-icons-iconfont/dist/material-design-icons.css';
 </style>
 
 <style lang="less" scoped>
