@@ -37,6 +37,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       if (e.message === 'Backend Error') {
         // try googletranslate
         return this.fetchGoogleTranslate(word).then((googleTranslateData: any) => {
+          containerDataStore.data = null
           containerDataStore.translateData = googleTranslateData
         })
       }
@@ -47,6 +48,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       check(copyData)
     }
     containerDataStore.data = googleDictData.dictionaryData
+    containerDataStore.translateData = null
     return Promise.resolve()
   }
 
