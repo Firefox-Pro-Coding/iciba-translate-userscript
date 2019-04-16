@@ -5,7 +5,7 @@ import { PROVIDER } from '~/constants/constant'
 import providerIcon from '~/constants/icon'
 import store, { Config } from '~/store/index'
 
-type storeName = Exclude<keyof Config, 'common'>
+type storeName = Exclude<keyof Config, 'core'>
 
 export default abstract class AbstractTranslateProvider {
   // get currect set icon or default icon

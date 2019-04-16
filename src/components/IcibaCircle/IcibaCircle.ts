@@ -42,7 +42,7 @@ export default class IcibaCircle extends Vue {
   }
 
   public handleMouseover(event: MouseEvent) {
-    if (!this.config.common.mouseOverTranslate) {
+    if (!this.config.core.mouseOverTranslate) {
       return
     }
 
@@ -86,7 +86,7 @@ export default class IcibaCircle extends Vue {
 
   private async show(e: MouseEvent) {
     await sleep(10)
-    if (this.config.common.pressCtrlToShowCircle && !e.ctrlKey) {
+    if (this.config.core.pressCtrlToShowCircle && !e.ctrlKey) {
       return
     }
 
@@ -101,8 +101,8 @@ export default class IcibaCircle extends Vue {
       return
     }
 
-    if (this.config.common.selectionMaxLengthCut) {
-      if (selectionString.length > this.config.common.selectionMaxLength) {
+    if (this.config.core.selectionMaxLengthCut) {
+      if (selectionString.length > this.config.core.selectionMaxLength) {
         return
       }
     }
@@ -114,8 +114,8 @@ export default class IcibaCircle extends Vue {
     const calcedPosition = calcMouseEventPosition(e)
 
     this.style = {
-      top: calcedPosition.top + this.config.common.icibaCircleOffsetY,
-      left: calcedPosition.left + this.config.common.icibaCircleOffsetX,
+      top: calcedPosition.top + this.config.core.icibaCircleOffsetY,
+      left: calcedPosition.left + this.config.core.icibaCircleOffsetX,
     }
   }
 

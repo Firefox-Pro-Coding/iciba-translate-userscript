@@ -4,16 +4,28 @@
       class="iciba-main"
       :class="{ dragging: drag.dragging }"
       ref="icibaMain"
-      :style="icibaMainStyle"
+      :style="computedIcibaMainStyle"
       v-show="visible">
-      <div class="iciba-container q-flex-co align-stretch elevation-4" :style="icibaContainerStyle">
+      <div
+        class="iciba-container q-flex-co align-stretch"
+        @mouseenter="stickBoxVisible = true"
+        @mouseleave="stickBoxVisible = false"
+        :style="icibaContainerStyle">
+        <transition name="stick-box">
+          <div class="stick-box" v-if="config.core.showPin" v-show="config.core.pinned || stickBoxVisible">
+            <div class="drag" @mousedown="handlePinDragStart"></div>
+            <div class="stick" :class="{ pinned: config.core.pinned }" @click="togglePinned"></div>
+          </div>
+        </transition>
         <div class="iciba-input-container q-flex">
-          <div class="iciba-input-box q-flex">
+          <div class="iciba-input-box q-flex" :class="{ 'input-focused': inputFocused }">
             <input
               id="iciba-search-input"
               class="iciba-search-input"
               size="1"
               type="text"
+              @focus="inputFocused = true"
+              @blur="inputFocused = false"
               @keypress.13="handleInputSearch"
               v-model="inputText" />
             <div class="iciba-setting-button" @click="handleOpenSetting"></div>
@@ -22,13 +34,17 @@
             <template
               v-for="item in providers">
               <div
+                class="split"
+                :key="item.provider.uniqName + 'index'">
+              </div>
+              <button
                 :key="item.provider.uniqName"
                 v-if="isProviderVisible(item.provider.uniqName)"
-                @keydown.32.prevent
+                @keydown.13="handleTranslateButtonClick(item)"
                 @click="handleTranslateButtonClick(item)"
                 class="provider-button"
                 :style="{ backgroundImage: `url('${item.provider.icon}')` }">
-              </div>
+              </button>
             </template>
           </div>
         </div>

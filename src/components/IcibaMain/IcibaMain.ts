@@ -59,22 +59,26 @@ export default class IcibaMain extends Vue {
 
   public visible = false
   public loading = false
+  public inputFocused = false
   public inputText: string = ''
   public errorMessage = ''
+
   public drag = {
     dragging: false,
-    startPoint: {
-      x: 0,
-      y: 0,
-    },
-    startStyle: { ...defaultStyle, zIndex: 0 },
+    ignoreCtrl: false,
+    startPoint: { x: 0, y: 0 },
+    startTransform: { x: 0, y: 0 },
   }
 
   public icibaContainerStyle = { ...defaultStyle }
   public icibaMainStyle = {
     ...defaultStyle,
+    translateX: 0,
+    translateY: 0,
     zIndex: 0,
   }
+
+  public stickBoxVisible = false
 
   public currentProviderName = PROVIDER.ICIBA
 
@@ -82,8 +86,8 @@ export default class IcibaMain extends Vue {
     bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
     window.addEventListener('mousedown', this.handleWindowClick, false)
     this.shadowRoot.addEventListener('mousedown', this.handleDragStart, true)
-    this.shadowRoot.addEventListener('mousemove', this.handleDragMove, true)
-    this.shadowRoot.addEventListener('mouseup', this.handleDragEnd, true)
+    window.addEventListener('mousemove', this.handleDragMove, true)
+    window.addEventListener('mouseup', this.handleDragEnd, true)
     this.shadowRoot.addEventListener('keyup', this.handleDragEnd, true)
 
     this.shadowRoot.addEventListener('mousedown', this.handleShadowRootClick, false)
@@ -95,8 +99,8 @@ export default class IcibaMain extends Vue {
   public destroyed() {
     window.removeEventListener('mousedown', this.handleWindowClick, false)
     this.shadowRoot.removeEventListener('mousedown', this.handleDragStart, true)
-    this.shadowRoot.removeEventListener('mousemove', this.handleDragMove, true)
-    this.shadowRoot.removeEventListener('mouseup', this.handleDragEnd, true)
+    window.removeEventListener('mousemove', this.handleDragMove, true)
+    window.removeEventListener('mouseup', this.handleDragEnd, true)
     this.shadowRoot.removeEventListener('keyup', this.handleDragEnd, true)
 
     this.shadowRoot.removeEventListener('mousedown', this.handleShadowRootClick, false)
@@ -120,8 +124,31 @@ export default class IcibaMain extends Vue {
     bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
+  /** 切换固定状态 */
+  public togglePinned() {
+    this.config.core.pinned = !this.config.core.pinned
+    this.$store.saveConfig()
+  }
+
   protected isProviderVisible(name: PROVIDER) {
     return this.config[name].display
+  }
+
+  protected handlePinDragStart(e: MouseEvent) {
+    e.preventDefault()
+    this.removeSelection()
+    this.drag = {
+      dragging: true,
+      ignoreCtrl: true,
+      startPoint: {
+        x: e.screenX,
+        y: e.screenY,
+      },
+      startTransform: {
+        x: this.icibaMainStyle.translateX,
+        y: this.icibaMainStyle.translateY,
+      },
+    }
   }
 
   private async handleIcibaCircleTranslate({ word, event }: IcibaCircleClickTranslatePayload) {
@@ -145,7 +172,7 @@ export default class IcibaMain extends Vue {
 
   private async handleWindowClick(e: MouseEvent) {
     // outside shadow-root
-    if (e.target !== this.icibaRoot) {
+    if (e.target !== this.icibaRoot && (!this.config.core.showPin || !this.config.core.pinned)) {
       this.visible = false
     }
   }
@@ -156,6 +183,7 @@ export default class IcibaMain extends Vue {
       Boolean(googleDictModal && insideOf(e.target, googleDictModal.$el) && !isTop(this.icibaMainStyle.zIndex)),
       insideOf(e.target, this.$refs.icibaMain),
       insideOf(e.target, this.icibaCircle.$el),
+      this.config.core.showPin && this.config.core.pinned,
     ]
     if (ignoreCondition.some(v => v)) {
       return
@@ -181,7 +209,7 @@ export default class IcibaMain extends Vue {
   }
 
   private getDefaultProvider() {
-    const provider = this.providers.find(v => v.provider.uniqName === this.config.common.defaultProvider)
+    const provider = this.providers.find(v => v.provider.uniqName === this.config.core.defaultProvider)
     if (provider) {
       return provider
     }
@@ -198,6 +226,7 @@ export default class IcibaMain extends Vue {
     return this.providers[0]
   }
 
+  /** 设置 IcibaMain position */
   private setPosition(e: MouseEvent) {
     if (!this.sizeHelper) {
       throw new Error('sizeHelper 未定义！')
@@ -229,6 +258,8 @@ export default class IcibaMain extends Vue {
       left: `${calcedPosition.left}px`,
       bottom: 'auto',
       right: 'auto',
+      translateX: 0,
+      translateY: 0,
       zIndex: zgen(),
     }
   }
@@ -241,53 +272,62 @@ export default class IcibaMain extends Vue {
 
   private handleDragStart(_e: Event) {
     const e: MouseEvent = _e as any
+    this.drag.ignoreCtrl = false
     if (!insideOf(e.target, this.$refs.icibaMain) || !e.ctrlKey) {
       return
     }
-    if (!this.config.common.pressCtrlToDrag) {
+    if (!this.config.core.pressCtrlToDrag) {
       return
     }
-    const selection = window.getSelection()
-    if (selection && selection.removeAllRanges) {
-      selection.removeAllRanges()
-    }
-
+    this.removeSelection()
     e.preventDefault()
-    this.drag.dragging = true
-    this.drag.startPoint = {
-      x: e.screenX,
-      y: e.screenY,
+    this.drag = {
+      dragging: true,
+      ignoreCtrl: false,
+      startPoint: {
+        x: e.screenX,
+        y: e.screenY,
+      },
+      startTransform: {
+        x: this.icibaMainStyle.translateX,
+        y: this.icibaMainStyle.translateY,
+      },
     }
-    this.drag.startStyle = this.icibaMainStyle
   }
 
   private handleDragMove(_e: Event) {
     const e: MouseEvent = _e as any
-    if (!this.drag.dragging || !e.ctrlKey) {
+    if (!this.drag.dragging || (!this.drag.ignoreCtrl && !e.ctrlKey)) {
       return
     }
-    e.preventDefault()
     const deltaX = e.screenX - this.drag.startPoint.x
     const deltaY = e.screenY - this.drag.startPoint.y
 
-    const style = { ...this.drag.startStyle }
-
-    if (style.top === 'auto') {
-      style.bottom = `${parseInt(style.bottom, 10) - deltaY}px`
-    } else {
-      style.top = `${parseInt(style.top, 10) + deltaY}px`
-    }
-
-    if (style.left === 'auto') {
-      style.right = `${parseInt(style.right, 10) - deltaX}px`
-    } else {
-      style.left = `${parseInt(style.left, 10) + deltaX}px`
-    }
-
-    this.icibaMainStyle = style
+    window.requestAnimationFrame(() => {
+      this.icibaMainStyle.translateX = this.drag.startTransform.x + deltaX
+      this.icibaMainStyle.translateY = this.drag.startTransform.y + deltaY
+    })
   }
 
   private handleDragEnd() {
     this.drag.dragging = false
+  }
+
+  private removeSelection() {
+    const selection = window.getSelection()
+    if (selection && selection.removeAllRanges) {
+      selection.removeAllRanges()
+    }
+  }
+
+  public get computedIcibaMainStyle() {
+    return {
+      top: this.icibaMainStyle.top,
+      bottom: this.icibaMainStyle.bottom,
+      left: this.icibaMainStyle.left,
+      right: this.icibaMainStyle.right,
+      transform: `translate(${this.icibaMainStyle.translateX}px, ${this.icibaMainStyle.translateY}px)`,
+      zIndex: this.icibaMainStyle.zIndex,
+    }
   }
 }

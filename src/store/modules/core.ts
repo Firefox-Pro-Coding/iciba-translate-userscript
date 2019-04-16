@@ -11,6 +11,8 @@ export const type = t.type({
   icibaCircleOffsetY: t.number,
   selectionMaxLengthCut: t.boolean,
   selectionMaxLength: t.number,
+  showPin: t.boolean,
+  pinned: t.boolean,
 })
 
 export const defaultData: t.TypeOf<typeof type> = {
@@ -22,4 +24,6 @@ export const defaultData: t.TypeOf<typeof type> = {
   icibaCircleOffsetY: 7,
   selectionMaxLengthCut: false,
   selectionMaxLength: 150,
+  showPin: false,
+  pinned: false,
 }

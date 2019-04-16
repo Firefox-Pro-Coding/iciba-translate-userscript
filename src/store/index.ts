@@ -5,7 +5,7 @@ import copy from '~/util/copy'
 
 import { PROVIDER } from '~/constants/constant'
 
-import * as common from './modules/common'
+import * as core from './modules/core'
 import * as iciba from './modules/iciba'
 import * as googleDict from './modules/googleDict'
 import * as googleTranslate from './modules/googleTranslate'
@@ -14,7 +14,7 @@ import * as baiduTranslate from './modules/baiduTranslate'
 const GM_VALUE_KEY = 'iciba_store'
 
 const storeType = t.exact(t.type({
-  common: common.type,
+  core: core.type,
   [PROVIDER.ICIBA]: iciba.type,
   [PROVIDER.GOOGLE_DICT]: googleDict.type,
   [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.type,
@@ -24,7 +24,7 @@ const storeType = t.exact(t.type({
 export type Config = t.TypeOf<typeof storeType>
 
 export const defaultData: Config = {
-  common: common.defaultData,
+  core: core.defaultData,
   [PROVIDER.ICIBA]: iciba.defaultData,
   [PROVIDER.GOOGLE_DICT]: googleDict.defaultData,
   [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.defaultData,

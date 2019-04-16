@@ -35,6 +35,17 @@
       鼠标移到小圆圈上（而非需要点击）打开查词窗口
     </p>
 
+    <v-checkbox
+      class="mt-4"
+      color="primary"
+      hide-details
+      v-model="form.showPin"
+      label="显示查词框固定钉子">
+    </v-checkbox>
+    <p class="body-2 grey--text mt-1 mb-0">
+      显示并启用固定钉子，固定住后查词框不自动关闭
+    </p>
+
     <v-radio-group
       class="mt-4"
       hide-details

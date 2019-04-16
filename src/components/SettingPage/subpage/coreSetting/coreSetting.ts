@@ -17,7 +17,7 @@ export default class CoreSettings extends Vue {
     sliderY: any
     sliderCut: any
   }
-  public form: Config['common'] = copy(defaultData.common)
+  public form: Config['core'] = copy(defaultData.core)
   public loadingSetting = true
 
   public providerOptions = [
@@ -40,7 +40,7 @@ export default class CoreSettings extends Vue {
   }
 
   private loadSettings() {
-    this.form = copy(this.config.common)
+    this.form = copy(this.config.core)
     this.$nextTick(() => {
       this.loadingSetting = false
     })
@@ -66,7 +66,7 @@ export default class CoreSettings extends Vue {
       return
     }
 
-    this.config.common = copy(this.form)
+    this.config.core = copy(this.form)
 
     this.$store.saveConfig()
 
