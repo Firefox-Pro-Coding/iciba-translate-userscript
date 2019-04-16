@@ -130,7 +130,7 @@
                     v-for="(subsense, subsenseIndex) in sense.subsenses"
                     :key="subsenseIndex">
                     <div class="subsense-number">
-                      {{ index + 1 }})
+                      {{ subsenseIndex + 1 }})
                     </div>
                     <div class="subsense-item-container q-flex-co align-stretch">
                       <!-- definition -->
