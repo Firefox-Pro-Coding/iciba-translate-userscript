@@ -2,6 +2,11 @@
   <div class="iciba-result-container q-flex-co">
     <scroll-bar class="scroll-container">
       <div class="iciba-result-scroll-container q-flex-co">
+        <!-- pinyin -->
+        <div class="pinyin" v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.pinyin">
+          [{{ result.chinese.ci.pinyin }}]
+        </div>
+
         <!-- symbols -->
         <div
           class="symbols-box q-flex-co align-stretch"
