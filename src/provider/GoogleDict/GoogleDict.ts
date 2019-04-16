@@ -13,6 +13,8 @@ import containerDataStore from './containerDataStore'
 
 import { PROVIDER } from '~/constants/constant'
 
+type UnPromisify<T> = T extends Promise<infer U> ? U : T
+
 class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.GOOGLE_DICT
   public settingDescriptor = []
@@ -28,21 +30,27 @@ class GoogleDictProvider extends AbstractTranslateProvider {
   }
 
   public async translate(word: string) {
-    let data: any = this.fetchData(word, 'uk').catch(e => e)
-    data = await data
-    if (data instanceof Error) {
-      return Promise.reject(data)
+    let googleDictData: any
+    try {
+      googleDictData = await this.fetchGoogleDict(word, 'uk')
+    } catch (e) {
+      if (e.message === 'Backend Error') {
+        // try googletranslate
+        return this.fetchGoogleTranslate(word).then((googleTranslateData: any) => {
+          containerDataStore.translateData = googleTranslateData
+        })
+      }
+      throw e
     }
-
-    const copyData = copy(data)
-    check(copyData)
-
-    containerDataStore.data = data.dictionaryData
-
+    const copyData = copy(googleDictData)
+    if (process.env.NODE_ENV === 'development') {
+      check(copyData)
+    }
+    containerDataStore.data = googleDictData.dictionaryData
     return Promise.resolve()
   }
 
-  private async fetchData(word: string, lang: string = 'uk') {
+  private async fetchGoogleDict(word: string, lang: string = 'uk') {
     const apiUrlBase = 'https://content.googleapis.com/dictionaryextension/v1/knowledge/search?'
     const query = {
       term: word,
@@ -60,8 +68,10 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     }
     const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
 
+    let response: UnPromisify<ReturnType<typeof got>>
+
     try {
-      const response = await got({
+      response = await got({
         method: 'GET',
         headers: {
           'accept': '*/*',
@@ -79,19 +89,67 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         url: apiUrl,
         timeout: 10000,
       })
-      const data = JSON.parse(response.responseText)
-      if (Object.getOwnPropertyNames(data).length === 0) {
-        throw new Error('无查询结果！')
-      }
-      return data
     } catch (e) {
       const responseText = e.response.responseText
       if (responseText) {
         const result = JSON.parse(responseText)
-        throw new Error(result.error.errors[0].message)
+        if (result && result.error && result.error.message) {
+          throw new Error(result.error.message)
+        }
       }
       throw new Error(`遇到错误: ${e.message} ${e.response.status}`)
     }
+
+    const data = JSON.parse(response.responseText)
+    if (Object.getOwnPropertyNames(data).length === 0) {
+      throw new Error('无查询结果！')
+    }
+    return data
+  }
+
+  private async fetchGoogleTranslate(word: string) {
+    const apiUrlBase = 'https://clients5.google.com/translate_a/t?'
+    const query = {
+      client: 'dict-chrome-ex',
+      sl: 'auto',
+      tl: 'en-uk',
+      q: word,
+    }
+    const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
+
+    let response: UnPromisify<ReturnType<typeof got>>
+    try {
+      response = await got({
+        method: 'GET',
+        headers: {
+          'accept': '*/*',
+          'accept-encoding': 'gzip, deflate, br',
+          'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+          'cache-control': 'no-cache',
+          'pragma': 'no-cache',
+          'user-agent': window.navigator.userAgent,
+          'x-goog-encode-response-if-executable': 'base64',
+          'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
+          'x-origin': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
+          'x-referer': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
+          'x-requested-with': 'XMLHttpRequest',
+        },
+        url: apiUrl,
+        timeout: 10000,
+      })
+    } catch (e) {
+      const responseText = e.response.responseText
+      if (responseText) {
+        const result = JSON.parse(responseText)
+        if (result && result.error && result.error.message) {
+          throw new Error(result.error.message)
+        }
+      }
+      throw new Error(`遇到错误: ${e.message} ${e.response.status}`)
+    }
+
+    const data = JSON.parse(response.responseText)
+    return data
   }
 
   /** 播放音频 */

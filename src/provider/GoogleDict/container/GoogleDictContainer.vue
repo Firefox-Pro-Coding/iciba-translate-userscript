@@ -2,13 +2,25 @@
   <div class="google-dict-result-container q-flex-co">
     <scroll-bar class="scroll-container">
       <div class="google-content-simple">
-        <div class="expand-button" title="展开" @click="handleOpenModal"></div>
+        <div
+          class="expand-button"
+          title="展开"
+          @click="handleOpenModal"
+          v-if="containerDataStore.data && containerDataStore.data.length">
+        </div>
         <!-- simple result -->
         <div class="google-content-box">
-          <div class="dictionary-data-box q-flex-co align-stretch" v-if="dictionaryData && dictionaryData.length">
-            <div class="dictionary-data-item" v-for="(dicDataItem, index) in dictionaryData" :key="index">
+          <div
+            class="dictionary-data-box q-flex-co align-stretch"
+            v-if="containerDataStore.data && containerDataStore.data.length">
+            <div
+              class="dictionary-data-item"
+              v-for="(dicDataItem, index) in containerDataStore.data"
+              :key="index">
               <!-- entry -->
-              <div class="entry-box q-flex-co align-stretch" v-if="dicDataItem.entries && dicDataItem.entries.length">
+              <div
+                class="entry-box q-flex-co align-stretch"
+                v-if="dicDataItem.entries && dicDataItem.entries.length">
                 <simple-entry
                   class="entry-item"
                   :entry="entry"
@@ -17,6 +29,17 @@
                 </simple-entry>
               </div>
             </div>
+          </div>
+
+          <div class="translate-data-box" v-if="containerDataStore.translateData">
+            <div v-if="
+              containerDataStore.translateData.sentences
+                && containerDataStore.translateData.sentences[0]
+                && containerDataStore.translateData.sentences[0].trans
+            ">
+              {{ containerDataStore.translateData.sentences[0].trans }}
+            </div>
+            <div class="translate-source">google字典无结果，以上内容来自谷歌翻译</div>
           </div>
         </div>
       </div>

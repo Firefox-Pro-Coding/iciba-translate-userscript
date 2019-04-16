@@ -16,8 +16,10 @@ import simpleEntry from './components/simpleEntry/simpleEntry.vue'
   },
 })
 export default class GoogleDictContainer extends Vue {
-  public get dictionaryData() {
-    return containerDataStore.data
+  public containerDataStore = containerDataStore
+
+  public getType() {
+    return typeof containerDataStore.translateData
   }
 
   public mounted() {
@@ -31,7 +33,7 @@ export default class GoogleDictContainer extends Vue {
   }
 
   public handleOpenModal() {
-    globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.dictionaryData)
+    globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.containerDataStore.data)
   }
 
   private handleNymClick(word: string) {

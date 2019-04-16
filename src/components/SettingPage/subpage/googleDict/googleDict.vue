@@ -17,6 +17,22 @@
     <p class="body-2 grey--text mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
+
+    <p class="body-2 grey--text mt-3 mb-0">
+      如果你经常出现 request failed 0，这不是脚本出问题也不是网络问题。
+    </p>
+    <p class="body-2 grey--text mt-1 mb-0">
+      google 的 api 会在查不到结果时返回 500，而 chrome 检测到 500 后会自动启动 ddos 防御，所有相同的请求会被拦截。
+    </p>
+    <p class="body-2 grey--text mt-1 mb-0">
+      添加 chrome 启动参数 --disable-extensions-http-throttling 可以关闭此功能。
+    </p>
+    <p class="body-2 grey--text mt-1 mb-0">
+      解决方案是，过一段时间再使用 google 字典，或者避免使用 google 字典查询查不到的单词。
+    </p>
+    <p class="body-2 grey--text mt-1 mb-0">
+      <a href="http://dev.chromium.org/throttling" _target="blank">http://dev.chromium.org/throttling</a>
+    </p>
   </v-layout>
 </template>
 

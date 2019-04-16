@@ -39,14 +39,17 @@
     letter-spacing: 0;
     font-size: @font-size-base;
     line-height: 1.5;
-    filter: drop-shadow(0px 2px 1.5px rgba(0,0,0,0.15)) drop-shadow(0px 4px 3px rgba(0,0,0,0.16)) drop-shadow(0px 1px 5.5px rgba(0,0,0,0.12));
+    filter:
+      drop-shadow(0 2px 1.5px rgba(0, 0, 0, 0.15))
+      drop-shadow(0 4px 3px rgba(0, 0, 0, 0.16))
+      drop-shadow(0 1px 5.5px rgba(0, 0, 0, 0.12));
 
     .stick-box {
       position: absolute;
       right: 0;
       top: 0;
       transform: translate(100%, 0);
-      background: #eeeeee;
+      background: #EEE;
       height: 56px;
       width: 28px;
       background-color: @background-level-5;
@@ -95,7 +98,7 @@
         }
 
         &.pinned::before {
-          transform: translate(-50%, -50%) ;
+          transform: translate(-50%, -50%);
           opacity: 1;
         }
       }
@@ -195,6 +198,8 @@
           background-repeat: no-repeat;
 
           &:focus {
+            outline: none;
+
             &::before {
               content: '';
               position: absolute;
@@ -205,7 +210,6 @@
               outline: 2px solid @input-outline-color;
               outline-offset: -1px;
             }
-            outline: none;
           }
 
           &:hover {
