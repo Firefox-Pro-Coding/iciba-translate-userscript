@@ -1,3 +1,4 @@
+import * as quertstring from 'querystring'
 import { got } from '~/util/gmapi'
 
 /* eslint-disable camelcase */
@@ -16,24 +17,31 @@ import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants/constant'
 import store from '~/store/index'
 
 class GoogleTranslateProvider extends AbstractTranslateProvider {
-  public static apiQuery = [
-    ['client', 't'],
-    ['sl', 'auto'],
-    ['hl', 'zh-CN'],
-    ['dt', 'at'],
-    ['dt', 'bd'],
-    ['dt', 'ex'],
-    ['dt', 'ld'],
-    ['dt', 'md'],
-    ['dt', 'qca'],
-    ['dt', 'rw'],
-    ['dt', 'rm'],
-    ['dt', 'ss'],
-    ['dt', 't'],
-    ['ie', 'UTF-8'],
-    ['oe', 'UTF-8'],
-    ['source', 'btn'],
-  ]
+  public static apiQuery = {
+    client: 'webapp',
+    sl: 'auto',
+    pc: '1',
+    otf: '1',
+    ssel: '0',
+    tsel: '0',
+    kc: '1',
+    dt: [
+      'at',
+      'bd',
+      'ex',
+      'ld',
+      'md',
+      'qca',
+      'rw',
+      'rm',
+      'ss',
+      't',
+      'gt',
+    ],
+    // ie: 'UTF-8',
+    // oe: 'UTF-8',
+    // source: 'btn',
+  }
 
   public uniqName = PROVIDER.GOOGLE_TRANSLATE
   public settingDescriptor = []
@@ -67,14 +75,15 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     }
 
     const tl = _tl || store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
-    const query = [
+    const query = {
       ...GoogleTranslateProvider.apiQuery,
-      ['tl', encodeURIComponent(tl)],
-      ['tk', encodeURIComponent(token)],
-      ['q', word],
-    ]
+      tl,
+      hl: tl,
+      tk: token,
+      q: word,
+    }
 
-    const url = `https://${this.getApiDomain()}/translate_a/single?${query.map(([k, v]) => `${k}=${v}`).join('&')}`
+    const url = `https://${this.getApiDomain()}/translate_a/single?${quertstring.stringify(query)}`
 
     try {
       const result = await got({
