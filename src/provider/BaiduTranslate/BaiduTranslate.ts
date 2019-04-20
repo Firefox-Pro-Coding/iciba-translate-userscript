@@ -25,14 +25,15 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
   public containerComponentClass = BaiduTranslateContainer
 
   public async translate(word: string) {
-    let result
+    let result: any
     try {
       result = await this.internalTranslate(word)
-      containerData.data = result
     } catch (e) {
-      return Promise.reject(e)
+      throw e
     }
-    return Promise.resolve()
+    return () => {
+      containerData.data = result
+    }
   }
 
   private async internalTranslate(word: string) {

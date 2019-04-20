@@ -56,14 +56,15 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   public containerComponentClass = GoogleTranslateContainer
 
   public async translate(word: string) {
-    let result
+    let result: string
     try {
       result = await this.getGoogleTranslateResult(word)
-      containerData.data = result
     } catch (e) {
-      return Promise.reject(e)
+      throw e
     }
-    return Promise.resolve()
+    return () => {
+      containerData.data = result
+    }
   }
 
   private async getGoogleTranslateResult(word: string, _tl?: string): Promise<string> {

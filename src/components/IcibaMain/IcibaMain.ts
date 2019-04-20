@@ -63,6 +63,12 @@ export default class IcibaMain extends Vue {
   public errorMessage = ''
   public stickBoxVisible = false
   public lastUsedProviderName = PROVIDER.ICIBA
+  public activeTask = {
+    word: '',
+    providerName: '' as PROVIDER | '',
+    index: 0,
+  }
+
 
   public drag = {
     dragging: false,
@@ -174,14 +180,39 @@ export default class IcibaMain extends Vue {
     this.errorMessage = ''
     this.lastUsedProviderName = provideritem.provider.uniqName
 
+    const task = {
+      word,
+      providerName: provideritem.provider.uniqName,
+      index: this.activeTask.index + 1,
+    }
+
+    // ignore if task was exactly same as active task
+    if (this.activeTask.word === task.word && this.activeTask.providerName === task.providerName) {
+      return
+    }
+
+    this.activeTask = { ...task }
+
     this.loading = true
-    provideritem.provider.translate(word).then(() => {
-      provideritem.visible = true
+    provideritem.provider.translate(word).then((callback) => {
+      if (this.activeTask.index === task.index) {
+        callback()
+        provideritem.visible = true
+      }
     }, (e) => {
       console.error(e) // eslint-disable-line
-      this.errorMessage = `${provideritem.provider.uniqName}: ${e.message}`
+      if (this.activeTask.index === task.index) {
+        this.errorMessage = `${provideritem.provider.uniqName}: ${e.message}`
+      }
     }).finally(() => {
-      this.loading = false
+      if (this.activeTask.index === task.index) {
+        this.loading = false
+        this.activeTask = {
+          word: '',
+          providerName: '',
+          index: this.activeTask.index,
+        }
+      }
     })
   }
 

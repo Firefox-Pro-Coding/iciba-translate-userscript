@@ -38,7 +38,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     }
     const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
 
-    let result
+    let result: any
     try {
       const response = await got({
         method: 'GET',
@@ -65,7 +65,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       const resultJson = JSON.parse(contentMatch[1])
       result = resultJson
     } catch (e) {
-      return Promise.reject(e)
+      throw e
     }
 
     // fix iciba api typo
@@ -75,11 +75,12 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     }
 
     if (result.errno !== 0) {
-      return Promise.reject(new Error(result.errmsg))
+      throw new Error(result.errmsg)
     }
 
-    containerData.data = copy(result)
-    return Promise.resolve()
+    return () => {
+      containerData.data = copy(result)
+    }
   }
 }
 

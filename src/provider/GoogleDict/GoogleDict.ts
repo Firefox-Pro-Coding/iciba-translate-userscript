@@ -36,20 +36,28 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     } catch (e) {
       if (e.message === 'Backend Error') {
         // try googletranslate
-        return this.fetchGoogleTranslate(word).then((googleTranslateData: any) => {
-          containerDataStore.data = null
-          containerDataStore.translateData = googleTranslateData
-        })
+        try {
+          const googleTranslateData = await this.fetchGoogleTranslate(word)
+          return () => {
+            containerDataStore.data = null
+            containerDataStore.translateData = googleTranslateData
+          }
+        } catch (err) {
+          throw err
+        }
       }
       throw e
     }
+
     const copyData = copy(googleDictData)
+
     if (process.env.NODE_ENV === 'development') {
       check(copyData)
     }
-    containerDataStore.data = googleDictData.dictionaryData
-    containerDataStore.translateData = null
-    return Promise.resolve()
+    return () => {
+      containerDataStore.data = googleDictData.dictionaryData
+      containerDataStore.translateData = null
+    }
   }
 
   private async fetchGoogleDict(word: string, lang: string = 'uk') {

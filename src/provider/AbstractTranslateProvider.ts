@@ -26,8 +26,9 @@ export default abstract class AbstractTranslateProvider {
   public abstract containerComponentClass: typeof Vue
 
   /**
-   * translate the word. return a rejected promise if any error occured
+   * Translate the word. return a callback to show content of current translate
+   * operation. Return a rejected promise if any error occured
    * and the error message will show as translate result
    */
-  public abstract translate(word: string): Promise<void>
+  public abstract translate(word: string): Promise<() => void>
 }
