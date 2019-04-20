@@ -25,7 +25,7 @@ const defaultStyle = {
   right: 'auto',
 }
 
-interface Provider {
+interface ProviderItem {
   visible: boolean
   provider: AbstractTranslateProvider
 }
@@ -37,8 +37,12 @@ interface Provider {
   },
 })
 export default class IcibaMain extends Vue {
+  public $refs!: {
+    icibaMain: HTMLDivElement
+  }
+
   @Prop({ type: Vue })
-  public sizeHelper?: Vue
+  public sizeHelper!: Vue
 
   @Prop({ type: Vue })
   public icibaCircle!: Vue
@@ -46,22 +50,19 @@ export default class IcibaMain extends Vue {
   @Prop()
   public getGoogleDictModal!: () => Vue | undefined
 
-  public $refs!: {
-    icibaMain: HTMLDivElement
-  }
-
-  public providers: Array<Provider> = [
+  public providers: Array<ProviderItem> = [
     { visible: false, provider: IcibaProvider },
     { visible: false, provider: GoogleDictProvider },
     { visible: false, provider: GoogleTranslateProvider },
     { visible: false, provider: BaiduTranslateProvider },
   ]
-
   public visible = false
   public loading = false
   public inputFocused = false
   public inputText: string = ''
   public errorMessage = ''
+  public stickBoxVisible = false
+  public lastUsedProviderName = PROVIDER.ICIBA
 
   public drag = {
     dragging: false,
@@ -78,60 +79,50 @@ export default class IcibaMain extends Vue {
     zIndex: 0,
   }
 
-  public stickBoxVisible = false
-
-  public currentProviderName = PROVIDER.ICIBA
-
   public mounted() {
-    bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
     window.addEventListener('mousedown', this.handleWindowClick, false)
-    this.shadowRoot.addEventListener('mousedown', this.handleDragStart, true)
     window.addEventListener('mousemove', this.handleDragMove, true)
     window.addEventListener('mouseup', this.handleDragEnd, true)
+    this.shadowRoot.addEventListener('mousedown', this.handleDragStart, true)
+    this.shadowRoot.addEventListener('mousedown', this.handleShadowRootClick, false)
     this.shadowRoot.addEventListener('keyup', this.handleDragEnd, true)
 
-    this.shadowRoot.addEventListener('mousedown', this.handleShadowRootClick, false)
-
-    // this.initProviders()
-    bus.on(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.checkWhenModalOpen)
+    bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
+    bus.on(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
   }
 
   public destroyed() {
     window.removeEventListener('mousedown', this.handleWindowClick, false)
-    this.shadowRoot.removeEventListener('mousedown', this.handleDragStart, true)
     window.removeEventListener('mousemove', this.handleDragMove, true)
     window.removeEventListener('mouseup', this.handleDragEnd, true)
+    this.shadowRoot.removeEventListener('mousedown', this.handleDragStart, true)
+    this.shadowRoot.removeEventListener('mousedown', this.handleShadowRootClick, false)
     this.shadowRoot.removeEventListener('keyup', this.handleDragEnd, true)
 
-    this.shadowRoot.removeEventListener('mousedown', this.handleShadowRootClick, false)
-
-    bus.removeListener(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.checkWhenModalOpen)
-  }
-
-  /** 输入框查词 */
-  public handleInputSearch() {
-    this.translateWithProvider(this.getCurrentProvider())
-  }
-
-  /** 点击右上翻译按钮 */
-  public handleTranslateButtonClick(provider: Provider) {
-    this.translateWithProvider(provider)
-  }
-
-  /** 打开设置 */
-  public handleOpenSetting() {
-    this.visible = false
-    bus.emit(bus.events.SETTING_PREPARE_OPEN)
+    bus.removeListener(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
+    bus.removeListener(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
   }
 
   /** 切换固定状态 */
-  public togglePinned() {
+  protected handleTogglePinned() {
     this.config.core.pinned = !this.config.core.pinned
     this.$store.saveConfig()
   }
 
-  protected isProviderVisible(name: PROVIDER) {
-    return this.config[name].display
+  /** 输入框查词 */
+  protected handleInputSearch() {
+    this.translateWithProvider(this.getLastUsedProvider())
+  }
+
+  /** 点击右上翻译按钮 */
+  protected handleTranslateButtonClick(provider: ProviderItem) {
+    this.translateWithProvider(provider)
+  }
+
+  /** 打开设置 */
+  protected handleOpenSetting() {
+    this.visible = false
+    bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
   protected handlePinDragStart(e: MouseEvent) {
@@ -151,6 +142,10 @@ export default class IcibaMain extends Vue {
     }
   }
 
+  protected isProviderVisible(name: PROVIDER) {
+    return this.config[name].display
+  }
+
   private async handleIcibaCircleTranslate({ word, event }: IcibaCircleClickTranslatePayload) {
     if (!this.visible) {
       this.setPosition(event)
@@ -163,51 +158,29 @@ export default class IcibaMain extends Vue {
     this.translateWithProvider(this.getDefaultProvider())
   }
 
-  private translateWithProvider(provider: Provider) {
-    this.providers.forEach((p) => { p.visible = false })
-    provider.visible = true
-    this.currentProviderName = provider.provider.uniqName
-    this.internalTranslate(provider)
-  }
-
-  private async handleWindowClick(e: MouseEvent) {
-    // outside shadow-root
-    if (e.target !== this.icibaRoot && (!this.config.core.showPin || !this.config.core.pinned)) {
-      this.visible = false
-    }
-  }
-
-  private handleShadowRootClick(e: Event) {
-    const googleDictModal = this.getGoogleDictModal()
-    const ignoreCondition = [
-      Boolean(googleDictModal && insideOf(e.target, googleDictModal.$el) && !isTop(this.icibaMainStyle.zIndex)),
-      insideOf(e.target, this.$refs.icibaMain),
-      insideOf(e.target, this.icibaCircle.$el),
-      this.config.core.showPin && this.config.core.pinned,
-    ]
-    if (ignoreCondition.some(v => v)) {
-      return
-    }
-    this.visible = false
-  }
-
-  private internalTranslate(item: Provider) {
+  private translateWithProvider(provideritem: ProviderItem) {
     const word = this.inputText.trim()
-    this.errorMessage = ''
-
     if (!word) {
       this.errorMessage = '查询不能为空！'
       return
     }
+
+    this.providers.forEach((p) => { p.visible = false })
+    this.errorMessage = ''
+    this.lastUsedProviderName = provideritem.provider.uniqName
+
     this.loading = true
-    item.provider.translate(word).catch((e) => {
+    provideritem.provider.translate(word).then(() => {
+      provideritem.visible = true
+    }, (e) => {
       console.error(e) // eslint-disable-line
-      this.errorMessage = `${item.provider.uniqName}: ${e.message}`
+      this.errorMessage = `${provideritem.provider.uniqName}: ${e.message}`
     }).finally(() => {
       this.loading = false
     })
   }
 
+  /** 获取默认 provider */
   private getDefaultProvider() {
     const provider = this.providers.find(v => v.provider.uniqName === this.config.core.defaultProvider)
     if (provider) {
@@ -217,8 +190,9 @@ export default class IcibaMain extends Vue {
     return this.providers[0]
   }
 
-  private getCurrentProvider() {
-    const provider = this.providers.find(v => v.provider.uniqName === this.currentProviderName)
+  /** 获取最近使用的 provider */
+  private getLastUsedProvider() {
+    const provider = this.providers.find(v => v.provider.uniqName === this.lastUsedProviderName)
     if (provider) {
       return provider
     }
@@ -228,10 +202,6 @@ export default class IcibaMain extends Vue {
 
   /** 设置 IcibaMain position */
   private setPosition(e: MouseEvent) {
-    if (!this.sizeHelper) {
-      throw new Error('sizeHelper 未定义！')
-    }
-
     if (this.visible && isTop(this.icibaMainStyle.zIndex)) {
       return
     }
@@ -264,10 +234,31 @@ export default class IcibaMain extends Vue {
     }
   }
 
-  private checkWhenModalOpen() {
+  private onGoogleDictModalOpen() {
     if (store.state.googleDict.modalVisible) {
       this.visible = false
     }
+  }
+
+  private async handleWindowClick(e: MouseEvent) {
+    // outside shadow-root
+    if (e.target !== this.icibaRoot && (!this.config.core.showPin || !this.config.core.pinned)) {
+      this.visible = false
+    }
+  }
+
+  private handleShadowRootClick(e: Event) {
+    const googleDictModal = this.getGoogleDictModal()
+    const ignoreCondition = [
+      Boolean(googleDictModal && insideOf(e.target, googleDictModal.$el) && !isTop(this.icibaMainStyle.zIndex)),
+      insideOf(e.target, this.$refs.icibaMain),
+      insideOf(e.target, this.icibaCircle.$el),
+      this.config.core.showPin && this.config.core.pinned,
+    ]
+    if (ignoreCondition.some(v => v)) {
+      return
+    }
+    this.visible = false
   }
 
   private handleDragStart(_e: Event) {

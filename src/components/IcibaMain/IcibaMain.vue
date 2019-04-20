@@ -14,7 +14,7 @@
         <transition name="stick-box">
           <div class="stick-box" v-if="config.core.showPin" v-show="config.core.pinned || stickBoxVisible">
             <div class="drag" @mousedown="handlePinDragStart"></div>
-            <div class="stick" :class="{ pinned: config.core.pinned }" @click="togglePinned"></div>
+            <div class="stick" :class="{ pinned: config.core.pinned }" @click="handleTogglePinned"></div>
           </div>
         </transition>
         <div class="iciba-input-container q-flex">

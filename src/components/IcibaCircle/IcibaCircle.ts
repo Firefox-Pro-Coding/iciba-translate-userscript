@@ -32,7 +32,7 @@ export default class IcibaCircle extends Vue {
     this.shadowRoot.removeEventListener('mouseup', this.handleShadowRootClick, false)
   }
 
-  public handleClick(event: MouseEvent) {
+  protected handleClick(event: MouseEvent) {
     this.visible = false
     const payload: IcibaCircleClickTranslatePayload = {
       word: this.word,
@@ -41,7 +41,7 @@ export default class IcibaCircle extends Vue {
     bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
   }
 
-  public handleMouseover(event: MouseEvent) {
+  protected handleMouseover(event: MouseEvent) {
     if (!this.config.core.mouseOverTranslate) {
       return
     }
@@ -54,7 +54,7 @@ export default class IcibaCircle extends Vue {
     bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
   }
 
-  public async handleWindowClick(e: MouseEvent) {
+  protected async handleWindowClick(e: MouseEvent) {
     if (!this.visible) {
       this.show(e)
       return
@@ -66,7 +66,7 @@ export default class IcibaCircle extends Vue {
     }
   }
 
-  public async handleShadowRootClick(_e: Event) {
+  protected async handleShadowRootClick(_e: Event) {
     const e: MouseEvent = _e as any
 
     const ignoreConditions = [
