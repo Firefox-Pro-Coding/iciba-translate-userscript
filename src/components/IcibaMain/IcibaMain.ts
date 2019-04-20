@@ -151,11 +151,16 @@ export default class IcibaMain extends Vue {
       this.setPosition(event)
       this.visible = true
     } else if (!isTop(this.icibaMainStyle.zIndex)) {
-      this.setPosition(event)
+      this.icibaMainStyle.zIndex = zgen()
     }
 
     this.inputText = word
-    this.translateWithProvider(this.getDefaultProvider())
+
+    if (event.button === 0) {
+      this.translateWithProvider(this.getDefaultProvider())
+    } else if (event.button === 2 && this.config.core.icibaCircleRightClick) {
+      this.translateWithProvider(this.getSecondaryProvider())
+    }
   }
 
   private translateWithProvider(provideritem: ProviderItem) {
@@ -183,6 +188,16 @@ export default class IcibaMain extends Vue {
   /** 获取默认 provider */
   private getDefaultProvider() {
     const provider = this.providers.find(v => v.provider.uniqName === this.config.core.defaultProvider)
+    if (provider) {
+      return provider
+    }
+
+    return this.providers[0]
+  }
+
+  /** 获取备选 provider */
+  private getSecondaryProvider() {
+    const provider = this.providers.find(v => v.provider.uniqName === this.config.core.icibaCircleRightClickProvider)
     if (provider) {
       return provider
     }
