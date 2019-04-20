@@ -4,6 +4,8 @@ import { PROVIDER } from '~/constants/constant'
 
 export const type = t.type({
   defaultProvider: t.enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
+  icibaCircleRightClick: t.boolean,
+  icibaCircleRightClickProvider: t.enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
   pressCtrlToDrag: t.boolean,
   pressCtrlToShowCircle: t.boolean,
   mouseOverTranslate: t.boolean,
@@ -17,6 +19,8 @@ export const type = t.type({
 
 export const defaultData: t.TypeOf<typeof type> = {
   defaultProvider: PROVIDER.ICIBA,
+  icibaCircleRightClick: true,
+  icibaCircleRightClickProvider: PROVIDER.GOOGLE_TRANSLATE,
   pressCtrlToDrag: true,
   pressCtrlToShowCircle: false,
   mouseOverTranslate: false,

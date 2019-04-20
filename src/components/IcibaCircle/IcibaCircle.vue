@@ -4,7 +4,7 @@
     :style="computedStyle"
     class="iciba-circle"
     @mouseover="handleMouseover"
-    @click="handleClick">
+    @mouseup="handleMouseUp">
   </div>
 </template>
 

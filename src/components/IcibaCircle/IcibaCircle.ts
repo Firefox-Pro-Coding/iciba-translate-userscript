@@ -12,6 +12,7 @@ import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 })
 export default class IcibaCircle extends Vue {
   public visible = false
+  public ignoreMouseUp = false
   public word: string = ''
   public style: IcibaStyle = {}
   public zIndex: number = 0
@@ -23,17 +24,19 @@ export default class IcibaCircle extends Vue {
   }
 
   public mounted() {
-    window.addEventListener('mouseup', this.handleWindowClick, false)
-    this.shadowRoot.addEventListener('mouseup', this.handleShadowRootClick, false)
+    window.addEventListener('mouseup', this.handleWindowMouseUp, false)
+    this.shadowRoot.addEventListener('mouseup', this.handleShadowRootMouseUp, false)
   }
 
   public destroyed() {
-    window.removeEventListener('mouseup', this.handleWindowClick, false)
-    this.shadowRoot.removeEventListener('mouseup', this.handleShadowRootClick, false)
+    window.removeEventListener('mouseup', this.handleWindowMouseUp, false)
+    this.shadowRoot.removeEventListener('mouseup', this.handleShadowRootMouseUp, false)
   }
 
-  protected handleClick(event: MouseEvent) {
-    this.visible = false
+  protected handleMouseUp(event: MouseEvent) {
+    setTimeout(() => {
+      this.visible = false
+    })
     const payload: IcibaCircleClickTranslatePayload = {
       word: this.word,
       event,
@@ -54,7 +57,7 @@ export default class IcibaCircle extends Vue {
     bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
   }
 
-  protected async handleWindowClick(e: MouseEvent) {
+  protected async handleWindowMouseUp(e: MouseEvent) {
     if (!this.visible) {
       this.show(e)
       return
@@ -66,15 +69,12 @@ export default class IcibaCircle extends Vue {
     }
   }
 
-  protected async handleShadowRootClick(_e: Event) {
+  protected async handleShadowRootMouseUp(_e: Event) {
     const e: MouseEvent = _e as any
 
     const ignoreConditions = [
       // click on it self
       e.target === this.$el,
-
-      // not left click
-      e.button !== 0,
     ]
 
     if (ignoreConditions.some(v => v)) {

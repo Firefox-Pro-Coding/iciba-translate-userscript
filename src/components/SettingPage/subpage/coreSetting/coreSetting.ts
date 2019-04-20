@@ -66,6 +66,10 @@ export default class CoreSettings extends Vue {
       return
     }
 
+    if (this.form.defaultProvider === this.form.icibaCircleRightClickProvider) {
+      return
+    }
+
     this.config.core = copy(this.form)
 
     this.$store.saveConfig()
