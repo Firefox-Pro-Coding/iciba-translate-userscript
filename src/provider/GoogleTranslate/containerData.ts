@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 const data = {
-  data: null as any,
+  data: [] as Array<string>,
 }
 
 export default Vue.observable(data)

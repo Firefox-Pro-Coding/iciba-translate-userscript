@@ -2,7 +2,9 @@
   <div class="google-translate-result-container q-flex-co">
     <scroll-bar class="scroll-container">
       <div class="google-translate-result-scroll-container q-flex-co">
-        {{ translateResult }}
+        <div class="row" v-for="(row, index) of translateResult" :key="index">
+          {{ row }}
+        </div>
       </div>
     </scroll-bar>
   </div>

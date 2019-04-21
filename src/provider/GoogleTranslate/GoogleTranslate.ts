@@ -56,18 +56,17 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   public containerComponentClass = GoogleTranslateContainer
 
   public async translate(word: string) {
-    let result: string
     try {
-      result = await this.getGoogleTranslateResult(word)
+      const result = await this.getGoogleTranslateResult(word)
+      return () => {
+        containerData.data = result
+      }
     } catch (e) {
       throw e
     }
-    return () => {
-      containerData.data = result
-    }
   }
 
-  private async getGoogleTranslateResult(word: string, _tl?: string): Promise<string> {
+  private async getGoogleTranslateResult(word: string, _tl?: string): Promise<Array<string>> {
     let token
     try {
       token = await getToken(word, this.getApiDomain())
@@ -103,7 +102,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       if (detectedLanguage === tl && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage) {
         return this.getGoogleTranslateResult(word, store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage)
       }
-      const translateResult = data[0].map((v: any) => (v[0] ? v[0] : '')).join('')
+      const translateResult = data[0].map((v: any) => (v[0] ? v[0] : ''))
       return translateResult
     } catch (e) {
       throw e
