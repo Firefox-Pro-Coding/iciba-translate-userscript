@@ -3,6 +3,7 @@
     v-show="visible"
     :style="computedStyle"
     class="iciba-circle"
+    @contextmenu.prevent
     @mouseover="handleMouseover"
     @mouseup="handleMouseUp">
   </div>

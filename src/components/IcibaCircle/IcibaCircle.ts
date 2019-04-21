@@ -34,14 +34,16 @@ export default class IcibaCircle extends Vue {
   }
 
   protected handleMouseUp(event: MouseEvent) {
-    setTimeout(() => {
-      this.visible = false
-    })
     const payload: IcibaCircleClickTranslatePayload = {
       word: this.word,
       event,
     }
-    bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
+
+    // have to wait handleContextmenu trigger
+    setTimeout(() => {
+      this.visible = false
+      bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
+    })
   }
 
   protected handleMouseover(event: MouseEvent) {
