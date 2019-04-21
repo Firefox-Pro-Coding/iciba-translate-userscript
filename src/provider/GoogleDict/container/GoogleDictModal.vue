@@ -3,6 +3,7 @@
     <div class="google-dict-modal-wrapper q-flex" :style="{ zIndex: zIndex }" v-if="modalVisible">
       <div class="fold-control q-flex elevation-2">
         <div :class="{ disable: !shrinkable }" class="button shrink" @click="handleShrink"></div>
+        <div class="split"></div>
         <div :class="{ disable: !expandable }" class="button expand" @click="handleExpand"></div>
       </div>
       <div class="google-dict-modal-bg" @click="handleCloseModal"></div>
@@ -22,7 +23,7 @@
 
             <!-- usage over time -->
             <div class="usage-overtime q-flex-co align-stretch" v-if="dicDataItem.usageOverTimeImage">
-              <div class="title">
+              <div class="usage-title">
                 Use over time for: {{ dicDataItem.queryTerm }}
               </div>
               <div

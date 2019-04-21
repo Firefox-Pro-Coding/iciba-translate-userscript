@@ -2,6 +2,10 @@
 @import '~assets/styles/mixins.less';
 
 .entry-item {
+  & + .entry-item {
+    margin-top: 20px;
+  }
+
   .headword {
     .headword-word {
       font-size: 28px;
@@ -47,7 +51,7 @@
       }
 
       .sense-item-number {
-        flex: 0 0 50px;
+        flex: 0 0 32px;
         text-align: right;
         padding: 0 10px 0 0;
         font-weight: bold;
@@ -86,6 +90,7 @@
 
           .subsense-item-container {
             flex: 1 1 auto;
+            line-height: 2;
 
             .subsense-definition {
               .subsense-labels {

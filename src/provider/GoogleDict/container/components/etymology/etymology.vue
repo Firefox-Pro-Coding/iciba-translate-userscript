@@ -44,6 +44,7 @@
 
     .etymology-text {
       margin: 8px 0 0 0;
+      color: #999;
     }
   }
 </style>

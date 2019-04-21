@@ -48,10 +48,15 @@
     z-index: 4;
     transition: 0.3s ease transform, 0.1s ease opacity;
     background-color: @background-level-5;
-    opacity: 0.5;
+    opacity: 0.7;
 
     &:hover {
       opacity: 1;
+    }
+
+    .split {
+      background: @border-level-1;
+      width: 1px;
     }
 
     .button {
@@ -79,7 +84,6 @@
       }
 
       &.expand {
-        border-left: 1px solid @border-level-1;
         background-image: url('~assets/img/expand.svg');
       }
     }
@@ -113,7 +117,7 @@
       border-top: 1px solid @border-level-1;
       margin-top: 15px;
 
-      .title {
+      .usage-title {
         font-size: 18px;
         color: @main-level-4;
         margin: 12px 0 0 0;

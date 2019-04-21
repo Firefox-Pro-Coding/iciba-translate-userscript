@@ -28,7 +28,7 @@
 
   &.iciba-label-color-plain .iciba-label {
     background: @background-level-4;
-    color: @main-level-3-5;
+    color: @main-level-3;
   }
 
   &.iciba-label-color-light .iciba-label {
@@ -38,29 +38,29 @@
 
   &.iciba-label-color-lightpink .iciba-label {
     background: #FBE0E0;
-    color: @main-level-3-5;
+    color: @main-level-3;
   }
 
   &.iciba-label-color-lightblue .iciba-label {
     background: #D7EAF9;
-    color: @main-level-3-5;
+    color: @main-level-3;
   }
 
   &.iciba-label-color-geographics .iciba-label {
     background: #DDF7BA;
-    color: @main-level-3-5;
+    color: @main-level-3;
     text-transform: uppercase;
   }
 
   &.iciba-label-color-registers .iciba-label {
     background: @background-level-4;
-    color: @main-level-3-5;
+    color: @main-level-3;
     text-transform: uppercase;
   }
 
   &.iciba-label-color-subjects .iciba-label {
     background: #F2E0FA;
-    color: @main-level-3-5;
+    color: @main-level-3;
     text-transform: uppercase;
   }
 
@@ -73,17 +73,19 @@
     }
 
     .popover-tooltip {
+      pointer-events: none;
       position: absolute;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 0 10px;
-      line-height: 22px;
-      border-radius: 6px;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      z-index: 200000;
+      background: rgba(black, 0.5);
+      padding: 0 4px 0 3px;
+      line-height: 16px;
+      border-radius: 5px;
+      filter: drop-shadow(0 0 0.5px black);
       color: white;
-      top: 0;
-      left: 50%;
-      margin: -7px 0 0 0;
-      transform: translate(-50%, -100%);
+      right: 0;
+      top: 50%;
+      margin-right: -7px;
+      transform: translate(100%, -50%);
       transition: 0.12s;
 
       &::after {
@@ -92,22 +94,23 @@
         content: '';
         z-index: 1;
         position: absolute;
-        top: 22px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-top: @size solid rgba(0, 0, 0, 0.7);
+        top: 50%;
+        left: 0;
+        margin-left: 1px;
+        transform: translate(-100%, -50%);
+        border-top: @size solid transparent;
         border-left: @size solid transparent;
         border-bottom: @size solid transparent;
-        border-right: @size solid transparent;
+        border-right: @size solid rgba(black, 0.5);
       }
 
       &.popover-leave-to, &.popover-enter {
-        transform: translate(-50%, -90%);
+        // transform: translate(-50%, -90%);
         opacity: 0;
       }
 
       &.popover-enter-to, &.popover-leave {
-        transform: translate(-50%, -100%);
+        // transform: translate(-50%, -100%);
         opacity: 1;
       }
     }
