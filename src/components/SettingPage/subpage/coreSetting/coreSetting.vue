@@ -162,6 +162,21 @@
       <br>
       选择文字时小圆圈相对与鼠标的位置。默认为 x=7 y=7
     </p>
+
+    <v-slider
+      ref="sliderX"
+      class="mr-1 mt-4"
+      :label="`${form.icibaMainWidth}px`"
+      hide-details
+      min="200"
+      max="500"
+      step="10"
+      :thumb-size="24"
+      v-model="form.icibaMainWidth"
+      thumb-label />
+    <p class="body-2 grey--text mt-1 mb-0">
+      查词框宽度（默认300px）
+    </p>
   </v-layout>
 </template>
 

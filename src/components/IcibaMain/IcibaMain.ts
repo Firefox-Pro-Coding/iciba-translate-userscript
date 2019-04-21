@@ -18,13 +18,6 @@ import store from '~/store'
 import LoadindText from './helper/LoadingText/LoadingText.vue'
 import { PROVIDER } from '~/constants/constant'
 
-const defaultStyle = {
-  top: 'auto',
-  bottom: 'auto',
-  left: 'auto',
-  right: 'auto',
-}
-
 interface ProviderItem {
   visible: boolean
   provider: AbstractTranslateProvider
@@ -77,9 +70,18 @@ export default class IcibaMain extends Vue {
     startTransform: { x: 0, y: 0 },
   }
 
-  public icibaContainerStyle = { ...defaultStyle }
+  public icibaContainerStyle = {
+    top: 'auto',
+    bottom: 'auto',
+    left: 'auto',
+    right: 'auto',
+  }
+
   public icibaMainStyle = {
-    ...defaultStyle,
+    top: 'auto',
+    bottom: 'auto',
+    left: 'auto',
+    right: 'auto',
     translateX: 0,
     translateY: 0,
     zIndex: 0,
@@ -260,9 +262,12 @@ export default class IcibaMain extends Vue {
     }
 
     this.icibaContainerStyle = {
-      ...defaultStyle,
+      top: 'auto',
+      bottom: 'auto',
+      left: 'auto',
+      right: 'auto',
       ...{
-        ...(availableSpace.x < 300 ? { right: '0' } : { left: '0' }),
+        ...(availableSpace.x < this.config.core.icibaMainWidth ? { right: '0' } : { left: '0' }),
         ...(availableSpace.y < 200 ? { bottom: '0' } : { top: '0' }),
       },
     }
@@ -365,6 +370,16 @@ export default class IcibaMain extends Vue {
       right: this.icibaMainStyle.right,
       transform: `translate(${this.icibaMainStyle.translateX}px, ${this.icibaMainStyle.translateY}px)`,
       zIndex: this.icibaMainStyle.zIndex,
+    }
+  }
+
+  public get computedIcibaContainerStyle() {
+    return {
+      top: this.icibaContainerStyle.top,
+      bottom: this.icibaContainerStyle.bottom,
+      left: this.icibaContainerStyle.left,
+      right: this.icibaContainerStyle.right,
+      width: `${this.config.core.icibaMainWidth}px`,
     }
   }
 }
