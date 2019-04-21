@@ -68,7 +68,7 @@ export default class GoogleTranslateSettings extends Vue {
       window.clearTimeout(this.toastTimeout)
     }
     this.toastTimeout = window.setTimeout(() => {
-      this.$toast('设置已保存！', 1000)
+      this.$toast('设置已保存！', 2000)
       this.toastTimeout = 0
     }, 1000)
   }
