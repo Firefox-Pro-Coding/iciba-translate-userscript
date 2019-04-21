@@ -77,7 +77,7 @@
             {{ result.baseInfo.translate_result }}
           </div>
           <div class="translate-tip">
-            {{ result.baseInfo.translate_msg }}
+            {{ result.baseInfo.translate_msg.replace(/。$/, '') }}
           </div>
         </div>
 
