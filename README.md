@@ -6,7 +6,7 @@ iciba划词翻译
 ![David](https://img.shields.io/david/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
 ![David](https://img.shields.io/david/dev/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
 
-greasefork 地址： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译](https://greasyfork.org/zh-CN/scripts/6303-iciba%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91)
+greasyfork 地址： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译](https://greasyfork.org/zh-CN/scripts/6303-iciba%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91)
 
 - 主要功能：划取查词
 - 支持查词翻译接口：iciba.com google字典 google翻译 baidu翻译
