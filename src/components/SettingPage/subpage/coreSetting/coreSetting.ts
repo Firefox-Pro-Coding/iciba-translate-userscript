@@ -76,17 +76,12 @@ export default class CoreSettings extends Vue {
 
     this.$store.saveConfig()
 
-    if (!this.toastTimeout) {
-      this.$toast('设置已保存！', 1000)
-      this.toastTimeout = window.setTimeout(() => {
-        this.toastTimeout = 0
-      }, 1000)
-    } else {
+    if (this.toastTimeout) {
       window.clearTimeout(this.toastTimeout)
-      this.toastTimeout = window.setTimeout(() => {
-        this.$toast('设置已保存！', 1000)
-        this.toastTimeout = 0
-      }, 1000)
     }
+    this.toastTimeout = window.setTimeout(() => {
+      this.$toast('设置已保存！', 1000)
+      this.toastTimeout = 0
+    }, 1000)
   }
 }
