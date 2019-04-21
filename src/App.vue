@@ -42,6 +42,10 @@
       width: 0;
       min-width: 0;
       max-width: 0;
+
+      // prevent style inheritance from page
+      // https://greasyfork.org/zh-CN/forum/discussion/56072
+      all: initial;
     }
   }
 </style>

@@ -110,7 +110,6 @@
       position: relative;
       flex: 0 0 auto;
       background: white;
-      // border-bottom: 1px solid @border-level-1;
       flex-flow: row nowrap;
       height: @input-container-height;
       z-index: 1;
@@ -121,16 +120,9 @@
         border-bottom: 1px solid @border-level-1;
 
         #iciba-search-input {
-          all: unset;
-          font-size: unset !important;
-          letter-spacing: 0 !important;
-          width: auto !important;
-          border-image: none !important;
+          letter-spacing: 0;
+          width: auto;
           flex: 1 1 auto;
-          // HACK: page style invasion
-          // https://www.reddit.com/r/Steam/comments/5kdc09/steam_is_not_https_is_this_normal/
-          border: none !important;
-          background: transparent !important;
           padding: 0 25px 0 7px;
           line-height: @input-container-height;
           height: @input-container-height;
@@ -191,7 +183,6 @@
           height: @input-container-height;
           border: none;
           border-bottom: 1px solid @border-level-1;
-          // border-left: 1px solid @border-level-1;
           background-color: @background-level-5;
           background-size: 16px;
           background-position: center;
