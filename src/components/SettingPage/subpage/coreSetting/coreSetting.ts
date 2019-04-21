@@ -16,6 +16,7 @@ export default class CoreSettings extends Vue {
     sliderX: any
     sliderY: any
     sliderCut: any
+    sliderIcibaWidth: any
   }
   public form: Config['core'] = copy(defaultData.core)
   public loadingSetting = true
@@ -36,6 +37,7 @@ export default class CoreSettings extends Vue {
     this.$nextTick(() => {
       this.$refs.sliderX.app = this.VApp.$el
       this.$refs.sliderY.app = this.VApp.$el
+      this.$refs.sliderIcibaWidth.app = this.VApp.$el
     })
   }
 

@@ -164,7 +164,7 @@
     </p>
 
     <v-slider
-      ref="sliderX"
+      ref="sliderIcibaWidth"
       class="mr-1 mt-4"
       :label="`${form.icibaMainWidth}px`"
       hide-details
