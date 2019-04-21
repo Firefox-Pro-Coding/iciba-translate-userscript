@@ -108,7 +108,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     const result = JSON.parse(response.responseText)
 
     if (result.trans_result && result.trans_result.type === 2 && result.trans_result.status === 0) {
-      return result.trans_result.data[0].dst
+      return result.trans_result.data.map((v: any) => v.dst)
     }
     throw new Error('翻译出错！')
   }
