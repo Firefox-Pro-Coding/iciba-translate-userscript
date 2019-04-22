@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <div>
     <icon-radio-group
       v-model="form.icon"
       :icons="iconOptions" />
@@ -7,30 +7,26 @@
       按钮图标
     </p>
 
-    <v-checkbox
+    <i-checkbox
       class="mt-4"
-      color="primary"
-      hide-details
       v-model="form.display"
       label="显示按钮">
-    </v-checkbox>
+    </i-checkbox>
     <p class="body-2 grey--text mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
 
 
-    <v-radio-group
+    <i-radio-group
       class="mt-4"
-      hide-details
       v-model="form.foldStatus">
-      <v-radio
-        color="primary"
+      <i-radio
         v-for="n of foldOptions"
         :key="n.value"
         :label="n.label"
         :value="n.value">
-      </v-radio>
-    </v-radio-group>
+      </i-radio>
+    </i-radio-group>
     <p class="body-2 grey--text mt-1 mb-0">
       查词详细结果默认折叠状态
     </p>
@@ -50,7 +46,7 @@
     <p class="body-2 grey--text mt-1 mb-0">
       <a href="http://dev.chromium.org/throttling" _target="blank">http://dev.chromium.org/throttling</a>
     </p>
-  </v-layout>
+  </div>
 </template>
 
 <script lang="ts" src="./googleDict.ts"></script>

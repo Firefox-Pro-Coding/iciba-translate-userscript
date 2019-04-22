@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <div>
     <h1 class="title">iciba划词翻译</h1>
     <div class="body-2 mt-4">
       <div>
@@ -45,7 +45,7 @@
         <a target="_blank" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/issues">issue</a>
       </div>
     </div>
-  </v-layout>
+  </div>
 </template>
 
 <script lang="ts" src="./about.ts"></script>

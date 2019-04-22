@@ -15,7 +15,7 @@ module.exports = {
     filename: 'iciba.user.js',
   },
   resolve: {
-    extensions: ['.ts', '.js', '.vue', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue', '.json'],
     alias: {
       '~': resolve('src'),
       'assets': resolve('src/assets'),
@@ -25,16 +25,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        loaders: [
+        test: /\.tsx?$/,
+        use: [
           'babel-loader',
           { loader: 'awesome-typescript-loader', options: { silent: true } },
         ],
         exclude: /node_modules/,
       },
       {
-        test: /\.js$/,
-        loaders: [
+        test: /\.jsx?$/,
+        use: [
           'babel-loader',
         ],
         exclude: /node_modules/,
@@ -50,14 +50,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.globalless$/,
-        use: [
-          '@noe132/vue-style-loader',
-          'css-loader',
-          'less-loader',
-        ],
-      },
-      {
         test: /\.less$/,
         use: [
           {
@@ -66,17 +58,6 @@ module.exports = {
           },
           'css-loader',
           'less-loader',
-        ],
-      },
-      {
-        test: /\.styl(us)?$/,
-        use: [
-          {
-            loader: '@noe132/vue-style-loader',
-            options: { insertInto: "function () { return document.querySelector('.iciba-root').shadowRoot }" },
-          },
-          'css-loader',
-          'stylus-loader',
         ],
       },
       {

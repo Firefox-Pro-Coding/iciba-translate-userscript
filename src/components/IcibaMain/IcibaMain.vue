@@ -35,6 +35,7 @@
               v-for="item in providers">
               <div
                 class="split"
+                v-if="isProviderVisible(item.provider.uniqName)"
                 :key="item.provider.uniqName + 'index'">
               </div>
               <button

@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <div>
     <icon-radio-group
       v-model="form.icon"
       :icons="iconOptions" />
@@ -7,80 +7,73 @@
       按钮图标
     </p>
 
-    <v-checkbox
+    <i-checkbox
       class="mt-4"
-      color="primary"
-      hide-details
       v-model="form.display"
       label="显示按钮">
-    </v-checkbox>
+    </i-checkbox>
     <p class="body-2 grey--text mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
 
-    <v-radio-group
+    <i-radio-group
       class="mt-4"
-      hide-details
       v-model="form.translateHost">
-      <v-radio
-        color="primary"
+      <i-radio
         v-for="n of hostOptions"
         :key="n.value"
         :label="n.label"
         :value="n.value">
-      </v-radio>
-    </v-radio-group>
+      </i-radio>
+    </i-radio-group>
+
     <p class="body-2 grey--text mt-1 mb-0">
       google翻译接口域名。
       <br>
       translate.google.cn 在国内大部分区域可直接访问
     </p>
 
-    <v-layout class="mt-4 pt-1">
-      <v-layout column class="flex-nogrow pr-5">
+    <div class="q-flex mt-4 pt-1">
+      <div class="q-flex-co align-start flex-nogrow pr-5">
         <div class="grey--text text--darken-1 pr-4 mb-2">语言</div>
         <div
-          class="grey--text text--darken-1"
-          style="height: 24px; margin-bottom: 8px"
+          class="grey--text text--darken-1 mb-2"
+          style="height: 24px"
           v-for="n of languageOptions"
           :key="n.key">
           {{ n.text }}
         </div>
-      </v-layout>
-      <v-layout align-center column class="flex-nogrow">
+      </div>
+      <div class="q-flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">首选语言</div>
-        <v-radio-group
+        <i-radio-group
           class="mt-0 flex-nogrow"
-          hide-details
           v-model="form.targetLanguage">
-          <v-radio
-            color="primary"
+          <i-radio
             v-for="n of languageOptions"
             :key="n.key"
             label=""
             :value="n.key">
-          </v-radio>
-        </v-radio-group>
-      </v-layout>
-      <v-layout align-center column class="flex-nogrow">
+          </i-radio>
+        </i-radio-group>
+      </div>
+      <div class="q-flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">备选语言</div>
-        <v-radio-group
+        <i-radio-group
           class="mt-0"
-          hide-details
           v-model="form.secondTargetLanguage">
-          <v-radio
-            color="primary"
+          <i-radio
             v-for="n of languageOptions"
             :key="n.key"
             label=""
             :value="n.key">
-          </v-radio>
-        </v-radio-group>
-      </v-layout>
-    </v-layout>
+          </i-radio>
+        </i-radio-group>
+      </div>
+    </div>
     <p
       v-if="form.targetLanguage === form.secondTargetLanguage"
-      class="body-2 error--text mt-2 mb-0">
+      class="body-2 red--text mt-2 mb-0">
       首选语言和备选语言请选择不同的选项
     </p>
     <p class="body-2 grey--text mt-1 mb-0">
@@ -92,7 +85,7 @@
     <p class="body-2 grey--text mt-4 mb-0">
       ps：当出现 response with status code 503 时，有可能是触发了验证码。请手动打开google翻译点击验证码。
     </p>
-  </v-layout>
+  </div>
 </template>
 
 <script lang="ts" src="./googleTranslate.ts"></script>

@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <div>
     <icon-radio-group
       v-model="form.icon"
       :icons="iconOptions" />
@@ -7,17 +7,15 @@
       按钮图标
     </p>
 
-    <v-checkbox
+    <i-checkbox
       class="mt-4"
-      color="primary"
-      hide-details
       v-model="form.display"
       label="显示按钮">
-    </v-checkbox>
+    </i-checkbox>
     <p class="body-2 grey--text mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
-  </v-layout>
+  </div>
 </template>
 
 <script lang="ts" src="./iciba.ts"></script>

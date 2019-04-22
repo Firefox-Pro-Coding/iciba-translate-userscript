@@ -2,12 +2,12 @@ import querystring from 'querystring'
 import { got } from '~/util/gmapi'
 
 import playAudio from '~/util/playAudio'
-import copy from '~/util/copy'
+// import copy from '~/util/copy'
 import googleDictBus from '~/provider/GoogleDict/bus'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
-import check from './check'
+// import check from './check'
 import audioCache from './audioCache'
 import containerDataStore from './containerDataStore'
 
@@ -49,11 +49,11 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       throw e
     }
 
-    const copyData = copy(googleDictData)
+    // const copyData = copy(googleDictData)
 
-    if (process.env.NODE_ENV === 'development') {
-      check(copyData)
-    }
+    // if (process.env.NODE_ENV === 'development') {
+    //   check(copyData)
+    // }
     return () => {
       containerDataStore.data = googleDictData.dictionaryData
       containerDataStore.translateData = null

@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <div>
     <icon-radio-group
       v-model="form.icon"
       :icons="iconOptions" />
@@ -7,19 +7,17 @@
       按钮图标
     </p>
 
-    <v-checkbox
+    <i-checkbox
       class="mt-4"
-      color="primary"
-      hide-details
       v-model="form.display"
       label="显示按钮">
-    </v-checkbox>
+    </i-checkbox>
     <p class="body-2 grey--text mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
 
-    <v-layout class="mt-4 pt-1">
-      <v-layout column class="flex-nogrow pr-5">
+    <div class="q-flex mt-4 pt-1">
+      <div class="q-flex-co align-start flex-nogrow pr-5">
         <div class="grey--text text--darken-1 pr-4 mb-2">语言</div>
         <div
           class="grey--text text--darken-1"
@@ -28,41 +26,37 @@
           :key="n.key">
           {{ n.text }}
         </div>
-      </v-layout>
-      <v-layout align-center column class="flex-nogrow">
+      </div>
+      <div class="q-flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">首选语言</div>
-        <v-radio-group
+        <i-radio-group
           class="mt-0 flex-nogrow"
-          hide-details
           v-model="form.targetLanguage">
-          <v-radio
-            color="primary"
+          <i-radio
             v-for="n of languageOptions"
             :key="n.key"
             label=""
             :value="n.key">
-          </v-radio>
-        </v-radio-group>
-      </v-layout>
-      <v-layout align-center column class="flex-nogrow">
+          </i-radio>
+        </i-radio-group>
+      </div>
+      <div class="q-flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">备选语言</div>
-        <v-radio-group
+        <i-radio-group
           class="mt-0"
-          hide-details
           v-model="form.secondTargetLanguage">
-          <v-radio
-            color="primary"
+          <i-radio
             v-for="n of languageOptions"
             :key="n.key"
             label=""
             :value="n.key">
-          </v-radio>
-        </v-radio-group>
-      </v-layout>
-    </v-layout>
+          </i-radio>
+        </i-radio-group>
+      </div>
+    </div>
     <p
       v-if="form.targetLanguage === form.secondTargetLanguage"
-      class="body-2 error--text mt-2 mb-0">
+      class="body-2 red--text mt-2 mb-0">
       首选语言和备选语言请选择不同的选项
     </p>
     <p class="body-2 grey--text mt-1 mb-0">
@@ -70,7 +64,7 @@
       <br>
       备选语言：当检测到翻译文本语言为首选语言时，翻译到备选语言
     </p>
-  </v-layout>
+  </div>
 </template>
 
 <script lang="ts" src="./baiduTranslate.ts"></script>

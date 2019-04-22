@@ -5,7 +5,6 @@ import { toast } from '~/plugin/toast/toastPlugin'
 
 declare module 'vue/types/vue' {
   interface Vue {
-    VApp: Vue
     $toast: typeof toast
     $store: typeof store
     store: typeof store.state

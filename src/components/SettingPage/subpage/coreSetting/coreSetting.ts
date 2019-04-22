@@ -12,12 +12,6 @@ import {
   name: 'CoreSettings',
 })
 export default class CoreSettings extends Vue {
-  public $refs!: {
-    sliderX: any
-    sliderY: any
-    sliderCut: any
-    sliderIcibaWidth: any
-  }
   public form: Config['core'] = copy(defaultData.core)
   public loadingSetting = true
 
@@ -32,13 +26,6 @@ export default class CoreSettings extends Vue {
 
   public mounted() {
     this.loadSettings()
-
-    // shadow-root fix
-    this.$nextTick(() => {
-      this.$refs.sliderX.app = this.VApp.$el
-      this.$refs.sliderY.app = this.VApp.$el
-      this.$refs.sliderIcibaWidth.app = this.VApp.$el
-    })
   }
 
   private loadSettings() {
@@ -47,19 +34,6 @@ export default class CoreSettings extends Vue {
       this.loadingSetting = false
     })
   }
-
-  /* eslint-disable-next-line @typescript-eslint/member-ordering */
-  @Watch('form.selectionMaxLengthCut', { deep: true, immediate: true })
-  protected selectionMaxLengthCutChange() {
-    if (this.form.selectionMaxLengthCut) {
-      this.$nextTick(() => {
-        if (this.$refs.sliderCut) {
-          this.$refs.sliderCut.app = this.VApp.$el
-        }
-      })
-    }
-  }
-
 
   /* eslint-disable-next-line @typescript-eslint/member-ordering */
   @Watch('form', { deep: true, immediate: false })

@@ -7,30 +7,30 @@
       @click="handleCloseSetting"
       v-if="visible">
       <div class="iciba-setting-window q-flex-co elevation-8">
-        <v-layout class="indigo flex-nogrow align-center">
-          <!-- <div class="white--text px-3">设置</div> -->
-          <v-tabs
+        <div class="indigo flex-nogrow align-center">
+          <tabs
             v-model="tab"
             color="indigo"
             dark
-            slider-color="rgba(255,255,255,0.7)">
-            <v-tab ripple>设置</v-tab>
-            <v-tab ripple>core</v-tab>
-            <v-tab ripple>iciba</v-tab>
-            <v-tab ripple>google字典</v-tab>
-            <v-tab ripple>google翻译</v-tab>
-            <v-tab ripple>百度翻译</v-tab>
-          </v-tabs>
-        </v-layout>
+            :tabs="[
+              '设置',
+              'core',
+              'iciba',
+              'google字典',
+              'google翻译',
+              '百度翻译',
+            ]"
+            slider-color="rgba(255,255,255,0.7)" />
+        </div>
 
-        <v-tabs-items class="pa-3 fill-height" style="overflow: auto" v-model="tab">
-          <v-tab-item><about /></v-tab-item>
-          <v-tab-item><core-setting /></v-tab-item>
-          <v-tab-item><iciba /></v-tab-item>
-          <v-tab-item><google-dict /></v-tab-item>
-          <v-tab-item><google-translate /></v-tab-item>
-          <v-tab-item><baidu-translate /></v-tab-item>
-        </v-tabs-items>
+        <tabs-items class="fill-height" style="overflow: auto" v-model="tab">
+          <tab-item class="pa-3"><about /></tab-item>
+          <tab-item class="pa-3"><core-setting /></tab-item>
+          <tab-item class="pa-3"><iciba /></tab-item>
+          <tab-item class="pa-3"><google-dict /></tab-item>
+          <tab-item class="pa-3"><google-translate /></tab-item>
+          <tab-item class="pa-3"><baidu-translate /></tab-item>
+        </tabs-items>
       </div>
     </div>
   </transition>

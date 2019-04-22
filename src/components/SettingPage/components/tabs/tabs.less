@@ -1,0 +1,37 @@
+.tabs__div {
+  position: relative;
+  height: 48px;
+  user-select: none;
+
+  .slider {
+    position: absolute;
+    height: 2px;
+    width: 0;
+    background: rgba(white, 0.5);
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+  }
+
+  .tab__div {
+    cursor: pointer;
+    color: rgba(white, 0.7);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    transition: 0.1s ease color;
+
+    &.active {
+      color: white;
+    }
+
+    /deep/ .active-ripple .v-ripple__animation--in {
+      opacity: 0.25 !important;
+    }
+
+    /deep/ .inactive-ripple .v-ripple__animation--in {
+      opacity: 0.2;
+    }
+  }
+}

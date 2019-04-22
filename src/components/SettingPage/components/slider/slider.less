@@ -1,0 +1,59 @@
+.slider {
+  user-select: none;
+
+  .track {
+    position: relative;
+    height: 32px;
+
+    .track-left {
+      height: 2px;
+      background: #1976D2;
+      width: 50%;
+    }
+
+    .track-right {
+      height: 2px;
+      background: #BBB;
+      width: 50%;
+    }
+
+    .notch {
+      position: absolute;
+      height: 15px;
+      width: 15px;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #1976D2;
+      transition: 0.3s ease width, 0.3s ease height;
+
+      &.dragging {
+        width: 0;
+        height: 0;
+      }
+    }
+
+    .bubble {
+      position: absolute;
+      height: 26px;
+      width: 26px;
+      top: 50%;
+      transform: translate(-50%, -150%) rotate(45deg) scale(0);
+      margin-left: -13px;
+      border-radius: 50% 50% 0;
+      background: #1976D2;
+      transition: 0.3s ease width, 0.3s ease height, 0.3s ease transform;
+      transform-origin: 100% 100%;
+
+      &.dragging {
+        transform: translate(-50%, -150%) rotate(45deg);
+      }
+
+      .text {
+        font-size: 12px;
+        transform: rotate(-45deg);
+        color: white;
+      }
+    }
+  }
+}

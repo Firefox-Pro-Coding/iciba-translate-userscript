@@ -1,5 +1,5 @@
 <template>
-  <v-app class="the-app" ref="VApp">
+  <div class="the-app">
     <iciba-circle ref="icibaCircle"></iciba-circle>
     <size-helper ref="sizeHelper"></size-helper>
 
@@ -16,40 +16,22 @@
       ref="googleDictModal"
       v-if="googleDictModalFirstLoaded">
     </google-dict-modal>
-  </v-app>
+  </div>
 </template>
 
 <script lang="ts" src="./App.ts"></script>
 
-<style lang="globalless">
-  @import '~assets/styles/md-global.less';
-</style>
-
 <style lang="less">
   @import '~assets/styles/global.less';
-  @import '~assets/styles/md-local.less';
 </style>
 
 <style lang="less" scoped>
   .the-app {
-    font-size: initial;
+    // prevent style inheritance from page
+    // https://greasyfork.org/zh-CN/forum/discussion/56072
+    all: initial;
 
-    /deep/ .application--wrap {
-      position: static;
-      height: 0;
-      min-height: 0;
-      max-height: 0;
-      width: 0;
-      min-width: 0;
-      max-width: 0;
-
-      // prevent style inheritance from page
-      // https://greasyfork.org/zh-CN/forum/discussion/56072
-      all: initial;
-    }
+    font-family: 'Roboto', 'Microsoft Yahei', 'Microsoft Yahei UI', sans-serif;
+    line-height: 1.5;
   }
-</style>
-
-<style lang="stylus">
-  @import '~../node_modules/vuetify/src/stylus/app.styl'
 </style>
