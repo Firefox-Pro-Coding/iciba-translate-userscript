@@ -14,6 +14,7 @@ import Iciba from './subpage/iciba/iciba.vue'
 import GoogleDict from './subpage/googleDict/googleDict.vue'
 import GoogleTranslate from './subpage/googleTranslate/googleTranslate.vue'
 import BaiduTranslate from './subpage/baiduTranslate/baiduTranslate.vue'
+import SougouTranslate from './subpage/sougouTranslate/sougouTranslate.vue'
 
 type TabNames = 'core' | 'iciba'
 
@@ -26,6 +27,7 @@ type TabNames = 'core' | 'iciba'
     GoogleDict,
     GoogleTranslate,
     BaiduTranslate,
+    SougouTranslate,
 
     Tabs,
     TabsItems,

@@ -8,7 +8,7 @@ export enum GOOGLE_LANGUAGES {
   es = 'es',
 }
 
-export const googleLanguages = {
+export const GOOGLE_LANGUAGE_MAP = {
   [GOOGLE_LANGUAGES.zh]: 'Chinese',
   [GOOGLE_LANGUAGES.en]: 'English',
   [GOOGLE_LANGUAGES.fr]: 'French',
@@ -19,7 +19,7 @@ export const googleLanguages = {
 }
 
 export const googleLanguagesOptions = Object
-  .entries(googleLanguages)
+  .entries(GOOGLE_LANGUAGE_MAP)
   .map(([k, v]) => ({
     text: v,
     key: k,

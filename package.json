@@ -29,6 +29,7 @@
     "@babel/runtime-corejs2": "^7.4.3",
     "io-ts": "^1.8.5",
     "typescript": "^3.4.3",
+    "uuid": "^3.3.2",
     "vue": "^2.6.10",
     "vue-property-decorator": "^8.1.0"
   },
@@ -44,6 +45,7 @@
     "@types/node": "^11.13.4",
     "@types/rimraf": "^2.0.2",
     "@types/tampermonkey": "^4.0.0",
+    "@types/uuid": "^3.4.4",
     "@typescript-eslint/eslint-plugin": "^1.6.0",
     "@typescript-eslint/parser": "^1.6.0",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0-beta.3",

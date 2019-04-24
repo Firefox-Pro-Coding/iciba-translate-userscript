@@ -9,6 +9,7 @@ import IcibaProvider from '~/provider/Iciba/Iciba'
 import GoogleDictProvider from '~/provider/GoogleDict/GoogleDict'
 import GoogleTranslateProvider from '~/provider/GoogleTranslate/GoogleTranslate'
 import BaiduTranslateProvider from '~/provider/BaiduTranslate/BaiduTranslate'
+import SougouTranslateProvider from '~/provider/SougouTranslate/SougouTranslate'
 
 import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
@@ -48,6 +49,7 @@ export default class IcibaMain extends Vue {
     { visible: false, provider: GoogleDictProvider },
     { visible: false, provider: GoogleTranslateProvider },
     { visible: false, provider: BaiduTranslateProvider },
+    { visible: false, provider: SougouTranslateProvider },
   ]
   public visible = false
   public loading = false

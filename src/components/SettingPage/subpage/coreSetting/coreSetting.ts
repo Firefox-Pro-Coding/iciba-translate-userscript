@@ -4,8 +4,7 @@ import { Config, defaultData } from '~/store/index'
 import copy from '~/util/copy'
 
 import {
-  PROVIDER,
-  PROVIDER_MAP,
+  providerOptions,
 } from '~/constants/constant'
 
 @Component({
@@ -15,12 +14,7 @@ export default class CoreSettings extends Vue {
   public form: Config['core'] = copy(defaultData.core)
   public loadingSetting = true
 
-  public providerOptions = [
-    { label: PROVIDER_MAP[PROVIDER.ICIBA], value: PROVIDER.ICIBA },
-    { label: PROVIDER_MAP[PROVIDER.GOOGLE_DICT], value: PROVIDER.GOOGLE_DICT },
-    { label: PROVIDER_MAP[PROVIDER.GOOGLE_TRANSLATE], value: PROVIDER.GOOGLE_TRANSLATE },
-    { label: PROVIDER_MAP[PROVIDER.BAIDU_TRANSLATE], value: PROVIDER.BAIDU_TRANSLATE },
-  ]
+  public providerOptions = providerOptions
 
   public toastTimeout = 0
 

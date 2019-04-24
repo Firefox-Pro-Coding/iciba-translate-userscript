@@ -19,6 +19,7 @@
               'google字典',
               'google翻译',
               '百度翻译',
+              '搜狗翻译',
             ]"
             slider-color="rgba(255,255,255,0.7)" />
         </div>
@@ -30,6 +31,7 @@
           <tab-item class="pa-3"><google-dict /></tab-item>
           <tab-item class="pa-3"><google-translate /></tab-item>
           <tab-item class="pa-3"><baidu-translate /></tab-item>
+          <tab-item class="pa-3"><sougou-translate /></tab-item>
         </tabs-items>
       </div>
     </div>

@@ -8,7 +8,7 @@ export enum BAIDU_LANGUAGES {
   en = 'en',
 }
 
-export const baiduLanguages = {
+export const BAIDU_LANGUAGE_MAP = {
   [BAIDU_LANGUAGES.de]: '德语',
   [BAIDU_LANGUAGES.ru]: '俄语',
   [BAIDU_LANGUAGES.fra]: '法语',
@@ -19,7 +19,7 @@ export const baiduLanguages = {
 }
 
 export const baiduLanguagesOptions = Object
-  .entries(baiduLanguages)
+  .entries(BAIDU_LANGUAGE_MAP)
   .map(([k, v]) => ({
     text: v,
     key: k,

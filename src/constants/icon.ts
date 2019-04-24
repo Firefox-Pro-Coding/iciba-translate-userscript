@@ -16,6 +16,9 @@ import type_3_google_814137 from '~/assets/img/providerIcon/googleTranslate/type
 import baiduIcon from '~/assets/img/providerIcon/baiduTranslate/baidu.svg'
 import baiduCircle from '~/assets/img/providerIcon/baiduTranslate/baiduCircle.svg'
 
+import icon_with_circle from '~/assets/img/providerIcon/sougouTranslate/icon_with_circle.svg'
+import icon_no_circle from '~/assets/img/providerIcon/sougouTranslate/icon_no_circle.svg'
+
 const providerIcon = {
   [PROVIDER.ICIBA]: {
     searchIcon,
@@ -36,6 +39,10 @@ const providerIcon = {
   [PROVIDER.BAIDU_TRANSLATE]: {
     baiduIcon,
     baiduCircle,
+  },
+  [PROVIDER.SOUGOU_TRANSLATE]: {
+    icon_with_circle,
+    icon_no_circle,
   },
 }
 

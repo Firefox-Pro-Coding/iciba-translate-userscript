@@ -35,40 +35,9 @@
     transition: 0.3s;
     transform: translateY(0);
     opacity: 1;
-    width: 500px;
-    max-height: 500px;
-    height: 100%;
+    width: 580px;
+    height: 580px;
     background: white;
     overflow: hidden;
-
-    .title-box {
-      border-bottom: 1px solid @border-level-1;
-
-      .tab-box {
-        flex: 0 0 auto;
-
-        .tab {
-          user-select: none;
-          cursor: pointer;
-          padding: 0 15px;
-          height: 40px;
-          line-height: 40px;
-          border-right: 1px solid @border-level-1;
-
-          &:hover {
-            background: @background-level-5;
-          }
-
-          &.active {
-            background: @background-level-3;
-          }
-        }
-      }
-    }
-
-    .setting-container {
-      flex: 1 1 auto;
-      padding: 15px;
-    }
   }
 }

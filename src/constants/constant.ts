@@ -3,13 +3,21 @@ export enum PROVIDER {
   GOOGLE_DICT = 'GOOGLE_DICT',
   GOOGLE_TRANSLATE = 'GOOGLE_TRANSLATE',
   BAIDU_TRANSLATE = 'BAIDU_TRANSLATE',
+  SOUGOU_TRANSLATE = 'SOUGOU_TRANSLATE',
 }
 export const PROVIDER_MAP = {
   [PROVIDER.ICIBA]: 'iciba查词',
   [PROVIDER.GOOGLE_DICT]: 'google字典',
   [PROVIDER.GOOGLE_TRANSLATE]: 'google翻译',
   [PROVIDER.BAIDU_TRANSLATE]: '百度翻译',
+  [PROVIDER.SOUGOU_TRANSLATE]: '搜狗翻译',
 }
+export const providerOptions = Object
+  .entries(PROVIDER_MAP)
+  .map(([k, v]) => ({
+    label: v,
+    value: k,
+  }))
 
 export enum GOOGLE_TRANSLATE_HOST {
   GOOGLE_COM = 'GOOGLE_COM',

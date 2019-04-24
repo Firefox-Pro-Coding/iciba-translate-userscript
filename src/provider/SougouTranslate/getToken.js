@@ -207,10 +207,11 @@ var a = (function() {
 
 
 
-// /**
-//  * @param {string} word - word
-//  */
-module.exports = (word) => {
+/**
+ * @param {string} word - word
+ * @return {string}
+ */
+const getToken = (word) => {
   // https://fanyi.sogou.com/reventondc/translateV2
   // Formdata
   // {
@@ -244,3 +245,5 @@ module.exports = (word) => {
   // a("" + R + q + M + "93e9d9a6fb77b35b3413b2deb9688adb")
   return a("" + 'auto' + 'zh-CHS' + word + "93e9d9a6fb77b35b3413b2deb9688adb")
 }
+
+export default getToken
