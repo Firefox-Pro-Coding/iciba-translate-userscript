@@ -162,10 +162,17 @@ export default class IcibaMain extends Vue {
 
   private async handleIcibaCircleTranslate({ word, event }: ClickTranslatePayload) {
     if (!this.visible) {
-      this.setPosition(event)
       this.visible = true
-    } else if (!isTop(this.icibaMainStyle.zIndex)) {
-      this.icibaMainStyle.zIndex = zgen()
+      this.setPosition(event)
+    } if (this.config.core.showPin && this.config.core.pinned) {
+      const googleDictModal = this.getGoogleDictModal()
+      if (googleDictModal && this.icibaMainStyle.zIndex < googleDictModal.zIndex) {
+        this.setPosition(event)
+      } else {
+        this.icibaMainStyle.zIndex = zgen()
+      }
+    } else {
+      this.setPosition(event)
     }
 
     this.inputText = word
