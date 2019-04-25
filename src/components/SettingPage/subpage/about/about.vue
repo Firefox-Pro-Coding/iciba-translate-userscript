@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1 class="title">iciba划词翻译</h1>
+    <h1 class="title mt-1">iciba划词翻译</h1>
     <div class="body-2 mt-4">
       <div>
         修改设置会自动保存。其他标签页需要刷新后才会加载新设置。
       </div>
 
       <div class="mt-3">
-        greasefork:
+        Greasefork:
         <br>
         <a target="_blank" href="https://greasyfork.org/zh-CN/scripts/6303-iciba%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91">
           https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译
@@ -15,7 +15,7 @@
       </div>
 
       <div class="mt-3">
-        github:
+        Github:
         <br>
         <a target="_blank" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript">
           https://github.com/Firefox-Pro-Coding/iciba-translate-userscript
@@ -23,7 +23,7 @@
       </div>
 
       <div class="mt-3">
-        changelog:
+        Changelog:
         <br>
         <a target="_blank" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/releases">
           Github Release
@@ -39,7 +39,7 @@
       </div>
 
       <div class="mt-3">
-        有问题或者有建议？打开
+        有任何问题或者建议？打开
         <a target="_blank" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript">github repo</a>
         提交
         <a target="_blank" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/issues">issue</a>

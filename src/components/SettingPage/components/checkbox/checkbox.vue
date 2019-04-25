@@ -5,7 +5,7 @@
         <div class="ripple-trigger"></div>
       </div>
     </div>
-    <div class="label">{{ label }}</div>
+    <div class="label grey--text text--darken-2">{{ label }}</div>
   </div>
 </template>
 

@@ -3,18 +3,18 @@
     <i-checkbox
       class="mt-0"
       v-model="form.pressCtrlToDrag"
-      label="按住ctrl拖拽">
+      label="按住 ctrl 拖拽查词框">
     </i-checkbox>
-    <p class="body-2 grey--text mt-1 mb-0">
-      按住ctrl键可拖拽移动查词结果框位置
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+      按住 ctrl 键拖拽移动查词结果框位置
     </p>
 
     <i-checkbox
       class="mt-4"
       v-model="form.pressCtrlToShowCircle"
-      label="仅按住ctrl查词">
+      label="仅按住 ctrl 时查词">
     </i-checkbox>
-    <p class="body-2 grey--text mt-1 mb-0">
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       选择文字时，只有
       <span class="font-weight-bold">同时按住ctrl键</span>
       时才显示小圆圈
@@ -23,28 +23,28 @@
     <i-checkbox
       class="mt-4"
       v-model="form.mouseOverTranslate"
-      label="鼠标hover查词">
+      label="鼠标 hover 查词">
     </i-checkbox>
-    <p class="body-2 grey--text mt-1 mb-0">
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       鼠标移到小圆圈上（而非需要点击）打开查词窗口
     </p>
 
     <i-checkbox
       class="mt-4"
       v-model="form.showPin"
-      label="显示查词框固定钉子">
+      label="显示查词框固定图钉">
     </i-checkbox>
-    <p class="body-2 grey--text mt-1 mb-0">
-      显示并启用固定钉子，固定住后查词框不自动关闭
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+      显示固定秃顶，可固定查词框使其不自动关闭
     </p>
 
     <i-checkbox
       class="mt-4"
       v-model="form.icibaCircleRightClick"
-      label="右击小圆圈使用备选接口查词">
+      label="右击小圆圈使用备选接口">
     </i-checkbox>
-    <p class="body-2 grey--text mt-1 mb-0">
-      右击小圆圈使用备选接口使用备选接口查词
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+      右击小圆圈，使用备选接口查词
     </p>
 
     <div class="q-flex mt-4 pt-1">
@@ -91,7 +91,7 @@
       class="body-2 red--text mt-2 mb-0">
       默认接口和备选接口请选择不同的选项
     </p>
-    <p class="body-2 grey--text mt-1 mb-0">
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       默认接口：左键点击小圆圈查词接口
       <br>
       备选接口：启用时，右键键点击小圆圈使用此查词接口
@@ -102,8 +102,8 @@
       v-model="form.selectionMaxLengthCut"
       label="限制最大查词长度">
     </i-checkbox>
-    <p class="body-2 grey--text mt-1 mb-0">
-      当选择文字超过最大长度时不显示小圆圈
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+      当选择文字超过指定长度时不显示小圆圈
     </p>
 
     <i-slider
@@ -113,7 +113,7 @@
       :min="50"
       :max="500"
       v-model="form.selectionMaxLength" />
-    <p class="body-2 grey--text mt-1 mb-0" v-if="form.selectionMaxLengthCut">
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0" v-if="form.selectionMaxLengthCut">
       最大查词长度: {{ form.selectionMaxLength }} <span class="ml-1 caption">默认值: 150</span>
     </p>
 
@@ -135,10 +135,10 @@
         v-model="form.icibaCircleOffsetY"
         thumb-label />
     </div>
-    <p class="body-2 grey--text mt-1 mb-0">
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       小圆圈偏移量（单位：px）
       <br>
-      选择文字时小圆圈相对与鼠标的位置。默认为 x=7 y=7
+      选择文字时，小圆圈偏移鼠标指针右下方的位置。默认 x=7 y=7
     </p>
 
     <div class="q-flex align-center mr-1 mt-4">
@@ -151,8 +151,8 @@
         v-model="form.icibaMainWidth"
         thumb-label />
     </div>
-    <p class="body-2 grey--text mt-1 mb-0">
-      查词框宽度（默认300px）
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+      查词框宽度（单位：px）（默认300px）
     </p>
   </div>
 </template>

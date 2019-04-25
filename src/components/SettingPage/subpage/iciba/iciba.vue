@@ -3,7 +3,7 @@
     <icon-radio-group
       v-model="form.icon"
       :icons="iconOptions" />
-    <p class="body-2 grey--text mt-1 mb-0">
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       按钮图标
     </p>
 
@@ -12,7 +12,7 @@
       v-model="form.display"
       label="显示按钮">
     </i-checkbox>
-    <p class="body-2 grey--text mt-1 mb-0">
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
   </div>

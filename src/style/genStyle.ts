@@ -13,11 +13,14 @@ import {
 const style: Array<string> = []
 
 Object.entries(colors).forEach(([colorName, colorObject]) => {
-  Object.entries(colorObject).forEach(([accentName, color]) => {
-    const className = accentName === 'base' ? colorName : `${colorName}.${accentName}`
-    const textClassName = accentName === 'base' ? `${colorName}--text` : `${colorName}--text.${accentName}`
-    style.push(`.${className}{background-color: ${color} !important;border-color: ${color} !important}`)
-    style.push(`.${textClassName}{color: ${color} !important;caret-color: ${color} !important}`)
+  Object.entries(colorObject).forEach(([_accentName, color]) => {
+    const accentName = _accentName === 'base'
+      ? _accentName
+      : `${_accentName.slice(0, _accentName.length - 1)}-${_accentName.slice(_accentName.length - 1, _accentName.length)}`
+    const className = accentName === 'base' ? `.${colorName}` : `.${colorName}.${accentName}`
+    const textClassName = accentName === 'base' ? `.${colorName}--text` : `.${colorName}--text.text--${accentName}`
+    style.push(`${className}{background-color: ${color} !important;border-color: ${color} !important}`)
+    style.push(`${textClassName}{color: ${color} !important;caret-color: ${color} !important}`)
   })
 })
 
