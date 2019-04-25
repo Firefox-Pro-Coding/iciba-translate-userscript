@@ -26,7 +26,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
 
     // bind methods
     this.handlePlay = this.handlePlay.bind(this)
-    googleDictBus.on(googleDictBus.PLAY_AUDIO, this.handlePlay)
+    googleDictBus.on(googleDictBus.events.PLAY_AUDIO, this.handlePlay)
   }
 
   public async translate(word: string) {

@@ -10,6 +10,6 @@ export default class extends Vue {
   public phonetics: any
 
   public handlePlay(url: string): void {
-    googleDictBus.emit(googleDictBus.PLAY_AUDIO, url)
+    googleDictBus.emit(googleDictBus.events.PLAY_AUDIO, url)
   }
 }

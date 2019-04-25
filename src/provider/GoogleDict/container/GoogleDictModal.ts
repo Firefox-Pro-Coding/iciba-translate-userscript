@@ -23,9 +23,9 @@ export default class GoogleDictModal extends Vue {
     globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_OPEN, this.handleOpenModal)
   }
 
-  public handleOpenModal(payload: any) {
+  public handleOpenModal(p: { googleDictData: any }) {
     this.zIndex = zgen()
-    this.dictionaryData = payload
+    this.dictionaryData = p.googleDictData
 
     if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.FOLD) {
       this.store.googleDict.detailFolded = true

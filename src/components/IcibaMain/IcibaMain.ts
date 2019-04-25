@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
-import bus, { IcibaCircleClickTranslatePayload } from '~/bus/bus'
+import bus, { ClickTranslatePayload } from '~/bus/bus'
 import zgen, { isTop } from '~/util/zIndexGenerator'
 
 import AbstractTranslateProvider from '~/provider/AbstractTranslateProvider'
@@ -10,6 +10,8 @@ import GoogleDictProvider from '~/provider/GoogleDict/GoogleDict'
 import GoogleTranslateProvider from '~/provider/GoogleTranslate/GoogleTranslate'
 import BaiduTranslateProvider from '~/provider/BaiduTranslate/BaiduTranslate'
 import SougouTranslateProvider from '~/provider/SougouTranslate/SougouTranslate'
+
+import GoogleDictModalClass from '~/provider/GoogleDict/container/GoogleDictModal'
 
 import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
@@ -42,7 +44,7 @@ export default class IcibaMain extends Vue {
   public icibaCircle!: Vue
 
   @Prop()
-  public getGoogleDictModal!: () => Vue | undefined
+  public getGoogleDictModal!: () => GoogleDictModalClass | undefined
 
   public providers: Array<ProviderItem> = [
     { visible: false, provider: IcibaProvider },
@@ -99,6 +101,7 @@ export default class IcibaMain extends Vue {
 
     bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
     bus.on(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
+    bus.on(bus.events.GOOGLE_DICT_WORD_CLICK, this.handleGoogleDictWordClick)
   }
 
   public destroyed() {
@@ -111,6 +114,7 @@ export default class IcibaMain extends Vue {
 
     bus.removeListener(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
     bus.removeListener(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
+    bus.removeListener(bus.events.GOOGLE_DICT_WORD_CLICK, this.handleGoogleDictWordClick)
   }
 
   /** 切换固定状态 */
@@ -156,7 +160,7 @@ export default class IcibaMain extends Vue {
     return this.config[name].display
   }
 
-  private async handleIcibaCircleTranslate({ word, event }: IcibaCircleClickTranslatePayload) {
+  private async handleIcibaCircleTranslate({ word, event }: ClickTranslatePayload) {
     if (!this.visible) {
       this.setPosition(event)
       this.visible = true
@@ -170,6 +174,21 @@ export default class IcibaMain extends Vue {
       this.translateWithProvider(this.getDefaultProvider())
     } else if (event.button === 2 && this.config.core.icibaCircleRightClick) {
       this.translateWithProvider(this.getSecondaryProvider())
+    }
+  }
+
+  private async handleGoogleDictWordClick({ word, event }: ClickTranslatePayload) {
+    if (!this.visible) {
+      this.visible = true
+    }
+
+    this.setPosition(event, true)
+
+    this.inputText = word
+
+    const googleDictProvider = this.providers.find(v => v.provider.uniqName === PROVIDER.GOOGLE_DICT)
+    if (googleDictProvider) {
+      this.translateWithProvider(googleDictProvider)
     }
   }
 
@@ -251,8 +270,8 @@ export default class IcibaMain extends Vue {
   }
 
   /** 设置 IcibaMain position */
-  private setPosition(e: MouseEvent) {
-    if (this.visible && isTop(this.icibaMainStyle.zIndex)) {
+  private setPosition(e: MouseEvent, force: boolean = false) {
+    if (!force && this.visible && isTop(this.icibaMainStyle.zIndex)) {
       return
     }
 
@@ -303,7 +322,7 @@ export default class IcibaMain extends Vue {
   private handleShadowRootClick(e: Event) {
     const googleDictModal = this.getGoogleDictModal()
     const ignoreCondition = [
-      Boolean(googleDictModal && insideOf(e.target, googleDictModal.$el) && !isTop(this.icibaMainStyle.zIndex)),
+      Boolean(googleDictModal && insideOf(e.target, googleDictModal.$el) && googleDictModal.zIndex > this.icibaMainStyle.zIndex),
       insideOf(e.target, this.$refs.icibaMain),
       insideOf(e.target, this.icibaCircle.$el),
       this.config.core.showPin && this.config.core.pinned,

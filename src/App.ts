@@ -8,7 +8,7 @@ import SettingPage from '~/components/SettingPage/SettingPage.vue'
 import GoogleDictModal from '~/provider/GoogleDict/container/GoogleDictModal.vue'
 import GoogleDictModalClass from '~/provider/GoogleDict/container/GoogleDictModal'
 
-import globalBus, { IcibaCircleClickTranslatePayload } from '~/bus/bus'
+import globalBus, { ClickTranslatePayload } from '~/bus/bus'
 
 @Component({
   name: 'IcibaAppRoot',
@@ -46,7 +46,7 @@ export default class extends Vue {
   }
 
   /** 查词窗口懒加载 */
-  private async openIcibaMain(payload: IcibaCircleClickTranslatePayload) {
+  private async openIcibaMain(payload: ClickTranslatePayload) {
     if (!this.icibaMainFirstLoaded) {
       this.icibaMainFirstLoaded = true
       // wait for element to be mounted
@@ -65,7 +65,7 @@ export default class extends Vue {
     globalBus.emit(globalBus.events.SETTING_OPEN)
   }
 
-  private async openGoogleDictModal(dicData: any) {
+  private async openGoogleDictModal({ googleDictData }: { googleDictData: any }) {
     if (!this.googleDictModalFirstLoaded) {
       this.googleDictModalFirstLoaded = true
       // wait for element to be mounted
@@ -73,7 +73,7 @@ export default class extends Vue {
     }
     // wait for element to be mounted
     this.$nextTick(() => {
-      globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_OPEN, dicData)
+      globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_OPEN, { googleDictData })
     })
   }
 }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
+// import bus from '~/bus/bus'
 import googleDictBus from '~/provider/GoogleDict/bus'
 
 import Labels from '../labels/labels.vue'
@@ -20,7 +21,7 @@ export default class extends Vue {
     return `"${text}"`
   }
 
-  public handleNymClick(word: string) {
-    googleDictBus.emit(googleDictBus.NYM_CLICK, word)
+  public handleNymClick(event: MouseEvent, word: string) {
+    googleDictBus.emit(googleDictBus.events.NYM_CLICK, { word, event })
   }
 }

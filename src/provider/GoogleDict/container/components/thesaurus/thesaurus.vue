@@ -29,9 +29,9 @@
                     v-for="(nym, index) in thesaurusItem.nyms"
                     class="nym-item q-inline"
                     :class="{ 'is-core': nym.isCore }"
-                    @click="handleNymClick(nym.nym)"
                     :key="index">
                     <div
+                      @click="handleNymClick($event, nym.nym)"
                       :class="{ 'entry-link': nym.numEntries }"
                       class="nym-content q-inline">
                       {{ nym.nym }}

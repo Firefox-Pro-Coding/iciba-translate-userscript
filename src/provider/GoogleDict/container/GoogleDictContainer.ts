@@ -23,26 +23,20 @@ export default class GoogleDictContainer extends Vue {
   }
 
   public mounted() {
-    googleDictBus.on(googleDictBus.NYM_CLICK, this.handleNymClick)
-    googleDictBus.on(googleDictBus.ENTRY_CLICK, this.handleEntryLinkClick)
+    googleDictBus.on(googleDictBus.events.NYM_CLICK, this.openIcibaMainWithGoogleDict)
+    googleDictBus.on(googleDictBus.events.ENTRY_CLICK, this.openIcibaMainWithGoogleDict)
   }
 
   public destroyed() {
-    googleDictBus.removeListener(googleDictBus.NYM_CLICK, this.handleNymClick)
-    googleDictBus.removeListener(googleDictBus.ENTRY_CLICK, this.handleEntryLinkClick)
+    googleDictBus.removeListener(googleDictBus.events.NYM_CLICK, this.openIcibaMainWithGoogleDict)
+    googleDictBus.removeListener(googleDictBus.events.ENTRY_CLICK, this.openIcibaMainWithGoogleDict)
   }
 
   public handleOpenModal() {
-    globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.containerDataStore.data)
+    globalBus.emit(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, { googleDictData: this.containerDataStore.data })
   }
 
-  private handleNymClick(word: string) {
-    // TODO:
-    console.log(word)  // eslint-disable-line
-  }
-
-  private handleEntryLinkClick(word: string) {
-    // TODO:
-    console.log(word)  // eslint-disable-line
+  private openIcibaMainWithGoogleDict({ event, word }: { event: MouseEvent, word: string }) {
+    globalBus.emit(globalBus.events.GOOGLE_DICT_WORD_CLICK, { event, word })
   }
 }

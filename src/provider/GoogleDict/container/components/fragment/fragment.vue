@@ -4,7 +4,7 @@
       <a
         v-if="frag.isEntryLink"
         class="entry-link"
-        @click="handleEntryLinkClick(frag.text)"
+        @click="handleEntryLinkClick($event, frag.text)"
         v-html="frag.text">
       </a>
       <div class="q-inline" v-else v-html="frag.text"></div>

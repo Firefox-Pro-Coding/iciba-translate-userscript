@@ -9,7 +9,7 @@ export default class extends Vue {
   @Prop([Array])
   public fragment: any
 
-  public handleEntryLinkClick(word: string) {
-    googleDictBus.emit(googleDictBus.ENTRY_CLICK, word)
+  public handleEntryLinkClick(event: MouseEvent, word: string) {
+    googleDictBus.emit(googleDictBus.events.ENTRY_CLICK, { word, event })
   }
 }
