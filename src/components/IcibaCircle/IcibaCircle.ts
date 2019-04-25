@@ -43,6 +43,7 @@ export default class IcibaCircle extends Vue {
     setTimeout(() => {
       this.visible = false
       bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
+      this.removeSelection()
     })
   }
 
@@ -119,6 +120,14 @@ export default class IcibaCircle extends Vue {
       top: calcedPosition.top + this.config.core.icibaCircleOffsetY,
       left: calcedPosition.left + this.config.core.icibaCircleOffsetX,
     }
+  }
+
+  private removeSelection() {
+    const selection = window.getSelection()
+    if (!selection) {
+      return
+    }
+    selection.removeAllRanges()
   }
 
   public get computedStyle() {
