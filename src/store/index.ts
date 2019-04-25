@@ -40,7 +40,7 @@ class Store {
     googleDict: {
       modalVisible: false,
       subsenseFolded: false,
-      detailFolded: false,
+      thesaurusFolded: false,
     },
   })
 

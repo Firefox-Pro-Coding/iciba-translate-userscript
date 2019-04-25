@@ -1,6 +1,6 @@
 <template>
   <!-- thesaurus -->
-  <foldable :fold="store.googleDict.detailFolded" v-if="thesaurusEntries && thesaurusEntries.length">
+  <foldable :fold="store.googleDict.thesaurusFolded" v-if="thesaurusEntries && thesaurusEntries.length">
     <div class="thesaurus-container q-flex-co align-stretch">
       <div
         class="thesaurus-entry-item q-flex-co align-stretch"

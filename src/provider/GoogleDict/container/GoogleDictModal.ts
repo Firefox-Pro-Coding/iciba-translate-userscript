@@ -28,17 +28,17 @@ export default class GoogleDictModal extends Vue {
     this.dictionaryData = p.googleDictData
 
     if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.FOLD) {
-      this.store.googleDict.detailFolded = true
+      this.store.googleDict.thesaurusFolded = true
       this.store.googleDict.subsenseFolded = true
     }
 
     if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.HALF_FOLD) {
-      this.store.googleDict.detailFolded = true
+      this.store.googleDict.thesaurusFolded = true
       this.store.googleDict.subsenseFolded = false
     }
 
     if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.UNFOLD) {
-      this.store.googleDict.detailFolded = false
+      this.store.googleDict.thesaurusFolded = false
       this.store.googleDict.subsenseFolded = false
     }
 
@@ -52,8 +52,8 @@ export default class GoogleDictModal extends Vue {
   }
 
   public handleShrink() {
-    if (!this.store.googleDict.detailFolded) {
-      this.store.googleDict.detailFolded = true
+    if (!this.store.googleDict.thesaurusFolded) {
+      this.store.googleDict.thesaurusFolded = true
     } else {
       this.store.googleDict.subsenseFolded = true
     }
@@ -63,16 +63,16 @@ export default class GoogleDictModal extends Vue {
     if (this.store.googleDict.subsenseFolded) {
       this.store.googleDict.subsenseFolded = false
     } else {
-      this.store.googleDict.detailFolded = false
+      this.store.googleDict.thesaurusFolded = false
     }
   }
 
   public get shrinkable() {
-    return !this.store.googleDict.detailFolded || !this.store.googleDict.subsenseFolded
+    return !this.store.googleDict.thesaurusFolded || !this.store.googleDict.subsenseFolded
   }
 
   public get expandable() {
-    return this.store.googleDict.detailFolded || this.store.googleDict.subsenseFolded
+    return this.store.googleDict.thesaurusFolded || this.store.googleDict.subsenseFolded
   }
 
   public get modalVisible() {
