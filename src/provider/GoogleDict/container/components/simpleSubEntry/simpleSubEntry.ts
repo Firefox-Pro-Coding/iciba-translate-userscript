@@ -13,5 +13,5 @@ import fragment from '../fragment/fragment.vue'
 })
 export default class extends Vue {
   @Prop([Object])
-  public entry!: any
+  public entry!: unknown
 }

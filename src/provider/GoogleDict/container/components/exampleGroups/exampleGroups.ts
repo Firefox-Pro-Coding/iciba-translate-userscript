@@ -12,5 +12,5 @@ import foldable from '../foldable/foldable.vue'
 })
 export default class extends Vue {
   @Prop([Array])
-  public exampleGroups!: any
+  public exampleGroups!: unknown
 }

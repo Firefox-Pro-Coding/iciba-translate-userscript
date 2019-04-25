@@ -46,7 +46,7 @@ class Bus extends EventEmitter {
   public emit(e: NAMES.GOOGLE_DICT_MODAL_PREPARE_OPEN, p: GoogleDictData): boolean
   public emit(e: NAMES.GOOGLE_DICT_MODAL_OPEN, p: GoogleDictData): boolean
   public emit(e: NAMES.GOOGLE_DICT_WORD_CLICK, p: ClickTranslatePayload): boolean
-  public emit(event: string, payload?: any) {
+  public emit(event: string, payload?: unknown) {
     return super.emit(event, payload)
   }
 }

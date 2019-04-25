@@ -6,7 +6,7 @@ import { Component, Model } from 'vue-property-decorator'
 })
 export default class RadioGroup extends Vue {
   @Model('input')
-  public value!: any
+  public value!: unknown
 
   public mounted() {
     this.$on('fuck', this.handleRadioClick)
@@ -27,7 +27,7 @@ export default class RadioGroup extends Vue {
     )
   }
 
-  public handleRadioClick(value: any) {
+  public handleRadioClick(value: unknown) {
     this.$emit('input', value)
   }
 }

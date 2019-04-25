@@ -7,7 +7,7 @@ import googleDictBus from '~/provider/GoogleDict/bus'
 })
 export default class extends Vue {
   @Prop([Array])
-  public fragment: any
+  public fragment: unknown
 
   public handleEntryLinkClick(event: MouseEvent, word: string) {
     googleDictBus.emit(googleDictBus.events.ENTRY_CLICK, { word, event })

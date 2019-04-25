@@ -12,5 +12,5 @@ import imageLoader from '../imageLoader/imageLoader.vue'
 })
 export default class extends Vue {
   @Prop()
-  public etymology: any
+  public etymology: unknown
 }

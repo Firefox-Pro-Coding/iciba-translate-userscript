@@ -9,7 +9,7 @@ export default class Radio extends Vue {
   public label!: string
 
   @Prop()
-  public value!: any
+  public value!: unknown
 
   @Prop({ type: Boolean, default: false })
   public checked!: boolean

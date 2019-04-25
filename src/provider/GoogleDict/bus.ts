@@ -24,7 +24,7 @@ class GoogleDictBus extends EventEmitter {
   public emit(e: NAMES.PLAY_AUDIO, p: string): boolean
   public emit(e: NAMES.NYM_CLICK, p: { word: string, event: MouseEvent }): boolean
   public emit(e: NAMES.ENTRY_CLICK, p: { word: string, event: MouseEvent }): boolean
-  public emit(event: string, payload: any) {
+  public emit(event: string, payload: unknown) {
     return super.emit(event, payload)
   }
 }

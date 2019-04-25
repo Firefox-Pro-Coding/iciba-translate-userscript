@@ -11,5 +11,5 @@ import labels from '../labels/labels.vue'
 })
 export default class extends Vue {
   @Prop([Object])
-  public note!: any
+  public note!: unknown
 }

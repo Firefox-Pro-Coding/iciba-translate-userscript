@@ -25,7 +25,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
   public containerComponentClass = BaiduTranslateContainer
 
   public async translate(word: string) {
-    let result: any
+    let result: Array<string>
     try {
       result = await this.internalTranslate(word)
     } catch (e) {
@@ -79,7 +79,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     throw new Error('检测翻译文本语言失败！')
   }
 
-  private async getTranslateResult(params: TranslateParams) {
+  private async getTranslateResult(params: TranslateParams): Promise<Array<string>> {
     let to = store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage
 
     if (params.from === to) {

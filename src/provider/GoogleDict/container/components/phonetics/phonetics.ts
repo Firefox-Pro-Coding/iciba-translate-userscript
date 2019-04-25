@@ -7,7 +7,7 @@ import googleDictBus from '~/provider/GoogleDict/bus'
 })
 export default class extends Vue {
   @Prop([Array])
-  public phonetics: any
+  public phonetics: unknown
 
   public handlePlay(url: string): void {
     googleDictBus.emit(googleDictBus.events.PLAY_AUDIO, url)

@@ -15,7 +15,7 @@ import Foldable from '../foldable/foldable.vue'
 })
 export default class extends Vue {
   @Prop([Array])
-  public thesaurusEntries: any
+  public thesaurusEntries: unknown
 
   public addQoute(text: string): string {
     return `"${text}"`

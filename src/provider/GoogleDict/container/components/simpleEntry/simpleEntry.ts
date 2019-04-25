@@ -15,5 +15,5 @@ import simpleSubEntry from '../simpleSubEntry/simpleSubEntry.vue'
 })
 export default class extends Vue {
   @Prop([Object])
-  public entry!: any
+  public entry!: unknown
 }
