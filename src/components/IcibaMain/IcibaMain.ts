@@ -103,7 +103,7 @@ export default class IcibaMain extends Vue {
   }
 
   public mounted() {
-    window.addEventListener('mousedown', this.handleWindowClick, false)
+    window.addEventListener('mousedown', this.handleWindowClick, true)
     window.addEventListener('mousemove', this.handleDragMove, true)
     window.addEventListener('mouseup', this.handleDragEnd, true)
     this.shadowRoot.addEventListener('mousedown', this.handleDragStart, true)
@@ -116,7 +116,7 @@ export default class IcibaMain extends Vue {
   }
 
   public destroyed() {
-    window.removeEventListener('mousedown', this.handleWindowClick, false)
+    window.removeEventListener('mousedown', this.handleWindowClick, true)
     window.removeEventListener('mousemove', this.handleDragMove, true)
     window.removeEventListener('mouseup', this.handleDragEnd, true)
     this.shadowRoot.removeEventListener('mousedown', this.handleDragStart, true)

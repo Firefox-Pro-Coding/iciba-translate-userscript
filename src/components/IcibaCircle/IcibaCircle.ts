@@ -24,7 +24,7 @@ export default class IcibaCircle extends Vue {
   }
 
   public mounted() {
-    window.addEventListener('mouseup', this.handleWindowMouseUp, false)
+    window.addEventListener('mouseup', this.handleWindowMouseUp, true)
     this.shadowRoot.addEventListener('mouseup', this.handleShadowRootMouseUp, false)
   }
 
