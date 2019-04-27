@@ -2,14 +2,6 @@ import querystring from 'querystring'
 import uuidv4 from 'uuid/v4'
 import { got } from '~/util/gmapi'
 
-
-/* eslint-disable camelcase */
-import type_1_translate_281759 from '~/assets/img/providerIcon/googleTranslate/type_1_translate_281759.svg'
-import type_2_translate_281776 from '~/assets/img/providerIcon/googleTranslate/type_2_translate_281776.svg'
-import type_2_translate_324121 from '~/assets/img/providerIcon/googleTranslate/type_2_translate_324121.svg'
-import type_3_google_814137 from '~/assets/img/providerIcon/googleTranslate/type_3_google_814137.svg'
-/* eslint-enable camelcase */
-
 import { PROVIDER } from '~/constants/constant'
 import { SOUGOU_LANGUAGES } from '~/constants/sougouLanguages'
 import store from '~/store'
@@ -23,14 +15,6 @@ import getToken from './getToken'
 class SougouTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.SOUGOU_TRANSLATE
   public settingDescriptor = []
-  public icons = [
-    /* eslint-disable camelcase */
-    type_1_translate_281759,
-    type_2_translate_281776,
-    type_2_translate_324121,
-    type_3_google_814137,
-    /* eslint-enable camelcase */
-  ]
   public containerComponentClass = SougouTranslateContainer
 
   public async translate(word: string) {
@@ -45,10 +29,11 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
   }
 
   private async getSougouTranslateResult(word: string, lang?: SOUGOU_LANGUAGES): Promise<Array<string>> {
-    const token = getToken(word)
+    const to = lang || store.config[PROVIDER.SOUGOU_TRANSLATE].targetLanguage
+    const token = getToken(word, 'auto', to)
     const body = {
       from: 'auto',
-      to: lang || store.config[PROVIDER.SOUGOU_TRANSLATE].targetLanguage,
+      to,
       text: word,
       client: 'pc',
       fr: 'browser_pc',
@@ -84,7 +69,7 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
     }
 
     const detectLang = result.data.detect.detect
-    if (detectLang === store.config[PROVIDER.SOUGOU_TRANSLATE].targetLanguage) {
+    if (detectLang === to && detectLang === store.config[PROVIDER.SOUGOU_TRANSLATE].targetLanguage) {
       return this.getSougouTranslateResult(word, store.config[PROVIDER.SOUGOU_TRANSLATE].secondTargetLanguage)
     }
 
