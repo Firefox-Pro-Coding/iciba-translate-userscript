@@ -9,7 +9,6 @@
       <div class="headword-graph-index" v-if="entry.homographIndex">{{ entry.homographIndex }}</div>
     </div>
 
-
     <!-- phonetics -->
     <phonetics class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
 
@@ -203,8 +202,7 @@
         class="sub-entry"
         :entry="subentry"
         v-for="(subentry, index) in entry.subentries"
-        :key="index">
-      </sub-entry>
+        :key="index" />
     </div>
   </div>
 </template>

@@ -27,7 +27,7 @@ import foldable from '../foldable/foldable.vue'
     foldable,
   },
 })
-export default class extends Vue {
+export default class GoogleDictContainerEntry extends Vue {
   @Prop([Object])
   public entry!: unknown
 }

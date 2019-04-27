@@ -8,6 +8,7 @@ import phonetics from '../phonetics/phonetics.vue'
 import fragment from '../fragment/fragment.vue'
 import etymology from '../etymology/etymology.vue'
 import exampleGroups from '../exampleGroups/exampleGroups.vue'
+import Foldable from '../foldable/foldable.vue'
 
 @Component({
   name: 'GoogleDictContainerEntry',
@@ -19,6 +20,7 @@ import exampleGroups from '../exampleGroups/exampleGroups.vue'
     fragment,
     etymology,
     exampleGroups,
+    Foldable,
   },
 })
 export default class extends Vue {

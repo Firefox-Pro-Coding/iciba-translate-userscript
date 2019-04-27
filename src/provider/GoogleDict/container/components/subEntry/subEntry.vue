@@ -1,5 +1,5 @@
 <template>
-  <!-- entry item -->
+  <!-- sub-entry item -->
   <div class="sub-entry-item">
     <div class="sub-entry-lemma">
       {{ entry.lemma }}
@@ -65,6 +65,12 @@
     <div
       class="sense-list flex-co align-stretch"
       v-if="entry.senseFamily && entry.senseFamily.senses && entry.senseFamily.senses.length">
+      <!-- senseFamily labelSet -->
+      <label-set
+        class="sense-item-label"
+        size="medium"
+        :label-set="entry.senseFamily.labelSet">
+      </label-set>
       <div
         class="sense-item flex"
         :class="{ collapsable: index !== 0 }"
