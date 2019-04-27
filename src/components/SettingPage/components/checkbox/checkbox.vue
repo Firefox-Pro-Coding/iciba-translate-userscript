@@ -1,6 +1,7 @@
 <template>
-  <div class="q-flex align-center checkbox" @click="toggle">
+  <div class="flex align-center checkbox" @click="toggle">
     <div class="icon" :class="{ checked: value }">
+      <i-icon size="100%" :svg="value ? icon.checked : icon.unchecked" />
       <div v-ripple="{ center: true }" class="ripple" :class="{ checked: value }">
         <div class="ripple-trigger"></div>
       </div>

@@ -70,10 +70,6 @@
         cursor: grab;
         height: 28px;
         width: 28px;
-        background-image: url('~assets/img/drag_462998.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 16px 16px;
         border-bottom: 1px solid @border-level-1;
       }
 
@@ -82,23 +78,13 @@
         height: 28px;
         width: 28px;
 
-        &::before {
-          content: '';
-          position: absolute;
-          height: 16px;
-          width: 16px;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) rotate(45deg);
-          background-image: url('~assets/img/pin_25474.svg');
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: 16px 16px;
+        .i-icon {
+          transform: rotate(45deg);
           opacity: 0.4;
         }
 
-        &.pinned::before {
-          transform: translate(-50%, -50%);
+        &.pinned .i-icon {
+          transform: rotate(0);
           opacity: 1;
         }
       }
@@ -146,17 +132,13 @@
         }
 
         .iciba-setting-button {
-          @offset: 2px;
+          @offset: 1px;
 
           position: absolute;
           right: 0;
           top: 0;
-          height: @input-container-height;
+          height: @input-container-height - @offset;
           width: @input-container-height - @offset;
-          background: url('~assets/img/settings_149837.svg');
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: 16px 16px;
           z-index: 2;
           cursor: pointer;
           opacity: 0.2;
@@ -184,9 +166,6 @@
           border: none;
           border-bottom: 1px solid @border-level-1;
           background-color: @background-level-5;
-          background-size: 16px;
-          background-position: center;
-          background-repeat: no-repeat;
 
           &:focus {
             outline: none;

@@ -7,18 +7,22 @@
       :style="computedIcibaMainStyle"
       v-show="visible">
       <div
-        class="iciba-container q-flex-co align-stretch"
+        class="iciba-container flex-co align-stretch"
         @mouseenter="stickBoxVisible = true"
         @mouseleave="stickBoxVisible = false"
         :style="computedIcibaContainerStyle">
         <transition name="stick-box">
           <div class="stick-box" v-if="config.core.showPin" v-show="config.core.pinned || stickBoxVisible">
-            <div class="drag" @mousedown="handlePinDragStart"></div>
-            <div class="stick" :class="{ pinned: config.core.pinned }" @click="handleTogglePinned"></div>
+            <div class="drag flex flex-center" @mousedown="handlePinDragStart">
+              <i-icon :svg="icon.drag_462998" />
+            </div>
+            <div class="stick flex flex-center" :class="{ pinned: config.core.pinned }" @click="handleTogglePinned">
+              <i-icon :svg="icon.pin_25474" />
+            </div>
           </div>
         </transition>
-        <div class="iciba-input-container q-flex">
-          <div class="iciba-input-box q-flex" :class="{ 'input-focused': inputFocused }">
+        <div class="iciba-input-container flex">
+          <div class="iciba-input-box flex" :class="{ 'input-focused': inputFocused }">
             <input
               id="iciba-search-input"
               class="iciba-search-input"
@@ -28,9 +32,11 @@
               @blur="inputFocused = false"
               @keypress.13="handleInputSearch"
               v-model="inputText" />
-            <div class="iciba-setting-button" @click="handleOpenSetting"></div>
+            <div class="iciba-setting-button flex flex-center" @click="handleOpenSetting">
+              <i-icon :svg="icon.settings_149837" />
+            </div>
           </div>
-          <div class="provider-button-box q-flex">
+          <div class="provider-button-box flex">
             <template
               v-for="item in providers">
               <div
@@ -43,8 +49,8 @@
                 v-if="isProviderVisible(item.provider.uniqName)"
                 @keydown.13="handleTranslateButtonClick(item)"
                 @click="handleTranslateButtonClick(item)"
-                class="provider-button"
-                :style="{ backgroundImage: `url('${item.provider.icon}')` }">
+                class="provider-button flex flex-center">
+                <i-icon :svg="item.provider.icon" />
               </button>
             </template>
           </div>

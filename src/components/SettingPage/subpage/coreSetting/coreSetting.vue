@@ -47,8 +47,8 @@
       右击小圆圈，使用备选接口查词
     </p>
 
-    <div class="q-flex mt-4 pt-1">
-      <div class="q-flex-co flex-nogrow pr-5">
+    <div class="flex mt-4 pt-1">
+      <div class="flex-co flex-nogrow pr-5">
         <div class="grey--text text--darken-1 pr-4 mb-2">接口</div>
         <div
           class="grey--text text--darken-1"
@@ -58,7 +58,7 @@
           {{ n.label }}
         </div>
       </div>
-      <div class="q-flex-co align-center flex-nogrow">
+      <div class="flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">默认接口</div>
         <i-radio-group
           class="mt-0 flex-nogrow"
@@ -71,7 +71,7 @@
           </i-radio>
         </i-radio-group>
       </div>
-      <div class="q-flex-co align-center flex-nogrow">
+      <div class="flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">备选接口</div>
         <i-radio-group
           class="mt-0"
@@ -117,7 +117,7 @@
       最大查词长度: {{ form.selectionMaxLength }} <span class="ml-1 caption">默认值: 150</span>
     </p>
 
-    <div class="q-flex align-center mr-1 mt-4">
+    <div class="flex align-center mr-1 mt-4">
       <div class="mr-3 grey--text text--darken-1">x: {{ form.icibaCircleOffsetX }}</div>
       <i-slider
         class="flex-grow"
@@ -126,7 +126,7 @@
         v-model="form.icibaCircleOffsetX"
         thumb-label />
     </div>
-    <div class="q-flex align-center mr-1">
+    <div class="flex align-center mr-1">
       <div class="mr-3 grey--text text--darken-1">y: {{ form.icibaCircleOffsetY }}</div>
       <i-slider
         class="flex-grow"
@@ -141,7 +141,7 @@
       选择文字时，小圆圈偏移鼠标指针右下方的位置。默认 x=7 y=7
     </p>
 
-    <div class="q-flex align-center mr-1 mt-4">
+    <div class="flex align-center mr-1 mt-4">
       <div class="mr-3 grey--text text--darken-1">{{ form.icibaMainWidth }}px</div>
       <i-slider
         class="flex-grow"

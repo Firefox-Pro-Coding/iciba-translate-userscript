@@ -1,7 +1,7 @@
 <template>
-  <div class="google-translate-result-container q-flex-co">
+  <div class="google-translate-result-container flex-co">
     <scroll-bar class="scroll-container">
-      <div class="google-translate-result-scroll-container q-flex-co">
+      <div class="google-translate-result-scroll-container flex-co">
         <div class="row" v-for="(row, index) of translateResult" :key="index">
           {{ row }}
         </div>

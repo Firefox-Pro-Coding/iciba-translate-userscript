@@ -1,8 +1,8 @@
 <template>
   <!-- entry item -->
-  <div class="entry-item q-flex-co align-stretch">
+  <div class="entry-item flex-co align-stretch">
     <!-- headword -->
-    <div class="headword q-flex flex-wrap">
+    <div class="headword flex flex-wrap">
       <div class="headword-word">
         {{ entry.syllabifiedHeadword || entry.headword }}
       </div>
@@ -13,14 +13,14 @@
     <phonetics class="phonetics-box" v-if="entry.phonetics" :phonetics="entry.phonetics"></phonetics>
 
     <!-- sense-family -->
-    <div class="sense-family-box q-flex-co align-stretch" v-if="entry.senseFamilies && entry.senseFamilies.length">
+    <div class="sense-family-box flex-co align-stretch" v-if="entry.senseFamilies && entry.senseFamilies.length">
       <div
-        class="sense-family-item q-flex-co align-stretch"
+        class="sense-family-item flex-co align-stretch"
         v-for="(senseFamilyItem, senseFamilyItemIndex) in entry.senseFamilies"
         :key="senseFamilyItemIndex">
         <div
           :title="item.qualifier"
-          class="poss q-flex flex-wrap"
+          class="poss flex flex-wrap"
           v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
           :key="index">
           {{ item.value }}
@@ -30,9 +30,9 @@
         <phonetics class="phonetics-box" v-if="senseFamilyItem.phonetics" :phonetics="senseFamilyItem.phonetics"></phonetics>
 
         <!-- sense-list -->
-        <div class="sense-list q-flex-co align-stretch" v-if="senseFamilyItem.senses && senseFamilyItem.senses.length">
+        <div class="sense-list flex-co align-stretch" v-if="senseFamilyItem.senses && senseFamilyItem.senses.length">
           <div
-            class="sense-item q-flex"
+            class="sense-item flex"
             :class="{ collapsable: index !== 0 }"
             v-show="index < 2"
             v-for="(sense, index) in senseFamilyItem.senses"

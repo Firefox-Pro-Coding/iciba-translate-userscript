@@ -1,12 +1,12 @@
 <template>
   <!-- example group -->
-  <div class="example-group-box q-flex-co align-stretch" v-if="exampleGroups && exampleGroups.length">
+  <div class="example-group-box flex-co align-stretch" v-if="exampleGroups && exampleGroups.length">
     <div
-      class="example-group-item q-flex-co align-stretch"
+      class="example-group-item flex-co align-stretch"
       v-for="(exampleGroupItem, index) in exampleGroups"
       :key="index">
       <div
-        class="example-item-box q-flex-co align-stretch"
+        class="example-item-box flex-co align-stretch"
         v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
         <!-- labels -->
         <div

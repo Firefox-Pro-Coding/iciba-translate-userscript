@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import { Component, Prop } from 'vue-property-decorator'
+
+import settings_149837 from '~/assets/img/settings_149837.svg'
+import drag_462998 from '~/assets/img/drag_462998.svg'
+import pin_25474 from '~/assets/img/pin_25474.svg'
+
 import bus, { ClickTranslatePayload } from '~/bus/bus'
 import zgen, { isTop } from '~/util/zIndexGenerator'
 
@@ -45,6 +50,12 @@ export default class IcibaMain extends Vue {
 
   @Prop()
   public getGoogleDictModal!: () => GoogleDictModalClass | undefined
+
+  public icon = {
+    settings_149837,
+    drag_462998,
+    pin_25474,
+  }
 
   public providers: Array<ProviderItem> = [
     { visible: false, provider: IcibaProvider },

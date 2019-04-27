@@ -71,20 +71,20 @@ module.exports = {
           },
         },
       },
-      {
-        test: /\.(woff|woff2|ttf|eot)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 0,
-            },
-          },
-        ],
-      },
+      // {
+      //   test: /\.(woff|woff2|ttf|eot)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader',
+      //       options: {
+      //         limit: 0,
+      //       },
+      //     },
+      //   ],
+      // },
       {
         test: /\.svg$/,
-        use: 'url-loader',
+        use: 'raw-loader',
       },
     ],
   },

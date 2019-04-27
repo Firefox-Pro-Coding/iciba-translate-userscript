@@ -17,12 +17,15 @@ import RadioGroup from '~/components/SettingPage/components/radioGroup/radioGrou
 import Radio from '~/components/SettingPage/components/radio/radio.vue'
 import Slider from '~/components/SettingPage/components/slider/slider.vue'
 
+import IIcon from '~/components/IIcon/IIcon.vue'
+
 Vue.directive('ripple', Ripple)
 
 Vue.component('i-checkbox', Checkbox)
 Vue.component('i-radio-group', RadioGroup)
 Vue.component('i-radio', Radio)
 Vue.component('i-slider', Slider)
+Vue.component('i-icon', IIcon)
 
 const main = async () => {
   await store.loadConfig()

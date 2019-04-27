@@ -8,6 +8,9 @@ import imageLoader from './components/imageLoader/imageLoader.vue'
 import entry from './components/entry/entry.vue'
 import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 
+import minus from '~/assets/img/minus.svg'
+import plus from '~/assets/img/plus.svg'
+
 @Component({
   name: 'GoogleDictModal',
   components: {
@@ -18,6 +21,10 @@ import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 export default class GoogleDictModal extends Vue {
   public dictionaryData: any = null
   public zIndex: number = 0
+  public icon = {
+    minus,
+    plus,
+  }
 
   public mounted() {
     globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_OPEN, this.handleOpenModal)

@@ -1,6 +1,7 @@
 <template>
-  <div class="q-flex align-center flex-nogrow radio mr-3 mt-1 mb-1" @click="handleClick">
+  <div class="flex align-center flex-nogrow radio mr-3 mt-1 mb-1" @click="handleClick">
     <div class="icon" :class="{ checked }">
+      <i-icon size="100%" :svg="checked ? icon.checked : icon.unchecked" />
       <div v-ripple="{ center: true }" class="ripple" :class="{ checked }">
         <div class="ripple-trigger"></div>
       </div>

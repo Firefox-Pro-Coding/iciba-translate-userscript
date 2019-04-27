@@ -1,17 +1,18 @@
 <template>
-  <div class="google-dict-result-container q-flex-co">
+  <div class="google-dict-result-container flex-co">
     <scroll-bar class="scroll-container">
       <div class="google-content-simple">
         <div
-          class="expand-button"
+          class="expand-button flex flex-center"
           title="展开"
           @click="handleOpenModal"
           v-if="containerDataStore.data && containerDataStore.data.length">
+          <i-icon :svg="icon.expand_128456" />
         </div>
         <!-- simple result -->
         <div class="google-content-box">
           <div
-            class="dictionary-data-box q-flex-co align-stretch"
+            class="dictionary-data-box flex-co align-stretch"
             v-if="containerDataStore.data && containerDataStore.data.length">
             <div
               class="dictionary-data-item"
@@ -19,7 +20,7 @@
               :key="index">
               <!-- entry -->
               <div
-                class="entry-box q-flex-co align-stretch"
+                class="entry-box flex-co align-stretch"
                 v-if="dicDataItem.entries && dicDataItem.entries.length">
                 <simple-entry
                   class="entry-item"

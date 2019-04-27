@@ -1,6 +1,6 @@
 <template>
   <div class="slider">
-    <div ref="track" @click="handleTrackClick" class="q-flex track align-center">
+    <div ref="track" @click="handleTrackClick" class="flex track align-center">
       <div class="track-left" :style="{ width: `${position}%` }"></div>
       <div class="track-right" :style="{ width: `${100 - position}%` }"></div>
       <div
@@ -11,7 +11,7 @@
         :style="{ left: `${position}%` }">
       </div>
       <div
-        class="bubble q-flex flex-center"
+        class="bubble flex flex-center"
         :class="{ dragging: drag.dragging }"
         :style="{ left: `${position}%` }">
         <div class="text">{{ cachedValue }}</div>

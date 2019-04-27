@@ -1,5 +1,5 @@
 <template>
-  <div class="q-flex tabs__div align-stretch">
+  <div class="flex tabs__div align-stretch">
     <div class="slider" :style="sliderStyle"></div>
     <div
       ref="tab"
@@ -8,7 +8,7 @@
       @click="tab = index"
       :class="{ active: tab === index }"
       v-ripple="{ class: tab === index ? 'active-ripple' : 'inactive-ripple' }"
-      class="tab__div q-flex flex-center">
+      class="tab__div flex flex-center">
       {{ item }}
     </div>
   </div>

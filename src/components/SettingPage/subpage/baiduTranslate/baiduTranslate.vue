@@ -16,8 +16,8 @@
       在查词框右侧显示按钮
     </p>
 
-    <div class="q-flex mt-4 pt-1">
-      <div class="q-flex-co align-start flex-nogrow pr-5">
+    <div class="flex mt-4 pt-1">
+      <div class="flex-co align-start flex-nogrow pr-5">
         <div class="grey--text text--darken-1 pr-4 mb-2">语言</div>
         <div
           class="grey--text text--darken-1"
@@ -27,7 +27,7 @@
           {{ n.text }}
         </div>
       </div>
-      <div class="q-flex-co align-center flex-nogrow">
+      <div class="flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">首选语言</div>
         <i-radio-group
           class="mt-0 flex-nogrow"
@@ -40,7 +40,7 @@
           </i-radio>
         </i-radio-group>
       </div>
-      <div class="q-flex-co align-center flex-nogrow">
+      <div class="flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">备选语言</div>
         <i-radio-group
           class="mt-0"

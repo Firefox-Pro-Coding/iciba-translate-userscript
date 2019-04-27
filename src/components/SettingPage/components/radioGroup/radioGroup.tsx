@@ -15,7 +15,7 @@ export default class RadioGroup extends Vue {
   public render() {
     const defaultSlot = this.$slots.default ? this.$slots.default : []
     return (
-      <div class='radio-group q-flex-co align-start'>
+      <div class='radio-group flex-co align-start'>
         { defaultSlot.map((v) => {
           if (v.componentOptions && v.componentOptions.propsData) {
             const props = v.componentOptions.propsData as any

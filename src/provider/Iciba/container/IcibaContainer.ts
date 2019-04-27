@@ -6,6 +6,8 @@ import { IcibaAudioCache } from '~/types/index'
 import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
 import containerData from '../containerData'
 
+import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
+
 @Component({
   name: 'IcibaContainer',
   components: {
@@ -16,6 +18,11 @@ export default class IcibaContainer extends Vue {
   public get result() {
     return containerData.data
   }
+
+  public icon = {
+    play_speaker_filled_audio_tool_59284,
+  }
+
   private audioCache: IcibaAudioCache = {}
 
   public async handlePlay(mp3Url: string): Promise<void> {

@@ -8,6 +8,8 @@ import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
 import containerDataStore from '../containerDataStore'
 import simpleEntry from './components/simpleEntry/simpleEntry.vue'
 
+import expand_128456 from '~/assets/img/expand_128456.svg'
+
 @Component({
   name: 'GoogleDictContainer',
   components: {
@@ -17,6 +19,9 @@ import simpleEntry from './components/simpleEntry/simpleEntry.vue'
 })
 export default class GoogleDictContainer extends Vue {
   public containerDataStore = containerDataStore
+  public icon = {
+    expand_128456,
+  }
 
   public getType() {
     return typeof containerDataStore.translateData

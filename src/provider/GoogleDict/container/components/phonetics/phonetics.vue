@@ -1,15 +1,16 @@
 <template>
   <!-- phonetics -->
-  <div class="phonetics-component-box q-flex" v-if="phonetics && phonetics.length">
-    <div class="phonetics q-flex">
+  <div class="phonetics-component-box flex" v-if="phonetics && phonetics.length">
+    <div class="phonetics flex">
       {{ `${phonetics.map(v => `/${v.text}/`).join(' ')}` }}
     </div>
 
     <div
-      class="play-button"
+      class="play-button flex flex-center"
       v-for="(item, index) in phonetics.filter(v => v.oxfordAudio)"
       :key="index"
       @click="handlePlay(item.oxfordAudio)">
+      <i-icon :svg="icon.play_speaker_filled_audio_tool_59284" />
     </div>
   </div>
 </template>
@@ -30,10 +31,6 @@
       cursor: pointer;
       height: 20px;
       width: 22px;
-      background: url('~assets/img/play/speaker-filled-audio-tool_59284.svg');
-      background-size: 16px;
-      background-position: center;
-      background-repeat: no-repeat;
       opacity: 0.45;
 
       &:hover {

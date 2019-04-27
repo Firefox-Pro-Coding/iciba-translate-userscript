@@ -4,7 +4,7 @@
       height: `${Number(height) / 2}px`,
       width: `${Number(width) / 2}px`,
     }"
-    class="image-loader q-flex">
+    class="image-loader flex">
     <span v-if="!data" class="placeholder">img loading</span>
     <img
       v-if="data"

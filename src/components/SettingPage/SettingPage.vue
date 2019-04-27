@@ -1,12 +1,12 @@
 <template>
   <transition name="iciba-setting-modal">
     <div
-      class="iciba-setting-modal q-flex flex-center"
+      class="iciba-setting-modal flex flex-center"
       :class="{ visible }"
       :style="{ zIndex: zIndex }"
       @click="handleCloseSetting"
       v-if="visible">
-      <div class="iciba-setting-window q-flex-co elevation-8">
+      <div class="iciba-setting-window flex-co elevation-8">
         <div class="indigo flex-nogrow align-center">
           <tabs
             v-model="tab"

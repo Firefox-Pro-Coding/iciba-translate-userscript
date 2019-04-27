@@ -1,7 +1,7 @@
 <template>
   <!-- note -->
-  <div class="dict-note q-flex-co align-stretch" v-if="note">
-    <div class="note-type-box q-flex">
+  <div class="dict-note flex-co align-stretch" v-if="note">
+    <div class="note-type-box flex">
       <labels
         class="note-label-box"
         color="plain"
