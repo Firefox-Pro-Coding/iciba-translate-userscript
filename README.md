@@ -14,7 +14,7 @@ greasyfork 地址： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻�
 - 点击查词输入框右侧齿轮图标打开设置窗口
 
 ## 预览图
-<img height="356" width="436" title="预览图" src="https://ws1.sinaimg.cn/large/006y5ecPgy1g2cwpjqktbg30o80jstxv.gif" />
+<img height="356" width="436" title="预览图" src=https://i.loli.net/2019/04/27/5cc416aaf2e9e.gif" />
 
 ## 问题反馈
 [创建issue](https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/issues) 即可。
