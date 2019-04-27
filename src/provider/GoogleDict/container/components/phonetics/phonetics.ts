@@ -15,7 +15,7 @@ export default class extends Vue {
     play_speaker_filled_audio_tool_59284,
   }
 
-  public handlePlay(url: string): void {
+  public handlePlay(url: string) {
     googleDictBus.emit(googleDictBus.events.PLAY_AUDIO, url)
   }
 }

@@ -164,7 +164,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
 
   /** 播放音频 */
   private async handlePlay(url: string): Promise<void> {
-    const volume = 0.6
+    const volume = 0.7
     const mp3Url = `https:${url}`
     // check cache
     if (mp3Url in this.audioCache) {

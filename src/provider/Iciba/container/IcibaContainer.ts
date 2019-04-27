@@ -26,7 +26,7 @@ export default class IcibaContainer extends Vue {
   private audioCache: IcibaAudioCache = {}
 
   public async handlePlay(mp3Url: string): Promise<void> {
-    const volume = 0.4
+    const volume = 0.6
     // check cache
     if (mp3Url in this.audioCache) {
       playAudio(this.audioCache[mp3Url], volume)
