@@ -40,6 +40,7 @@ interface ProviderItem {
 export default class IcibaMain extends Vue {
   public $refs!: {
     icibaMain: HTMLDivElement
+    icibaContainer: HTMLDivElement
   }
 
   @Prop({ type: Vue })
@@ -172,19 +173,32 @@ export default class IcibaMain extends Vue {
   }
 
   private async handleIcibaCircleTranslate({ word, event }: ClickTranslatePayload) {
-    if (!this.visible) {
-      this.visible = true
-      this.setPosition(event)
-    } if (this.config.core.showPin && this.config.core.pinned) {
+    const show = () => {
+      // not showed
+      if (!this.visible) {
+        this.visible = true
+        this.setPosition(event)
+        return
+      }
+
+      // not at top
       const googleDictModal = this.getGoogleDictModal()
       if (googleDictModal && this.icibaMainStyle.zIndex < googleDictModal.zIndex) {
         this.setPosition(event)
-      } else {
-        this.icibaMainStyle.zIndex = zgen()
+        return
       }
-    } else {
-      this.setPosition(event)
+
+      // out of bound
+      const container = this.$refs.icibaContainer
+      if (container) {
+        const rect = container.getBoundingClientRect()
+        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+          this.setPosition(event)
+        }
+      }
     }
+
+    show()
 
     this.inputText = word
 

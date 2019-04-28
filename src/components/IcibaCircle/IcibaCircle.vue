@@ -4,8 +4,8 @@
     :style="computedStyle"
     class="iciba-circle"
     @contextmenu.prevent
-    @mouseover="handleMouseover"
-    @mouseup="handleMouseUp">
+    @mouseover="handleSelfMouseover"
+    @mouseup="handleSelfMouseUp">
   </div>
 </template>
 

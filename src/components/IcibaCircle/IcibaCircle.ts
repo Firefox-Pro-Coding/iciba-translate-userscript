@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
 import { IcibaPositionStyle, IcibaStyle } from '~/types/index'
-import sleep from '~/util/sleep'
 import zgen from '~/util/zIndexGenerator'
 
 import bus, { ClickTranslatePayload } from '~/bus/bus'
@@ -24,16 +23,16 @@ export default class IcibaCircle extends Vue {
   }
 
   public mounted() {
-    window.addEventListener('mouseup', this.handleWindowMouseUp, true)
-    this.shadowRoot.addEventListener('mouseup', this.handleShadowRootMouseUp, false)
+    window.addEventListener('mouseup', this.handleMouseUp, true)
+    this.shadowRoot.addEventListener('mouseup', this.handleShadowRootMouseUp, true)
   }
 
   public destroyed() {
-    window.removeEventListener('mouseup', this.handleWindowMouseUp, false)
-    this.shadowRoot.removeEventListener('mouseup', this.handleShadowRootMouseUp, false)
+    window.removeEventListener('mouseup', this.handleMouseUp, false)
+    this.shadowRoot.removeEventListener('mouseup', this.handleShadowRootMouseUp, true)
   }
 
-  protected handleMouseUp(event: MouseEvent) {
+  protected handleSelfMouseUp(event: MouseEvent) {
     const payload: ClickTranslatePayload = {
       word: this.word,
       event,
@@ -47,7 +46,7 @@ export default class IcibaCircle extends Vue {
     })
   }
 
-  protected handleMouseover(event: MouseEvent) {
+  protected handleSelfMouseover(event: MouseEvent) {
     if (!this.config.core.mouseOverTranslate) {
       return
     }
@@ -60,43 +59,27 @@ export default class IcibaCircle extends Vue {
     bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
   }
 
-  protected async handleWindowMouseUp(e: MouseEvent) {
-    if (!this.visible) {
-      this.show(e)
+  protected async handleMouseUp(e: MouseEvent, proxied = false) {
+    // let handleShadowRootClick handle
+
+    if (!proxied && e.target === this.icibaRoot) {
+      return
+    }
+    if (proxied && e.target === this.$el) {
       return
     }
 
-    // outside shadow-root
-    if (e.target !== this.icibaRoot) {
-      this.visible = false
-    }
-  }
-
-  protected async handleShadowRootMouseUp(_e: Event) {
-    const e: MouseEvent = _e as any
-
-    const ignoreConditions = [
-      // click on it self
-      e.target === this.$el,
-    ]
-
-    if (ignoreConditions.some(v => v)) {
-      return
-    }
-
-    this.visible = false
-  }
-
-  private async show(e: MouseEvent) {
-    await sleep(10)
     if (this.config.core.pressCtrlToShowCircle && !e.ctrlKey) {
+      this.visible = false
       return
     }
 
     const selection = window.getSelection()
     if (!selection) {
+      this.visible = false
       return
     }
+
     const selectionString = selection.toString().trim()
     // only show button if selection is valid
     if (!selectionString.length) {
@@ -104,14 +87,22 @@ export default class IcibaCircle extends Vue {
       return
     }
 
-    if (this.config.core.selectionMaxLengthCut) {
-      if (selectionString.length > this.config.core.selectionMaxLength) {
-        return
-      }
+    if (this.config.core.selectionMaxLengthCut && selectionString.length > this.config.core.selectionMaxLength) {
+      this.visible = false
+      return
     }
 
+    this.showIcibaCircle(e, selectionString)
+  }
+
+  protected async handleShadowRootMouseUp(e: Event) {
+    this.handleMouseUp(e as MouseEvent, true)
+  }
+
+  private async showIcibaCircle(e: MouseEvent, word: string) {
+    // await sleep(10)
     this.visible = true
-    this.word = selectionString
+    this.word = word
     this.zIndex = zgen()
 
     const calcedPosition = calcMouseEventPosition(e)

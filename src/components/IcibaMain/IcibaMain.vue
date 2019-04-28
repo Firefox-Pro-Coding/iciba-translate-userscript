@@ -7,6 +7,7 @@
       :style="computedIcibaMainStyle"
       v-show="visible">
       <div
+        ref="icibaContainer"
         class="iciba-container flex-co align-stretch"
         @mouseenter="stickBoxVisible = true"
         @mouseleave="stickBoxVisible = false"
