@@ -19,6 +19,9 @@ import plus from '~/assets/img/plus.svg'
   },
 })
 export default class GoogleDictModal extends Vue {
+  public $refs!: {
+    scrollBox: HTMLDivElement
+  }
   public dictionaryData: any = null
   public zIndex: number = 0
   public icon = {
@@ -71,6 +74,21 @@ export default class GoogleDictModal extends Vue {
       this.store.googleDict.subsenseFolded = false
     } else {
       this.store.googleDict.thesaurusFolded = false
+    }
+  }
+
+  public handleScroll(e: WheelEvent) {
+    const scrollBox = this.$refs.scrollBox
+    if (scrollBox) {
+      // scroll down
+      if (e.deltaY > 0 && scrollBox.scrollTop >= scrollBox.scrollHeight - scrollBox.clientHeight) {
+        e.preventDefault()
+      }
+
+      // scroll up
+      if (e.deltaY < 0 && scrollBox.scrollTop === 0) {
+        e.preventDefault()
+      }
     }
   }
 
