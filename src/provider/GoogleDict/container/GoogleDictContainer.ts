@@ -3,7 +3,7 @@ import { Component } from 'vue-property-decorator'
 import googleDictBus from '~/provider/GoogleDict/bus'
 
 import globalBus from '~/bus/bus'
-import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
+import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
 import containerDataStore from '../containerDataStore'
 import simpleEntry from './components/simpleEntry/simpleEntry.vue'
@@ -14,7 +14,7 @@ import expand_128456 from '~/assets/img/expand_128456.svg'
   name: 'GoogleDictContainer',
   components: {
     simpleEntry,
-    ScrollBar,
+    Scrollable,
   },
 })
 export default class GoogleDictContainer extends Vue {

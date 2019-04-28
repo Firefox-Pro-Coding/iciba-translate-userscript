@@ -18,6 +18,7 @@
     <div
       class="scroll-content-box flex-co">
       <div
+        @wheel="handleScroll"
         class="scroll-content flex"
         ref="container"
         :style="{ 'margin-right': `${-scrollbarWidth}px` }">
@@ -27,6 +28,5 @@
   </div>
 </template>
 
-<script lang="ts" src="./ScrollBar.ts"></script>
-
-<style lang="less" src="./ScrollBar.less" scoped></style>
+<script lang="ts" src="./Scrollable.ts"></script>
+<style lang="less" src="./Scrollable.less" scoped></style>

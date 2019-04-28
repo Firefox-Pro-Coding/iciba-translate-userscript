@@ -1,6 +1,6 @@
 <template>
   <div class="google-dict-result-container flex-co">
-    <scroll-bar class="scroll-container">
+    <scrollable class="scroll-container">
       <div class="google-content-simple">
         <div
           class="expand-button flex flex-center"
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-    </scroll-bar>
+    </scrollable>
   </div>
 </template>
 

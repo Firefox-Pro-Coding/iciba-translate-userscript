@@ -6,7 +6,10 @@ import getScrollBarWidth from '~/util/scrollbar-width'
   name: 'IcibaSrollbarContainer',
 })
 export default class IcibaSrollbarContainer extends Vue {
-  public container: HTMLElement = null as any as HTMLElement
+  public $refs!: {
+    container: HTMLDivElement
+  }
+
   public drag = {
     start: false,
     startY: 0,
@@ -25,10 +28,11 @@ export default class IcibaSrollbarContainer extends Vue {
   public scrollbarWidth = getScrollBarWidth()
 
   public mounted() {
-    this.container = this.$refs.container as HTMLElement
-    this.container.addEventListener('scroll', this.scrollBarListener, false)
-    this.container.addEventListener('resize', this.scrollBarListener, false)
-    this.container.addEventListener('mouseenter', this.scrollBarListener, false)
+    const container = this.$refs.container
+
+    container.addEventListener('scroll', this.scrollBarListener, false)
+    container.addEventListener('resize', this.scrollBarListener, false)
+    container.addEventListener('mouseenter', this.scrollBarListener, false)
     window.addEventListener('resize', this.calcScrollbarWidth, false)
     window.addEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
     window.addEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
@@ -37,37 +41,39 @@ export default class IcibaSrollbarContainer extends Vue {
   }
 
   public beforeDestroy() {
-    this.container.removeEventListener('scroll', this.scrollBarListener, false)
-    this.container.removeEventListener('resize', this.scrollBarListener, false)
-    this.container.removeEventListener('mouseenter', this.scrollBarListener, false)
+    const container = this.$refs.container
+
+    container.removeEventListener('scroll', this.scrollBarListener, false)
+    container.removeEventListener('resize', this.scrollBarListener, false)
+    container.removeEventListener('mouseenter', this.scrollBarListener, false)
     window.removeEventListener('resize', this.calcScrollbarWidth, false)
     window.removeEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
     window.removeEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
   }
 
-  public calcScrollbarWidth() {
+  public scrollToTop() {
+    this.$refs.container.scrollTop = 0
+  }
+
+  protected calcScrollbarWidth() {
     this.scrollbarWidth = getScrollBarWidth()
   }
 
-  public scrollToTop() {
-    this.container.scrollTop = 0
-  }
-
-  public handleScrollbarThumbClick(e: MouseEvent) {
+  protected handleScrollbarThumbClick(e: MouseEvent) {
     e.preventDefault()
     this.drag.start = true
     this.drag.startY = e.clientY
-    this.drag.startScrollTop = this.container.scrollTop
+    this.drag.startScrollTop = this.$refs.container.scrollTop
   }
 
-  public handleScrollbarThumbMousemove(e: MouseEvent) {
+  protected handleScrollbarThumbMousemove(e: MouseEvent) {
     if (this.drag.start) {
       e.preventDefault()
 
       const {
         scrollHeight,
         clientHeight,
-      } = this.container
+      } = this.$refs.container
 
       const scrollSpacePixel = scrollHeight - clientHeight
       const mouseMovePixel = e.clientY - this.drag.startY
@@ -81,16 +87,27 @@ export default class IcibaSrollbarContainer extends Vue {
         destScrollTop = 0
       }
 
-      this.container.scrollTop = destScrollTop
+      this.$refs.container.scrollTop = destScrollTop
     }
   }
 
-  public handleScrollbarThumbMouseup() {
+  protected handleScrollbarThumbMouseup() {
     this.drag.start = false
   }
 
-  public recalcScrollbar() {
-    this.scrollBarListener()
+  protected handleScroll(e: WheelEvent) {
+    const scrollBox = this.$refs.container
+    if (scrollBox) {
+      // scroll down
+      if (e.deltaY > 0 && scrollBox.scrollTop >= scrollBox.scrollHeight - scrollBox.clientHeight) {
+        e.preventDefault()
+      }
+
+      // scroll up
+      if (e.deltaY < 0 && scrollBox.scrollTop === 0) {
+        e.preventDefault()
+      }
+    }
   }
 
   private scrollBarListener() {
@@ -98,7 +115,7 @@ export default class IcibaSrollbarContainer extends Vue {
       scrollTop,
       scrollHeight,
       clientHeight,
-    } = this.container
+    } = this.$refs.container
 
     const sizePercentage = clientHeight / scrollHeight
     const avaliableScrollSpace = scrollHeight - clientHeight

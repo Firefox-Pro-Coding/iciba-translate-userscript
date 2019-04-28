@@ -1,6 +1,6 @@
 <template>
   <div class="iciba-result-container flex-co">
-    <scroll-bar class="scroll-container">
+    <scrollable class="scroll-container">
       <div class="iciba-result-scroll-container flex-co">
         <!-- pinyin -->
         <div class="pinyin" v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.pinyin">
@@ -94,7 +94,7 @@
           {{ result.baseInfo.suggest.map(v => v.key).join('; ') }}
         </div>
       </div>
-    </scroll-bar>
+    </scrollable>
   </div>
 </template>
 

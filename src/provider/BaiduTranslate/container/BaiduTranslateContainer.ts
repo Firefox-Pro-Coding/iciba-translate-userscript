@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
-import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
+import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import containerData from '../containerData'
 
 @Component({
   name: 'BaiduTranslateContainer',
   components: {
-    ScrollBar,
+    Scrollable,
   },
 })
 export default class BaiduTranslateContainer extends Vue {

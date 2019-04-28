@@ -3,7 +3,7 @@ import { Component } from 'vue-property-decorator'
 import { got } from '~/util/gmapi'
 import playAudio from '~/util/playAudio'
 import { IcibaAudioCache } from '~/types/index'
-import ScrollBar from '~/components/ScrollBar/ScrollBar.vue'
+import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import containerData from '../containerData'
 
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
@@ -11,7 +11,7 @@ import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-fill
 @Component({
   name: 'IcibaContainer',
   components: {
-    ScrollBar,
+    Scrollable,
   },
 })
 export default class IcibaContainer extends Vue {
