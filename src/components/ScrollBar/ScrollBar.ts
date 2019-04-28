@@ -32,6 +32,8 @@ export default class IcibaSrollbarContainer extends Vue {
     window.addEventListener('resize', this.calcScrollbarWidth, false)
     window.addEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
     window.addEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
+
+    this.scrollBarListener()
   }
 
   public beforeDestroy() {
@@ -49,18 +51,6 @@ export default class IcibaSrollbarContainer extends Vue {
 
   public scrollToTop() {
     this.container.scrollTop = 0
-  }
-
-  public get scrollbarStyle() {
-    return {
-      track: {
-        top: `${this.scrollbar.track.top}px`,
-      },
-      thumb: {
-        height: `${this.scrollbar.thumb.size}%`,
-        top: `${this.scrollbar.thumb.position}%`,
-      },
-    }
   }
 
   public handleScrollbarThumbClick(e: MouseEvent) {
@@ -127,6 +117,18 @@ export default class IcibaSrollbarContainer extends Vue {
     this.scrollbar.thumb = {
       size: (sizePercentage * 100).toFixed(4),
       position: thumbTop.toFixed(4),
+    }
+  }
+
+  public get scrollbarStyle() {
+    return {
+      track: {
+        top: `${this.scrollbar.track.top}px`,
+      },
+      thumb: {
+        height: `${this.scrollbar.thumb.size}%`,
+        top: `${this.scrollbar.thumb.position}%`,
+      },
     }
   }
 }
