@@ -11,6 +11,7 @@ import * as googleDict from './modules/googleDict'
 import * as googleTranslate from './modules/googleTranslate'
 import * as baiduTranslate from './modules/baiduTranslate'
 import * as sougouTranslate from './modules/sougouTranslate'
+import * as urbanDictionary from './modules/urbanDictionary'
 
 const GM_VALUE_KEY = 'iciba_store'
 
@@ -21,6 +22,7 @@ const storeType = t.exact(t.type({
   [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.type,
   [PROVIDER.BAIDU_TRANSLATE]: baiduTranslate.type,
   [PROVIDER.SOUGOU_TRANSLATE]: sougouTranslate.type,
+  [PROVIDER.URBAN_DICTIONARY]: urbanDictionary.type,
 }))
 
 export type Config = t.TypeOf<typeof storeType>
@@ -32,6 +34,7 @@ export const defaultData: Config = {
   [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.defaultData,
   [PROVIDER.BAIDU_TRANSLATE]: baiduTranslate.defaultData,
   [PROVIDER.SOUGOU_TRANSLATE]: sougouTranslate.defaultData,
+  [PROVIDER.URBAN_DICTIONARY]: urbanDictionary.defaultData,
 }
 
 class Store {

@@ -5,7 +5,7 @@
       width: `${computedSize}`,
     }"
     class="i-icon flex flex-center"
-    :innerHTML.prop="svg">
+    :innerHTML.prop="svgContent">
   </div>
 </template>
 

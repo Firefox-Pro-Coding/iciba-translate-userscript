@@ -15,6 +15,7 @@ import GoogleDictProvider from '~/provider/GoogleDict/GoogleDict'
 import GoogleTranslateProvider from '~/provider/GoogleTranslate/GoogleTranslate'
 import BaiduTranslateProvider from '~/provider/BaiduTranslate/BaiduTranslate'
 import SougouTranslateProvider from '~/provider/SougouTranslate/SougouTranslate'
+import UrbanDictionaryProvider from '~/provider/UrbanDictionary/UrbanDictionary'
 
 import GoogleDictModalClass from '~/provider/GoogleDict/container/GoogleDictModal'
 
@@ -64,6 +65,7 @@ export default class IcibaMain extends Vue {
     { visible: false, provider: GoogleTranslateProvider },
     { visible: false, provider: BaiduTranslateProvider },
     { visible: false, provider: SougouTranslateProvider },
+    { visible: false, provider: UrbanDictionaryProvider },
   ]
   public visible = false
   public loading = false
@@ -114,6 +116,7 @@ export default class IcibaMain extends Vue {
     bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
     bus.on(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
     bus.on(bus.events.GOOGLE_DICT_WORD_CLICK, this.handleGoogleDictWordClick)
+    bus.on(bus.events.URBAN_DICTIONAR_TOOLTIP_CLICK, this.handleUrbanDictionryTooltipClick)
   }
 
   public destroyed() {
@@ -127,6 +130,7 @@ export default class IcibaMain extends Vue {
     bus.removeListener(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
     bus.removeListener(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
     bus.removeListener(bus.events.GOOGLE_DICT_WORD_CLICK, this.handleGoogleDictWordClick)
+    bus.removeListener(bus.events.URBAN_DICTIONAR_TOOLTIP_CLICK, this.handleUrbanDictionryTooltipClick)
   }
 
   /** 切换固定状态 */
@@ -151,6 +155,7 @@ export default class IcibaMain extends Vue {
     bus.emit(bus.events.SETTING_PREPARE_OPEN)
   }
 
+  /** 拖拽 */
   protected handlePinDragStart(e: MouseEvent) {
     e.preventDefault()
     this.removeSelection()
@@ -172,6 +177,7 @@ export default class IcibaMain extends Vue {
     return this.config[name].display
   }
 
+  /** 查词 */
   private async handleIcibaCircleTranslate({ word, event }: ClickTranslatePayload) {
     const show = () => {
       // not showed
@@ -209,6 +215,7 @@ export default class IcibaMain extends Vue {
     }
   }
 
+  /** google dict entry link click */
   private async handleGoogleDictWordClick({ word, event }: ClickTranslatePayload) {
     if (!this.visible) {
       this.visible = true
@@ -221,6 +228,15 @@ export default class IcibaMain extends Vue {
     const googleDictProvider = this.providers.find(v => v.provider.uniqName === PROVIDER.GOOGLE_DICT)
     if (googleDictProvider) {
       this.translateWithProvider(googleDictProvider)
+    }
+  }
+
+  /** urban dictionary tooltip click */
+  private async handleUrbanDictionryTooltipClick(word: string) {
+    this.inputText = word
+    const urbanDictionaryProvider = this.providers.find(v => v.provider.uniqName === PROVIDER.URBAN_DICTIONARY)
+    if (urbanDictionaryProvider) {
+      this.translateWithProvider(urbanDictionaryProvider)
     }
   }
 

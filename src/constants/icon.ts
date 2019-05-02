@@ -19,6 +19,8 @@ import baiduCircle from '~/assets/img/providerIcon/baiduTranslate/baiduCircle.sv
 import icon_with_circle from '~/assets/img/providerIcon/sougouTranslate/icon_with_circle.svg'
 import icon_no_circle from '~/assets/img/providerIcon/sougouTranslate/icon_no_circle.svg'
 
+import urbanDictionary from '~/assets/img/providerIcon/urbanDictionary/urbanDictionary.svg'
+
 const providerIcon = {
   [PROVIDER.ICIBA]: {
     searchIcon,
@@ -43,6 +45,9 @@ const providerIcon = {
   [PROVIDER.SOUGOU_TRANSLATE]: {
     icon_with_circle,
     icon_no_circle,
+  },
+  [PROVIDER.URBAN_DICTIONARY]: {
+    urbanDictionary,
   },
 }
 

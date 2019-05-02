@@ -4,6 +4,7 @@ export enum PROVIDER {
   GOOGLE_TRANSLATE = 'GOOGLE_TRANSLATE',
   BAIDU_TRANSLATE = 'BAIDU_TRANSLATE',
   SOUGOU_TRANSLATE = 'SOUGOU_TRANSLATE',
+  URBAN_DICTIONARY = 'URBAN_DICTIONARY',
 }
 export const PROVIDER_MAP = {
   [PROVIDER.ICIBA]: 'iciba查词',
@@ -11,6 +12,7 @@ export const PROVIDER_MAP = {
   [PROVIDER.GOOGLE_TRANSLATE]: 'google翻译',
   [PROVIDER.BAIDU_TRANSLATE]: '百度翻译',
   [PROVIDER.SOUGOU_TRANSLATE]: '搜狗翻译',
+  [PROVIDER.URBAN_DICTIONARY]: 'urban dictionary',
 }
 export const providerOptions = Object
   .entries(PROVIDER_MAP)
