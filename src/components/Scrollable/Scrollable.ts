@@ -3,9 +3,9 @@ import { Component } from 'vue-property-decorator'
 import getScrollBarWidth from '~/util/scrollbar-width'
 
 @Component({
-  name: 'IcibaSrollbarContainer',
+  name: 'IScrollable',
 })
-export default class IcibaSrollbarContainer extends Vue {
+export default class IScrollable extends Vue {
   public $refs!: {
     container: HTMLDivElement
   }

@@ -1,10 +1,22 @@
 import Vue from 'vue'
 import { Component, Watch } from 'vue-property-decorator'
-import { IcibaPositionStyle, IcibaStyle } from '~/types/index'
 import zgen from '~/util/zIndexGenerator'
 
 import bus, { ClickTranslatePayload } from '~/bus/bus'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
+
+interface IcibaPositionStyle {
+  top?: string
+  bottom?: string
+  left?: string
+  right?: string
+}
+interface IcibaStyle {
+  top?: number
+  bottom?: number
+  left?: number
+  right?: number
+}
 
 @Component({
   name: 'IcibaCircle',

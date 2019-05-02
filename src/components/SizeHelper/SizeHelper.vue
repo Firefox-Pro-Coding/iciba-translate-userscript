@@ -6,7 +6,6 @@
 
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
-  @import '~assets/styles/mixins.less';
 
   .iciba-size-helper {
     position: fixed;

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import { got } from '~/util/gmapi'
 import playAudio from '~/util/playAudio'
-import { IcibaAudioCache } from '~/types/index'
+import { AudioCache } from '~/types/index'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import containerData from '../containerData'
 
@@ -23,7 +23,7 @@ export default class IcibaContainer extends Vue {
     play_speaker_filled_audio_tool_59284,
   }
 
-  private audioCache: IcibaAudioCache = {}
+  private audioCache: AudioCache = {}
 
   public async handlePlay(mp3Url: string): Promise<void> {
     const volume = 0.6

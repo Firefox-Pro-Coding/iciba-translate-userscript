@@ -65,10 +65,10 @@
               :is="item.provider.containerComponentClass">
             </component>
           </template>
-          <div class="loading-tip iciba-content" v-if="loading">
+          <div class="loading-tip content-box" v-if="loading">
             <loadind-text />
           </div>
-          <div class="provider-error-message iciba-content" v-if="!loading && errorMessage">
+          <div class="provider-error-message content-box" v-if="!loading && errorMessage">
             {{ errorMessage }}
           </div>
         </div>

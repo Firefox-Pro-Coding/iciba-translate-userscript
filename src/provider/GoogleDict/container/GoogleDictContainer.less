@@ -1,5 +1,4 @@
 @import '~assets/styles/variables.less';
-@import '~assets/styles/mixins.less';
 
 .google-dict-result-container {
   // local variables
@@ -8,8 +7,7 @@
   @small-margin: 3px;
   @tiny-margin: 2px;
 
-  .container-mixin();
-
+  color: @main-level-1;
   padding: 7px 0 10px 10px;
   word-break: break-word;
   position: relative;
@@ -25,13 +23,12 @@
 
     .google-content-simple {
       flex: 1 1 auto;
-      padding-right: 10px;
       position: relative;
 
       .expand-button {
         position: absolute;
         top: -2px;
-        right: 6px;
+        right: 0;
         height: 24px;
         width: 24px;
         opacity: 0.3;

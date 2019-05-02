@@ -1,5 +1,4 @@
 @import '~assets/styles/variables.less';
-@import '~assets/styles/mixins.less';
 
 .iciba-main {
   position: absolute;
@@ -205,8 +204,9 @@
       position: relative;
       z-index: 2;
 
-      .iciba-content {
-        .container-mixin();
+      .content-box {
+        color: @main-level-1;
+        padding: 7px 10px 10px 10px;
       }
 
       .google-dict-result-container {
