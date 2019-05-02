@@ -12,7 +12,8 @@ import {
 
 const style: Array<string> = []
 
-Object.entries(colors).forEach(([colorName, colorObject]) => {
+Object.entries(colors).forEach(([_colorName, colorObject]) => {
+  const colorName = _colorName.replace(/([A-Z])/g, s => `-${s.toLowerCase()}`)
   Object.entries(colorObject).forEach(([_accentName, color]) => {
     const accentName = _accentName === 'base'
       ? _accentName
