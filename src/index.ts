@@ -1,5 +1,4 @@
-/* eslint-disable import/first */
-/* tslint:disable:no-import-side-effect */
+/* eslint-disable import/first, import/no-unassigned-import */
 import { shadowRoot } from './createRoot'
 
 import '~/util/extendIoTs'

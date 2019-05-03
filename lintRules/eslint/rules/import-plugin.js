@@ -1,10 +1,10 @@
 const path = require('path')
 
 module.exports = {
-  'extends': [
-    'plugin:import/errors',
-    'plugin:import/warnings',
-  ],
+  // 'extends': [
+  //   'plugin:import/errors',
+  //   'plugin:import/warnings',
+  // ],
 
   'plugins': ['import'],
 
@@ -52,17 +52,45 @@ module.exports = {
 
 
   'rules': {
-    'import/no-absolute-path': 'off',
-    'import/extensions': ['error', 'never', {
-      'vue': 'always',
-    }],
+    /* Static analysis */
+    'import/no-unresolved': ['error', { commonjs: true }],
+    'import/named': ['error'],
+    'import/default': ['error'],
+    'import/namespace': ['error'],
+    // 'import/no-restricted-paths': ['error'],
+    'import/no-absolute-path': ['error'],
+    'import/no-dynamic-require': ['error'],
+    // 'import/no-internal-modules': ['error'],
+    'import/no-webpack-loader-syntax': ['error'],
+    'import/no-self-import': ['error'],
+    'import/no-cycle': ['error'],
+    'import/no-useless-path-segments': ['error'],
+    // 'import/no-relative-parent-imports': ['error'],
+
+    /* Helpful warnings */
+    'import/export': ['error'],
+    'import/no-named-as-default': ['error'],
+    'import/no-named-as-default-member': ['error'],
+    'import/no-deprecated': ['error'],
     'import/no-extraneous-dependencies': ['error', {
       'optionalDependencies': ['test/unit/index.js'],
     }],
-    'import/no-unresolved': ['error', { commonjs: true }],
-    'import/no-dynamic-require': ['error'],
-    'import/export': ['error'],
     'import/no-mutable-exports': ['error'],
+
+    /* Module systems */
+    // 'import/unambiguous': ['error'],
+    // 'import/no-commonjs': ['error'],
+    // 'import/no-amd': ['error'],
+    // 'import/no-nodejs-modules': ['error'],
+
+    /* Style guide */
+    'import/first': ['error'],
+    // 'import/exports-last': ['error'],
+    'import/no-duplicates': ['error'],
+    // 'import/no-namespace': ['error'],
+    'import/extensions': ['error', 'never', {
+      'vue': 'always',
+    }],
     'import/order': [
       'error',
       {
@@ -76,6 +104,14 @@ module.exports = {
       },
     ],
     'import/newline-after-import': ['error'],
-    'import/prefer-default-export': ['off'],
+    'import/prefer-default-export': ['off'], // override airbnb
+    // 'import/max-dependencies': ['off'],
+    'import/no-unassigned-import': ['error'],
+    'import/no-named-default': ['error'],
+    // 'import/no-default-export': ['error'],
+    // 'import/no-named-export': ['error'],
+    // 'import/no-anonymous-default-export': ['error'],
+    // 'import/group-exports': ['error'],
+    // 'import/dynamic-import-chunkname': ['error'],
   },
 }

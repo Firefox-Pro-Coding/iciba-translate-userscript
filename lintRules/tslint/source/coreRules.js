@@ -34,7 +34,7 @@ module.exports = {
   // 'no-empty-interface': true,
 
   // Avoid import statements with side-effect.
-  'no-import-side-effect': true,
+  // 'no-import-side-effect': true,
 
   // Disallows explicit type declarations for variables or parameters initialized to a number, string, or boolean.
   // 'no-inferrable-types': [true, 'ignore-params'],
@@ -53,7 +53,7 @@ module.exports = {
   // 'no-non-null-assertion': false,
 
   // Disallows reassigning parameters.
-  'no-parameter-reassignment': true,
+  // 'no-parameter-reassignment': true,
 
   // Disallows /// <reference path=> imports (use ES6-style imports instead).
   // 'no-reference': true,
@@ -99,7 +99,7 @@ module.exports = {
   // ],
 
   // Warns for any two overloads that could be unified into one by using a union or an optional/rest parameter.
-  'unified-signatures': true,
+  // 'unified-signatures': true,
 
 
   /**
@@ -107,51 +107,51 @@ module.exports = {
    */
   // Requires Type Info
   // Warns for an awaited value that is not a Promise.
-  'await-promise': true,
+  // 'await-promise': true,
 
   // Disallows the comma operator to be used.
-  'ban-comma-operator': true,
+  // 'ban-comma-operator': true,
 
   // Bans the use of specific functions or global methods.
   // 'ban': '',
 
   // Enforces braces for if/for/do/while statements.
-  'curly': true,
+  // 'curly': true,
 
   // Requires a for ... in statement to be filtered with an if statement.
-  'forin': true,
+  // 'forin': true,
 
   // Disallows importing the specified modules directly via import and require.
   // Instead only sub modules may be imported from that module.
   // 'import-blacklist': '',
 
   // Only allows labels in sensible locations.
-  'label-position': true,
+  // 'label-position': true,
 
   // Disallows use of arguments.callee.
-  'no-arg': true,
+  // 'no-arg': true,
 
   // Disallows bitwise operators.
-  'no-bitwise': true,
+  // 'no-bitwise': true,
 
   // Disallows any type of assignment in conditionals.
-  'no-conditional-assignment': true,
+  // 'no-conditional-assignment': true,
 
   // Bans the use of specified console methods.
   // handled by eslint
   // 'no-console': false,
 
   // Disallows access to the constructors of String, Number, and Boolean.
-  'no-construct': true,
+  // 'no-construct': true,
 
   // Disallows debugger statements.
-  'no-debugger': true,
+  // 'no-debugger': true,
 
   // Warns if ‘super()’ appears twice in a constructor.
-  'no-duplicate-super': true,
+  // 'no-duplicate-super': true,
 
   // Prevents duplicate cases in switch statements.
-  'no-duplicate-switch-case': true,
+  // 'no-duplicate-switch-case': true,
 
   // Disallows duplicate variable declarations in the same block scope.
   // 'no-duplicate-variable': [
@@ -160,13 +160,13 @@ module.exports = {
   // ],
 
   // Bans usage of the delete operator with computed key expressions.
-  'no-dynamic-delete': true,
+  // 'no-dynamic-delete': true,
 
   // Disallows empty blocks.
-  'no-empty': true,
+  // 'no-empty': true,
 
   // Disallows eval function invocations.
-  'no-eval': true,
+  // 'no-eval': true,
 
   // Requires Type Info
   // Promises returned by functions must be handled appropriately.
@@ -185,7 +185,7 @@ module.exports = {
   'no-inferred-empty-object-type': true,
 
   // Warns on use of ${ in non-template strings.
-  'no-invalid-template-strings': true,
+  // 'no-invalid-template-strings': true,
 
   // Disallows using the this keyword outside of classes.
   // DEPRECATED
@@ -202,21 +202,21 @@ module.exports = {
   // 'no-object-literal-type-assertion': true,
 
   // Disallows unnecessary return await.
-  'no-return-await': true,
+  // 'no-return-await': true,
 
   // Disallows shadowing variable declarations.
-  'no-shadowed-variable': true,
+  // 'no-shadowed-variable': true,
 
   // Forbids array literals to contain missing elements.
-  'no-sparse-arrays': true,
+  // 'no-sparse-arrays': true,
 
   // Forbids unnecessary string literal property access.
   // Allows obj['prop-erty'] (can’t be a regular property access).
   // Disallows obj['property'] (should be obj.property).
-  'no-string-literal': true,
+  // 'no-string-literal': true,
 
   // Flags throwing plain strings or concatenations of strings.
-  'no-string-throw': true,
+  // 'no-string-throw': true,
 
   // Disallows importing any submodule.
   // 'no-submodule-imports': false,
@@ -243,10 +243,10 @@ module.exports = {
 
   // Disallows control flow statements, such as return, continue,
   // break and throws in finally blocks.
-  'no-unsafe-finally': true,
+  // 'no-unsafe-finally': true,
 
   // Disallows unused expression statements.
-  'no-unused-expression': true,
+  // 'no-unused-expression': true,
 
   // Requires Type Info
   // Disallows unused imports, variables, functions and
@@ -256,10 +256,10 @@ module.exports = {
 
   // Requires Type Info
   // Disallows usage of variables before their declaration.
-  'no-use-before-declare': true,
+  // 'no-use-before-declare': true,
 
   // Disallows usage of the var keyword.
-  'no-var-keyword': true,
+  // 'no-var-keyword': true,
 
   // Requires Type Info
   // Requires expressions of type void to appear in statement position.
@@ -270,10 +270,10 @@ module.exports = {
   // 'prefer-conditional-expression': false,
 
   // Enforces the use of the ES2015 object spread operator over Object.assign() where appropriate.
-  'prefer-object-spread': true,
+  // 'prefer-object-spread': true,
 
   // Requires the radix parameter to be specified when calling parseInt.
-  'radix': true,
+  // 'radix': true,
 
   // Requires Type Info
   // When adding two variables, operands must both be of type number or of type string.
@@ -300,10 +300,10 @@ module.exports = {
   // 'strict-type-predicates': false,
 
   // Require a default case in all switch statements.
-  'switch-default': true,
+  // 'switch-default': true,
 
   // Requires === and !== in place of == and !=.
-  'triple-equals': true,
+  // 'triple-equals': true,
 
   // Makes sure result of typeof is compared to correct string values
   // deprecated
@@ -314,7 +314,7 @@ module.exports = {
   'use-default-type-parameter': true,
 
   // Enforces use of the isNaN() function to check for NaN references instead of a comparison to the NaN constant.
-  'use-isnan': true,
+  // 'use-isnan': true,
 
 
   /**
@@ -325,23 +325,23 @@ module.exports = {
 
   // Requires Type Info
   // Warns when deprecated APIs are used.
-  'deprecation': true,
+  // 'deprecation': true,
 
   // Ensures the file ends with a newline.
-  'eofline': true,
+  // 'eofline': true,
 
   // Enforces indentation with tabs or spaces.
   // using tslint-eslint-rules. this rule is problematic
   // 'indent': [true, 'spaces', 2],
 
   // Enforces a consistent linebreak style.
-  'linebreak-style': [true, 'LF'],
+  // 'linebreak-style': [true, 'LF'],
 
   // A file may not contain more than the specified number of classes
   // 'max-classes-per-file': [true, 1],
 
   // Requires files to remain under a certain number of lines
-  'max-file-line-count': [true, 1000],
+  // 'max-file-line-count': [true, 1000],
 
   // Requires lines to be under a certain max length.
   // handled by eslint
@@ -351,7 +351,7 @@ module.exports = {
   // 'no-default-export': false,
 
   // Disallows multiple import statements from the same module.
-  'no-duplicate-imports': true,
+  // 'no-duplicate-imports': true,
 
   // Disallows mergeable namespaces in the same file.
   'no-mergeable-namespace': true,
@@ -366,7 +366,7 @@ module.exports = {
   // 'object-literal-sort-keys': true,
 
   // Requires that variable declarations use const instead of let and var if possible.
-  'prefer-const': true,
+  // 'prefer-const': true,
 
   // Requires Type Info
   // Requires that private variables are marked as readonly if they’re never modified outside of the constructor.
@@ -392,11 +392,11 @@ module.exports = {
   // 'arrow-parens': true,
 
   // Suggests to convert () => { return x; } to () => x.
-  'arrow-return-shorthand': [true, 'multiline'],
+  // 'arrow-return-shorthand': [true, 'multiline'],
 
   // In a binary expression, a literal should always be on the right-hand side if possible.
   // For example, prefer ‘x + 1’ over ‘1 + x’.
-  'binary-expression-operand-order': true,
+  // 'binary-expression-operand-order': true,
 
   // An interface or literal type with just a call signature can be written as a function type.
   // 'callable-types': false,
@@ -405,20 +405,20 @@ module.exports = {
   // 'class-name': true,
 
   // Enforces formatting rules for single-line comments.
-  'comment-format': [true, 'check-space'],
+  // 'comment-format': [true, 'check-space'],
 
   // Requires Type Info
   // Enforces JSDoc comments for important items be filled out.
   // 'completed-docs': false,
 
   // Enforces UTF-8 file encoding.
-  'encoding': true,
+  // 'encoding': true,
 
   // Enforces a certain header comment for all files, matched by a regular expression.
   // 'file-header': ,
 
   // Ensures proper spacing between import statement keywords
-  'import-spacing': true,
+  // 'import-spacing': true,
 
   // Requires interface names to begin with a capital ‘I’
   // 'interface-name': false,
@@ -427,7 +427,7 @@ module.exports = {
   // 'interface-over-type-literal': true,
 
   // Enforces basic format rules for JSDoc comments.
-  'jsdoc-format': [true, 'check-multiline-start'],
+  // 'jsdoc-format': [true, 'check-multiline-start'],
 
   // Requires Type Info
   // Requires that a default import have the same name as the declaration it imports.
@@ -441,7 +441,7 @@ module.exports = {
   // 'newline-per-chained-call': false,
 
   // Requires parentheses when invoking a constructor via the new keyword.
-  'new-parens': true,
+  // 'new-parens': true,
 
   // Requires the use of as Type for type assertions instead of <Type>.
   // 'no-angle-bracket-type-assertion': false,
@@ -451,10 +451,10 @@ module.exports = {
   'no-boolean-literal-compare': true,
 
   // Disallows one or more blank lines in a row.
-  'no-consecutive-blank-lines': [true, 2],
+  // 'no-consecutive-blank-lines': [true, 2],
 
   // Disallow irregular whitespace within a file, including strings and comments.
-  'no-irregular-whitespace': true,
+  // 'no-irregular-whitespace': true,
 
   // Disallows parameter properties in class constructors.
   // 'no-parameter-properties': true,
@@ -463,30 +463,30 @@ module.exports = {
   'no-redundant-jsdoc': true,
 
   // Don’t <reference types='foo' /> if you import foo anyway.
-  'no-reference-import': true,
+  // 'no-reference-import': true,
 
   // Disallows trailing whitespace at the end of a line.
-  'no-trailing-whitespace': true,
+  // 'no-trailing-whitespace': true,
 
   // Replaces x => f(x) with just f.
   // To catch more cases, enable only-arrow-functions and arrow-return-shorthand too.
-  'no-unnecessary-callback-wrapper': false,
+  // 'no-unnecessary-callback-wrapper': false,
 
   // Forbids a ‘var’/’let’ statement or destructuring initializer to be initialized to ‘undefined’.
-  'no-unnecessary-initializer': true,
+  // 'no-unnecessary-initializer': true,
 
   // Requires Type Info
   // Warns when a namespace qualifier (A.x) is unnecessary.
-  'no-unnecessary-qualifier': true,
+  // 'no-unnecessary-qualifier': true,
 
   // Checks that decimal literals should begin with ‘0.’ instead of just ‘.’, and should not end with a trailing ‘0’.
-  'number-literal-format': true,
+  // 'number-literal-format': true,
 
   // Enforces consistent object literal property quote style.
-  'object-literal-key-quotes': [true, 'consistent-as-needed'],
+  // 'object-literal-key-quotes': [true, 'consistent-as-needed'],
 
   // Enforces/disallows use of ES6 object literal shorthand.
-  'object-literal-shorthand': true,
+  // 'object-literal-shorthand': true,
 
   // Requires the specified tokens to be on the same line
   // as the expression preceding them.
@@ -500,7 +500,7 @@ module.exports = {
   ],
 
   // Disallows multiple variable definitions in the same declaration statement.
-  'one-variable-per-declaration': true,
+  // 'one-variable-per-declaration': true,
 
   // Requires that import statements be alphabetized and grouped.
   // 'ordered-imports': [true, {
@@ -519,18 +519,18 @@ module.exports = {
   // 'prefer-switch': false,
 
   // Prefer a template expression over string literal concatenation.
-  'prefer-template': true,
+  // 'prefer-template': true,
 
   // Prefer while loops instead of for loops without an initializer and incrementor.
   // 'prefer-while': false,
 
   // Requires single or double quotes for string literals.
-  'quotemark': [
-    true,
-    'single',
-    'avoid-escape',
-    'avoid-template',
-  ],
+  // 'quotemark': [
+  //   true,
+  //   'single',
+  //   'avoid-escape',
+  //   'avoid-template',
+  // ],
 
   // Requires Type Info
   // Prefer return; in void functions and return undefined; in value-returning functions.
@@ -540,16 +540,16 @@ module.exports = {
   // 'semicolon': [true, 'never'],
 
   // Require or disallow a space before function parenthesis
-  'space-before-function-paren': [true, {
-    'anonymous': 'never',
-    'asyncArrow': 'always',
-    'constructor': 'never',
-    'method': 'never',
-    'named': 'never',
-  }],
+  // 'space-before-function-paren': [true, {
+  //   'anonymous': 'never',
+  //   'asyncArrow': 'always',
+  //   'constructor': 'never',
+  //   'method': 'never',
+  //   'named': 'never',
+  // }],
 
   // Enforces spaces within parentheses or disallow them.  Empty parentheses () are always allowed.
-  'space-within-parens': [true, 0],
+  // 'space-within-parens': [true, 0],
 
   // Checks whether the final clause of a switch statement ends in break;.
   'switch-final-break': true,
@@ -566,17 +566,17 @@ module.exports = {
   // ],
 
   // Enforces whitespace style conventions.
-  'whitespace': [
-    true,
-    'check-branch',
-    'check-decl',
-    'check-operator',
-    'check-module',
-    'check-separator',
-    'check-type',
-    'check-typecast',
-    'check-preblock',
-    'check-type-operator',
-    'check-rest-spread',
-  ],
+  // 'whitespace': [
+  //   true,
+  //   'check-branch',
+  //   'check-decl',
+  //   'check-operator',
+  //   'check-module',
+  //   'check-separator',
+  //   'check-type',
+  //   'check-typecast',
+  //   'check-preblock',
+  //   'check-type-operator',
+  //   'check-rest-spread',
+  // ],
 }

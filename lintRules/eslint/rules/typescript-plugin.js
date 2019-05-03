@@ -7,9 +7,7 @@ module.exports = {
       ],
       'parser': '@typescript-eslint/parser',
       'parserOptions': {
-        'ecmaFeatures': {
-          'jsx': true,
-        },
+        'project': './tsconfig.json',
       },
       'rules': {
         // 'no-dupe-class-members': 'off',
@@ -31,6 +29,8 @@ module.exports = {
 
         '@typescript-eslint/adjacent-overload-signatures': ['error'],
         '@typescript-eslint/array-type': ['error', 'generic'],
+        '@typescript-eslint/await-thenable': ['error'],
+        '@typescript-eslint/ban-ts-ignore': ['error'],
         '@typescript-eslint/ban-types': ['error', {
           'types': {
             'Object': {
@@ -64,6 +64,11 @@ module.exports = {
         '@typescript-eslint/class-name-casing': ['error'],
         '@typescript-eslint/explicit-function-return-type': ['off'],
         '@typescript-eslint/explicit-member-accessibility': ['error'],
+
+        // not implemented
+        // note you must disable the base rule as it can report incorrect errors
+        // 'func-call-spacing': 'off',
+        // '@typescript-eslint/func-call-spacing': ['error', 'never'],
         '@typescript-eslint/generic-type-naming': ['off'],
 
         // note you must disable the base rule as it can report incorrect errors
@@ -112,6 +117,17 @@ module.exports = {
         '@typescript-eslint/no-array-constructor': ['error'],
         '@typescript-eslint/no-empty-interface': ['off'],
         '@typescript-eslint/no-explicit-any': ['off'],
+
+        // note you must disable the base rule as it can report incorrect errors
+        // 'no-extra-parens': 'off',
+        // '@typescript-eslint/no-extra-parens': ['error', {
+        //   'conditionalAssign': true,
+        //   'nestedBinaryExpressions': false,
+        //   'returnAssign': false,
+        //   'ignoreJSX': 'all', // delegate to eslint-plugin-react
+        //   'enforceForArrowConditionals': false,
+        // }],
+
         '@typescript-eslint/no-extraneous-class': ['error', { allowEmpty: true }],
         '@typescript-eslint/no-for-in-array': ['error'],
         '@typescript-eslint/no-inferrable-types': ['off'],
@@ -124,12 +140,8 @@ module.exports = {
         '@typescript-eslint/no-this-alias': ['error'],
         '@typescript-eslint/no-triple-slash-reference': ['error'],
         '@typescript-eslint/no-type-alias': ['off'],
-
-        // not implemented
-        // '@typescript-eslint/no-unnecessary-qualifier': ['error'],
-
-        // https://github.com/typescript-eslint/typescript-eslint/issues/101
-        // '@typescript-eslint/no-unnecessary-type-assertion': ['error'],
+        '@typescript-eslint/no-unnecessary-qualifier': ['error'],
+        '@typescript-eslint/no-unnecessary-type-assertion': ['error'],
 
         // note you must disable the base rule as it can report incorrect errors
         'no-unused-vars': 'off',
@@ -140,16 +152,15 @@ module.exports = {
 
         '@typescript-eslint/no-useless-constructor': ['error'],
         '@typescript-eslint/no-var-requires': ['error'],
-
-        // not implemented
+        // '@typescript-eslint/prefer-for-of': ['error'],
         // '@typescript-eslint/prefer-function-type': ['error'],
-
+        '@typescript-eslint/prefer-includes': ['error'],
         '@typescript-eslint/prefer-interface': ['error'],
         '@typescript-eslint/prefer-namespace-keyword': ['error'],
+        '@typescript-eslint/prefer-string-starts-ends-with': ['error'],
         '@typescript-eslint/promise-function-async': ['off'],
-
-        // https://github.com/typescript-eslint/typescript-eslint/issues/101
-        // '@typescript-eslint/restrict-plus-operands': ['error'],
+        '@typescript-eslint/require-array-sort-compare': ['off'],
+        '@typescript-eslint/restrict-plus-operands': ['error'],
 
         '@typescript-eslint/type-annotation-spacing': ['error', {
           'overrides': {
@@ -157,6 +168,8 @@ module.exports = {
             'arrow': { 'before': true, 'after': true },
           },
         }],
+        // '@typescript-eslint/unbound-method': ['error'], // bugged TypeError: Cannot read property 'kind' of undefined
+        // '@typescript-eslint/unified-signatures': ['error'],
       },
     },
     {

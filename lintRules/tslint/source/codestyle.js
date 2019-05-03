@@ -56,5 +56,4 @@ module.exports = {
 
   // Prefer a while loop instead of a for loop without initializer and incrementer.
   // 'prefer-while': true,
-
 }

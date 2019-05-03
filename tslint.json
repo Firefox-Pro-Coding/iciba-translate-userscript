@@ -3,8 +3,6 @@
   "extends": [
     "./lintRules/tslint/coreRules.json",
     "./lintRules/tslint/codestyle.json",
-    "./lintRules/tslint/tslintEslint.json",
-    "tslint-eslint-rules",
     "tslint-consistent-codestyle"
   ],
   "jsRules": {},
