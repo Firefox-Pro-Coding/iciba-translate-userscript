@@ -4,9 +4,10 @@ import { Component } from 'vue-property-decorator'
 import bus from '~/bus/bus'
 import zgen from '~/util/zIndexGenerator'
 
-import Tabs from './components/tabs/tabs.vue'
-import TabsItems from './components/tabsItems/tabsItems.vue'
-import TabItem from './components/tabItem/tabItem.vue'
+import ITabs from './components/tabs/tabs.vue'
+import ITab from './components/tab/tab.vue'
+import ITabsItems from './components/tabsItems/tabsItems.vue'
+import ITabItem from './components/tabItem/tabItem.vue'
 
 import about from './subpage/about/about.vue'
 import CoreSetting from './subpage/coreSetting/coreSetting.vue'
@@ -31,9 +32,10 @@ type TabNames = 'core' | 'iciba'
     SougouTranslate,
     UrbanDictionary,
 
-    Tabs,
-    TabsItems,
-    TabItem,
+    ITabs,
+    ITab,
+    ITabsItems,
+    ITabItem,
   },
 })
 export default class SettingPage extends Vue {

@@ -958,7 +958,7 @@
 
 "@vue/babel-preset-jsx@^1.0.0-beta.3":
   version "1.0.0-beta.3"
-  resolved "http://registry.npm.taobao.org/@vue/babel-preset-jsx/download/@vue/babel-preset-jsx-1.0.0-beta.3.tgz#15c584bd62c0286a80f0196749ae38cde5cd703b"
+  resolved "https://registry.npm.taobao.org/@vue/babel-preset-jsx/download/@vue/babel-preset-jsx-1.0.0-beta.3.tgz#15c584bd62c0286a80f0196749ae38cde5cd703b"
   integrity sha1-FcWEvWLAKGqA8BlnSa44zeXNcDs=
   dependencies:
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0-beta.3"

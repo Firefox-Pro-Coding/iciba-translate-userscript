@@ -15,6 +15,7 @@ interface WindowStyle {
 export default class ITabsItems extends Vue {
   public $refs!: {
     window: Array<HTMLDivElement>
+    windowContainer: HTMLDivElement
     container: HTMLDivElement
   }
 
@@ -27,31 +28,6 @@ export default class ITabsItems extends Vue {
   private animatingTimeout = 0
   private windowStyle: Array<WindowStyle> = []
   private scrollTopInterupt: null | (() => void) = null
-
-  public mounted() {
-    //
-  }
-
-  public render() {
-    const defaultSlot = this.$slots.default ? this.$slots.default : []
-    const VNodes = defaultSlot.filter(v => v.componentOptions && v.componentOptions.tag === 'tab-item')
-    this.initStyle(VNodes.length)
-    return (
-      <div class='i-tabs-items' ref='container'>
-        <div class='window-container flex' style={{ height: this.height ? `${this.height}px` : 'auto' }}>
-          { ...VNodes.map((v, i) => (
-            <div
-              refInFor={true}
-              ref='window'
-              style={this.windowStyle[i]}
-              class='vnode-window'>
-              { v }
-            </div>
-          )) }
-        </div>
-      </div>
-    )
-  }
 
 
   private async transform() {
@@ -73,9 +49,13 @@ export default class ITabsItems extends Vue {
 
     this.animating = true
     // before animate state
+    const windowContainerHeight = this.$refs.windowContainer.getBoundingClientRect().height
     const beforeValue = this.beforeValue
     const value = this.value
-    this.height = this.$refs.window[beforeValue].getBoundingClientRect().height
+    this.height = Math.max(
+      this.$refs.window[beforeValue].getBoundingClientRect().height,
+      windowContainerHeight,
+    )
     this.windowStyle[beforeValue].position = 'absolute'
     this.windowStyle[value].position = 'absolute'
     this.windowStyle[value].display = ''
@@ -87,7 +67,10 @@ export default class ITabsItems extends Vue {
     await new Promise(rs => this.$nextTick(() => rs()))
 
     this.scrollToTop()
-    this.height = this.$refs.window[value].getBoundingClientRect().height
+    this.height = Math.max(
+      this.$refs.window[beforeValue].getBoundingClientRect().height,
+      windowContainerHeight,
+    )
     this.windowStyle[beforeValue].transform = beforeValue < value
       ? 'translate(-100%, 0)'
       : 'translate(100%, 0)'
@@ -120,6 +103,9 @@ export default class ITabsItems extends Vue {
       if (time > 300 || stop) {
         return
       }
+      if (this.$refs.container.scrollTop === 0) {
+        return
+      }
       this.$refs.container.scrollTop = start - ease(time / 300) * start
       window.requestAnimationFrame(scroll)
     }
@@ -141,25 +127,35 @@ export default class ITabsItems extends Vue {
     }))
   }
 
-  // private beforeEnter(i: number) {
-  //   console.log('enter', this.beforeValue, i)
-  //   this.height = this.$refs.window[this.beforeValue].getBoundingClientRect().height
-  // }
-
-  // private enter(i: number) {
-  //   console.log('enter', this.beforeValue, i)
-  //   this.height = this.$refs.window[i].getBoundingClientRect().height
-  // }
-
-  // private afterEnter(i: number) {
-  //   console.log('afterLeave', this.beforeValue, i)
-  //   this.height = 0
-  // }
-
   /* eslint-disable-next-line @typescript-eslint/member-ordering */
   @Watch('value')
   public valueChange(_new: number, old: number) {
     this.beforeValue = old
     this.transform()
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  public render() {
+    const defaultSlot = this.$slots.default ? this.$slots.default : []
+    const VNodes = defaultSlot.filter(v => v.componentOptions && v.componentOptions.tag === 'i-tab-item')
+    this.initStyle(VNodes.length)
+    return (
+      <div class='i-tabs-items' ref='container'>
+        <div
+          ref="windowContainer"
+          class='window-container flex'
+          style={{ height: this.height ? `${this.height}px` : 'auto' }}>
+          { ...VNodes.map((v, i) => (
+            <div
+              refInFor={true}
+              ref='window'
+              style={this.windowStyle[i]}
+              class='vnode-window'>
+              { v }
+            </div>
+          )) }
+        </div>
+      </div>
+    )
   }
 }

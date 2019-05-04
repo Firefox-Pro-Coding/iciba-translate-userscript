@@ -6,35 +6,34 @@
       :style="{ zIndex: zIndex }"
       @click="handleCloseSetting"
       v-if="visible">
-      <div class="iciba-setting-window flex-co elevation-8">
-        <div class="indigo flex-nogrow align-center">
-          <tabs
+      <div class="iciba-setting-window flex elevation-8">
+        <div class="indigo flex-noresize align-center">
+          <i-tabs
             v-model="tab"
             color="indigo"
             dark
-            :tabs="[
-              '设置',
-              'core',
-              'iciba',
-              'google字典',
-              'google翻译',
-              '百度翻译',
-              '搜狗翻译',
-              'urban dictionary',
-            ]"
-            slider-color="rgba(255,255,255,0.7)" />
+            slider-color="rgba(255,255,255,0.8)">
+            <i-tab>设置</i-tab>
+            <i-tab>core</i-tab>
+            <i-tab>iciba</i-tab>
+            <i-tab>google 字典</i-tab>
+            <i-tab>google 翻译</i-tab>
+            <i-tab>百度翻译</i-tab>
+            <i-tab>搜狗翻译</i-tab>
+            <i-tab>urban<br>dictionary</i-tab>
+          </i-tabs>
         </div>
 
-        <tabs-items class="fill-height" style="overflow: auto" v-model="tab">
-          <tab-item class="pa-3"><about /></tab-item>
-          <tab-item class="pa-3"><core-setting /></tab-item>
-          <tab-item class="pa-3"><iciba /></tab-item>
-          <tab-item class="pa-3"><google-dict /></tab-item>
-          <tab-item class="pa-3"><google-translate /></tab-item>
-          <tab-item class="pa-3"><baidu-translate /></tab-item>
-          <tab-item class="pa-3"><sougou-translate /></tab-item>
-          <tab-item class="pa-3"><urban-dictionary /></tab-item>
-        </tabs-items>
+        <i-tabs-items class="fill-height flex-auto" style="overflow: auto;" v-model="tab">
+          <i-tab-item class="pa-3"><about /></i-tab-item>
+          <i-tab-item class="pa-3"><core-setting /></i-tab-item>
+          <i-tab-item class="pa-3"><iciba /></i-tab-item>
+          <i-tab-item class="pa-3"><google-dict /></i-tab-item>
+          <i-tab-item class="pa-3"><google-translate /></i-tab-item>
+          <i-tab-item class="pa-3"><baidu-translate /></i-tab-item>
+          <i-tab-item class="pa-3"><sougou-translate /></i-tab-item>
+          <i-tab-item class="pa-3"><urban-dictionary /></i-tab-item>
+        </i-tabs-items>
       </div>
     </div>
   </transition>
