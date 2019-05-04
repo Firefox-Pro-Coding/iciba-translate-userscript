@@ -10,5 +10,5 @@ export const type = t.type({
 
 export const defaultData: t.TypeOf<typeof type> = {
   icon: 'urbanDictionary',
-  display: true,
+  display: false,
 }
