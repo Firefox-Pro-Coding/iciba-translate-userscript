@@ -42,7 +42,7 @@
     "@noe132/vue-style-loader": "^4.2.0",
     "@types/event-emitter": "^0.3.3",
     "@types/greasemonkey": "^4.0.0",
-    "@types/node": "^11.13.9",
+    "@types/node": "^12.0.0",
     "@types/rimraf": "^2.0.2",
     "@types/tampermonkey": "^4.0.0",
     "@types/uuid": "^3.4.4",
@@ -79,7 +79,7 @@
     "vue-tsx-support": "^2.3.0",
     "webpack": "^4.30.0",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.1",
+    "webpack-cli": "^3.3.2",
     "webpack-dev-middleware": "^3.6.2",
     "webpack-hot-client": "^4.1.1",
     "webpack-merge": "^4.2.1"
