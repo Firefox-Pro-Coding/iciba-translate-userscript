@@ -1,6 +1,9 @@
 <template>
   <div class="iciba-result-container flex-co">
-    <scrollable class="scroll-container">
+    <scrollable
+      :no-scroll-bar-style="{ 'padding-right': '10px' }"
+      :scroll-bar-style="{ 'padding-right': '2px' }"
+      class="scroll-container">
       <div class="iciba-result-scroll-container flex-co">
         <!-- pinyin -->
         <div class="pinyin" v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.pinyin">

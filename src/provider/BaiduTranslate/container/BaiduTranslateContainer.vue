@@ -1,6 +1,9 @@
 <template>
   <div class="baidu-translate-container flex-co">
-    <scrollable class="scroll-container">
+    <scrollable
+      :no-scroll-bar-style="{ 'padding-right': '10px' }"
+      :scroll-bar-style="{ 'padding-right': '2px' }"
+      class="scroll-container">
       <div class="baidu-translate-result-scroll-container flex-co">
         <div class="row" v-for="(row, index) of translateResult" :key="index">
           {{ row }}

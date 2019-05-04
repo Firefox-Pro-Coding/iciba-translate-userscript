@@ -1,15 +1,17 @@
 
 @import '~assets/styles/variables.less';
 
-.scroll-container {
+.scrollable-container {
   display: flex;
   position: relative;
+
+  @scrollbarWidth: 12px;
 
   .scroll-bar-track {
     position: absolute;
     top: 3px;
     right: 0;
-    width: 12px;
+    width: @scrollbarWidth;
     bottom: 3px;
     z-index: 2;
 
@@ -35,22 +37,20 @@
     }
   }
 
-  .scroll-content-box {
+  .scroll-content {
     flex: 1 1 auto;
     overflow: hidden;
 
-    .scroll-content {
-      flex: 1 1 auto;
-      padding-right: 12px;
-      overflow-y: scroll;
-    }
-  }
-
-  &.no-scroll-bar {
-    .scroll-content-box {
-      .scroll-content {
+    &.no-scroll-bar {
+      .scroll-box {
         padding-right: 0;
       }
+    }
+
+    .scroll-box {
+      flex: 1 1 auto;
+      padding-right: @scrollbarWidth;
+      overflow-y: scroll;
     }
   }
 }

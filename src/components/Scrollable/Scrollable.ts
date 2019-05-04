@@ -1,11 +1,17 @@
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Prop } from 'vue-property-decorator'
 import getScrollBarWidth from '~/util/scrollbar-width'
 
 @Component({
   name: 'IScrollable',
 })
 export default class IScrollable extends Vue {
+  @Prop({ type: Object, default: () => ({}) })
+  public scrollBarStyle!: object
+
+  @Prop({ type: Object, default: () => ({}) })
+  public noScrollBarStyle!: object
+
   public $refs!: {
     container: HTMLDivElement
   }
@@ -30,25 +36,29 @@ export default class IScrollable extends Vue {
   public mounted() {
     const container = this.$refs.container
 
-    container.addEventListener('scroll', this.scrollBarListener, false)
-    container.addEventListener('resize', this.scrollBarListener, false)
-    container.addEventListener('mouseenter', this.scrollBarListener, false)
+    container.addEventListener('scroll', this.calcScrollbar, false)
+    container.addEventListener('resize', this.calcScrollbar, false)
+    container.addEventListener('mouseenter', this.calcScrollbar, false)
     window.addEventListener('resize', this.calcScrollbarWidth, false)
     window.addEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
     window.addEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
 
-    this.scrollBarListener()
+    this.calcScrollbar()
   }
 
   public beforeDestroy() {
     const container = this.$refs.container
 
-    container.removeEventListener('scroll', this.scrollBarListener, false)
-    container.removeEventListener('resize', this.scrollBarListener, false)
-    container.removeEventListener('mouseenter', this.scrollBarListener, false)
+    container.removeEventListener('scroll', this.calcScrollbar, false)
+    container.removeEventListener('resize', this.calcScrollbar, false)
+    container.removeEventListener('mouseenter', this.calcScrollbar, false)
     window.removeEventListener('resize', this.calcScrollbarWidth, false)
     window.removeEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
     window.removeEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
+  }
+
+  public updated() {
+    this.calcScrollbar()
   }
 
   public scrollToTop() {
@@ -110,7 +120,7 @@ export default class IScrollable extends Vue {
     }
   }
 
-  private scrollBarListener() {
+  private calcScrollbar() {
     const {
       scrollTop,
       scrollHeight,
@@ -121,23 +131,27 @@ export default class IScrollable extends Vue {
     const avaliableScrollSpace = scrollHeight - clientHeight
     const currentScrollPercentage = scrollTop / avaliableScrollSpace
 
-    // console.log(currentScrollPercentage)
-
     const thumbMaxHeightPercentage = 1 - sizePercentage
     const thumbTop = thumbMaxHeightPercentage * currentScrollPercentage * 100
 
     this.noScrollBar = sizePercentage === 1
 
-    this.scrollbar.track = {
-      top: scrollTop,
+    const thumbSize = (sizePercentage * 100).toFixed(4)
+    const thumbPosition = thumbTop.toFixed(4)
+
+    // prevent infinite update
+    if (this.scrollbar.track.top !== scrollTop) {
+      this.scrollbar.track.top = scrollTop
     }
-    this.scrollbar.thumb = {
-      size: (sizePercentage * 100).toFixed(4),
-      position: thumbTop.toFixed(4),
+    if (this.scrollbar.thumb.size !== thumbSize) {
+      this.scrollbar.thumb.size = thumbSize
+    }
+    if (this.scrollbar.thumb.position !== thumbPosition) {
+      this.scrollbar.thumb.position = thumbPosition
     }
   }
 
-  public get scrollbarStyle() {
+  protected get scrollbarStyle() {
     return {
       track: {
         top: `${this.scrollbar.track.top}px`,
@@ -146,6 +160,22 @@ export default class IScrollable extends Vue {
         height: `${this.scrollbar.thumb.size}%`,
         top: `${this.scrollbar.thumb.position}%`,
       },
+    }
+  }
+
+  protected get scrollBoxStyle() {
+    return {
+      'margin-right': `${-this.scrollbarWidth}px`,
+    }
+  }
+
+  protected get contentWrapperStyle() {
+    return {
+      ...(
+        this.noScrollBar
+          ? { ...this.noScrollBarStyle }
+          : { ...this.scrollBarStyle }
+      ),
     }
   }
 }

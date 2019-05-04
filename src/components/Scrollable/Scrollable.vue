@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="scroll-container"
-    :class="{ 'no-scroll-bar': noScrollBar }">
+  <div class="scrollable-container">
     <div
       :class="{ moving: drag.start, 'no-scroll-bar': noScrollBar }"
       class="scroll-bar-track"
@@ -16,13 +14,18 @@
       </div>
     </div>
     <div
-      class="scroll-content-box flex-co">
+      :class="{ 'no-scroll-bar': noScrollBar }"
+      class="scroll-content flex-co">
       <div
         @wheel="handleScroll"
-        class="scroll-content flex"
-        ref="container"
-        :style="{ 'margin-right': `${-scrollbarWidth}px` }">
-        <slot></slot>
+        :style="scrollBoxStyle"
+        class="scroll-box flex"
+        ref="container">
+        <div
+          :style="contentWrapperStyle"
+          class="content-wrapper">
+          <slot :scroll-bar="!noScrollBar"></slot>
+        </div>
       </div>
     </div>
   </div>

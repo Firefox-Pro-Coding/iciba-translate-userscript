@@ -28,12 +28,16 @@
       .expand-button {
         position: absolute;
         top: -2px;
-        right: 0;
+        right: -5px;
         height: 24px;
         width: 24px;
         opacity: 0.3;
         cursor: pointer;
         z-index: 2;
+
+        &.with-scroll-bar {
+          right: 0;
+        }
 
         &:hover {
           opacity: 0.6;

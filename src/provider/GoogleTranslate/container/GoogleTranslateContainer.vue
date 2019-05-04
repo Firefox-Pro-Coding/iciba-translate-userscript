@@ -1,6 +1,9 @@
 <template>
   <div class="google-translate-result-container flex-co">
-    <scrollable class="scroll-container">
+    <scrollable
+      :no-scroll-bar-style="{ 'padding-right': '10px' }"
+      :scroll-bar-style="{ 'padding-right': '2px' }"
+      class="scroll-container">
       <div class="google-translate-result-scroll-container flex-co">
         <div class="row" v-for="(row, index) of translateResult" :key="index">
           {{ row }}
