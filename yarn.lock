@@ -619,19 +619,12 @@
     js-levenshtein "^1.1.3"
     semver "^5.5.0"
 
-"@babel/runtime-corejs2@^7.4.4":
+"@babel/runtime-corejs3@^7.4.4":
   version "7.4.4"
-  resolved "https://registry.npm.taobao.org/@babel/runtime-corejs2/download/@babel/runtime-corejs2-7.4.4.tgz#4d4519a4c85e9d98fdff59f5371758a34ae07923"
-  integrity sha1-TUUZpMhenZj9/1n1NxdYo0rgeSM=
+  resolved "https://registry.npm.taobao.org/@babel/runtime-corejs3/download/@babel/runtime-corejs3-7.4.4.tgz#37fab72b23e6c7024e8ae494a2cd019cae2a2206"
+  integrity sha1-N/q3KyPmxwJOiuSUos0BnK4qIgY=
   dependencies:
-    core-js "^2.6.5"
-    regenerator-runtime "^0.13.2"
-
-"@babel/runtime@^7.4.4":
-  version "7.4.4"
-  resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.4.4.tgz#dc2e34982eb236803aa27a07fea6857af1b9171d"
-  integrity sha1-3C40mC6yNoA6onoH/qaFevG5Fx0=
-  dependencies:
+    core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.2"
 
 "@babel/template@^7.1.0", "@babel/template@^7.4.4":
@@ -1960,7 +1953,7 @@ core-js-compat@^3.0.0:
     core-js-pure "3.0.1"
     semver "^6.0.0"
 
-core-js-pure@3.0.1:
+core-js-pure@3.0.1, core-js-pure@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npm.taobao.org/core-js-pure/download/core-js-pure-3.0.1.tgz#37358fb0d024e6b86d443d794f4e37e949098cbe"
   integrity sha1-NzWPsNAk5rhtRD15T0436UkJjL4=
@@ -1969,11 +1962,6 @@ core-js@3.0.1:
   version "3.0.1"
   resolved "https://registry.npm.taobao.org/core-js/download/core-js-3.0.1.tgz#1343182634298f7f38622f95e73f54e48ddf4738"
   integrity sha1-E0MYJjQpj384Yi+V5z9U5I3fRzg=
-
-core-js@^2.6.5:
-  version "2.6.5"
-  resolved "https://registry.npm.taobao.org/core-js/download/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
-  integrity sha1-RLyNJJ5/sv9dAOA0Gn/7lPv2eJU=
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"

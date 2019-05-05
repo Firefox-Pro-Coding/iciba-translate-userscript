@@ -25,8 +25,7 @@
   "author": "noe132",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.4.4",
-    "@babel/runtime-corejs2": "^7.4.4",
+    "@babel/runtime-corejs3": "^7.4.4",
     "io-ts": "^1.8.5",
     "typescript": "^3.4.5",
     "uuid": "^3.3.2",
