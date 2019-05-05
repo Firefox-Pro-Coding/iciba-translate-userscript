@@ -38,20 +38,18 @@
               </template>
             </div>
             <div class="flex mt-2 align-center caption grey--text">
-              <div class="mr-2 pr-1 flex" style="flex: 0 0 auto">
+              <div class="mr-2 pr-1 flex flex-noresize">
                 <i-icon
                   size="14"
-                  class="mr-1"
-                  style="opacity: 0.8"
+                  class="thumb-up thumb mr-1"
                   :svg="icon.like_179655" />
                 {{ item.thumbs_up }}
               </div>
-              <div class="flex mr-2" style="flex: 0 0 auto">
+              <div class="flex mr-2 flex-noresize">
                 <i-icon
                   size="14"
                   color="#E64C3D"
-                  style="opacity: 0.8; transform: translate(0, 3px) rotate(180deg)"
-                  class="mr-1"
+                  class="thumb thumb-down mr-1"
                   :svg="icon.like_179655" />
                 {{ item.thumbs_down }}
               </div>

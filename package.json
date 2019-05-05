@@ -14,7 +14,7 @@
     "lint": "ts-node -P ./utils/tsconfig-util.json ./build/lint.ts",
     "lint:eslint": "eslint --ext \"js,ts,vue\" ./src/",
     "lint:tslint": "node ./lintRules/tslint/compile.js && tslint -t verbose -p ./tsconfig.json ./src/**/*.ts | ts-node -P ./utils/tsconfig-util.json utils/tslintFormatter.ts",
-    "lint:css": "stylelint  ./**/*.less"
+    "lint:css": "stylelint ./**/*.less ./**/*.vue"
   },
   "keywords": [
     "iciba",

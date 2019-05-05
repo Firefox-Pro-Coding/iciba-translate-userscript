@@ -52,7 +52,7 @@
         <div class="grey--text text--darken-1 pr-4 mb-2">接口</div>
         <div
           class="grey--text text--darken-1"
-          style="height: 24px; margin-bottom: 8px"
+          style="height: 24px; margin-bottom: 8px;"
           v-for="n of providerOptions"
           :key="n.key">
           {{ n.label }}

@@ -38,7 +38,7 @@
         <div class="grey--text text--darken-1 pr-4 mb-2">语言</div>
         <div
           class="grey--text text--darken-1 mb-2"
-          style="height: 24px"
+          style="height: 24px;"
           v-for="n of languageOptions"
           :key="n.key">
           {{ n.text }}
