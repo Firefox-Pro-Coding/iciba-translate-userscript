@@ -50,7 +50,12 @@
     .scroll-box {
       flex: 1 1 auto;
       padding-right: @scrollbarWidth;
+      overflow-x: hidden;
       overflow-y: scroll;
+
+      .content-wrapper {
+        width: 100%;
+      }
     }
   }
 }
