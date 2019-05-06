@@ -26,10 +26,10 @@
                     :labels="[thesaurusItem.register]">
                   </labels>
                   <div
-                    v-for="(nym, index) in thesaurusItem.nyms"
-                    class="nym-item q-inline"
+                    class="nym-item inline-flex"
+                    v-for="(nym, nymIndex) in thesaurusItem.nyms"
                     :class="{ 'is-core': nym.isCore }"
-                    :key="index">
+                    :key="nymIndex">
                     <div
                       @click="handleNymClick($event, nym.nym)"
                       :class="{ 'entry-link': nym.numEntries }"
@@ -37,7 +37,7 @@
                       {{ nym.nym }}
                     </div>
                     <div
-                      v-if="index !== thesaurusItem.nyms.length - 1"
+                      v-if="nymIndex !== thesaurusItem.nyms.length - 1"
                       class="nym-split q-inline">
                       ,
                     </div>
@@ -57,7 +57,7 @@
             v-for="(example, index) in thesaurus.examples"
             :key="index">
             <div class="example-padding-text">
-              <!-- placeholder only -->
+              <!-- this text is invisible for placeholder only -->
               synonyms:
             </div>
             <div class="example-text" v-html="`${addQoute(example)}`"></div>

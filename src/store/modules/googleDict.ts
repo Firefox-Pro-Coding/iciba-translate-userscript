@@ -12,5 +12,5 @@ export const type = t.type({
 export const defaultData: t.TypeOf<typeof type> = {
   icon: 'type_0_google',
   display: true,
-  foldStatus: GOOGLE_DICT_FOLD_STATUS.UNFOLD,
+  foldStatus: GOOGLE_DICT_FOLD_STATUS.HALF_FOLD,
 }
