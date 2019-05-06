@@ -35,7 +35,7 @@
       label="显示查词框固定图钉">
     </i-checkbox>
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
-      显示固定秃顶，可固定查词框使其不自动关闭
+      显示固定图钉，可固定查词框使其不自动关闭
     </p>
 
     <i-checkbox
