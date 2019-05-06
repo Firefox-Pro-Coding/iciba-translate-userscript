@@ -11,6 +11,13 @@ import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 import minus from '~/assets/img/minus.svg'
 import plus from '~/assets/img/plus.svg'
 
+
+const foldOrder = [
+  GOOGLE_DICT_FOLD_STATUS.FOLD,
+  GOOGLE_DICT_FOLD_STATUS.HALF_FOLD,
+  GOOGLE_DICT_FOLD_STATUS.UNFOLD,
+]
+
 @Component({
   name: 'GoogleDictModal',
   components: {
@@ -33,51 +40,40 @@ export default class GoogleDictModal extends Vue {
     globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_OPEN, this.handleOpenModal)
   }
 
-  public handleOpenModal(p: { googleDictData: any }) {
+  protected handleOpenModal(p: { googleDictData: any }) {
     this.zIndex = zgen()
     this.dictionaryData = p.googleDictData
 
-    if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.FOLD) {
-      this.store.googleDict.thesaurusFolded = true
-      this.store.googleDict.subsenseFolded = true
-    }
-
-    if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.HALF_FOLD) {
-      this.store.googleDict.thesaurusFolded = true
-      this.store.googleDict.subsenseFolded = false
-    }
-
-    if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.UNFOLD) {
-      this.store.googleDict.thesaurusFolded = false
-      this.store.googleDict.subsenseFolded = false
-    }
+    this.loadFoldStatus()
 
     this.$nextTick(() => {
       store.state.googleDict.modalVisible = true
     })
   }
 
-  public handleCloseModal() {
+  protected handleCloseModal() {
     store.state.googleDict.modalVisible = false
   }
 
-  public handleShrink() {
-    if (!this.store.googleDict.thesaurusFolded) {
-      this.store.googleDict.thesaurusFolded = true
-    } else {
-      this.store.googleDict.subsenseFolded = true
+  protected handleShrink() {
+    const index = foldOrder.indexOf(this.config[PROVIDER.GOOGLE_DICT].foldStatus) - 1
+    if (index >= 0) {
+      this.config[PROVIDER.GOOGLE_DICT].foldStatus = foldOrder[index]
     }
+    this.loadFoldStatus()
+    this.$store.saveConfig()
   }
 
-  public handleExpand() {
-    if (this.store.googleDict.subsenseFolded) {
-      this.store.googleDict.subsenseFolded = false
-    } else {
-      this.store.googleDict.thesaurusFolded = false
+  protected handleExpand() {
+    const index = foldOrder.indexOf(this.config[PROVIDER.GOOGLE_DICT].foldStatus) + 1
+    if (index < foldOrder.length) {
+      this.config[PROVIDER.GOOGLE_DICT].foldStatus = foldOrder[index]
     }
+    this.loadFoldStatus()
+    this.$store.saveConfig()
   }
 
-  public handleScroll(e: WheelEvent) {
+  protected handleScroll(e: WheelEvent) {
     const scrollBox = this.$refs.scrollBox
     if (scrollBox) {
       // scroll down
@@ -92,15 +88,32 @@ export default class GoogleDictModal extends Vue {
     }
   }
 
-  public get shrinkable() {
+  private loadFoldStatus() {
+    if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.FOLD) {
+      this.store.googleDict.thesaurusFolded = true
+      this.store.googleDict.subsenseFolded = true
+    }
+
+    if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.HALF_FOLD) {
+      this.store.googleDict.thesaurusFolded = true
+      this.store.googleDict.subsenseFolded = false
+    }
+
+    if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.UNFOLD) {
+      this.store.googleDict.thesaurusFolded = false
+      this.store.googleDict.subsenseFolded = false
+    }
+  }
+
+  protected get shrinkable() {
     return !this.store.googleDict.thesaurusFolded || !this.store.googleDict.subsenseFolded
   }
 
-  public get expandable() {
+  protected get expandable() {
     return this.store.googleDict.thesaurusFolded || this.store.googleDict.subsenseFolded
   }
 
-  public get modalVisible() {
+  protected get modalVisible() {
     return store.state.googleDict.modalVisible
   }
 }
