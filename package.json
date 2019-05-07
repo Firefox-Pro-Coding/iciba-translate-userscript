@@ -1,6 +1,6 @@
 {
   "name": "iciba-translate-userscript",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "iciba划词翻译",
   "main": "server.js",
   "scripts": {
