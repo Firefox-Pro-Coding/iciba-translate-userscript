@@ -11,6 +11,7 @@
 // @grant              GM.xmlHttpRequest
 // @grant              GM.getValue
 // @grant              GM.setValue
+// @grant              unsafeWindow
 // @icon               http://tb.himg.baidu.com/sys/portrait/item/d4346e6f65313332ac06
 // @version            {{ version }}
 // @supportURL         https://github.com/Firefox-Pro-Coding/iciba-translate-userscript
@@ -18,3 +19,6 @@
 // ==/UserScript==
 
 // this file was compiled by webpack.
+
+// pass native window object to the script
+window = unsafeWindow;

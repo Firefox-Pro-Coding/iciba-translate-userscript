@@ -3,3 +3,4 @@ lintRules/tslint/customRules
 iciba.user.js
 !.eslintrc.js
 *.d.ts
+/config/metaData.js
