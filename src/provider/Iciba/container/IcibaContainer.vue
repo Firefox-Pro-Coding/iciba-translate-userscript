@@ -6,9 +6,9 @@
       class="scroll-container">
       <div class="iciba-result-scroll-container flex-co">
         <!-- pinyin -->
-        <div class="pinyin" v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.pinyin">
+        <!-- <div class="pinyin" v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.pinyin">
           [{{ result.chinese.ci.pinyin }}]
-        </div>
+        </div> -->
 
         <!-- symbols -->
         <div
@@ -17,6 +17,15 @@
           <div class="symbol-item flex-co align-stretch" v-for="(symbomItem, index) in result.baseInfo.symbols" :key="index">
             <!-- pronunciation -->
             <div class="pronunciation-box flex-co align-stretch">
+              <!-- symbol_mp3 -->
+              <div v-if="symbomItem.word_symbol" class="pronunciation-item pron-en flex">
+                <div class="ipa" v-if="symbomItem.symbol_mp3">
+                  {{ symbomItem.word_symbol }}
+                </div>
+                <div class="play-sound flex flex-center" @click="handlePlay(symbomItem.symbol_mp3)">
+                  <i-icon :svg="icon.play_speaker_filled_audio_tool_59284" />
+                </div>
+              </div>
               <!-- en -->
               <div class="pronunciation-item pron-en flex" v-if="symbomItem.ph_en_mp3">
                 <div class="ipa-type-name">英</div>
@@ -54,7 +63,12 @@
             <!-- meaning -->
             <div
               class="part-box flex-co align-stretch"
-              :class="{ 'no-margin-top': !symbomItem.ph_en_mp3 && !symbomItem.ph_am_mp3 && !symbomItem.ph_tts_mp3 }"
+              :class="{
+                'no-margin-top': !symbomItem.ph_en_mp3
+                  && !symbomItem.ph_am_mp3
+                  && !symbomItem.ph_tts_mp3
+                  && !symbomItem.symbol_mp3,
+              }"
               v-if="symbomItem.parts.length">
               <div class="part-item flex" v-for="(partItem, partItemIndex) in symbomItem.parts" :key="partItemIndex">
                 <div class="part-item-part" v-if="partItem.part">

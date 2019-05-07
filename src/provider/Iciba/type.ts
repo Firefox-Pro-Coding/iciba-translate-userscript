@@ -80,6 +80,8 @@ interface BaseInfoSymbol {
   ph_am_mp3: string
   ph_tts_mp3: string
   parts: Array<SymbolPart>
+  word_symbol?: string
+  symbol_mp3?: string
 }
 
 interface SymbolPart {
