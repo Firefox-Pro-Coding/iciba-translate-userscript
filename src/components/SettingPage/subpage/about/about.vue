@@ -3,11 +3,11 @@
     <h1 class="title mt-1">iciba划词翻译</h1>
     <div class="body-2 mt-4">
       <div>
-        修改设置会自动保存。其他标签页需要刷新后才会加载新设置。
+        修改设置会自动保存。其他已打开的标签页需要刷新后才会加载新设置。
       </div>
 
       <div class="mt-3">
-        Greasefork:
+        Greasyfork:
         <br>
         <a target="_blank" href="https://greasyfork.org/zh-CN/scripts/6303-iciba%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91">
           https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译
