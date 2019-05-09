@@ -26,7 +26,6 @@ export default class extends Vue {
   }
 
   public async handleDraw(url: string): Promise<void> {
-    const urlObj = new URL(url)
     try {
       const response = await got({
         method: 'GET',
@@ -37,7 +36,6 @@ export default class extends Vue {
           'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
           'Cache-Control': 'no-cache',
           'Connection': 'keep-alive',
-          'Host': urlObj.host,
           'Pragma': 'no-cache',
           'upgrade-insecure-requests': '1',
           'User-Agent': window.navigator.userAgent,

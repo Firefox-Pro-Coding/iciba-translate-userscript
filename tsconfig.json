@@ -6,6 +6,7 @@
     "checkJs": false,
     "emitDecoratorMetadata": false,
     "experimentalDecorators": true,
+    "importHelpers": true,
     "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "Node",

@@ -7,7 +7,6 @@ module.exports = () => ({
         firefox: '29',
       },
       modules: false,
-      useBuiltIns: false,
     }],
   ],
   'plugins': [

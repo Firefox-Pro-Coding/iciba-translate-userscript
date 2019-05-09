@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 
-import { AudioCache } from '~/types/index'
-
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
 import { got } from '~/util/gmapi'
-import playAudio from '~/util/playAudio'
 
 import loading from '~/assets/img/loading.svg'
 import like_179655 from '~/assets/img/like_179655.svg'
@@ -38,8 +35,6 @@ export default class UrbanDictionaryContainer extends Vue {
   }
 
   public tooltips = [] as Array<any>
-
-  private audioCache: AudioCache = {}
 
   public mounted() {
     bus.on(bus.events.SHOW_TOOLTIP, this.showTooltip)
@@ -74,43 +69,6 @@ export default class UrbanDictionaryContainer extends Vue {
 
   protected getTime(time: string) {
     return time.slice(0, time.indexOf('T'))
-  }
-
-  protected async handlePlay(mp3Url: string): Promise<void> {
-    const volume = 0.6
-    // check cache
-    if (mp3Url in this.audioCache) {
-      playAudio(this.audioCache[mp3Url], volume)
-    } else {
-      const urlObj = new URL(mp3Url)
-      try {
-        const response = await got({
-          method: 'GET',
-          binary: true,
-          headers: {
-            'Accept': '*/*',
-            'Accept-Encoding': 'gzip, deflate',
-            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-            'Cache-Control': 'no-cache',
-            'Connection': 'keep-alive',
-            'Host': urlObj.host,
-            'Pragma': 'no-cache',
-            'Referer': 'http://www.iciba.com/',
-            'User-Agent': window.navigator.userAgent,
-          },
-          responseType: 'arraybuffer',
-          url: mp3Url,
-          timeout: 5000,
-        })
-
-        const arrayBuffer = response.response
-        this.audioCache[mp3Url] = arrayBuffer
-        playAudio(arrayBuffer, volume)
-      } catch (e) {
-        return Promise.reject(e)
-      }
-    }
-    return Promise.resolve()
   }
 
   private showTooltip(p: ShowTooltipPayload) {

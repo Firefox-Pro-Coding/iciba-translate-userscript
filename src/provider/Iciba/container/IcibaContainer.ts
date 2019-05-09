@@ -31,7 +31,6 @@ export default class IcibaContainer extends Vue {
     if (mp3Url in this.audioCache) {
       playAudio(this.audioCache[mp3Url], volume)
     } else {
-      const urlObj = new URL(mp3Url)
       try {
         const response = await got({
           method: 'GET',
@@ -42,7 +41,6 @@ export default class IcibaContainer extends Vue {
             'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
             'Cache-Control': 'no-cache',
             'Connection': 'keep-alive',
-            'Host': urlObj.host,
             'Pragma': 'no-cache',
             'Referer': 'http://www.iciba.com/',
             'User-Agent': window.navigator.userAgent,
