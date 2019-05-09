@@ -1,6 +1,6 @@
-export const shadowKeyUmbraOpacity = 'rgba(0,0,0, .2)'
-export const shadowKeyPenumbraOpacity = 'rgba(0,0,0, .14)'
-export const shadowKeyAmbientOpacity = 'rgba(0,0,0, .12)'
+export const shadowKeyUmbraOpacity = 'rgba(0,0,0,.2)'
+export const shadowKeyPenumbraOpacity = 'rgba(0,0,0,.14)'
+export const shadowKeyAmbientOpacity = 'rgba(0,0,0,.12)'
 
 export const shadowKeyUmbra = [
   '0px 0px 0px 0px',
