@@ -47,6 +47,7 @@ module.exports = {
             options: { insertInto: "function () { return document.querySelector('.iciba-root').shadowRoot }" },
           },
           'css-loader',
+          'postcss-loader',
         ],
       },
       {
@@ -57,6 +58,7 @@ module.exports = {
             options: { insertInto: "function () { return document.querySelector('.iciba-root').shadowRoot }" },
           },
           'css-loader',
+          'postcss-loader',
           'less-loader',
         ],
       },
