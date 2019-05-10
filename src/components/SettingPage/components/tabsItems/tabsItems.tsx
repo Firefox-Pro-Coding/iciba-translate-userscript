@@ -32,57 +32,80 @@ export default class ITabsItems extends Vue {
 
   private async transform() {
     if (this.animating) {
-      // clean up last animation
       window.clearTimeout(this.animatingTimeout)
-      this.windowStyle.forEach((v, i) => {
-        if (this.beforeValue === i) {
-          v.display = 'none'
-          v.position = ''
-          v.transform = ''
-        } else {
-          v.display = 'none'
-          v.position = ''
-          v.transform = ''
-        }
-      })
     }
 
     this.animating = true
-    // before animate state
-    const windowContainerHeight = this.$refs.windowContainer.getBoundingClientRect().height
-    const beforeValue = this.beforeValue
-    const value = this.value
-    this.height = Math.max(
-      this.$refs.window[beforeValue].getBoundingClientRect().height,
-      windowContainerHeight,
-    )
-    this.windowStyle[beforeValue].position = 'absolute'
-    this.windowStyle[value].position = 'absolute'
-    this.windowStyle[value].display = ''
-    this.windowStyle[beforeValue].transform = ''
-    this.windowStyle[value].transform = value < beforeValue
-      ? 'translate(-100%, 0)'
-      : 'translate(100%, 0)'
 
+    // before animate state
+    const outIndex = this.beforeValue
+    const inIndex = this.value
+
+    const containerHeight = this.$refs.windowContainer.getBoundingClientRect().height
+
+    // reset style
+    this.windowStyle.forEach((v) => {
+      v.display = 'none'
+      v.position = ''
+      v.transform = ''
+    })
+
+    this.height = Math.max(
+      this.$refs.window[outIndex].getBoundingClientRect().height,
+      containerHeight,
+    )
+    console.log(outIndex, inIndex, this.scrollToTop)
+
+    // set pre position
+    this.$set(this.windowStyle, outIndex, {
+      position: 'absolute',
+      display: '',
+      transform: '',
+    })
+    this.$set(this.windowStyle, inIndex, {
+      position: 'absolute',
+      display: '',
+      transform: inIndex < outIndex
+        ? 'translate(-100%, 0)'
+        : 'translate(100%, 0)',
+    })
+
+    // await render
     await new Promise(rs => this.$nextTick(() => rs()))
 
     this.scrollToTop()
+
     this.height = Math.max(
-      this.$refs.window[beforeValue].getBoundingClientRect().height,
-      windowContainerHeight,
+      this.$refs.window[outIndex].getBoundingClientRect().height,
+      containerHeight,
     )
-    this.windowStyle[beforeValue].transform = beforeValue < value
-      ? 'translate(-100%, 0)'
-      : 'translate(100%, 0)'
-    this.windowStyle[value].transform = ''
+
+    this.$set(this.windowStyle, outIndex, {
+      position: 'absolute',
+      display: '',
+      transform: outIndex < inIndex
+        ? 'translate(-100%, 0)'
+        : 'translate(100%, 0)',
+    })
+    this.$set(this.windowStyle, inIndex, {
+      position: 'absolute',
+      display: '',
+      transform: '',
+    })
 
     this.animatingTimeout = window.setTimeout(() => {
       this.animating = false
-      this.windowStyle[beforeValue].position = ''
-      this.windowStyle[value].position = ''
-      this.windowStyle[beforeValue].transform = ''
-      this.windowStyle[value].transform = ''
-      this.windowStyle[beforeValue].display = 'none'
+
+      this.$set(this.windowStyle, outIndex, {
+        position: '',
+        display: 'none',
+        transform: '',
+      })
+      this.$set(this.windowStyle, inIndex, {
+        position: '',
+        display: '',
+        transform: '',
+      })
       this.height = 0
     }, 300)
   }
