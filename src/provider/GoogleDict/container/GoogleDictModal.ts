@@ -73,21 +73,6 @@ export default class GoogleDictModal extends Vue {
     this.$store.saveConfig()
   }
 
-  protected handleScroll(e: WheelEvent) {
-    const scrollBox = this.$refs.scrollBox
-    if (scrollBox) {
-      // scroll down
-      if (e.deltaY > 0 && scrollBox.scrollTop >= scrollBox.scrollHeight - scrollBox.clientHeight) {
-        e.preventDefault()
-      }
-
-      // scroll up
-      if (e.deltaY < 0 && scrollBox.scrollTop === 0) {
-        e.preventDefault()
-      }
-    }
-  }
-
   private loadFoldStatus() {
     if (this.config[PROVIDER.GOOGLE_DICT].foldStatus === GOOGLE_DICT_FOLD_STATUS.FOLD) {
       this.store.googleDict.thesaurusFolded = true

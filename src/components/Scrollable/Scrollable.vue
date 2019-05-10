@@ -8,7 +8,7 @@
         v-if="!noScrollBar"
         class="scroll-bar-thumb"
         ref="scroll-bar-thumb"
-        @mousewheel.prevent
+        @wheel.prevent
         @mousedown="handleScrollbarThumbClick"
         :style="scrollbarStyle.thumb">
       </div>
@@ -17,7 +17,7 @@
       :class="{ 'no-scroll-bar': noScrollBar }"
       class="scroll-content flex-co">
       <div
-        @wheel="handleScroll"
+        v-no-overscroll
         :style="scrollBoxStyle"
         class="scroll-box flex"
         ref="container">

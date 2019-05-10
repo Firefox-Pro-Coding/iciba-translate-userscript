@@ -24,7 +24,11 @@
           </i-tabs>
         </div>
 
-        <i-tabs-items class="fill-height flex-auto" style="overflow: auto;" v-model="tab">
+        <i-tabs-items
+          v-no-overscroll
+          class="fill-height flex-auto"
+          style="overflow: auto;"
+          v-model="tab">
           <i-tab-item class="pa-3"><about /></i-tab-item>
           <i-tab-item class="pa-3"><core-setting /></i-tab-item>
           <i-tab-item class="pa-3"><iciba /></i-tab-item>

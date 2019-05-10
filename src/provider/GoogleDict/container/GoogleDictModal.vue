@@ -12,8 +12,8 @@
       </div>
       <div class="google-dict-modal-bg" @click="handleCloseModal"></div>
       <div
+        v-no-overscroll
         ref="scrollBox"
-        @wheel="handleScroll"
         class="google-dict-modal-content google-content-box elevation-16">
         <div class="dictionary-data-box flex-co align-stretch" v-if="dictionaryData && dictionaryData.length">
           <div class="dictionary-data-item" v-for="(dicDataItem, dicDataItemIndex) in dictionaryData" :key="dicDataItemIndex">

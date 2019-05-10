@@ -105,21 +105,6 @@ export default class IScrollable extends Vue {
     this.drag.start = false
   }
 
-  protected handleScroll(e: WheelEvent) {
-    const scrollBox = this.$refs.container
-    if (scrollBox) {
-      // scroll down
-      if (e.deltaY > 0 && scrollBox.scrollTop >= scrollBox.scrollHeight - scrollBox.clientHeight) {
-        e.preventDefault()
-      }
-
-      // scroll up
-      if (e.deltaY < 0 && scrollBox.scrollTop === 0) {
-        e.preventDefault()
-      }
-    }
-  }
-
   private calcScrollbar() {
     const {
       scrollTop,
