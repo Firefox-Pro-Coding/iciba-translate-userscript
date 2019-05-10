@@ -9,7 +9,8 @@ import Vue from 'vue'
 import App from '~/App.vue'
 import store from '~/store'
 
-import Ripple from './util/ripple'
+import Ripple from './util/diretives/ripple'
+import NoOverscroll from './util/diretives/no-overscroll'
 
 import Checkbox from '~/components/SettingPage/components/checkbox/checkbox.vue'
 import RadioGroup from '~/components/SettingPage/components/radioGroup/radioGroup.vue'
@@ -19,6 +20,7 @@ import Slider from '~/components/SettingPage/components/slider/slider.vue'
 import IIcon from '~/components/IIcon/IIcon.vue'
 
 Vue.directive('ripple', Ripple)
+Vue.directive('no-overscroll', NoOverscroll)
 
 Vue.component('i-checkbox', Checkbox)
 Vue.component('i-radio-group', RadioGroup)
