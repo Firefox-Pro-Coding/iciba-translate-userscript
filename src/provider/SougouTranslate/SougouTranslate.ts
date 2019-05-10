@@ -11,11 +11,13 @@ import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import SougouTranslateContainer from './container/SougouTranslateContainer.vue'
 import containerData from './containerData'
 import getToken from './getToken'
+import getKey from './getKey'
 
 class SougouTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.SOUGOU_TRANSLATE
   public settingDescriptor = []
   public containerComponentClass = SougouTranslateContainer
+  public key = ''
 
   public async translate(word: string) {
     try {
@@ -30,7 +32,10 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
 
   private async getSougouTranslateResult(word: string, lang?: SOUGOU_LANGUAGES): Promise<Array<string>> {
     const to = lang || store.config[PROVIDER.SOUGOU_TRANSLATE].targetLanguage
-    const token = getToken(word, 'auto', to)
+    if (!this.key) {
+      this.key = await getKey()
+    }
+    const token = getToken(word, this.key, 'auto', to)
     const body = {
       from: 'auto',
       to,

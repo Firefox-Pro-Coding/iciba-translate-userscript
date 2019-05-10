@@ -209,11 +209,12 @@ var a = (function() {
 
 /**
  * @param {string} word - word
+ * @param {string} key - token key
  * @param {string} from - from language
  * @param {string} to - to language
  * @return {string}
  */
-const getToken = (word, from, to) => {
+const getToken = (word, key, from, to) => {
   // https://fanyi.sogou.com/reventondc/translateV2
   // Formdata
   // {
@@ -245,7 +246,7 @@ const getToken = (word, from, to) => {
   //   "s": V
   // }
   // a("" + R + q + M + "93e9d9a6fb77b35b3413b2deb9688adb")
-  return a("" + from + to + word + "93e9d9a6fb77b35b3413b2deb9688adb")
+  return a("" + from + to + word + key)
 }
 
 export default getToken
