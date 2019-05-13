@@ -26,7 +26,8 @@ greasyfork： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译](http
 ## 浏览器支持
 - Chrome 53+
 - Firefox 63+
-- Firefox 29+ （在 `about:config` 开启 `dom.webcomponents.enabled`）  
+- Firefox 29 - 58 （在 `about:config` 开启 `dom.webcomponents.enabled`）
+- Firefox 59 - 62 （在 `about:config` 开启 `dom.webcomponents.shadowdom.enabled`）
   [https://www.caniuse.com/#search=shadowdom](https://www.caniuse.com/#search=shadowdom)
 
 ## 问题反馈
