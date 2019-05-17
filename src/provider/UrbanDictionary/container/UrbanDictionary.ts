@@ -102,6 +102,9 @@ export default class UrbanDictionaryContainer extends Vue {
       cacheItem.data.then((tooltipResult) => {
         cacheItem.data = tooltipResult
         tooltipItem.text = tooltipResult
+      }).catch(() => {
+        // delete cache if onerror
+        delete keywordCache[p.text]
       })
     } else {
       tooltipItem.text = cacheItem.data
