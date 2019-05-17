@@ -5,6 +5,7 @@ interface WindowStyle {
   position: string
   transform: string
   display: string
+  animating: boolean
 }
 
 @Component({
@@ -54,13 +55,13 @@ export default class ITabsItems extends Vue {
       this.$refs.window[outIndex].getBoundingClientRect().height,
       containerHeight,
     )
-    console.log(outIndex, inIndex, this.scrollToTop)
 
     // set pre position
     this.$set(this.windowStyle, outIndex, {
       position: 'absolute',
       display: '',
       transform: '',
+      animating: false,
     })
     this.$set(this.windowStyle, inIndex, {
       position: 'absolute',
@@ -68,10 +69,11 @@ export default class ITabsItems extends Vue {
       transform: inIndex < outIndex
         ? 'translate(-100%, 0)'
         : 'translate(100%, 0)',
+      animating: false,
     })
 
     // await render
-    await new Promise(rs => this.$nextTick(() => rs()))
+    await new Promise<void>(rs => this.$nextTick(rs))
 
     this.scrollToTop()
 
@@ -86,11 +88,13 @@ export default class ITabsItems extends Vue {
       transform: outIndex < inIndex
         ? 'translate(-100%, 0)'
         : 'translate(100%, 0)',
+      animating: true,
     })
     this.$set(this.windowStyle, inIndex, {
       position: 'absolute',
       display: '',
       transform: '',
+      animating: true,
     })
 
     this.animatingTimeout = window.setTimeout(() => {
@@ -100,11 +104,13 @@ export default class ITabsItems extends Vue {
         position: '',
         display: 'none',
         transform: '',
+        animating: false,
       })
       this.$set(this.windowStyle, inIndex, {
         position: '',
         display: '',
         transform: '',
+        animating: false,
       })
       this.height = 0
     }, 300)
@@ -147,6 +153,7 @@ export default class ITabsItems extends Vue {
       position: '',
       transform: '',
       display: this.value === i ? '' : 'none',
+      animating: false,
     }))
   }
 
@@ -173,7 +180,14 @@ export default class ITabsItems extends Vue {
               refInFor={true}
               ref='window'
               style={this.windowStyle[i]}
-              class='vnode-window'>
+              class={{
+                'vnode-window': true,
+                // 'animating': (() => {
+                //   console.log(this.windowStyle[i].animating)
+                //   return this.windowStyle[i].animating
+                // })(),
+                'animating': this.windowStyle[i].animating,
+              }}>
               { v }
             </div>
           )) }
