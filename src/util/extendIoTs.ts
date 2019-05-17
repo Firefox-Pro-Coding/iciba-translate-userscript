@@ -17,6 +17,4 @@ export class EnumType<A> extends t.Type<A> {
 /**
  * @param name - optional enum name
  */
-export const createEnumType = <T>(e: object, name?: string) => new EnumType<T>(e, name);
-
-(t as any).enumType = createEnumType
+export const enumType = <T>(e: object, name?: string) => new EnumType<T>(e, name)

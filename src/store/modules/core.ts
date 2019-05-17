@@ -1,11 +1,12 @@
 import * as t from 'io-ts'
+import { enumType } from '~/util/extendIoTs'
 
 import { PROVIDER } from '~/constants/constant'
 
 export const type = t.type({
-  defaultProvider: t.enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
+  defaultProvider: enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
   icibaCircleRightClick: t.boolean,
-  icibaCircleRightClickProvider: t.enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
+  icibaCircleRightClickProvider: enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
   pressCtrlToDrag: t.boolean,
   pressCtrlToShowCircle: t.boolean,
   mouseOverTranslate: t.boolean,
