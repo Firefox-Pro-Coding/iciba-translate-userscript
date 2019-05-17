@@ -2,8 +2,6 @@
 name: Bug report
 about: 提交错误报告帮助我们改善项目
 title: ''
-labels: bug
-assignees: noe132
 
 ---
 

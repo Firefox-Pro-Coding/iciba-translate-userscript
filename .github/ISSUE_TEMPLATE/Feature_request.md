@@ -2,8 +2,6 @@
 name: Feature request
 about: 我想给项目添加新功能
 title: ''
-labels: 'feature request'
-assignees: noe132
 
 ---
 
