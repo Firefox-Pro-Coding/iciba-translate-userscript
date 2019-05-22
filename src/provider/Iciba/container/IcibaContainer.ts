@@ -25,7 +25,15 @@ export default class IcibaContainer extends Vue {
 
   private audioCache: AudioCache = {}
 
-  public async handlePlay(mp3Url: string): Promise<void> {
+  protected seperateChineseJieshi(s: string) {
+    const match = s.match(/[（(](.{1,3})[）)](.+)/)
+    if (match) {
+      return [match[1], match[2]]
+    }
+    return ['', s]
+  }
+
+  protected async handlePlay(mp3Url: string): Promise<void> {
     const volume = 0.6
     // check cache
     if (mp3Url in this.audioCache) {

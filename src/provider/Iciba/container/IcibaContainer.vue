@@ -5,11 +5,6 @@
       :scroll-bar-style="{ 'padding-right': '2px' }"
       class="scroll-container">
       <div class="iciba-result-scroll-container flex-co">
-        <!-- pinyin -->
-        <!-- <div class="pinyin" v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.pinyin">
-          [{{ result.chinese.ci.pinyin }}]
-        </div> -->
-
         <!-- symbols -->
         <div
           class="symbols-box flex-co align-stretch"
@@ -19,10 +14,10 @@
             <div class="pronunciation-box flex-co align-stretch">
               <!-- symbol_mp3 -->
               <div v-if="symbomItem.word_symbol" class="pronunciation-item pron-en flex">
-                <div class="ipa" v-if="symbomItem.symbol_mp3">
+                <div class="ipa" v-if="symbomItem.word_symbol">
                   {{ symbomItem.word_symbol }}
                 </div>
-                <div class="play-sound flex flex-center" @click="handlePlay(symbomItem.symbol_mp3)">
+                <div class="play-sound flex flex-center" v-if="symbomItem.symbol_mp3" @click="handlePlay(symbomItem.symbol_mp3)">
                   <i-icon :svg="icon.play_speaker_filled_audio_tool_59284" />
                 </div>
               </div>
@@ -32,7 +27,7 @@
                 <div class="ipa" v-if="symbomItem.ph_en">
                   [{{ symbomItem.ph_en }}]
                 </div>
-                <div class="play-sound flex flex-center" @click="handlePlay(symbomItem.ph_en_mp3)">
+                <div class="play-sound flex flex-center" v-if="symbomItem.ph_en_mp3" @click="handlePlay(symbomItem.ph_en_mp3)">
                   <i-icon :svg="icon.play_speaker_filled_audio_tool_59284" />
                 </div>
               </div>
@@ -42,7 +37,7 @@
                 <div class="ipa" v-if="symbomItem.ph_am">
                   [{{ symbomItem.ph_am }}]
                 </div>
-                <div class="play-sound flex flex-center" @click="handlePlay(symbomItem.ph_am_mp3)">
+                <div class="play-sound flex flex-center" v-if="symbomItem.ph_am_mp3" @click="handlePlay(symbomItem.ph_am_mp3)">
                   <i-icon :svg="icon.play_speaker_filled_audio_tool_59284" />
                 </div>
               </div>
@@ -62,14 +57,8 @@
 
             <!-- meaning -->
             <div
-              class="part-box flex-co align-stretch"
-              v-if="symbomItem.parts && symbomItem.parts.length"
-              :class="{
-                'no-margin-top': !symbomItem.ph_en_mp3
-                  && !symbomItem.ph_am_mp3
-                  && !symbomItem.ph_tts_mp3
-                  && !symbomItem.symbol_mp3,
-              }">
+              class="part-box mt-1 flex-co align-stretch"
+              v-if="symbomItem.parts && symbomItem.parts.length">
               <div class="part-item flex" v-for="(partItem, partItemIndex) in symbomItem.parts" :key="partItemIndex">
                 <div class="part-item-part" v-if="partItem.part">
                   {{ partItem.part }}
@@ -88,6 +77,26 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- chinese -->
+        <div
+          v-if="result && result.chinese && result.chinese.ci"
+          class="chinese-box mt-1">
+          <div class="ciyi-box" v-if="result.chinese.ci.ciyi && result.chinese.ci.ciyi.length">
+            <div
+              class="ciyi-item"
+              v-for="(item, ciyiIndex) of result.chinese.ci.ciyi"
+              :key="ciyiIndex">
+              <span class="type-text pr-1">
+                {{ ciyiIndex + 1 }}.
+              </span>
+              <template v-if="seperateChineseJieshi(item)[0]">
+                <span class="pr-1 grey--text">[{{ seperateChineseJieshi(item)[0] }}]</span>
+              </template>
+              <span>{{ seperateChineseJieshi(item)[1] }}</span>
             </div>
           </div>
         </div>
