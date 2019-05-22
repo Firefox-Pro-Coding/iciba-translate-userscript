@@ -23,12 +23,21 @@ greasyfork： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译](http
 ### 设置
 点击输入框右侧的灰色齿轮按钮打开设置窗口
 
-## 浏览器支持
+## 环境
+### 浏览器支持
 - Chrome 53+
 - Firefox 63+
 - Firefox 29 - 58 （在 `about:config` 开启 `dom.webcomponents.enabled`）
 - Firefox 59 - 62 （在 `about:config` 开启 `dom.webcomponents.shadowdom.enabled`）
   [https://www.caniuse.com/#search=shadowdom](https://www.caniuse.com/#search=shadowdom)
+
+### 脚本管理扩展
+- Greasemonkey
+- Tampermonkey
+- Violent monkey
+
+## 支持
+如果您喜欢该项目，可以点 star，或者把它推荐给其他人
 
 ## 问题反馈
 有任何问题或者建议？
