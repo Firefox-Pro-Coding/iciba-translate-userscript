@@ -63,13 +63,13 @@
             <!-- meaning -->
             <div
               class="part-box flex-co align-stretch"
+              v-if="symbomItem.parts && symbomItem.parts.length"
               :class="{
                 'no-margin-top': !symbomItem.ph_en_mp3
                   && !symbomItem.ph_am_mp3
                   && !symbomItem.ph_tts_mp3
                   && !symbomItem.symbol_mp3,
-              }"
-              v-if="symbomItem.parts.length">
+              }">
               <div class="part-item flex" v-for="(partItem, partItemIndex) in symbomItem.parts" :key="partItemIndex">
                 <div class="part-item-part" v-if="partItem.part">
                   {{ partItem.part }}
