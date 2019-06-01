@@ -19,6 +19,3 @@
 // ==/UserScript==
 
 // this file was compiled by webpack.
-
-// pass native window object to the script
-window = unsafeWindow;
