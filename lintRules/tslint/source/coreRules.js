@@ -534,7 +534,7 @@ module.exports = {
 
   // Requires Type Info
   // Prefer return; in void functions and return undefined; in value-returning functions.
-  'return-undefined': true,
+  // 'return-undefined': true,
 
   // Enforces consistent semicolon usage at the end of every statement.
   // 'semicolon': [true, 'never'],

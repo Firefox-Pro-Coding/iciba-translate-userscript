@@ -13,7 +13,6 @@
       "check-open-brace",
       "check-whitespace"
     ],
-    "return-undefined": true,
     "switch-final-break": true
   }
 }

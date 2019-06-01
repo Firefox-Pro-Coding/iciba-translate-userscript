@@ -28,7 +28,7 @@ module.exports = {
   // 'no-else-after-return': true
 
   // Just return; instead of return undefined;.
-  'no-return-undefined': true,
+  // 'no-return-undefined': true,
 
   // Ban the use of this in static methods.
   'no-static-this': true,

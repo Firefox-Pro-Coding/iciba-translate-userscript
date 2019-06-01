@@ -172,13 +172,5 @@ module.exports = {
         // '@typescript-eslint/unified-signatures': ['error'],
       },
     },
-    {
-      'files': [
-        '**/*.tsx',
-      ],
-      'rules': {
-        '@typescript-eslint/no-unused-vars': ['off'],
-      },
-    },
   ],
 }
