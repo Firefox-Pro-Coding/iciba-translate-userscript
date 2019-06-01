@@ -83,9 +83,9 @@
 
         <!-- chinese -->
         <div
-          v-if="result && result.chinese && result.chinese.ci"
+          v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.ciyi && result.chinese.ci.ciyi.length"
           class="chinese-box mt-1">
-          <div class="ciyi-box" v-if="result.chinese.ci.ciyi && result.chinese.ci.ciyi.length">
+          <div class="ciyi-box">
             <div
               class="ciyi-item"
               v-for="(item, ciyiIndex) of result.chinese.ci.ciyi"
