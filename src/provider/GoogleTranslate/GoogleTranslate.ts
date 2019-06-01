@@ -80,7 +80,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
         },
         url,
         timeout: 5000,
-        responseType: 'json',
+        responseType: 'json', // force auto json parse
       })
       const data = result.response
       const detectedLanguage: string = data[2]
