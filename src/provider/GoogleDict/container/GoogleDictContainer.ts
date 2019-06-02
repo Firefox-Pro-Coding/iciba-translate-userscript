@@ -5,7 +5,7 @@ import globalBus from '~/bus/bus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
 import containerDataStore from '../containerDataStore'
-import simpleEntry from './components/simpleEntry/simpleEntry.vue'
+import simpleEntry from './components/container/simpleEntry/simpleEntry.vue'
 
 import expand_128456 from '~/assets/img/expand_128456.svg'
 

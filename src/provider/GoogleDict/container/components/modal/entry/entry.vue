@@ -10,7 +10,7 @@
     </div>
 
     <!-- phonetics -->
-    <phonetics class="phonetics-box" :phonetics="entry.phonetics"></phonetics>
+    <phonetics class="phonetics-box mb-1" :phonetics="entry.phonetics"></phonetics>
 
     <!-- labelSet -->
     <div class="entry-label-set-box" v-if="entry.labelSet && entry.labelSet.length">
@@ -31,7 +31,7 @@
         <note :note="senseFamilyItem.note"></note>
 
         <!-- poss -->
-        <div class="poss" v-if="senseFamilyItem.partsOfSpeechs && senseFamilyItem.partsOfSpeechs.length">
+        <div class="poss font-italic" v-if="senseFamilyItem.partsOfSpeechs && senseFamilyItem.partsOfSpeechs.length">
           <div
             :title="item.qualifier"
             class="pos flex flex-wrap"
@@ -127,7 +127,7 @@
                       v-for="(subsense, subsenseIndex) in sense.subsenses"
                       :key="subsenseIndex"
                       class="subsense-item flex">
-                      <div class="subsense-number">
+                      <div class="subsense-number pr-2 grey--text text--darken-1">
                         {{ subsenseIndex + 1 }})
                       </div>
                       <div class="subsense-item-container flex-co align-stretch">

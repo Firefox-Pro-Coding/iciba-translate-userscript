@@ -4,8 +4,8 @@ import globalBus from '~/bus/bus'
 import zgen from '~/util/zIndexGenerator'
 import store from '~/store'
 
-import imageLoader from './components/imageLoader/imageLoader.vue'
-import entry from './components/entry/entry.vue'
+import imageLoader from './components/modal/imageLoader/imageLoader.vue'
+import entry from './components/modal/entry/entry.vue'
 import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 
 import minus from '~/assets/img/minus.svg'

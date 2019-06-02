@@ -31,7 +31,8 @@
             <!-- usage over time -->
             <div class="usage-overtime flex-co align-stretch" v-if="dicDataItem.usageOverTimeImage">
               <div class="usage-title">
-                Use over time for: {{ dicDataItem.queryTerm }}
+                Use over time for
+                <span class="grey lighten-1 white--text px-1">{{ dicDataItem.queryTerm }}</span>
               </div>
               <div
                 :style="{

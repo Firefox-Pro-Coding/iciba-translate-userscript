@@ -20,7 +20,7 @@
         :key="senseFamilyItemIndex">
         <div
           :title="item.qualifier"
-          class="poss flex flex-wrap"
+          class="poss font-italic flex flex-wrap grey--text text--darken-1"
           v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
           :key="index">
           {{ item.value }}

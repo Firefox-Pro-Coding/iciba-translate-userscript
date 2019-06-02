@@ -6,7 +6,7 @@
     </div>
 
     <div
-      class="play-button flex flex-center"
+      class="pl-1 play-button flex flex-center"
       v-for="(item, index) in phonetics.filter(v => v.oxfordAudio)"
       :key="index"
       @click="handlePlay(item.oxfordAudio)">

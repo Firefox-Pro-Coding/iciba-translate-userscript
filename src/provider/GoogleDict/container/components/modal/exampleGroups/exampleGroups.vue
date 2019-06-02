@@ -18,7 +18,7 @@
           </labels>
         </div>
         <div
-          class="example-item"
+          class="example-item grey--text"
           v-html="example"
           v-for="(example, exampleIndex) in exampleGroupItem.examples"
           :key="exampleIndex">
@@ -37,8 +37,6 @@
     .example-group-item {
       .example-item-box {
         .example-item {
-          color: @main-level-4;
-
           &::before, &::after {
             content: '"';
           }
