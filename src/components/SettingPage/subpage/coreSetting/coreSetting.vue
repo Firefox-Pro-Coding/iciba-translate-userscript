@@ -118,6 +118,20 @@
     </p>
 
     <div class="flex align-center mr-1 mt-4">
+      <div class="mr-3 grey--text text--darken-1">{{ form.icibaCircleSize }}px</div>
+      <i-slider
+        class="flex-grow"
+        :min="10"
+        :max="30"
+        :step="1"
+        v-model="form.icibaCircleSize"
+        thumb-label />
+    </div>
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+      小圆圈大小（默认22px）
+    </p>
+
+    <div class="flex align-center mr-1 mt-4">
       <div class="mr-3 grey--text text--darken-1">x: {{ form.icibaCircleOffsetX }}</div>
       <i-slider
         class="flex-grow"

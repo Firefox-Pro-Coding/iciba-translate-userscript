@@ -137,6 +137,8 @@ export default class IcibaCircle extends Vue {
     return {
       ...this.internalStyle,
       zIndex: this.zIndex,
+      width: `${this.$store.config.core.icibaCircleSize}px`,
+      height: `${this.$store.config.core.icibaCircleSize}px`,
     }
   }
 
