@@ -81,10 +81,29 @@
           </div>
         </div>
 
-        <!-- chinese -->
+        <!-- chinese zi -->
+        <!-- 当无baseInfo时才显示 -->
+        <div
+          v-if="
+            result
+              && (result.chinese && result.chinese.zi && result.chinese.zi.length)
+              && (!result.baseInfo || !result.baseInfo.symbols || !result.baseInfo.symbols.length)
+          "
+          class="chinese-zi-box mt-1">
+          <div
+            class="zi-item"
+            v-for="(ziItem, ziIndex) of result.chinese.zi"
+            :key="ziIndex">
+            {{ ziItem.hanzi }}
+            {{ ziItem.pinyin }}
+            {{ ziItem.jieshi }}
+          </div>
+        </div>
+
+        <!-- chinese ci -->
         <div
           v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.ciyi && result.chinese.ci.ciyi.length"
-          class="chinese-box mt-1">
+          class="chinese-ci-box mt-1">
           <div class="ciyi-box">
             <div
               class="ciyi-item"
