@@ -28,7 +28,6 @@ class UrbanDictionaryProvider extends AbstractTranslateProvider {
         timeout: 5000,
       })
       result = JSON.parse(response.responseText)
-      result.list.sort((a, b) => b.thumbs_up - a.thumbs_up)
     } catch (e) {
       throw e
     }
