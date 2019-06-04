@@ -3,61 +3,66 @@
     <scrollable class="scroll-container">
       <div class="urban-dictionary-content flex-co">
         <template v-if="result && result.list">
-          <div
-            class="row flex-co"
-            :class="{ 'mt-3': index > 0 }"
-            v-for="(item, index) of result.list"
-            :key="index">
-            <div class="index subheading">
-              {{ index + 1 }}. {{ item.word }}
-            </div>
-            <div class="definition">
-              <template v-for="(definitionItem, definitionIndex) of extractDefinition(item.definition)">
-                <UKeyword
-                  :content="definitionItem.text"
-                  class="keyword blue--text text--darken-1"
-                  :key="definitionIndex"
-                  v-if="definitionItem.isTag" />
-                <span
-                  :text-content.prop="definitionItem.text"
-                  :key="definitionIndex"
-                  v-if="!definitionItem.isTag"></span>
-              </template>
-            </div>
-            <div class="caption grey--text text--darken-1 mt-1">
-              <template v-for="(exampleItem, exampleIndex) of extractDefinition(item.example)">
-                <UKeyword
-                  :content="exampleItem.text"
-                  class="keyword blue--text text--darken-1"
-                  :key="exampleIndex"
-                  v-if="exampleItem.isTag" />
-                <span
-                  :text-content.prop="exampleItem.text"
-                  :key="exampleIndex"
-                  v-if="!exampleItem.isTag"></span>
-              </template>
-            </div>
-            <div class="flex mt-2 align-center caption grey--text">
-              <div class="mr-2 pr-1 flex flex-noresize">
-                <i-icon
-                  size="14"
-                  class="thumb-up thumb mr-1"
-                  :svg="icon.like_179655" />
-                {{ item.thumbs_up }}
+          <template v-for="(item, index) of result.list">
+            <div
+              class="row flex-co"
+              :key="index">
+              <div class="index font-weight-bold">
+                {{ index + 1 }}. {{ item.word }}
               </div>
-              <div class="flex mr-2 flex-noresize">
-                <i-icon
-                  size="14"
-                  color="#E64C3D"
-                  class="thumb thumb-down mr-1"
-                  :svg="icon.like_179655" />
-                {{ item.thumbs_down }}
+              <div class="definition">
+                <template v-for="(definitionItem, definitionIndex) of extractDefinition(item.definition)">
+                  <UKeyword
+                    :content="definitionItem.text"
+                    class="keyword definition-keyword"
+                    :key="definitionIndex"
+                    v-if="definitionItem.isTag" />
+                  <span
+                    :text-content.prop="definitionItem.text"
+                    :key="definitionIndex"
+                    v-if="!definitionItem.isTag"></span>
+                </template>
               </div>
-              <div class="text-truncate">
-                {{ getTime(item.written_on) }}
+              <div class="caption grey--text mt-1">
+                <template v-for="(exampleItem, exampleIndex) of extractDefinition(item.example)">
+                  <UKeyword
+                    :content="exampleItem.text"
+                    class="keyword example-keyword"
+                    :key="exampleIndex"
+                    v-if="exampleItem.isTag" />
+                  <span
+                    :text-content.prop="exampleItem.text"
+                    :key="exampleIndex"
+                    v-if="!exampleItem.isTag"></span>
+                </template>
+              </div>
+              <div class="flex mt-1 align-center caption grey--text">
+                <div class="mr-2 pr-1 flex flex-noresize">
+                  <i-icon
+                    size="14"
+                    class="thumb-up thumb mr-1"
+                    :svg="icon.like_179655" />
+                  {{ item.thumbs_up }}
+                </div>
+                <div class="flex mr-2 flex-noresize">
+                  <i-icon
+                    size="14"
+                    color="#E64C3D"
+                    class="thumb thumb-down mr-1"
+                    :svg="icon.like_179655" />
+                  {{ item.thumbs_down }}
+                </div>
+                <div class="text-truncate">
+                  {{ getTime(item.written_on) }}
+                </div>
               </div>
             </div>
-          </div>
+            <div
+              v-if="index !== result.list.length - 1"
+              class="divider my-2 grey lighten-2"
+              :key="`${index}-divider`">
+            </div>
+          </template>
         </template>
       </div>
     </scrollable>

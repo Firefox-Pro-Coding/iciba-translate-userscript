@@ -70,13 +70,32 @@
       word-break: break-word;
       font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
 
-      .keyword {
-        text-decoration: underline;
-        cursor: pointer;
+      .row {
+        .keyword {
+          text-decoration: underline;
+          cursor: pointer;
+
+          &.definition-keyword {
+            color: hsl(207, 65%, 65%);
+          }
+
+          &.example-keyword {
+            color: hsl(207, 60%, 75%);
+          }
+        }
+
+        .definition {
+          line-height: 20px;
+        }
+      }
+
+      .divider {
+        height: 1px;
+        width: 100%;
       }
 
       .thumb {
-        opacity: 0.8;
+        opacity: 0.7;
 
         &.thumb-down {
           transform: translate(0, 3px) rotate(180deg);
