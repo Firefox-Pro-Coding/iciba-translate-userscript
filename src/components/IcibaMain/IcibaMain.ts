@@ -336,8 +336,12 @@ export default class IcibaMain extends Vue {
       left: 'auto',
       right: 'auto',
       ...{
-        ...(availableSpace.x < this.config.core.icibaMainWidth ? { right: '0' } : { left: '0' }),
-        ...(availableSpace.y < 200 ? { bottom: '0' } : { top: '0' }),
+        ...(availableSpace.x < this.config.core.icibaMainWidth
+          ? { right: '0' }
+          : { left: '0' }),
+        ...(availableSpace.y < 250
+          ? { bottom: '0' }
+          : { top: '0' }),
       },
     }
 
