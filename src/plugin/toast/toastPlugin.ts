@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Toast from './toast.vue'
 
-import { shadowRoot } from '~/createRoot'
+import { getTheAppDiv } from '~/createRoot'
 
 interface ToastParams {
   text: string
@@ -24,7 +24,11 @@ export const toast: ToastFunction = (params: ToastParams | string, timeout?: num
     el: document.createElement('div'),
     propsData,
   })
-  shadowRoot.appendChild(instance.$el)
+
+  const theApp = getTheAppDiv()
+  if (theApp) {
+    theApp.appendChild(instance.$el)
+  }
 }
 
 Vue.prototype.$toast = toast

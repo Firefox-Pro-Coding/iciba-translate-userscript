@@ -21,6 +21,8 @@ const shadowRoot = (() => {
 Vue.prototype.shadowRoot = shadowRoot
 Vue.prototype.icibaRoot = icibaRoot
 
+export const getTheAppDiv = () => shadowRoot.querySelector('.the-app')
+
 export {
   shadowRoot,
   icibaRoot,
