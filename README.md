@@ -9,7 +9,7 @@
 
 greasyfork： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译](https://greasyfork.org/zh-CN/scripts/6303-iciba%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91)
 
-<img height="356" width="436" title="预览图" src="https://user-images.githubusercontent.com/2271900/56849792-ccae5c80-692b-11e9-810e-e0545d360392.gif" />
+<img height="342" width="402" title="预览图" src="https://user-images.githubusercontent.com/2271900/59867539-06965f00-93c1-11e9-9754-dec7333ba036.gif" />
 
 ## 功能
 ### 支持的翻译接口
