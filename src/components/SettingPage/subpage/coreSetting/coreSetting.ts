@@ -48,7 +48,7 @@ export default class CoreSettings extends Vue {
       window.clearTimeout(this.toastTimeout)
     }
     this.toastTimeout = window.setTimeout(() => {
-      this.$toast('设置已保存！', 2000)
+      this.$toast('设置已保存！', 20000)
       this.toastTimeout = 0
     }, 1000)
   }

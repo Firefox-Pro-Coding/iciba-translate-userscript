@@ -53,7 +53,7 @@ export default class IcibaCircle extends Vue {
     // have to wait handleContextmenu trigger
     setTimeout(() => {
       this.visible = false
-      bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
+      bus.emit(bus.events.ICIBA_CIRCLE_CLICK_TRANSLATE_PREPARE, payload)
       this.removeSelection()
     })
   }
@@ -68,7 +68,7 @@ export default class IcibaCircle extends Vue {
       word: this.word,
       event,
     }
-    bus.emit(bus.events.ICIBA_MAIN_PREPARE_TRANSLATE, payload)
+    bus.emit(bus.events.ICIBA_CIRCLE_CLICK_TRANSLATE_PREPARE, payload)
   }
 
   protected async handleMouseUp(e: MouseEvent, proxied = false) {

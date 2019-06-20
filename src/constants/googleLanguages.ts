@@ -9,13 +9,13 @@ export enum GOOGLE_LANGUAGES {
 }
 
 export const GOOGLE_LANGUAGE_MAP = {
-  [GOOGLE_LANGUAGES.zh]: 'Chinese',
-  [GOOGLE_LANGUAGES.en]: 'English',
-  [GOOGLE_LANGUAGES.fr]: 'French',
-  [GOOGLE_LANGUAGES.de]: 'German',
-  [GOOGLE_LANGUAGES.ja]: 'Japanese',
-  [GOOGLE_LANGUAGES.ru]: 'Russian',
-  [GOOGLE_LANGUAGES.es]: 'Spanish',
+  [GOOGLE_LANGUAGES.zh]: '中文',
+  [GOOGLE_LANGUAGES.en]: '英语',
+  [GOOGLE_LANGUAGES.fr]: '法语',
+  [GOOGLE_LANGUAGES.de]: '德语',
+  [GOOGLE_LANGUAGES.ja]: '日语',
+  [GOOGLE_LANGUAGES.ru]: '俄语',
+  [GOOGLE_LANGUAGES.es]: '西班牙语',
 }
 
 export const googleLanguagesOptions = Object

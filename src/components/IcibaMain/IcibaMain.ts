@@ -5,7 +5,7 @@ import settings_149837 from '~/assets/img/settings_149837.svg'
 import drag_462998 from '~/assets/img/drag_462998.svg'
 import pin_25474 from '~/assets/img/pin_25474.svg'
 
-import bus, { ClickTranslatePayload } from '~/bus/bus'
+import bus, { ClickTranslatePayload, TranslatePayload } from '~/bus/bus'
 import zgen, { isTop } from '~/util/zIndexGenerator'
 
 import AbstractTranslateProvider from '~/provider/AbstractTranslateProvider'
@@ -113,9 +113,11 @@ export default class IcibaMain extends Vue {
     this.shadowRoot.addEventListener('mousedown', this.handleShadowRootClick, false)
     this.shadowRoot.addEventListener('keyup', this.handleDragEnd, true)
 
-    bus.on(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
+    bus.on(bus.events.ICIBA_CIRCLE_CLICK_TRANSLATE, this.handleIcibaCircleTranslate)
     bus.on(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
     bus.on(bus.events.GOOGLE_DICT_WORD_CLICK, this.handleGoogleDictWordClick)
+    // bus.on(bus.events.GOOGLE_TRANSLATE, this.handleGoogleTranslate)
+    bus.on(bus.events.TRANSLATE, this.handleRetranslate)
     bus.on(bus.events.URBAN_DICTIONAR_TOOLTIP_CLICK, this.handleUrbanDictionryTooltipClick)
   }
 
@@ -127,9 +129,10 @@ export default class IcibaMain extends Vue {
     this.shadowRoot.removeEventListener('mousedown', this.handleShadowRootClick, false)
     this.shadowRoot.removeEventListener('keyup', this.handleDragEnd, true)
 
-    bus.removeListener(bus.events.ICIBA_MAIN_TRANSLATE, this.handleIcibaCircleTranslate)
+    bus.removeListener(bus.events.ICIBA_CIRCLE_CLICK_TRANSLATE, this.handleIcibaCircleTranslate)
     bus.removeListener(bus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.onGoogleDictModalOpen)
     bus.removeListener(bus.events.GOOGLE_DICT_WORD_CLICK, this.handleGoogleDictWordClick)
+    bus.removeListener(bus.events.TRANSLATE, this.handleRetranslate)
     bus.removeListener(bus.events.URBAN_DICTIONAR_TOOLTIP_CLICK, this.handleUrbanDictionryTooltipClick)
   }
 
@@ -141,12 +144,12 @@ export default class IcibaMain extends Vue {
 
   /** 输入框查词 */
   protected handleInputSearch() {
-    this.translateWithProvider(this.getLastUsedProvider())
+    this.translateWithProvider({ providerItem: this.getLastUsedProvider() })
   }
 
   /** 点击右上翻译按钮 */
-  protected handleTranslateButtonClick(provider: ProviderItem) {
-    this.translateWithProvider(provider)
+  protected handleTranslateButtonClick(providerItem: ProviderItem) {
+    this.translateWithProvider({ providerItem })
   }
 
   /** 打开设置 */
@@ -209,9 +212,9 @@ export default class IcibaMain extends Vue {
     this.inputText = word
 
     if (event.button === 0) {
-      this.translateWithProvider(this.getDefaultProvider())
+      this.translateWithProvider({ providerItem: this.getDefaultProvider() })
     } else if (event.button === 2 && this.config.core.icibaCircleRightClick) {
-      this.translateWithProvider(this.getSecondaryProvider())
+      this.translateWithProvider({ providerItem: this.getSecondaryProvider() })
     }
   }
 
@@ -226,22 +229,37 @@ export default class IcibaMain extends Vue {
     this.inputText = word
 
     const googleDictProvider = this.providers.find(v => v.provider.uniqName === PROVIDER.GOOGLE_DICT)
-    if (googleDictProvider) {
-      this.translateWithProvider(googleDictProvider)
+    if (!googleDictProvider) {
+      throw new Error('handleGoogleDictWordClick 出错')
     }
+    this.translateWithProvider({ providerItem: googleDictProvider })
   }
 
   /** urban dictionary tooltip click */
   private async handleUrbanDictionryTooltipClick(word: string) {
     this.inputText = word
     const urbanDictionaryProvider = this.providers.find(v => v.provider.uniqName === PROVIDER.URBAN_DICTIONARY)
-    if (urbanDictionaryProvider) {
-      this.translateWithProvider(urbanDictionaryProvider)
+    if (!urbanDictionaryProvider) {
+      throw new Error('handleUrbanDictionryTooltipClick 出错')
     }
+    this.translateWithProvider({ providerItem: urbanDictionaryProvider })
   }
 
-  private translateWithProvider(provideritem: ProviderItem) {
-    const word = this.inputText.trim()
+  private handleRetranslate(payload: TranslatePayload) {
+    const providerItem = this.providers.find(v => v.provider.uniqName === payload.uniqName)
+    if (!providerItem) {
+      throw new Error(`retranslate ${payload.uniqName} 出错`)
+    }
+    this.translateWithProvider({
+      providerItem,
+      word: payload.word,
+      payload,
+    })
+  }
+
+  private translateWithProvider(params: { providerItem: ProviderItem, word?: string, payload?: unknown }) {
+    const providerItem = params.providerItem
+    const word = params.word || this.inputText.trim()
     if (!word) {
       this.errorMessage = '查询不能为空！'
       return
@@ -249,11 +267,11 @@ export default class IcibaMain extends Vue {
 
     this.providers.forEach((p) => { p.visible = false })
     this.errorMessage = ''
-    this.lastUsedProviderName = provideritem.provider.uniqName
+    this.lastUsedProviderName = providerItem.provider.uniqName
 
     const task = {
       word,
-      providerName: provideritem.provider.uniqName,
+      providerName: providerItem.provider.uniqName,
       index: this.activeTask.index + 1,
     }
 
@@ -265,15 +283,15 @@ export default class IcibaMain extends Vue {
     this.activeTask = { ...task }
 
     this.loading = true
-    provideritem.provider.translate(word).then((callback) => {
+    providerItem.provider.translate(word, params.payload).then((callback) => {
       if (this.activeTask.index === task.index) {
         callback()
-        provideritem.visible = true
+        providerItem.visible = true
       }
     }, (e) => {
       console.error(e) // eslint-disable-line
       if (this.activeTask.index === task.index) {
-        this.errorMessage = `${provideritem.provider.uniqName}: ${e.message}`
+        this.errorMessage = `${providerItem.provider.uniqName}: ${e.message}`
       }
     }).finally(() => {
       if (this.activeTask.index === task.index) {

@@ -1,18 +1,29 @@
-import * as quertstring from 'querystring'
+import querystring from 'querystring'
+
+import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants/constant'
+import store from '~/store/index'
+import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
+import { AudioCache } from '~/types'
+import playAudio from '~/util/playAudio'
 import { got } from '~/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
+import GoogleTranslateBus, { PlayAudioPayload } from './bus'
+import { GoogleTranslatePayload } from '~/bus/bus'
 
-import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants/constant'
-import store from '~/store/index'
+interface GetGoogleTranslateResult {
+  result: Array<string>
+  sl: string
+  tl: string
+  dl: string
+}
 
 class GoogleTranslateProvider extends AbstractTranslateProvider {
   public static apiQuery = {
     client: 'webapp',
-    sl: 'auto',
     pc: '1',
     otf: '1',
     ssel: '0',
@@ -40,18 +51,32 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   public settingDescriptor = []
   public containerComponentClass = GoogleTranslateContainer
 
-  public async translate(word: string) {
+  private audioCache: AudioCache = {}
+
+  public constructor() {
+    super()
+
+    // bind methods
+    this.handlePlay = this.handlePlay.bind(this)
+    GoogleTranslateBus.on(GoogleTranslateBus.events.PLAY_AUDIO, this.handlePlay)
+  }
+
+  public async translate(word: string, payload?: GoogleTranslatePayload) {
     try {
-      const result = await this.getGoogleTranslateResult(word)
+      const data = await this.getGoogleTranslateResult(word, payload)
       return () => {
-        containerData.data = result
+        containerData.data = data.result
+        containerData.inputText = word
+        containerData.detectedLanguage = data.dl as GOOGLE_LANGUAGES
+        containerData.sourceLanguage = data.sl
+        containerData.targetLanguage = data.tl as GOOGLE_LANGUAGES
       }
     } catch (e) {
       throw e
     }
   }
 
-  private async getGoogleTranslateResult(word: string, _tl?: string): Promise<Array<string>> {
+  private async getGoogleTranslateResult(word: string, payload?: Omit<GoogleTranslatePayload, 'word' | 'uniqName'>): Promise<GetGoogleTranslateResult> {
     let token
     try {
       token = await getToken(word, this.getApiDomain())
@@ -59,16 +84,23 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       throw new Error(`获取token失败！请检查网络。(${e.message})`)
     }
 
-    const tl = _tl || store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
+    const sl = payload
+      ? payload.sl
+      : 'auto'
+    const tl = payload
+      ? payload.tl
+      : store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
+
     const query = {
       ...GoogleTranslateProvider.apiQuery,
+      sl,
       tl,
       hl: tl,
       tk: token,
       q: word,
     }
 
-    const url = `https://${this.getApiDomain()}/translate_a/single?${quertstring.stringify(query)}`
+    const url = `https://${this.getApiDomain()}/translate_a/single?${querystring.stringify(query)}`
 
     try {
       const result = await got({
@@ -84,11 +116,26 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       })
       const data = result.response
       const detectedLanguage: string = data[2]
-      if (detectedLanguage === tl && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage) {
-        return this.getGoogleTranslateResult(word, store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage)
+
+      // autodetected and fallback to secondTargetLanguage
+      if (
+        !payload
+          && detectedLanguage === tl
+          && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
+      ) {
+        return this.getGoogleTranslateResult(word, {
+          sl,
+          tl: store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage,
+        })
       }
+
       const translateResult = data[0].map((v: any) => (v[0] ? v[0] : ''))
-      return translateResult
+      return {
+        result: translateResult,
+        sl,
+        tl,
+        dl: detectedLanguage,
+      }
     } catch (e) {
       throw e
     }
@@ -99,6 +146,51 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       [GOOGLE_TRANSLATE_HOST.GOOGLE_COM]: 'translate.google.com',
       [GOOGLE_TRANSLATE_HOST.GOOGLE_CN]: 'translate.google.cn',
     }[store.config[PROVIDER.GOOGLE_TRANSLATE].translateHost]
+  }
+
+  private async handlePlay(params: PlayAudioPayload) {
+    const volume = 0.7
+    const query = {
+      ie: 'UTF-8',
+      total: '1',
+      idx: '0',
+      client: 'webapp',
+      prev: 'input',
+      q: params.word,
+      tl: params.tl,
+      textlen: params.word.length,
+      tk: await getToken(params.word, this.getApiDomain()),
+    }
+    const url = `https://${this.getApiDomain()}/translate_tts?${querystring.stringify(query)}`
+
+    if (url in this.audioCache) {
+      playAudio(this.audioCache[url], volume)
+      return
+    }
+
+    try {
+      const response = await got({
+        method: 'GET',
+        binary: true,
+        headers: {
+          'Referer': `https://${this.getApiDomain()}/`,
+          'Accept': '*/*',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'upgrade-insecure-requests': '1',
+        },
+        responseType: 'arraybuffer',
+        url,
+        timeout: 5000,
+      })
+
+      const arrayBuffer = response.response
+
+      this.audioCache[url] = arrayBuffer
+      playAudio(arrayBuffer, volume)
+    } catch (e) {
+      throw e
+    }
   }
 }
 

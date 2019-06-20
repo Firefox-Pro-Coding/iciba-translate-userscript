@@ -31,13 +31,13 @@ export default class extends Vue {
 
   public mounted() {
     globalBus.on(globalBus.events.SETTING_PREPARE_OPEN, this.openSettingPage)
-    globalBus.on(globalBus.events.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
+    globalBus.on(globalBus.events.ICIBA_CIRCLE_CLICK_TRANSLATE_PREPARE, this.openIcibaMain)
     globalBus.on(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)
   }
 
   public destroyed() {
     globalBus.removeListener(globalBus.events.SETTING_PREPARE_OPEN, this.openSettingPage)
-    globalBus.removeListener(globalBus.events.ICIBA_MAIN_PREPARE_TRANSLATE, this.openIcibaMain)
+    globalBus.removeListener(globalBus.events.ICIBA_CIRCLE_CLICK_TRANSLATE_PREPARE, this.openIcibaMain)
     globalBus.removeListener(globalBus.events.GOOGLE_DICT_MODAL_PREPARE_OPEN, this.openGoogleDictModal)
   }
 
@@ -52,7 +52,7 @@ export default class extends Vue {
       // wait for element to be mounted
       await new Promise<void>(rs => this.$nextTick(() => rs()))
     }
-    globalBus.emit(globalBus.events.ICIBA_MAIN_TRANSLATE, payload)
+    globalBus.emit(globalBus.events.ICIBA_CIRCLE_CLICK_TRANSLATE, payload)
   }
 
   /** 设置窗口懒加载 */

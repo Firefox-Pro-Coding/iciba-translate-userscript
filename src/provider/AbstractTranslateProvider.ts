@@ -30,5 +30,5 @@ export default abstract class AbstractTranslateProvider {
    * operation. Return a rejected promise if any error occured
    * and the error message will show as translate result
    */
-  public abstract translate(word: string): Promise<() => void>
+  public abstract translate(word: string, payload?: unknown): Promise<() => void>
 }
