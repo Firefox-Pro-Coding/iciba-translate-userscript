@@ -1,4 +1,4 @@
-/* eslint-disable import/first, import/no-unassigned-import */
+/* eslint-disable import/no-unassigned-import, import/order */
 import { shadowRoot } from './createRoot'
 
 import '~/util/extendIoTs'

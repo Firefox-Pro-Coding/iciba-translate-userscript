@@ -1,11 +1,6 @@
 const path = require('path')
 
 module.exports = {
-  // 'extends': [
-  //   'plugin:import/errors',
-  //   'plugin:import/warnings',
-  // ],
-
   'plugins': ['import'],
 
   'settings': {

@@ -1,5 +1,5 @@
 node_modules/
-lintRules/tslint/customRules
+lintRules/
 iciba.user.js
 !.eslintrc.js
 *.d.ts

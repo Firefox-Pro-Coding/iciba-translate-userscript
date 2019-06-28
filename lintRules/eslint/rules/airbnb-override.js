@@ -1,4 +1,12 @@
 module.exports = {
+  'parser': 'babel-eslint',
+  'parserOptions': {
+    'ecmaVersion': 2019,
+    'ecmaFeatures': {
+      'jsx': true,
+    },
+    'sourceType': 'module',
+  },
   rules: {
     'class-methods-use-this': ['off'], // some time it needed
     'curly': ['error', 'multi-line'], // some time it needed
