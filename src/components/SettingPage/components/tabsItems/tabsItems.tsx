@@ -182,10 +182,6 @@ export default class ITabsItems extends Vue {
               style={this.windowStyle[i]}
               class={{
                 'vnode-window': true,
-                // 'animating': (() => {
-                //   console.log(this.windowStyle[i].animating)
-                //   return this.windowStyle[i].animating
-                // })(),
                 'animating': this.windowStyle[i].animating,
               }}>
               { v }

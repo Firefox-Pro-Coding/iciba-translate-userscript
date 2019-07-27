@@ -42,7 +42,6 @@ export default class IcibaContainer extends Vue {
       try {
         const response = await got({
           method: 'GET',
-          binary: true,
           headers: {
             'Accept': '*/*',
             'Accept-Encoding': 'gzip, deflate',

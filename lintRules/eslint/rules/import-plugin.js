@@ -67,9 +67,7 @@ module.exports = {
     'import/no-named-as-default': ['error'],
     'import/no-named-as-default-member': ['error'],
     'import/no-deprecated': ['error'],
-    'import/no-extraneous-dependencies': ['error', {
-      'optionalDependencies': ['test/unit/index.js'],
-    }],
+    'import/no-extraneous-dependencies': ['off'],
     'import/no-mutable-exports': ['error'],
 
     /* Module systems */
@@ -92,8 +90,7 @@ module.exports = {
         'groups': [
           'builtin',
           ['external', 'internal'],
-          'parent',
-          'sibling',
+          ['parent', 'sibling', 'unknown'],
           'index',
         ],
       },

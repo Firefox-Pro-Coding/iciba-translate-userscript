@@ -303,7 +303,6 @@ export default (copy: any) => {
       const childPath = [...parentPath, Number.isNaN(Number(k)) ? k : '!number']
       if (typeof v === 'object' && v !== null) {
         const deepChildPath = dfs(v, childPath)
-        // console.log(deepChildPath)
         return [...processedChildPaths, childPath, ...deepChildPath]
       }
       return [...processedChildPaths, childPath]

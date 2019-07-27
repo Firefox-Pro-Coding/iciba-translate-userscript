@@ -74,7 +74,7 @@ class Store {
     const report = storeType.decode(data)
     // eslint-disable-next-line no-underscore-dangle
     if (report._tag === 'Left') {
-      report.value.forEach((e) => {
+      report.left.forEach((e) => {
         const pathArray = e.context.map(path => path.key).filter(v => v)
         this.setDefaultDataByPath(pathArray, data)
       })

@@ -126,7 +126,6 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     try {
       const response = await got({
         method: 'GET',
-        binary: true,
         headers: {
           'Referer': 'https://fanyi.baidu.com/',
           'Accept': '*/*',

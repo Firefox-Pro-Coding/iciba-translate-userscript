@@ -114,7 +114,6 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
     try {
       const response = await got({
         method: 'GET',
-        binary: true,
         headers: {
           'Referer': 'https://fanyi.sogou.com/',
           'Accept': '*/*',

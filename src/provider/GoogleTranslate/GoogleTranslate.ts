@@ -171,7 +171,6 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     try {
       const response = await got({
         method: 'GET',
-        binary: true,
         headers: {
           'Referer': `https://${this.getApiDomain()}/`,
           'Accept': '*/*',

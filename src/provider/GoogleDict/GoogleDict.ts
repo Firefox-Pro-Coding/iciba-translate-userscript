@@ -173,7 +173,6 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       try {
         const response = await got({
           method: 'GET',
-          binary: true,
           headers: {
             'Accept': '*/*',
             'Accept-Encoding': 'gzip, deflate, br',
