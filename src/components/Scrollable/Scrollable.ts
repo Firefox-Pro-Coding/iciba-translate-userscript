@@ -119,7 +119,7 @@ export default class IScrollable extends Vue {
     const thumbMaxHeightPercentage = 1 - sizePercentage
     const thumbTop = thumbMaxHeightPercentage * currentScrollPercentage * 100
 
-    this.noScrollBar = sizePercentage === 1
+    this.noScrollBar = sizePercentage >= 1
 
     const thumbSize = (sizePercentage * 100).toFixed(4)
     const thumbPosition = thumbTop.toFixed(4)

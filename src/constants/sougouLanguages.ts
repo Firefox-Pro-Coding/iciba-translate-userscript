@@ -1,21 +1,23 @@
 export enum SOUGOU_LANGUAGES {
-  zhs = 'zh-CHS',
-  en = 'en',
-  fr = 'fr',
   de = 'de',
+  es = 'es',
+  fr = 'fr',
+  it = 'it',
   ja = 'ja',
   ru = 'ru',
-  es = 'es',
+  en = 'en',
+  zhs = 'zh-CHS',
 }
 
 export const SOUGOU_LANGUAGE_MAP = {
-  [SOUGOU_LANGUAGES.zhs]: '中文',
-  [SOUGOU_LANGUAGES.en]: '英语',
-  [SOUGOU_LANGUAGES.fr]: '法语',
   [SOUGOU_LANGUAGES.de]: '德语',
+  [SOUGOU_LANGUAGES.es]: '西班牙语',
+  [SOUGOU_LANGUAGES.fr]: '法语',
+  [SOUGOU_LANGUAGES.it]: '意大利语',
   [SOUGOU_LANGUAGES.ja]: '日语',
   [SOUGOU_LANGUAGES.ru]: '俄语',
-  [SOUGOU_LANGUAGES.es]: '西班牙语',
+  [SOUGOU_LANGUAGES.en]: '英语',
+  [SOUGOU_LANGUAGES.zhs]: '中文',
 }
 
 export const sougouLanguagesOptions = Object

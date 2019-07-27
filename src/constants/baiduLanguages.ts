@@ -1,8 +1,9 @@
 export enum BAIDU_LANGUAGES {
   de = 'de',
-  ru = 'ru',
   fra = 'fra',
+  it = 'it',
   jp = 'jp',
+  ru = 'ru',
   spa = 'spa',
   zh = 'zh',
   en = 'en',
@@ -10,9 +11,10 @@ export enum BAIDU_LANGUAGES {
 
 export const BAIDU_LANGUAGE_MAP = {
   [BAIDU_LANGUAGES.de]: '德语',
-  [BAIDU_LANGUAGES.ru]: '俄语',
   [BAIDU_LANGUAGES.fra]: '法语',
+  [BAIDU_LANGUAGES.it]: '意大利语',
   [BAIDU_LANGUAGES.jp]: '日语',
+  [BAIDU_LANGUAGES.ru]: '俄语',
   [BAIDU_LANGUAGES.spa]: '西班牙语',
   [BAIDU_LANGUAGES.zh]: '中文',
   [BAIDU_LANGUAGES.en]: '英语',

@@ -17,6 +17,7 @@ import GoogleTranslate from './subpage/googleTranslate/googleTranslate.vue'
 import BaiduTranslate from './subpage/baiduTranslate/baiduTranslate.vue'
 import SougouTranslate from './subpage/sougouTranslate/sougouTranslate.vue'
 import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
+import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
 
 type TabNames = 'core' | 'iciba'
 
@@ -31,6 +32,7 @@ type TabNames = 'core' | 'iciba'
     BaiduTranslate,
     SougouTranslate,
     UrbanDictionary,
+    BingTranslate,
 
     ITabs,
     ITab,

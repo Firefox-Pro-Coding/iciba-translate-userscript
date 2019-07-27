@@ -16,6 +16,7 @@ import GoogleTranslateProvider from '~/provider/GoogleTranslate/GoogleTranslate'
 import BaiduTranslateProvider from '~/provider/BaiduTranslate/BaiduTranslate'
 import SougouTranslateProvider from '~/provider/SougouTranslate/SougouTranslate'
 import UrbanDictionaryProvider from '~/provider/UrbanDictionary/UrbanDictionary'
+import BingTranslateProvider from '~/provider/BingTranslate/BingTranslate'
 
 import GoogleDictModalClass from '~/provider/GoogleDict/container/GoogleDictModal'
 
@@ -66,6 +67,7 @@ export default class IcibaMain extends Vue {
     { visible: false, provider: BaiduTranslateProvider },
     { visible: false, provider: SougouTranslateProvider },
     { visible: false, provider: UrbanDictionaryProvider },
+    { visible: false, provider: BingTranslateProvider },
   ]
   public visible = false
   public loading = false

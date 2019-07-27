@@ -47,7 +47,16 @@ export interface SougouTranslatePayload extends TranslatePayloadCommon {
   tl: string
 }
 
-export type TranslatePayload = GoogleTranslatePayload | BaiduTranslatePayload | SougouTranslatePayload
+export interface BingTranslatePayload extends TranslatePayloadCommon {
+  uniqName: PROVIDER.BING_TRANSLATE
+  sl: string
+  tl: string
+}
+
+export type TranslatePayload = GoogleTranslatePayload
+| BaiduTranslatePayload
+| SougouTranslatePayload
+| BingTranslatePayload
 
 export interface ClickTranslatePayload {
   word: string

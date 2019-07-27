@@ -21,6 +21,7 @@
             <i-tab>百度翻译</i-tab>
             <i-tab>搜狗翻译</i-tab>
             <i-tab>urban<br>dictionary</i-tab>
+            <i-tab>bing 翻译</i-tab>
           </i-tabs>
         </div>
 
@@ -37,6 +38,7 @@
           <i-tab-item class="pa-3"><baidu-translate /></i-tab-item>
           <i-tab-item class="pa-3"><sougou-translate /></i-tab-item>
           <i-tab-item class="pa-3"><urban-dictionary /></i-tab-item>
+          <i-tab-item class="pa-3"><bing-translate /></i-tab-item>
         </i-tabs-items>
       </div>
     </div>

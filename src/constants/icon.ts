@@ -21,6 +21,11 @@ import icon_no_circle from '~/assets/img/providerIcon/sougouTranslate/icon_no_ci
 
 import urbanDictionary from '~/assets/img/providerIcon/urbanDictionary/urbanDictionary.svg'
 
+import bingFlat from '~/assets/img/providerIcon/bingTranslate/flat.svg'
+import bingGold from '~/assets/img/providerIcon/bingTranslate/gold.svg'
+import bingOutline from '~/assets/img/providerIcon/bingTranslate/outline.svg'
+import bingRound from '~/assets/img/providerIcon/bingTranslate/round.svg'
+
 const providerIcon = {
   [PROVIDER.ICIBA]: {
     searchIcon,
@@ -48,6 +53,12 @@ const providerIcon = {
   },
   [PROVIDER.URBAN_DICTIONARY]: {
     urbanDictionary,
+  },
+  [PROVIDER.BING_TRANSLATE]: {
+    bingFlat,
+    bingGold,
+    bingOutline,
+    bingRound,
   },
 }
 

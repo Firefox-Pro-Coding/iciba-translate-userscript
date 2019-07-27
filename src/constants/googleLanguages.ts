@@ -1,21 +1,23 @@
 export enum GOOGLE_LANGUAGES {
-  zh = 'zh-CN',
-  en = 'en',
-  fr = 'fr',
   de = 'de',
+  es = 'es',
+  fr = 'fr',
+  it = 'it',
   ja = 'ja',
   ru = 'ru',
-  es = 'es',
+  zh = 'zh-CN',
+  en = 'en',
 }
 
 export const GOOGLE_LANGUAGE_MAP = {
-  [GOOGLE_LANGUAGES.zh]: '中文',
-  [GOOGLE_LANGUAGES.en]: '英语',
-  [GOOGLE_LANGUAGES.fr]: '法语',
   [GOOGLE_LANGUAGES.de]: '德语',
+  [GOOGLE_LANGUAGES.es]: '西班牙语',
+  [GOOGLE_LANGUAGES.fr]: '法语',
+  [GOOGLE_LANGUAGES.it]: '意大利语',
   [GOOGLE_LANGUAGES.ja]: '日语',
   [GOOGLE_LANGUAGES.ru]: '俄语',
-  [GOOGLE_LANGUAGES.es]: '西班牙语',
+  [GOOGLE_LANGUAGES.en]: '英语',
+  [GOOGLE_LANGUAGES.zh]: '中文',
 }
 
 export const googleLanguagesOptions = Object
