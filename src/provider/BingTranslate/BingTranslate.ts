@@ -39,17 +39,13 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   }
 
   public async translate(word: string, payload?: BingTranslatePayload) {
-    try {
-      const data = await this.getBingTranslate(word, payload)
-      return () => {
-        containerData.data = data.result
-        containerData.inputText = word
-        containerData.detectedLanguage = data.dl as BING_LANGUAGES
-        containerData.sourceLanguage = data.sl
-        containerData.targetLanguage = data.tl as BING_LANGUAGES
-      }
-    } catch (e) {
-      throw e
+    const data = await this.getBingTranslate(word, payload)
+    return () => {
+      containerData.data = data.result
+      containerData.inputText = word
+      containerData.detectedLanguage = data.dl as BING_LANGUAGES
+      containerData.sourceLanguage = data.sl
+      containerData.targetLanguage = data.tl as BING_LANGUAGES
     }
   }
 
@@ -140,28 +136,24 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     const rate = '-10.00%' // 'default'
     const url = `https://${voiceToken.region}.tts.speech.microsoft.com/cognitiveservices/v1`
     const body = `<speak version="1.0" xml:lang="${locale}"><voice xml:lang="${locale}" xml:gender="${gender}" name="${voiceName}"><prosody rate="${rate}"><![CDATA[${word}]]></prosody></voice></speak>`
-    try {
-      const response = await got({
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${voiceToken.token}`,
-          'X-MICROSOFT-OutputFormat': 'audio-16khz-32kbitrate-mono-mp3',
-          'Cache-Control': 'no-cache',
-          'Content-Type': 'application/ssml+xml',
-        },
-        responseType: 'arraybuffer',
-        url,
-        data: body,
-        timeout: 5000,
-      })
+    const response = await got({
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${voiceToken.token}`,
+        'X-MICROSOFT-OutputFormat': 'audio-16khz-32kbitrate-mono-mp3',
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'application/ssml+xml',
+      },
+      responseType: 'arraybuffer',
+      url,
+      data: body,
+      timeout: 5000,
+    })
 
-      const arrayBuffer = response.response
+    const arrayBuffer = response.response
 
-      this.audioCache[url] = arrayBuffer
-      playAudio(arrayBuffer, volume)
-    } catch (e) {
-      throw e
-    }
+    this.audioCache[url] = arrayBuffer
+    playAudio(arrayBuffer, volume)
   }
 }
 

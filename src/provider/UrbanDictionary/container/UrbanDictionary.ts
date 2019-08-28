@@ -73,7 +73,7 @@ export default class UrbanDictionaryContainer extends Vue {
 
   private showTooltip(p: ShowTooltipPayload) {
     const rect = this.$refs.container.getBoundingClientRect()
-    if (this.tooltips.find(v => v.id === p.id)) {
+    if (this.tooltips.find((v) => v.id === p.id)) {
       return
     }
 
@@ -86,7 +86,7 @@ export default class UrbanDictionaryContainer extends Vue {
         url: `https://api.urbandictionary.com/v0/tooltip?term=${encodeURIComponent(p.text)}`,
         timeout: 5000,
         responseType: 'json',
-      }).then(response => JSON.parse(response.responseText).string)
+      }).then((response) => JSON.parse(response.responseText).string)
       cacheItem = { data: tooltipPromise }
       keywordCache[p.text] = cacheItem
     }
@@ -114,7 +114,7 @@ export default class UrbanDictionaryContainer extends Vue {
   }
 
   private hideTooltip(p: HideTooltipPayload) {
-    const item = this.tooltips.find(v => v.id === p.id)
+    const item = this.tooltips.find((v) => v.id === p.id)
     if (item) {
       this.tooltips.splice(this.tooltips.indexOf(item), 1)
     }

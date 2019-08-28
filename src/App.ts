@@ -50,7 +50,7 @@ export default class extends Vue {
     if (!this.icibaMainFirstLoaded) {
       this.icibaMainFirstLoaded = true
       // wait for element to be mounted
-      await new Promise<void>(rs => this.$nextTick(() => rs()))
+      await new Promise<void>((rs) => this.$nextTick(() => rs()))
     }
     globalBus.emit(globalBus.events.ICIBA_CIRCLE_CLICK_TRANSLATE, payload)
   }
@@ -60,7 +60,7 @@ export default class extends Vue {
     if (!this.settingPageFirstLoaded) {
       this.settingPageFirstLoaded = true
       // wait for element to be mounted
-      await new Promise<void>(rs => this.$nextTick(() => rs()))
+      await new Promise<void>((rs) => this.$nextTick(() => rs()))
     }
     globalBus.emit(globalBus.events.SETTING_OPEN)
   }
@@ -69,7 +69,7 @@ export default class extends Vue {
     if (!this.googleDictModalFirstLoaded) {
       this.googleDictModalFirstLoaded = true
       // wait for element to be mounted
-      await new Promise<void>(rs => this.$nextTick(() => rs()))
+      await new Promise<void>((rs) => this.$nextTick(() => rs()))
     }
     // wait for element to be mounted
     this.$nextTick(() => {

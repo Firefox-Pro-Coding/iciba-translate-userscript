@@ -34,14 +34,10 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     } catch (e) {
       if (e.message === 'Backend Error') {
         // try googletranslate
-        try {
-          const googleTranslateData = await this.fetchGoogleTranslate(word)
-          return () => {
-            containerDataStore.data = null
-            containerDataStore.translateData = googleTranslateData
-          }
-        } catch (err) {
-          throw err
+        const googleTranslateData = await this.fetchGoogleTranslate(word)
+        return () => {
+          containerDataStore.data = null
+          containerDataStore.translateData = googleTranslateData
         }
       }
       throw e

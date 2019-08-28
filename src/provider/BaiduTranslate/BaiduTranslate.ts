@@ -123,27 +123,23 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
       return
     }
 
-    try {
-      const response = await got({
-        method: 'GET',
-        headers: {
-          'Referer': 'https://fanyi.baidu.com/',
-          'Accept': '*/*',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'upgrade-insecure-requests': '1',
-        },
-        responseType: 'arraybuffer',
-        url,
-        timeout: 5000,
-      })
+    const response = await got({
+      method: 'GET',
+      headers: {
+        'Referer': 'https://fanyi.baidu.com/',
+        'Accept': '*/*',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'upgrade-insecure-requests': '1',
+      },
+      responseType: 'arraybuffer',
+      url,
+      timeout: 5000,
+    })
 
-      const arrayBuffer = response.response
-      this.audioCache[url] = arrayBuffer
-      playAudio(arrayBuffer, volume)
-    } catch (e) {
-      throw e
-    }
+    const arrayBuffer = response.response
+    this.audioCache[url] = arrayBuffer
+    playAudio(arrayBuffer, volume)
   }
 }
 

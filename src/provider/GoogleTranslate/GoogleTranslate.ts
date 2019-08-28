@@ -62,17 +62,13 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   }
 
   public async translate(word: string, payload?: GoogleTranslatePayload) {
-    try {
-      const data = await this.getGoogleTranslateResult(word, payload)
-      return () => {
-        containerData.data = data.result
-        containerData.inputText = word
-        containerData.detectedLanguage = data.dl as GOOGLE_LANGUAGES
-        containerData.sourceLanguage = data.sl
-        containerData.targetLanguage = data.tl as GOOGLE_LANGUAGES
-      }
-    } catch (e) {
-      throw e
+    const data = await this.getGoogleTranslateResult(word, payload)
+    return () => {
+      containerData.data = data.result
+      containerData.inputText = word
+      containerData.detectedLanguage = data.dl as GOOGLE_LANGUAGES
+      containerData.sourceLanguage = data.sl
+      containerData.targetLanguage = data.tl as GOOGLE_LANGUAGES
     }
   }
 
@@ -102,42 +98,38 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
     const url = `https://${this.getApiDomain()}/translate_a/single?${querystring.stringify(query)}`
 
-    try {
-      const result = await got({
-        method: 'GET',
-        headers: {
-          'Referer': `https://${this.getApiDomain()}/`,
-          'Cache-Control': 'max-age=0',
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
-        url,
-        timeout: 5000,
-        responseType: 'json', // force auto json parse
-      })
-      const data = result.response
-      const detectedLanguage: string = data[2]
+    const result = await got({
+      method: 'GET',
+      headers: {
+        'Referer': `https://${this.getApiDomain()}/`,
+        'Cache-Control': 'max-age=0',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      url,
+      timeout: 5000,
+      responseType: 'json', // force auto json parse
+    })
+    const data = result.response
+    const detectedLanguage: string = data[2]
 
-      // autodetected and fallback to secondTargetLanguage
-      if (
-        !payload
-          && detectedLanguage === tl
-          && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
-      ) {
-        return this.getGoogleTranslateResult(word, {
-          sl,
-          tl: store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage,
-        })
-      }
-
-      const translateResult = data[0].map((v: any) => (v[0] ? v[0] : ''))
-      return {
-        result: translateResult,
+    // autodetected and fallback to secondTargetLanguage
+    if (
+      !payload
+        && detectedLanguage === tl
+        && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
+    ) {
+      return this.getGoogleTranslateResult(word, {
         sl,
-        tl,
-        dl: detectedLanguage,
-      }
-    } catch (e) {
-      throw e
+        tl: store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage,
+      })
+    }
+
+    const translateResult = data[0].map((v: any) => (v[0] ? v[0] : ''))
+    return {
+      result: translateResult,
+      sl,
+      tl,
+      dl: detectedLanguage,
     }
   }
 
@@ -168,28 +160,24 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       return
     }
 
-    try {
-      const response = await got({
-        method: 'GET',
-        headers: {
-          'Referer': `https://${this.getApiDomain()}/`,
-          'Accept': '*/*',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache',
-          'upgrade-insecure-requests': '1',
-        },
-        responseType: 'arraybuffer',
-        url,
-        timeout: 5000,
-      })
+    const response = await got({
+      method: 'GET',
+      headers: {
+        'Referer': `https://${this.getApiDomain()}/`,
+        'Accept': '*/*',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'upgrade-insecure-requests': '1',
+      },
+      responseType: 'arraybuffer',
+      url,
+      timeout: 5000,
+    })
 
-      const arrayBuffer = response.response
+    const arrayBuffer = response.response
 
-      this.audioCache[url] = arrayBuffer
-      playAudio(arrayBuffer, volume)
-    } catch (e) {
-      throw e
-    }
+    this.audioCache[url] = arrayBuffer
+    playAudio(arrayBuffer, volume)
   }
 }
 

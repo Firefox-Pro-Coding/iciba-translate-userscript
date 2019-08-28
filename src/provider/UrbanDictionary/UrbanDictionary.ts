@@ -20,17 +20,12 @@ class UrbanDictionaryProvider extends AbstractTranslateProvider {
     /* http://api.urbandictionary.com/v0/define?term={word} */
     const url = `http://api.urbandictionary.com/v0/define?${querystring.stringify({ term: word })}`
 
-    let result: UrbanDictionaryResult
-    try {
-      const response = await got({
-        method: 'GET',
-        url,
-        timeout: 5000,
-      })
-      result = JSON.parse(response.responseText)
-    } catch (e) {
-      throw e
-    }
+    const response = await got({
+      method: 'GET',
+      url,
+      timeout: 5000,
+    })
+    const result: UrbanDictionaryResult = JSON.parse(response.responseText)
 
     return () => {
       containerData.data = copy(result)

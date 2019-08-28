@@ -38,34 +38,29 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     }
     const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
 
-    let result: any
-    try {
-      const response = await got({
-        method: 'GET',
-        headers: {
-          'Accept': '*/*',
-          'Accept-Encoding': 'gzip, deflate',
-          'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-          'Cache-Control': 'no-cache',
-          'Host': 'www.iciba.com',
-          'Pragma': 'no-cache',
-          'Referer': 'http://www.iciba.com',
-          'X-Requested-With': 'XMLHttpRequest',
-          'User-Agent': window.navigator.userAgent,
-        },
-        url: apiUrl,
-        timeout: 5000,
-      })
-      const content = response.responseText
-      const contentMatch = content.match(/callbackFnName\((.*)\)/)
-      if (!contentMatch) {
-        return Promise.reject(new Error('数据错误！'))
-      }
-      const resultJson = JSON.parse(contentMatch[1])
-      result = resultJson
-    } catch (e) {
-      throw e
+    const response = await got({
+      method: 'GET',
+      headers: {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+        'Cache-Control': 'no-cache',
+        'Host': 'www.iciba.com',
+        'Pragma': 'no-cache',
+        'Referer': 'http://www.iciba.com',
+        'X-Requested-With': 'XMLHttpRequest',
+        'User-Agent': window.navigator.userAgent,
+      },
+      url: apiUrl,
+      timeout: 5000,
+    })
+    const content = response.responseText
+    const contentMatch = content.match(/callbackFnName\((.*)\)/)
+    if (!contentMatch) {
+      return Promise.reject(new Error('数据错误！'))
     }
+    const resultJson = JSON.parse(contentMatch[1])
+    const result = resultJson
 
     // fix iciba api typo
     if ('baesInfo' in result) {

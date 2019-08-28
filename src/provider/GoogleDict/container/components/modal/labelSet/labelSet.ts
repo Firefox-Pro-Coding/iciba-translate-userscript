@@ -21,6 +21,6 @@ export default class extends Vue {
   public get isValid() {
     const l = this.labelSet
 
-    return l && Object.keys(l).some(k => l[k].length)
+    return l && Object.keys(l).some((k) => l[k].length)
   }
 }

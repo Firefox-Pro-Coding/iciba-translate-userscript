@@ -230,7 +230,7 @@ export default class IcibaMain extends Vue {
 
     this.inputText = word
 
-    const googleDictProvider = this.providers.find(v => v.provider.uniqName === PROVIDER.GOOGLE_DICT)
+    const googleDictProvider = this.providers.find((v) => v.provider.uniqName === PROVIDER.GOOGLE_DICT)
     if (!googleDictProvider) {
       throw new Error('handleGoogleDictWordClick 出错')
     }
@@ -240,7 +240,7 @@ export default class IcibaMain extends Vue {
   /** urban dictionary tooltip click */
   private async handleUrbanDictionryTooltipClick(word: string) {
     this.inputText = word
-    const urbanDictionaryProvider = this.providers.find(v => v.provider.uniqName === PROVIDER.URBAN_DICTIONARY)
+    const urbanDictionaryProvider = this.providers.find((v) => v.provider.uniqName === PROVIDER.URBAN_DICTIONARY)
     if (!urbanDictionaryProvider) {
       throw new Error('handleUrbanDictionryTooltipClick 出错')
     }
@@ -248,7 +248,7 @@ export default class IcibaMain extends Vue {
   }
 
   private handleRetranslate(payload: TranslatePayload) {
-    const providerItem = this.providers.find(v => v.provider.uniqName === payload.uniqName)
+    const providerItem = this.providers.find((v) => v.provider.uniqName === payload.uniqName)
     if (!providerItem) {
       throw new Error(`retranslate ${payload.uniqName} 出错`)
     }
@@ -309,7 +309,7 @@ export default class IcibaMain extends Vue {
 
   /** 获取默认 provider */
   private getDefaultProvider() {
-    const provider = this.providers.find(v => v.provider.uniqName === this.config.core.defaultProvider)
+    const provider = this.providers.find((v) => v.provider.uniqName === this.config.core.defaultProvider)
     if (provider) {
       return provider
     }
@@ -319,7 +319,7 @@ export default class IcibaMain extends Vue {
 
   /** 获取备选 provider */
   private getSecondaryProvider() {
-    const provider = this.providers.find(v => v.provider.uniqName === this.config.core.icibaCircleRightClickProvider)
+    const provider = this.providers.find((v) => v.provider.uniqName === this.config.core.icibaCircleRightClickProvider)
     if (provider) {
       return provider
     }
@@ -329,7 +329,7 @@ export default class IcibaMain extends Vue {
 
   /** 获取最近使用的 provider */
   private getLastUsedProvider() {
-    const provider = this.providers.find(v => v.provider.uniqName === this.lastUsedProviderName)
+    const provider = this.providers.find((v) => v.provider.uniqName === this.lastUsedProviderName)
     if (provider) {
       return provider
     }
@@ -399,7 +399,7 @@ export default class IcibaMain extends Vue {
       insideOf(e.target, this.icibaCircle.$el),
       this.config.core.showPin && this.config.core.pinned,
     ]
-    if (ignoreCondition.some(v => v)) {
+    if (ignoreCondition.some((v) => v)) {
       return
     }
     this.visible = false

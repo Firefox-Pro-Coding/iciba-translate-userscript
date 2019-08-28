@@ -13,7 +13,7 @@ import {
 
 const genColor = () => {
   const genColorStyle = (_colorName: string, colorValue: string, accent?: string) => {
-    const colorName = _colorName.replace(/[A-Z]/g, s => `-${s.toLowerCase()}`)
+    const colorName = _colorName.replace(/[A-Z]/g, (s) => `-${s.toLowerCase()}`)
     let className = `.${colorName}`
     let textClassName = `.${colorName}--text`
     if (accent) {
@@ -85,7 +85,7 @@ const genSpacing = () => {
     direction.forEach((directionTuple) => {
       value.forEach((valueTuple) => {
         const className = `.${nameTuple[0]}${directionTuple[0]}-${valueTuple[0]}`
-        const statements = directionTuple[1].map(directionName => `${nameTuple[1]}-${directionName}: ${valueTuple[1]}!important;`)
+        const statements = directionTuple[1].map((directionName) => `${nameTuple[1]}-${directionName}: ${valueTuple[1]}!important;`)
         style += `${className}{${statements.join('')}}\n`
       })
     })

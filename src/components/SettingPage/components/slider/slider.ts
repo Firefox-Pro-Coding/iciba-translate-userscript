@@ -77,7 +77,7 @@ export default class Slider extends Vue {
   }
 
   public get position() {
-    return (this.cachedValue - this.min) / (this.max - this.min) * 100
+    return ((this.cachedValue - this.min) / (this.max - this.min)) * 100
   }
 
   private getValueFromDeltaPercentage(percentage: number) {
