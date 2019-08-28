@@ -19,3 +19,8 @@
 // ==/UserScript==
 
 // this file was compiled by webpack.
+
+// corejs@3 polyfill bug in tampermonkey env
+if (!window.Symbol) {
+  window.Symbol = unsafeWindow.Symbol
+}
