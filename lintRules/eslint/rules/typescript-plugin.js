@@ -70,6 +70,10 @@ module.exports = {
       '@typescript-eslint/camelcase': ['off'],
 
       '@typescript-eslint/class-name-casing': ['error'],
+      '@typescript-eslint/consistent-type-assertions': ['error', {
+        'assertionStyle': 'as',
+        'objectLiteralTypeAssertions': 'allow-as-parameter',
+      }],
       '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
       '@typescript-eslint/explicit-function-return-type': ['off'],
       '@typescript-eslint/explicit-member-accessibility': ['error'],
@@ -122,7 +126,6 @@ module.exports = {
           'private-instance-method',
         ],
       }],
-      '@typescript-eslint/no-angle-bracket-type-assertion': ['error'],
       '@typescript-eslint/no-array-constructor': ['error'],
       '@typescript-eslint/no-empty-interface': ['off'],
       '@typescript-eslint/no-explicit-any': ['off'],
@@ -143,11 +146,9 @@ module.exports = {
       '@typescript-eslint/no-misused-new': ['error'],
       '@typescript-eslint/no-namespace': ['error'],
       '@typescript-eslint/no-non-null-assertion': ['off'],
-      '@typescript-eslint/no-object-literal-type-assertion': ['error'],
       '@typescript-eslint/no-parameter-properties': ['error'],
       '@typescript-eslint/no-require-imports': ['error'],
       '@typescript-eslint/no-this-alias': ['error'],
-      '@typescript-eslint/no-triple-slash-reference': ['error'],
       '@typescript-eslint/no-type-alias': ['off'],
       '@typescript-eslint/no-unnecessary-qualifier': ['error'],
       '@typescript-eslint/no-unnecessary-type-assertion': ['error'],
@@ -164,12 +165,12 @@ module.exports = {
       // '@typescript-eslint/prefer-for-of': ['error'],
       // '@typescript-eslint/prefer-function-type': ['error'],
       '@typescript-eslint/prefer-includes': ['error'],
-      '@typescript-eslint/prefer-interface': ['error'],
       '@typescript-eslint/prefer-namespace-keyword': ['error'],
       '@typescript-eslint/prefer-string-starts-ends-with': ['error'],
       '@typescript-eslint/promise-function-async': ['off'],
       '@typescript-eslint/require-array-sort-compare': ['off'],
       '@typescript-eslint/restrict-plus-operands': ['error'],
+      '@typescript-eslint/triple-slash-reference': ['error', { 'path': 'never', 'types': 'never', 'lib': 'never' }],
 
       '@typescript-eslint/type-annotation-spacing': ['error', {
         'overrides': {
