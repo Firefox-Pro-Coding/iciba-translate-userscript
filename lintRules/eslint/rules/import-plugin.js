@@ -10,39 +10,40 @@ module.exports = {
         '.tsx',
       ],
     },
-    'import/extensions': [
-      '.js',
-      '.mjs',
-      '.jsx',
-      '.ts',
-      '.tsx',
-    ],
 
-    'import/resolver': {
-      'webpack': {
-        'config': {
-          'resolve': {
-            'extensions': [
-              '.js',
-              '.mjs',
-              '.jsx',
-              '.json',
-              '.ts',
-              '.tsx',
-              '.d.ts',
-              '.vue',
-            ],
-            'alias': {
-              '~': path.resolve(__dirname),
-              '@': path.resolve(__dirname),
-              '~~': process.cwd(),
-              '@@': process.cwd(),
-              'property-decorator$': path.resolve(__dirname, './utils/property-decorator.ts'),
-            },
-          },
-        },
-      },
-    },
+  //   'import/extensions': [
+  //     '.js',
+  //     '.mjs',
+  //     '.jsx',
+  //     '.ts',
+  //     '.tsx',
+  //     '.json',
+  //   ],
+
+  //   'import/resolver': {
+  //     'webpack': {
+  //       'config': {
+  //         'resolve': {
+  //           'extensions': [
+  //             '.js',
+  //             '.mjs',
+  //             '.jsx',
+  //             '.json',
+  //             '.ts',
+  //             '.tsx',
+  //             '.d.ts',
+  //             '.vue',
+  //           ],
+  //           'alias': {
+  //             '~': path.resolve(__dirname),
+  //             '@': path.resolve(__dirname),
+  //             '~~': process.cwd(),
+  //             '@@': process.cwd(),
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
   },
 
 

@@ -1,6 +1,3 @@
-const path = require('path')
-
-
 module.exports = {
   'overrides': [{
     'files': [
@@ -65,7 +62,9 @@ module.exports = {
         },
       }],
 
-      // note you must disable the base rule as it can report incorrect errors
+      'brace-style': ['off'],
+      '@typescript-eslint/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+
       'camelcase': 'off',
       '@typescript-eslint/camelcase': ['off'],
 
@@ -78,13 +77,10 @@ module.exports = {
       '@typescript-eslint/explicit-function-return-type': ['off'],
       '@typescript-eslint/explicit-member-accessibility': ['error'],
 
-      // not implemented
-      // note you must disable the base rule as it can report incorrect errors
-      // 'func-call-spacing': 'off',
-      // '@typescript-eslint/func-call-spacing': ['error', 'never'],
+      'func-call-spacing': 'off',
+      '@typescript-eslint/func-call-spacing': ['error', 'never'],
       '@typescript-eslint/generic-type-naming': ['off'],
 
-      // note you must disable the base rule as it can report incorrect errors
       'indent': ['off'],
       '@typescript-eslint/indent': ['error', 2, {
         'SwitchCase': 1,
@@ -127,20 +123,32 @@ module.exports = {
         ],
       }],
       '@typescript-eslint/no-array-constructor': ['error'],
+
+      'no-empty-function': 'off',
+      '@typescript-eslint/no-empty-function': ['error', {
+        allow: [
+          'constructors',
+          'arrowFunctions',
+        ],
+      }],
+
       '@typescript-eslint/no-empty-interface': ['off'],
       '@typescript-eslint/no-explicit-any': ['off'],
 
-      // note you must disable the base rule as it can report incorrect errors
-      // 'no-extra-parens': 'off',
-      // '@typescript-eslint/no-extra-parens': ['error', {
-      //   'conditionalAssign': true,
-      //   'nestedBinaryExpressions': false,
-      //   'returnAssign': false,
-      //   'ignoreJSX': 'all', // delegate to eslint-plugin-react
-      //   'enforceForArrowConditionals': false,
-      // }],
+      'no-extra-parens': 'off',
+      '@typescript-eslint/no-extra-parens': ['error', 'all', {
+        conditionalAssign: true,
+        nestedBinaryExpressions: false,
+        returnAssign: false,
+        ignoreJSX: 'all', // delegate to eslint-plugin-react
+        enforceForArrowConditionals: false,
+      }],
+
+      'no-magic-numbers': 'off',
+      '@typescript-eslint/no-magic-numbers': ['off', { 'ignoreNumericLiteralTypes': true }],
 
       '@typescript-eslint/no-extraneous-class': ['error', { allowEmpty: true }],
+      '@typescript-eslint/no-floating-promises': ['off', { ignoreVoid: true }], // too much noise
       '@typescript-eslint/no-for-in-array': ['error'],
       '@typescript-eslint/no-inferrable-types': ['off'],
       '@typescript-eslint/no-misused-new': ['error'],
@@ -150,10 +158,13 @@ module.exports = {
       '@typescript-eslint/no-require-imports': ['error'],
       '@typescript-eslint/no-this-alias': ['error'],
       '@typescript-eslint/no-type-alias': ['off'],
+      '@typescript-eslint/no-misused-promises': ['off'], // noise
+      // false positive https://github.com/typescript-eslint/typescript-eslint/issues/989
+      '@typescript-eslint/no-unnecessary-condition': ['off'],
       '@typescript-eslint/no-unnecessary-qualifier': ['error'],
+      '@typescript-eslint/no-unnecessary-type-arguments': ['error'],
       '@typescript-eslint/no-unnecessary-type-assertion': ['error'],
 
-      // note you must disable the base rule as it can report incorrect errors
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['error'],
 
@@ -162,24 +173,42 @@ module.exports = {
 
       '@typescript-eslint/no-useless-constructor': ['error'],
       '@typescript-eslint/no-var-requires': ['error'],
-      // '@typescript-eslint/prefer-for-of': ['error'],
-      // '@typescript-eslint/prefer-function-type': ['error'],
+
+      '@typescript-eslint/prefer-for-of': ['off'],
+      '@typescript-eslint/prefer-function-type': ['off'],
       '@typescript-eslint/prefer-includes': ['error'],
       '@typescript-eslint/prefer-namespace-keyword': ['error'],
+      '@typescript-eslint/prefer-readonly': ['off'],
+      '@typescript-eslint/prefer-regexp-exec': ['off'],
       '@typescript-eslint/prefer-string-starts-ends-with': ['error'],
-      '@typescript-eslint/promise-function-async': ['off'],
-      '@typescript-eslint/require-array-sort-compare': ['off'],
-      '@typescript-eslint/restrict-plus-operands': ['error'],
-      '@typescript-eslint/triple-slash-reference': ['error', { 'path': 'never', 'types': 'never', 'lib': 'never' }],
 
+      '@typescript-eslint/promise-function-async': ['off'],
+
+
+      'quotes': 'off',
+      '@typescript-eslint/quotes': ['error', 'single'],
+
+      '@typescript-eslint/require-array-sort-compare': ['off'],
+
+      'require-await': 'off',
+      '@typescript-eslint/require-await': ['error'],
+
+      '@typescript-eslint/restrict-plus-operands': ['error'],
+
+      'semi': 'off',
+      '@typescript-eslint/semi': ['error', 'never'],
+
+      '@typescript-eslint/strict-boolean-expressions': ['off'],
+      '@typescript-eslint/typedef': ['off'],
+      '@typescript-eslint/triple-slash-reference': ['error', { 'path': 'never', 'types': 'never', 'lib': 'never' }],
       '@typescript-eslint/type-annotation-spacing': ['error', {
         'overrides': {
           'colon': { 'before': false, 'after': true },
           'arrow': { 'before': true, 'after': true },
         },
       }],
-      // '@typescript-eslint/unbound-method': ['error'], // bugged TypeError: Cannot read property 'kind' of undefined
-      // '@typescript-eslint/unified-signatures': ['error'],
+      '@typescript-eslint/unbound-method': ['off'],
+      '@typescript-eslint/unified-signatures': ['off'],
     },
   }],
 }

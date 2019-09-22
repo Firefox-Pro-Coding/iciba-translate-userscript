@@ -13,6 +13,14 @@ module.exports = {
     'function-paren-newline': ['error', 'consistent'],
     'lines-between-class-members': 'off', // allow compact space between class members
     'max-len': 'off',
+    'no-empty-function': ['error', {
+      'allow': [
+        'constructors',
+        'arrowFunctions',
+        'functions',
+        'methods',
+      ],
+    }],
     'no-await-in-loop': 'off', // somtime need it
     'no-loop-func': 'off',
     'no-param-reassign': ['error', { 'props': false }], // allow object prop mutation

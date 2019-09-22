@@ -11,16 +11,13 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
     "noImplicitReturns": true,
-    "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "tsc_dist/",
     "pretty": true,
     "sourceMap": true,
     "strict": true,
-    "strictNullChecks": true,
     "target": "ESNext",
     "paths": {
       "~/*": ["src/*"]

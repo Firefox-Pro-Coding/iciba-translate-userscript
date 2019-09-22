@@ -3,7 +3,6 @@
     "no-accessor-recursion": true,
     "no-static-this": true,
     "no-unnecessary-else": true,
-    "no-unnecessary-type-annotation": true,
     "prefer-const-enum": true
   }
 }

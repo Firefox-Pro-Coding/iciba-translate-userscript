@@ -37,7 +37,7 @@ module.exports = {
   'no-unnecessary-else': true,
 
   // Finds type annotations that can safely be removed.
-  'no-unnecessary-type-annotation': true,
+  // 'no-unnecessary-type-annotation': true,
 
   // Find dead code and unused declarations.
   // 'no-unused': { severity: 'warning' },
