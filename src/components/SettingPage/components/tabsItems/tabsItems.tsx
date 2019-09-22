@@ -125,7 +125,7 @@ export default class ITabsItems extends Vue {
       this.scrollTopInterupt()
     }
     const startTime = performance.now()
-    const ease = (pos: number) => ((Math.cos(Math.PI * pos) - 1) * -0.5)
+    const ease = (pos: number) => (Math.cos(Math.PI * pos) - 1) * -0.5
     let stop = false
     const scroll = () => {
       const time = performance.now() - startTime

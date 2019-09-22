@@ -31,7 +31,7 @@
                     :class="{ 'is-core': nym.isCore }"
                     :key="nymIndex">
                     <div
-                      @click="handleNymClick($event, nym.nym)"
+                      @click="handleNymClick($event, nym)"
                       :class="{ 'entry-link': nym.numEntries }"
                       class="nym-content q-inline">
                       {{ nym.nym }}

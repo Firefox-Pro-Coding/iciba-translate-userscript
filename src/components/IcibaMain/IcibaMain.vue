@@ -27,6 +27,7 @@
             <input
               id="iciba-search-input"
               class="iciba-search-input"
+              ref="icibaSearchInput"
               size="1"
               type="text"
               @focus="inputFocused = true"

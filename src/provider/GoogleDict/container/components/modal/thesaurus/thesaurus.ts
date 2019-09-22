@@ -36,7 +36,9 @@ export default class extends Vue {
     return `"${text}"`
   }
 
-  protected handleNymClick(event: MouseEvent, word: string) {
-    globalBus.emit(globalBus.events.GOOGLE_DICT_WORD_CLICK, { event, word })
+  protected handleNymClick(event: MouseEvent, nym: any) {
+    if (nym.numEntries) {
+      globalBus.emit(globalBus.events.GOOGLE_DICT_WORD_CLICK, { event, word: nym.nym })
+    }
   }
 }

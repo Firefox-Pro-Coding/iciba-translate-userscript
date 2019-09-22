@@ -15,7 +15,7 @@
   z-index: 10000;
   justify-content: center;
   align-items: stretch;
-  transition: 0.3s;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 1;
   font-family: 'Arial', 'Microsoft Yahei', sans-serif;
 
@@ -26,7 +26,9 @@
 
   &.modal-enter, &.modal-leave-to {
     opacity: 0;
+  }
 
+  &.modal-enter {
     .google-dict-modal-content {
       transform: scale(0.9);
     }
@@ -45,7 +47,7 @@
     left: 50%;
     transform: translate(-50%, 0);
     z-index: 4;
-    transition: 0.3s ease transform, 0.1s ease opacity;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) transform, 0.1s cubic-bezier(0.4, 0, 0.2, 1) opacity;
     background-color: @background-level-5;
     opacity: 0.7;
 

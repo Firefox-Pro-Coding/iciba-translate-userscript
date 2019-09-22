@@ -66,12 +66,14 @@
   .iciba-label {
     position: relative;
     line-height: 1.5;
+    margin-right: 5px;
 
-    &:not(:last-child) {
-      margin-right: 5px;
+    &.last {
+      margin-right: 0;
     }
 
     .popover-tooltip {
+      user-select: none;
       pointer-events: none;
       position: absolute;
       z-index: 200000;
@@ -86,6 +88,7 @@
       margin-right: -7px;
       transform: translate(100%, -50%);
       transition: 0.12s;
+      white-space: nowrap;
 
       &::after {
         @size: 6px;

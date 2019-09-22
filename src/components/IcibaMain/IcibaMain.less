@@ -8,15 +8,19 @@
   border: none;
   box-shadow: none;
   box-sizing: border-box;
-  transition: 0.15s ease opacity;
+  transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1) opacity;
   font-family: 'Microsoft Yahei', 'Arial', sans-serif;
 
-  &.iciba-main-enter, &.iciba-main-leave-to {
+  &.iciba-main-enter {
     opacity: 0;
 
     .iciba-container {
       transform: translateY(-6px);
     }
+  }
+
+  &.iciba-main-leave-to {
+    opacity: 0;
   }
 
   &.iciba-main-leave, &.iciba-main-enter-to {
@@ -28,7 +32,7 @@
   }
 
   .iciba-container {
-    transition: 0.15s ease transform;
+    transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1) transform;
     position: absolute;
     top: 0;
     left: 0;

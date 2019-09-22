@@ -156,11 +156,9 @@ export default class IScrollable extends Vue {
 
   protected get contentWrapperStyle() {
     return {
-      ...(
-        this.noScrollBar
-          ? { ...this.noScrollBarStyle }
-          : { ...this.scrollBarStyle }
-      ),
+      ...this.noScrollBar
+        ? { ...this.noScrollBarStyle }
+        : { ...this.scrollBarStyle },
     }
   }
 }

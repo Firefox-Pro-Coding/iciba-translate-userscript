@@ -60,9 +60,9 @@
             :title="item.formType.posTag"
             v-for="(item, morphIndex) in senseFamilyItem.morphUnits"
             :key="morphIndex">
-            <div class="morph-units-description q-inline">{{ item.formType.description }}</div>
+            <div class="morph-units-description q-inline">{{ item.formType.description }}&nbsp;</div>
             <div class="morph-units-word-form q-inline">{{ item.wordForm }}</div>
-            <div class="morph-units-split q-inline" v-if="index !== senseFamilyItem.morphUnits.length">;</div>
+            <div class="morph-units-split q-inline" v-if="index !== senseFamilyItem.morphUnits.length">;&nbsp;</div>
           </div>
         </div>
 
@@ -139,6 +139,8 @@
                             size="medium"
                             :label-set="subsense.labelSet">
                           </label-set>
+
+                          <span style="font-size: 0;">&nbsp;</span>
 
                           <fragment
                             class="subsense-frag"

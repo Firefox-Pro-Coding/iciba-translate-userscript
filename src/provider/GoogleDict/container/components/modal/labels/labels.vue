@@ -3,19 +3,26 @@
     class="iciba-google-dict-label-box q-inline"
     :class="[colorClass, sizeClass]"
     v-if="labels && labels.length">
-    <div
-      :class="[labelClass, 'iciba-label', 'q-inline-block']"
-      v-for="(label, index) in labels"
-      @mouseover="handleShowPopover(label)"
-      @mouseleave="handleHidePopover(label)"
-      :key="index">
-      {{ label }}
-      <transition name="popover">
-        <div class="popover-tooltip" v-if="popoverVisibleMap[label]">
-          {{ type }}
-        </div>
-      </transition>
-    </div>
+    <template v-for="(label, index) in labels">
+      <div
+        :class="[
+          labelClass,
+          'iciba-label',
+          'q-inline-block',
+          index === labels.length - 1 ? 'last' : '',
+        ]"
+        @mouseover="handleShowPopover(label)"
+        @mouseleave="handleHidePopover(label)"
+        :key="index">
+        {{ label }}
+        <transition name="popover">
+          <div class="popover-tooltip" v-if="popoverVisibleMap[label]">
+            {{ type }}
+          </div>
+        </transition>
+      </div>
+      <span :key="`${index}-split`" style="font-size: 0;">&nbsp;</span>
+    </template>
   </div>
 </template>
 

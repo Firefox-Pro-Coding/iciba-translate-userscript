@@ -1,5 +1,5 @@
 // tslint:disable quotemark
-/* eslint-disable quotes,max-len */
+/* eslint-disable quotes, max-len, @typescript-eslint/quotes */
 const knowkeys: any = [
   "root",
   "root,dictionaryData",
@@ -239,6 +239,8 @@ const knowkeys: any = [
   "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,labelSet",
   "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,labelSet,geographics",
   "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,labelSet,geographics,!number",
+  "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,labelSet,registers",
+  "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,labelSet,registers,!number",
   "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,semanticClasses",
   "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,semanticClasses,!number",
   "root,dictionaryData,!number,entries,!number,subentries,!number,senseFamily,senses,!number,subsenses",

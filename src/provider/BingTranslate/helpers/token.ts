@@ -14,7 +14,7 @@ interface Token {
   ig: string
   iid: string
 }
-const getToken = async () => {
+const getToken = () => {
   if (data) {
     return data
   }

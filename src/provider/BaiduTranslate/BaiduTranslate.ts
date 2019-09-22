@@ -35,9 +35,9 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     // eslint-disable-next-line no-nested-ternary
     const tl = payload
       ? payload.tl
-      : (store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage !== sl
+      : store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage !== sl
         ? store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage
-        : store.config[PROVIDER.BAIDU_TRANSLATE].secondTargetLanguage)
+        : store.config[PROVIDER.BAIDU_TRANSLATE].secondTargetLanguage
 
     const result = await this.fetchTranslation({ word, sl, tl })
     return () => {

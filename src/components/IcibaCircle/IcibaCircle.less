@@ -7,20 +7,35 @@
   overflow: hidden;
   width: 22px;
   height: 22px;
-  border: 1px solid hsl(0, 0%, 10%);
+  border: 1px solid hsl(0, 0%, 6%);
   border-radius: 100px;
   background: hsl(215, 70%, 80%);
-  box-shadow: 0 0 1px rgba(black, 0.7);
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 0 1px 0 rgba(0, 0, 0, 0.14), 0 0 3px 0 rgba(0, 0, 0, 0.12);
   opacity: 0.7;
   box-sizing: border-box;
   user-select: none;
+
+  &.circle-leave-active {
+    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: opacity, transform;
+  }
+
+  &.circle-leave-to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  &.circle-leave {
+    transform: scale(1);
+    opacity: 1;
+  }
 
   &:hover {
     opacity: 1;
   }
 
   &:active {
-    filter: brightness(0.8);
-    box-shadow: 0 0 2px rgba(black, 0.6), 0 1px 1px rgba(black, 0.4) inset;
+    background: shade(hsl(215, 70%, 80%), 12%);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 0 1px 0 rgba(0, 0, 0, 0.14), 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 1px 1px rgba(black, 0.4) inset;
   }
 }

@@ -2,15 +2,16 @@
   <div
     class="label-set-box q-inline"
     v-if="isValid">
-    <labels
-      :size="size"
-      class="inner-label-box"
-      v-for="key in Object.keys(labelSet)"
-      :labels="labelSet[key]"
-      :type="key"
-      :color="color || key"
-      :key="key">
-    </labels>
+    <template v-for="key in Object.keys(labelSet)">
+      <labels
+        :size="size"
+        class="inner-label-box"
+        :labels="labelSet[key]"
+        :type="key"
+        :color="color || key"
+        :key="key">
+      </labels>
+    </template>
   </div>
 </template>
 

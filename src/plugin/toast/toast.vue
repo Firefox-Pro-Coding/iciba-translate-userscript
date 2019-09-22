@@ -1,6 +1,6 @@
 <template>
   <transition name="toast">
-    <div v-if="visible" class="toast-box">
+    <div v-if="visible" class="toast-box flex flex-center">
       {{ text }}
     </div>
   </transition>

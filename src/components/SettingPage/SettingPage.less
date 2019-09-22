@@ -8,15 +8,20 @@
   right: 0;
   z-index: 10000000;
   background: rgba(0, 0, 0, 0.3);
-  transition: 0.3s;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.iciba-setting-modal-enter,
   &.iciba-setting-modal-leave-to {
     background: rgba(0, 0, 0, 0);
 
     .iciba-setting-window {
-      transform: translateY(-10%);
       opacity: 0;
+    }
+  }
+
+  &.iciba-setting-modal-enter {
+    .iciba-setting-window {
+      transform: scale(0.9);
     }
   }
 
@@ -25,14 +30,14 @@
     background: rgba(0, 0, 0, 0.3);
 
     .iciba-setting-window {
-      transform: translateY(0);
+      transform: scale(1);
       opacity: 1;
     }
   }
 
   .iciba-setting-window {
     position: relative;
-    transition: 0.3s;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0);
     opacity: 1;
     width: 580px;

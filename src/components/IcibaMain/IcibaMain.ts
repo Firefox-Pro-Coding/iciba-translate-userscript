@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { Component, Prop, Watch } from 'vue-property-decorator'
 
 import settings_149837 from '~/assets/img/settings_149837.svg'
 import drag_462998 from '~/assets/img/drag_462998.svg'
@@ -43,6 +43,7 @@ export default class IcibaMain extends Vue {
   public $refs!: {
     icibaMain: HTMLDivElement
     icibaContainer: HTMLDivElement
+    icibaSearchInput: HTMLInputElement
   }
 
   @Prop({ type: Vue })
@@ -81,7 +82,6 @@ export default class IcibaMain extends Vue {
     providerName: '' as PROVIDER | '',
     index: 0,
   }
-
 
   public drag = {
     dragging: false,
@@ -183,7 +183,7 @@ export default class IcibaMain extends Vue {
   }
 
   /** 查词 */
-  private async handleIcibaCircleTranslate({ word, event }: ClickTranslatePayload) {
+  private handleIcibaCircleTranslate({ word, event }: ClickTranslatePayload) {
     const show = () => {
       // not showed
       if (!this.visible) {
@@ -221,7 +221,7 @@ export default class IcibaMain extends Vue {
   }
 
   /** google dict entry link click */
-  private async handleGoogleDictWordClick({ word, event }: ClickTranslatePayload) {
+  private handleGoogleDictWordClick({ word, event }: ClickTranslatePayload) {
     if (!this.visible) {
       this.visible = true
     }
@@ -238,7 +238,7 @@ export default class IcibaMain extends Vue {
   }
 
   /** urban dictionary tooltip click */
-  private async handleUrbanDictionryTooltipClick(word: string) {
+  private handleUrbanDictionryTooltipClick(word: string) {
     this.inputText = word
     const urbanDictionaryProvider = this.providers.find((v) => v.provider.uniqName === PROVIDER.URBAN_DICTIONARY)
     if (!urbanDictionaryProvider) {
@@ -356,12 +356,12 @@ export default class IcibaMain extends Vue {
       left: 'auto',
       right: 'auto',
       ...{
-        ...(availableSpace.x < this.config.core.icibaMainWidth
+        ...availableSpace.x < this.config.core.icibaMainWidth
           ? { right: '0' }
-          : { left: '0' }),
-        ...(availableSpace.y < 250
+          : { left: '0' },
+        ...availableSpace.y < 250
           ? { bottom: '0' }
-          : { top: '0' }),
+          : { top: '0' },
       },
     }
 
@@ -384,7 +384,7 @@ export default class IcibaMain extends Vue {
     }
   }
 
-  private async handleWindowClick(e: MouseEvent) {
+  private handleWindowClick(e: MouseEvent) {
     // outside shadow-root
     if (e.target !== this.icibaRoot && (!this.config.core.showPin || !this.config.core.pinned)) {
       this.visible = false
@@ -474,5 +474,15 @@ export default class IcibaMain extends Vue {
       right: this.icibaContainerStyle.right,
       width: `${this.config.core.icibaMainWidth}px`,
     }
+  }
+
+  /* eslint-disable @typescript-eslint/member-ordering */
+  @Watch('visible')
+  public handleVisibleChange() {
+    this.$nextTick(() => {
+      if (this.visible && this.$refs.icibaSearchInput) {
+        this.$refs.icibaSearchInput.focus()
+      }
+    })
   }
 }

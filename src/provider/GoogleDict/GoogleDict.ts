@@ -61,13 +61,13 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     const query = {
       term: word,
       language: 'en',
-      ...(lang === 'uk' ? {
+      ...lang === 'uk' ? {
         corpus: 'en',
         country: 'UK',
       } : {
         corpus: 'en-US',
         country: 'US',
-      }),
+      },
       // this key is hard coded in background.min.js
       // https://chrome.google.com/webstore/detail/google-dictionary-by-goog/mgijmajocgfcbeboacabfgobmjgjcoja
       key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',

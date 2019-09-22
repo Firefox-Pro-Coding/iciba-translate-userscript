@@ -2,14 +2,14 @@
   position: fixed;
   z-index: 10000000;
   left: 50%;
-  bottom: 12%;
+  bottom: 10%;
   transform: translate(-50%, -50%);
   color: #FFF;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 18px;
   border-radius: 6px;
-  transition: 0.3s;
-  text-align: center;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: left top;
 }
 .toast-box.toast-enter,
 .toast-box.toast-leave-to {
@@ -17,12 +17,9 @@
 }
 .toast-box.toast-enter-to,
 .toast-box.toast-leave {
-  transform: translate(-50%, -50%);
   opacity: 1;
 }
+
 .toast-box.toast-enter {
-  transform: translate(-50%, 50%);
-}
-.toast-box.toast-leave-to {
-  transform: translate(-50%, -150%);
+  transform: scale(0.9) translate(-50%, -50%);
 }

@@ -71,7 +71,7 @@ export default class IcibaCircle extends Vue {
     bus.emit(bus.events.ICIBA_CIRCLE_CLICK_TRANSLATE_PREPARE, payload)
   }
 
-  protected async handleMouseUp(e: MouseEvent, proxied = false) {
+  protected handleMouseUp(e: MouseEvent, proxied = false) {
     // let handleShadowRootClick handle
 
     if (!proxied && e.target === this.icibaRoot) {
@@ -107,11 +107,11 @@ export default class IcibaCircle extends Vue {
     this.showIcibaCircle(e, selectionString)
   }
 
-  protected async handleShadowRootMouseUp(e: Event) {
+  protected handleShadowRootMouseUp(e: Event) {
     this.handleMouseUp(e as MouseEvent, true)
   }
 
-  private async showIcibaCircle(e: MouseEvent, word: string) {
+  private showIcibaCircle(e: MouseEvent, word: string) {
     // await sleep(10)
     this.visible = true
     this.word = word
