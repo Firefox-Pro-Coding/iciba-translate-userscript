@@ -4,6 +4,7 @@ import { shadowRoot } from './createRoot'
 import '~/util/extendIoTs'
 import '~/util/style/genStyle'
 import '~/plugin/toast/toastPlugin'
+import '~/plugin/prototype'
 
 import Vue from 'vue'
 import App from '~/App.vue'
