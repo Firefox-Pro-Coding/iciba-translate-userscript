@@ -9,7 +9,10 @@
         <div
           class="symbols-box flex-co align-stretch"
           v-if="result && result.baseInfo && result.baseInfo.symbols && result.baseInfo.symbols.length">
-          <div class="symbol-item flex-co align-stretch" v-for="(symbomItem, index) in result.baseInfo.symbols" :key="index">
+          <div
+            class="symbol-item flex-co align-stretch"
+            v-for="(symbomItem, index) in result.baseInfo.symbols"
+            :key="index">
             <!-- pronunciation -->
             <div class="pronunciation-box flex-co align-stretch">
               <!-- symbol_mp3 -->
