@@ -21,7 +21,7 @@ module.exports = {
     'jsdoc/check-tag-names': 'error',
     'jsdoc/check-types': 'error',
     // 'jsdoc/newline-after-description': 'error',
-    'jsdoc/no-undefined-types': 'error',
+    // 'jsdoc/no-undefined-types': 'error',
     // 'jsdoc/require-description-complete-sentence': 'error',
     // 'jsdoc/require-example': 'error',
     'jsdoc/require-hyphen-before-param-description': 'error',

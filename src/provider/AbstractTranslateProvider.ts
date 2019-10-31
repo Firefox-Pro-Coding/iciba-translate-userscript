@@ -8,17 +8,6 @@ import store, { Config } from '~/store/index'
 type storeName = Exclude<keyof Config, 'core'>
 
 export default abstract class AbstractTranslateProvider {
-  // get currect set icon or default icon
-  protected getIconByStoreName(name: storeName) {
-    return store.config[name].icon
-  }
-
-  // get currect set icon or default icon
-  public get icon() {
-    const key = store.config[this.uniqName].icon
-    return (providerIcon[this.uniqName] as any)[key]
-  }
-
   // unique name of the translate provider
   public abstract uniqName: PROVIDER
 
@@ -31,4 +20,15 @@ export default abstract class AbstractTranslateProvider {
    * and the error message will show as translate result
    */
   public abstract translate(word: string, payload?: unknown): Promise<() => void>
+
+  // get currect set icon or default icon
+  protected getIconByStoreName(name: storeName) {
+    return store.config[name].icon
+  }
+
+  // get currect set icon or default icon
+  public get icon() {
+    const key = store.config[this.uniqName].icon
+    return (providerIcon[this.uniqName] as any)[key]
+  }
 }

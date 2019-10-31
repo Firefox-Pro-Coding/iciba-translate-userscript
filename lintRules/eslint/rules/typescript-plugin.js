@@ -8,6 +8,7 @@ module.exports = {
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
       'project': 'tsconfig.json',
+      'createDefaultProgram': true,
     },
 
     'plugins': [
@@ -101,6 +102,14 @@ module.exports = {
       '@typescript-eslint/member-naming': ['off'],
       '@typescript-eslint/member-ordering': ['error', {
         'default': [
+          'public-abstract-field',
+          'protected-abstract-field',
+          'private-abstract-field',
+
+          'public-abstract-method',
+          'protected-abstract-method',
+          'private-abstract-method',
+
           'public-static-field',
           'protected-static-field',
           'private-static-field',
@@ -158,7 +167,8 @@ module.exports = {
       '@typescript-eslint/no-require-imports': ['error'],
       '@typescript-eslint/no-this-alias': ['error'],
       '@typescript-eslint/no-type-alias': ['off'],
-      '@typescript-eslint/no-misused-promises': ['off'], // noise
+      // false positive
+      '@typescript-eslint/no-misused-promises': ['off'],
       // false positive https://github.com/typescript-eslint/typescript-eslint/issues/989
       '@typescript-eslint/no-unnecessary-condition': ['off'],
       '@typescript-eslint/no-unnecessary-qualifier': ['error'],

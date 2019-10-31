@@ -49,7 +49,7 @@ module.exports = {
 
   'rules': {
     /* Static analysis */
-    'import/no-unresolved': ['error', { commonjs: true }],
+    'import/no-unresolved': ['error', { commonjs: true, caseSensitive: false }],
     'import/named': ['error'],
     'import/default': ['error'],
     'import/namespace': ['error'],
