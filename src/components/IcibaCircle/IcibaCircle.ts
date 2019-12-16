@@ -87,7 +87,7 @@ export default class IcibaCircle extends Vue {
     }
 
     const selection = window.getSelection()
-    if (!selection) {
+    if (!selection || !String(selection)) {
       this.visible = false
       return
     }
