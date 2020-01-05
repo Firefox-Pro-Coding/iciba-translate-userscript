@@ -1,21 +1,14 @@
 <template>
   <div class="the-app">
-    <iciba-circle ref="icibaCircle"></iciba-circle>
-    <size-helper ref="sizeHelper"></size-helper>
-
-    <!-- lazy load components -->
+    <iciba-circle ref="icibaCircle" />
+    <size-helper ref="sizeHelper" />
     <iciba-main
-      :size-helper="$refs.sizeHelper"
-      :iciba-circle="$refs.icibaCircle"
-      :get-google-dict-modal="() => getGoogleDictModal()"
-      v-if="icibaMainFirstLoaded">
-    </iciba-main>
-
-    <setting-page v-if="settingPageFirstLoaded"></setting-page>
-    <google-dict-modal
-      ref="googleDictModal"
-      v-if="googleDictModalFirstLoaded">
-    </google-dict-modal>
+      :get-size-helper="() => $refs.sizeHelper"
+      :get-iciba-circle="() => $refs.icibaCircle"
+      :get-google-dict-modal="() => $refs.googleDictModal"
+    />
+    <setting-page />
+    <google-dict-modal ref="googleDictModal" />
   </div>
 </template>
 

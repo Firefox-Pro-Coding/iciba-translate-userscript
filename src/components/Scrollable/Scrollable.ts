@@ -1,164 +1,167 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import {
+  createComponent,
+  onMounted,
+  onUnmounted,
+  onUpdated,
+  computed,
+  reactive,
+} from '@vue/composition-api'
 import getScrollBarWidth from '~/util/scrollbar-width'
 
-@Component({
-  name: 'IScrollable',
-})
-export default class IScrollable extends Vue {
-  @Prop({ type: Object, default: () => ({}) })
-  public scrollBarStyle!: object
-
-  @Prop({ type: Object, default: () => ({}) })
-  public noScrollBarStyle!: object
-
-  public $refs!: {
-    container: HTMLDivElement
-  }
-
-  public drag = {
-    start: false,
-    startY: 0,
-    startScrollTop: 0,
-  }
-  public noScrollBar = true
-  public scrollbar = {
-    track: {
-      top: 0,
+export default createComponent({
+  props: {
+    scrollBarStyle: {
+      type: Object,
+      default: () => ({}),
     },
-    thumb: {
-      size: '0',
-      position: '0',
+    noScrollBarStyle: {
+      type: Object,
+      default: () => ({}),
     },
-  }
-  public scrollbarWidth = getScrollBarWidth()
+  },
+  setup: (props, setupContext) => {
+    const $refs: {
+      container: HTMLDivElement
+    } = setupContext.refs
 
-  public mounted() {
-    const container = this.$refs.container
+    const state = reactive({
+      drag: {
+        start: false,
+        startY: 0,
+        startScrollTop: 0,
+      },
+      noScrollBar: true,
+      scrollbar: {
+        track: {
+          top: 0,
+        },
+        thumb: {
+          size: '0',
+          position: '0',
+        },
+      },
+      scrollbarWidth: getScrollBarWidth(),
+    })
 
-    container.addEventListener('scroll', this.calcScrollbar, false)
-    container.addEventListener('resize', this.calcScrollbar, false)
-    container.addEventListener('mouseenter', this.calcScrollbar, false)
-    window.addEventListener('resize', this.calcScrollbarWidth, false)
-    window.addEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
-    window.addEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
+    const calcScrollbarWidth = () => {
+      state.scrollbarWidth = getScrollBarWidth()
+    }
 
-    this.calcScrollbar()
-  }
-
-  public beforeDestroy() {
-    const container = this.$refs.container
-
-    container.removeEventListener('scroll', this.calcScrollbar, false)
-    container.removeEventListener('resize', this.calcScrollbar, false)
-    container.removeEventListener('mouseenter', this.calcScrollbar, false)
-    window.removeEventListener('resize', this.calcScrollbarWidth, false)
-    window.removeEventListener('mousemove', this.handleScrollbarThumbMousemove, false)
-    window.removeEventListener('mouseup', this.handleScrollbarThumbMouseup, false)
-  }
-
-  public updated() {
-    this.calcScrollbar()
-  }
-
-  public scrollToTop() {
-    this.$refs.container.scrollTop = 0
-  }
-
-  protected calcScrollbarWidth() {
-    this.scrollbarWidth = getScrollBarWidth()
-  }
-
-  protected handleScrollbarThumbClick(e: MouseEvent) {
-    e.preventDefault()
-    this.drag.start = true
-    this.drag.startY = e.clientY
-    this.drag.startScrollTop = this.$refs.container.scrollTop
-  }
-
-  protected handleScrollbarThumbMousemove(e: MouseEvent) {
-    if (this.drag.start) {
+    const handleScrollbarThumbClick = (e: MouseEvent) => {
       e.preventDefault()
+      state.drag.start = true
+      state.drag.startY = e.clientY
+      state.drag.startScrollTop = $refs.container.scrollTop
+    }
 
+    const handleScrollbarThumbMousemove = (e: MouseEvent) => {
+      if (state.drag.start) {
+        e.preventDefault()
+
+        const {
+          scrollHeight,
+          clientHeight,
+        } = $refs.container
+
+        const scrollSpacePixel = scrollHeight - clientHeight
+        const mouseMovePixel = e.clientY - state.drag.startY
+        const moveDeltaPercentage = mouseMovePixel / clientHeight
+        const scrollDelta = scrollHeight * moveDeltaPercentage
+        let destScrollTop = state.drag.startScrollTop + scrollDelta
+        if (destScrollTop > scrollSpacePixel) {
+          destScrollTop = scrollSpacePixel
+        }
+        if (destScrollTop < 0) {
+          destScrollTop = 0
+        }
+
+        $refs.container.scrollTop = destScrollTop
+      }
+    }
+
+    const handleScrollbarThumbMouseup = () => {
+      state.drag.start = false
+    }
+
+    const calcScrollbar = () => {
       const {
+        scrollTop,
         scrollHeight,
         clientHeight,
-      } = this.$refs.container
+      } = $refs.container
 
-      const scrollSpacePixel = scrollHeight - clientHeight
-      const mouseMovePixel = e.clientY - this.drag.startY
-      const moveDeltaPercentage = mouseMovePixel / clientHeight
-      const scrollDelta = scrollHeight * moveDeltaPercentage
-      let destScrollTop = this.drag.startScrollTop + scrollDelta
-      if (destScrollTop > scrollSpacePixel) {
-        destScrollTop = scrollSpacePixel
+      const sizePercentage = clientHeight / scrollHeight
+      const avaliableScrollSpace = scrollHeight - clientHeight
+      const currentScrollPercentage = scrollTop / avaliableScrollSpace
+
+      const thumbMaxHeightPercentage = 1 - sizePercentage
+      const thumbTop = thumbMaxHeightPercentage * currentScrollPercentage * 100
+
+      state.noScrollBar = sizePercentage >= 1
+
+      const thumbSize = (sizePercentage * 100).toFixed(4)
+      const thumbPosition = thumbTop.toFixed(4)
+
+      // prevent infinite update
+      if (state.scrollbar.track.top !== scrollTop) {
+        state.scrollbar.track.top = scrollTop
       }
-      if (destScrollTop < 0) {
-        destScrollTop = 0
+      if (state.scrollbar.thumb.size !== thumbSize) {
+        state.scrollbar.thumb.size = thumbSize
       }
-
-      this.$refs.container.scrollTop = destScrollTop
+      if (state.scrollbar.thumb.position !== thumbPosition) {
+        state.scrollbar.thumb.position = thumbPosition
+      }
     }
-  }
 
-  protected handleScrollbarThumbMouseup() {
-    this.drag.start = false
-  }
-
-  private calcScrollbar() {
-    const {
-      scrollTop,
-      scrollHeight,
-      clientHeight,
-    } = this.$refs.container
-
-    const sizePercentage = clientHeight / scrollHeight
-    const avaliableScrollSpace = scrollHeight - clientHeight
-    const currentScrollPercentage = scrollTop / avaliableScrollSpace
-
-    const thumbMaxHeightPercentage = 1 - sizePercentage
-    const thumbTop = thumbMaxHeightPercentage * currentScrollPercentage * 100
-
-    this.noScrollBar = sizePercentage >= 1
-
-    const thumbSize = (sizePercentage * 100).toFixed(4)
-    const thumbPosition = thumbTop.toFixed(4)
-
-    // prevent infinite update
-    if (this.scrollbar.track.top !== scrollTop) {
-      this.scrollbar.track.top = scrollTop
-    }
-    if (this.scrollbar.thumb.size !== thumbSize) {
-      this.scrollbar.thumb.size = thumbSize
-    }
-    if (this.scrollbar.thumb.position !== thumbPosition) {
-      this.scrollbar.thumb.position = thumbPosition
-    }
-  }
-
-  protected get scrollbarStyle() {
-    return {
+    const computedScrollBarStyle = computed(() => ({
       track: {
-        top: `${this.scrollbar.track.top}px`,
+        top: `${state.scrollbar.track.top}px`,
       },
       thumb: {
-        height: `${this.scrollbar.thumb.size}%`,
-        top: `${this.scrollbar.thumb.position}%`,
+        height: `${state.scrollbar.thumb.size}%`,
+        top: `${state.scrollbar.thumb.position}%`,
       },
-    }
-  }
+    }))
 
-  protected get scrollBoxStyle() {
-    return {
-      'margin-right': `${-this.scrollbarWidth}px`,
-    }
-  }
+    const scrollBoxStyle = computed(() => ({
+      'margin-right': `${-state.scrollbarWidth}px`,
+    }))
 
-  protected get contentWrapperStyle() {
+    const contentWrapperStyle = computed(() => ({
+      ...state.noScrollBar
+        ? { ...props.noScrollBarStyle }
+        : { ...props.scrollBarStyle },
+    }))
+
+
+    onMounted(() => {
+      window.addEventListener('resize', calcScrollbarWidth, false)
+      window.addEventListener('mousemove', handleScrollbarThumbMousemove, false)
+      window.addEventListener('mouseup', handleScrollbarThumbMouseup, false)
+
+      calcScrollbar()
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', calcScrollbarWidth, false)
+      window.removeEventListener('mousemove', handleScrollbarThumbMousemove, false)
+      window.removeEventListener('mouseup', handleScrollbarThumbMouseup, false)
+    })
+
+    onUpdated(() => {
+      calcScrollbar()
+    })
+
     return {
-      ...this.noScrollBar
-        ? { ...this.noScrollBarStyle }
-        : { ...this.scrollBarStyle },
+      state,
+      props,
+      computedScrollBarStyle,
+      scrollBoxStyle,
+      contentWrapperStyle,
+
+      calcScrollbar,
+      handleScrollbarThumbClick,
     }
-  }
-}
+  },
+})

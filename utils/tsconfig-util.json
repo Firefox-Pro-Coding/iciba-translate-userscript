@@ -5,7 +5,7 @@
     "module": "CommonJs",
     "sourceMap": true,
     "strict": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "experimentalDecorators": true,
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,

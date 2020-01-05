@@ -1,17 +1,18 @@
 <template>
-  <div>
+  <div class="flex-co align-start">
     <icon-radio-group
-      v-model="form.icon"
-      :icons="iconOptions" />
+      v-model="state.form.icon"
+      :icons="iconOptions"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       按钮图标
     </p>
 
     <i-checkbox
       class="mt-4"
-      v-model="form.display"
-      label="显示按钮">
-    </i-checkbox>
+      v-model="state.form.display"
+      label="显示按钮"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
@@ -19,13 +20,14 @@
 
     <i-radio-group
       class="mt-4"
-      v-model="form.foldStatus">
+      v-model="state.form.foldStatus"
+    >
       <i-radio
         v-for="n of foldOptions"
-        :key="n.value"
+        :key="n.key"
         :label="n.label"
-        :value="n.value">
-      </i-radio>
+        :value="n.key"
+      />
     </i-radio-group>
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       查词详细结果默认折叠状态

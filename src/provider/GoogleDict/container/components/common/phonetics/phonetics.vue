@@ -1,15 +1,16 @@
 <template>
   <!-- phonetics -->
-  <div class="phonetics-component-box flex" v-if="phonetics && phonetics.length">
+  <div class="phonetics-component-box flex" v-if="props.phonetics && props.phonetics.length">
     <div class="phonetics flex">
-      {{ `${phonetics.map(v => `/${v.text}/`).join(' ')}` }}
+      {{ `${props.phonetics.map(v => `/${v.text}/`).join(' ')}` }}
     </div>
 
     <div
       class="pl-1 play-button flex flex-center"
-      v-for="(item, index) in phonetics.filter(v => v.oxfordAudio)"
+      v-for="(item, index) in props.phonetics.filter(v => v.oxfordAudio)"
       :key="index"
-      @click="handlePlay(item.oxfordAudio)">
+      @click="handlePlay(item.oxfordAudio)"
+    >
       <i-icon :svg="icon.play_speaker_filled_audio_tool_59284" />
     </div>
   </div>

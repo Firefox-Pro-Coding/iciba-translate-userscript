@@ -1,18 +1,21 @@
 <template>
-  <div class="iciba-result-container flex-co">
+  <div class="r-container flex-co">
     <scrollable
+      class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
       :scroll-bar-style="{ 'padding-right': '2px' }"
-      class="scroll-container">
-      <div class="iciba-result-scroll-container flex-co">
+    >
+      <div class="main-box flex-co" v-if="result">
         <!-- symbols -->
         <div
           class="symbols-box flex-co align-stretch"
-          v-if="result && result.baseInfo && result.baseInfo.symbols && result.baseInfo.symbols.length">
+          v-if="result.baseInfo && result.baseInfo.symbols && result.baseInfo.symbols.length"
+        >
           <div
             class="symbol-item flex-co align-stretch"
             v-for="(symbomItem, index) in result.baseInfo.symbols"
-            :key="index">
+            :key="index"
+          >
             <!-- pronunciation -->
             <div class="pronunciation-box flex-co align-stretch">
               <!-- symbol_mp3 -->
@@ -47,7 +50,8 @@
               <!-- tts -->
               <div
                 class="pronunciation-item pron-other flex"
-                v-if="symbomItem.ph_tts_mp3 && !symbomItem.ph_en_mp3 && !symbomItem.ph_am_mp3">
+                v-if="symbomItem.ph_tts_mp3 && !symbomItem.ph_en_mp3 && !symbomItem.ph_am_mp3"
+              >
                 <div class="ipa-type-name">TTS</div>
                 <div class="ipa" v-if="symbomItem.ph_other">
                   [{{ symbomItem.ph_other }}]
@@ -61,7 +65,8 @@
             <!-- meaning -->
             <div
               class="part-box mt-1 flex-co align-stretch"
-              v-if="symbomItem.parts && symbomItem.parts.length">
+              v-if="symbomItem.parts && symbomItem.parts.length"
+            >
               <div class="part-item flex" v-for="(partItem, partItemIndex) in symbomItem.parts" :key="partItemIndex">
                 <div class="part-item-part" v-if="partItem.part">
                   {{ partItem.part }}
@@ -70,7 +75,8 @@
                   <div
                     class="meaning-item q-inline"
                     v-for="(meanItem, meanItemIndex) in partItem.means"
-                    :key="meanItemIndex">
+                    :key="meanItemIndex"
+                  >
                     <template v-if="meanItemIndex === partItem.means.length - 1">
                       {{ meanItem }}
                     </template>
@@ -87,16 +93,16 @@
         <!-- chinese zi -->
         <!-- 当无baseInfo时才显示 -->
         <div
-          v-if="
-            result
-              && (result.chinese && result.chinese.zi && result.chinese.zi.length)
-              && (!result.baseInfo || !result.baseInfo.symbols || !result.baseInfo.symbols.length)
+          v-if="(result.chinese && result.chinese.zi && result.chinese.zi.length)
+            && (!result.baseInfo || !result.baseInfo.symbols || !result.baseInfo.symbols.length)
           "
-          class="chinese-zi-box mt-1">
+          class="chinese-zi-box mt-1"
+        >
           <div
             class="zi-item"
             v-for="(ziItem, ziIndex) of result.chinese.zi"
-            :key="ziIndex">
+            :key="ziIndex"
+          >
             {{ ziItem.hanzi }}
             {{ ziItem.pinyin }}
             {{ ziItem.jieshi }}
@@ -105,13 +111,15 @@
 
         <!-- chinese ci -->
         <div
-          v-if="result && result.chinese && result.chinese.ci && result.chinese.ci.ciyi && result.chinese.ci.ciyi.length"
-          class="chinese-ci-box mt-1">
+          v-if="result.chinese && result.chinese.ci && result.chinese.ci.ciyi && result.chinese.ci.ciyi.length"
+          class="chinese-ci-box mt-1"
+        >
           <div class="ciyi-box">
             <div
               class="ciyi-item"
               v-for="(item, ciyiIndex) of result.chinese.ci.ciyi"
-              :key="ciyiIndex">
+              :key="ciyiIndex"
+            >
               <span class="type-text pr-1">
                 {{ ciyiIndex + 1 }}.
               </span>
@@ -126,7 +134,8 @@
         <!-- translation -->
         <div
           class="translation-box flex-co align-stretch"
-          v-if="result && result.baseInfo && result.baseInfo.translate_type === 2 && result.baseInfo.translate_result">
+          v-if="result.baseInfo && result.baseInfo.translate_type === 2 && result.baseInfo.translate_result"
+        >
           <div class="translate-content">
             {{ result.baseInfo.translate_result }}
           </div>
@@ -138,7 +147,8 @@
         <!-- suggest -->
         <div
           class="suggest-box flex-co align-stretch"
-          v-if="result && result.baseInfo && result.baseInfo.translate_type === 3">
+          v-if="result.baseInfo && result.baseInfo.translate_type === 3"
+        >
           {{ result.baseInfo.suggest.map(v => v.key).join('; ') }}
         </div>
       </div>
@@ -147,5 +157,4 @@
 </template>
 
 <script lang="ts" src="./IcibaContainer.ts"></script>
-
 <style lang="less" src="./IcibaContainer.less" scoped></style>

@@ -1,15 +1,14 @@
 import querystring from 'querystring'
-import { got } from '~/util/gmapi'
+import { got, GMXMLError } from '~/util/gmapi'
 
-import playAudio from '~/util/playAudio'
 import googleDictBus from '~/provider/GoogleDict/bus'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
-import audioCache from './audioCache'
 import containerDataStore from './containerDataStore'
 
 import { PROVIDER } from '~/constants/constant'
+import { audioCacheService } from '~/service/audioCache'
 
 type UnPromisify<T> = T extends Promise<infer U> ? U : T
 
@@ -17,7 +16,6 @@ class GoogleDictProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.GOOGLE_DICT
   public settingDescriptor = []
   public containerComponentClass = GoogleDictContainer
-  private audioCache = audioCache
 
   public constructor() {
     super()
@@ -95,11 +93,12 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         url: apiUrl,
         timeout: 10000,
       })
-    } catch (e) {
+    } catch (_e) {
+      const e: GMXMLError = _e
       const responseText = e.response.responseText
       if (responseText) {
         const result = JSON.parse(responseText)
-        if (result && result.error && result.error.message) {
+        if (result?.error?.message) {
           throw new Error(result.error.message)
         }
       }
@@ -143,11 +142,12 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         url: apiUrl,
         timeout: 10000,
       })
-    } catch (e) {
+    } catch (_e) {
+      const e: GMXMLError = _e
       const responseText = e.response.responseText
       if (responseText) {
         const result = JSON.parse(responseText)
-        if (result && result.error && result.error.message) {
+        if (result?.error?.message) {
           throw new Error(result.error.message)
         }
       }
@@ -162,35 +162,27 @@ class GoogleDictProvider extends AbstractTranslateProvider {
   private async handlePlay(url: string): Promise<void> {
     const volume = 0.7
     const mp3Url = `https:${url}`
-    // check cache
-    if (mp3Url in this.audioCache) {
-      playAudio(this.audioCache[mp3Url], volume)
-    } else {
-      try {
-        const response = await got({
-          method: 'GET',
-          headers: {
-            'Accept': '*/*',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-            'upgrade-insecure-requests': '1',
-            'User-Agent': window.navigator.userAgent,
-          },
-          responseType: 'arraybuffer',
-          url: mp3Url,
-          timeout: 5000,
-        })
 
-        const arrayBuffer = response.response
-        this.audioCache[mp3Url] = arrayBuffer
-        playAudio(arrayBuffer, volume)
-      } catch (e) {
-        return Promise.reject(e)
-      }
+    if (audioCacheService.play(mp3Url, volume)) {
+      return
     }
-    return Promise.resolve()
+
+    const response = await got<ArrayBuffer>({
+      method: 'GET',
+      headers: {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'upgrade-insecure-requests': '1',
+        'User-Agent': window.navigator.userAgent,
+      },
+      responseType: 'arraybuffer',
+      url: mp3Url,
+      timeout: 5000,
+    })
+    audioCacheService.play(mp3Url, response.response, volume)
   }
 }
 

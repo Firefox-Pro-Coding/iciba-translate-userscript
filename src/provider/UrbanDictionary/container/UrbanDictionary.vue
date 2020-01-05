@@ -2,11 +2,12 @@
   <div class="urban-dictionary-result-container flex-co" ref="container">
     <scrollable class="scroll-container">
       <div class="urban-dictionary-content flex-co">
-        <template v-if="result && result.list">
-          <template v-for="(item, index) of result.list">
+        <template v-if="result.data && result.data.list">
+          <template v-for="(item, index) of result.data.list">
             <div
               class="row flex-co"
-              :key="index">
+              :key="index"
+            >
               <div class="index font-weight-bold">
                 {{ index + 1 }}. {{ item.word }}
               </div>
@@ -16,11 +17,13 @@
                     :content="definitionItem.text"
                     class="keyword definition-keyword"
                     :key="definitionIndex"
-                    v-if="definitionItem.isTag" />
+                    v-if="definitionItem.isTag"
+                  />
                   <span
                     :text-content.prop="definitionItem.text"
                     :key="definitionIndex"
-                    v-if="!definitionItem.isTag"></span>
+                    v-if="!definitionItem.isTag"
+                  />
                 </template>
               </div>
               <div class="caption grey--text mt-1">
@@ -29,11 +32,13 @@
                     :content="exampleItem.text"
                     class="keyword example-keyword"
                     :key="exampleIndex"
-                    v-if="exampleItem.isTag" />
+                    v-if="exampleItem.isTag"
+                  />
                   <span
                     :text-content.prop="exampleItem.text"
                     :key="exampleIndex"
-                    v-if="!exampleItem.isTag"></span>
+                    v-if="!exampleItem.isTag"
+                  />
                 </template>
               </div>
               <div class="flex mt-1 align-center caption grey--text">
@@ -41,7 +46,8 @@
                   <i-icon
                     size="14"
                     class="thumb-up thumb mr-1"
-                    :svg="icon.like_179655" />
+                    :svg="icon.like_179655"
+                  />
                   {{ item.thumbs_up }}
                 </div>
                 <div class="flex mr-2 flex-noresize">
@@ -49,7 +55,8 @@
                     size="14"
                     color="#E64C3D"
                     class="thumb thumb-down mr-1"
-                    :svg="icon.like_179655" />
+                    :svg="icon.like_179655"
+                  />
                   {{ item.thumbs_down }}
                 </div>
                 <div class="text-truncate">
@@ -58,29 +65,36 @@
               </div>
             </div>
             <div
-              v-if="index !== result.list.length - 1"
+              v-if="index !== result.data.list.length - 1"
               class="divider my-2 grey lighten-2"
-              :key="`${index}-divider`">
-            </div>
+              :key="`${index}-divider`"
+            />
           </template>
         </template>
       </div>
     </scrollable>
 
     <div
-      v-for="item of tooltips"
+      v-for="item of state.tooltips"
       :key="item.id"
       :style="{ top: `${item.top}px`, left: `${item.left}px` }"
-      class="u-keyword-toolip">
+      class="u-keyword-toolip"
+    >
       <div
         class="inner-content"
         v-if="item.text"
-        :inner-html.prop="item.text">
-      </div>
+        :inner-html.prop="item.text"
+      />
       <div
         v-if="!item.text"
-        class="inner-content flex flex-center">
-        <i-icon class="rotate" size="30" color="#777777" :svg="icon.loading" />
+        class="inner-content flex flex-center"
+      >
+        <i-icon
+          class="loadin-spinner rotate"
+          size="24"
+          color="#79d"
+          :svg="icon.loading"
+        />
       </div>
     </div>
   </div>

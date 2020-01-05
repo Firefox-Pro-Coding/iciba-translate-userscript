@@ -1,16 +1,17 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { createComponent } from '@vue/composition-api'
 import labels from '../labels/labels.vue'
 import foldable from '../foldable/foldable.vue'
 
-@Component({
-  name: 'GoogleDictContainerExampleGroups',
+export default createComponent({
+  name: 'GExampleGroups',
   components: {
     labels,
     foldable,
   },
+  props: {
+    exampleGroups: null,
+  },
+  setup: (props) => ({
+    props,
+  }),
 })
-export default class extends Vue {
-  @Prop([Array])
-  public exampleGroups!: unknown
-}

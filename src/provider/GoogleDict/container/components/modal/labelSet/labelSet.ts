@@ -1,26 +1,31 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+
+import { createComponent, computed } from '@vue/composition-api'
 import labels from '../labels/labels.vue'
 
-@Component({
-  name: 'GoogleDictContainerLabelSet',
+export default createComponent({
+  name: 'GLabelSet',
   components: {
     labels,
   },
+  props: {
+    labelSet: null,
+    size: {
+      type: String,
+      default: 'medium',
+    },
+    color: {
+      type: String,
+      default: '',
+    },
+  },
+  setup: (props) => {
+    const isValid = computed(() => {
+      const l = props.labelSet
+      return l && Object.keys(l).some((k) => l[k].length)
+    })
+    return {
+      props,
+      isValid,
+    }
+  },
 })
-export default class extends Vue {
-  @Prop()
-  public labelSet: any
-
-  @Prop({ default: 'medium' })
-  public size!: string
-
-  @Prop({ default: null })
-  public color!: string
-
-  public get isValid() {
-    const l = this.labelSet
-
-    return l && Object.keys(l).some((k) => l[k].length)
-  }
-}

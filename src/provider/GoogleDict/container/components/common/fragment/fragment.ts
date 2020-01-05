@@ -1,15 +1,27 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
-import googleDictBus from '~/provider/GoogleDict/bus'
+import { createComponent } from '@vue/composition-api'
+// import googleDictBus from '~/provider/GoogleDict/bus'
+import { bus, EVENTS } from '~/service/globalBus'
+import { PROVIDER } from '~/constants/constant'
 
-@Component({
-  name: 'GoogleDictContainerFragment',
+export default createComponent({
+  name: 'GFragment',
+  props: {
+    fragment: null,
+  },
+  setup: (props) => {
+    const handleEntryLinkClick = (event: MouseEvent, word: string) => {
+      bus.emit({
+        type: EVENTS.TRANSLATE,
+        word,
+        mouseEvent: event,
+        param: {
+          provider: PROVIDER.GOOGLE_DICT,
+        },
+      })
+    }
+    return {
+      props,
+      handleEntryLinkClick,
+    }
+  },
 })
-export default class extends Vue {
-  @Prop([Array])
-  public fragment: unknown
-
-  public handleEntryLinkClick(event: MouseEvent, word: string) {
-    googleDictBus.emit(googleDictBus.events.ENTRY_CLICK, { word, event })
-  }
-}

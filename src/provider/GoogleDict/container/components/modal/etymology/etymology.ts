@@ -1,16 +1,18 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { createComponent } from '@vue/composition-api'
 import fragment from '../../common/fragment/fragment.vue'
 import imageLoader from '../imageLoader/imageLoader.vue'
 
-@Component({
-  name: 'GoogleDictContainerEtymology',
+
+export default createComponent({
+  name: 'GEtymology',
   components: {
     fragment,
     imageLoader,
   },
+  props: {
+    etymology: null,
+  },
+  setup: (props) => ({
+    props,
+  }),
 })
-export default class extends Vue {
-  @Prop()
-  public etymology: unknown
-}

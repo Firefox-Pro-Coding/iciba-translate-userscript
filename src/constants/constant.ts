@@ -20,7 +20,7 @@ export const providerOptions = Object
   .entries(PROVIDER_MAP)
   .map(([k, v]) => ({
     label: v,
-    value: k,
+    key: k,
   }))
 
 export enum GOOGLE_TRANSLATE_HOST {

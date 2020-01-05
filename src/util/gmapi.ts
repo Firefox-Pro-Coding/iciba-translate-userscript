@@ -25,15 +25,26 @@ interface IcibaExtendedGMOption extends GM.Request {
   anonymous?: boolean
 }
 
-interface IcibaExtendedGMXMLHttpRequestResponse extends GM.Response<any> {
-  response: any
+type IfEquals<A, B, X, Y> =
+  (<T>() => T extends A ? 1 : 2) extends
+  (<T>() => T extends B ? 1 : 2) ? X : Y
+
+interface IcibaExtendedGMXMLHttpRequestResponse<T = unknown> extends GM.Response<unknown> {
+  response: IfEquals<T, unknown, unknown, T>
 }
 
-class GMXMLError extends Error {
-  public response: any
+export class GMXMLError extends Error {
+  public response!: GM.Response<unknown>
+
+  public constructor(m: string, res?: GM.Response<unknown>) {
+    super(m)
+    if (res) {
+      this.response = res
+    }
+  }
 }
 
-export const got = (params: IcibaExtendedGMOption) => {
+export const got = <T = unknown>(params: IcibaExtendedGMOption) => {
   let api: typeof GM_xmlhttpRequest | typeof GM.xmlHttpRequest
 
   if (typeof GM !== 'undefined' && GM.xmlHttpRequest) {
@@ -46,28 +57,25 @@ export const got = (params: IcibaExtendedGMOption) => {
     throw new Error('not running in greasymonkey or tampermonkey enviroment')
   }
 
-  return new Promise<IcibaExtendedGMXMLHttpRequestResponse>((rs, rj) => {
+  return new Promise<IcibaExtendedGMXMLHttpRequestResponse<T>>((rs, rj) => {
     const option: IcibaExtendedGMOption = {
       method: 'GET',
       url: '',
       timeout: 10000,
       ontimeout(res) {
-        const error = new Error('timeout exceeded') as any
-        error.response = res
+        const error = new GMXMLError('timeout exceeded', res)
         rj(error)
       },
       onerror(res) {
-        const error = new Error(`request failed ${res.status} ${res.statusText} `) as any
-        error.response = res
+        const error = new GMXMLError(`request failed ${res.status} ${res.statusText}`, res)
         rj(error)
       },
       onload(response) {
         if (response.status !== 200) {
-          const err = new GMXMLError(`response with status code ${response.status}`)
-          err.response = response
+          const err = new GMXMLError(`response with status code ${response.status}`, response)
           rj(err)
         }
-        rs(response as IcibaExtendedGMXMLHttpRequestResponse)
+        rs(response as IcibaExtendedGMXMLHttpRequestResponse<T>)
       },
       ...params,
     }

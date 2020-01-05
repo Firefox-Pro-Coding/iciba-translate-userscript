@@ -1,12 +1,8 @@
 <template>
-  <div class="iciba-size-helper"></div>
+  <div class="iciba-size-helper" />
 </template>
 
-<script lang="ts" src="./SizeHelper.ts"></script>
-
 <style lang="less" scoped>
-  @import '~assets/styles/variables.less';
-
   .iciba-size-helper {
     position: fixed;
     top: auto;

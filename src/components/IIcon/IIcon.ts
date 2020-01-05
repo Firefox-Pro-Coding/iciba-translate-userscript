@@ -1,30 +1,39 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import {
+  createComponent,
+  computed,
+} from '@vue/composition-api'
 
-@Component({
-  name: 'IIcon',
-})
-export default class IIcon extends Vue {
-  @Prop({ type: String, default: '' })
-  public svg!: string
+export default createComponent({
+  props: {
+    svg: {
+      type: String,
+      default: '',
+    },
+    size: {
+      type: [Number, String],
+      default: 16,
+    },
+    color: {
+      type: String,
+      default: '',
+    },
+  },
+  setup: (props) => {
+    const computedSize = computed(() => {
+      const size = parseInt(`${props.size}`, 10)
+      if (`${size}` === `${props.size}`) {
+        return `${size}px`
+      }
+      return props.size
+    })
 
-  @Prop({ type: [Number, String], default: 16 })
-  public size!: number | string
+    const svgContent = computed(() => (props.color
+      ? props.svg.replace(/(fill="#[a-fA-F0-9]{6}")/g, `fill="${props.color}"`)
+      : props.svg))
 
-  @Prop({ type: String, default: '' })
-  public color!: string
-
-  public get computedSize() {
-    const size = parseInt(`${this.size}`, 10)
-    if (`${size}` === `${this.size}`) {
-      return `${size}px`
+    return {
+      computedSize,
+      svgContent,
     }
-    return this.size
-  }
-
-  public get svgContent() {
-    return this.color
-      ? this.svg.replace(/(fill="#[a-fA-F0-9]{6}")/g, `fill="${this.color}"`)
-      : this.svg
-  }
-}
+  },
+})

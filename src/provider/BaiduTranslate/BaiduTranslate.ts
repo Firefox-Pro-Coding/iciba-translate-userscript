@@ -1,26 +1,25 @@
 import querystring from 'querystring'
-
-import { BaiduTranslatePayload } from '~/bus/bus'
 import { PROVIDER } from '~/constants/constant'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'
-import store from '~/store'
+import { store } from '~/service/store'
 import { got } from '~/util/gmapi'
-import playAudio from '~/util/playAudio'
-import { AudioCache } from '~/types'
-
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import getToken from './helpers/token'
 import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
 import containerData from './containerData'
 import BaiduTranslateBus, { PlayAudioPayload } from './bus'
+import { audioCacheService } from '~/service/audioCache'
+
+export interface BaiduTranslateParams {
+  sl: string
+  tl: string
+}
 
 class BaiduTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.BAIDU_TRANSLATE
   public settingDescriptor = []
   public containerComponentClass = BaiduTranslateContainer
-
-  private audioCache: AudioCache = {}
 
   public constructor() {
     super()
@@ -29,7 +28,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     BaiduTranslateBus.on(BaiduTranslateBus.events.PLAY_AUDIO, this.handlePlay)
   }
 
-  public async translate(word: string, payload?: BaiduTranslatePayload) {
+  public async translate(word: string, payload?: BaiduTranslateParams) {
     const auto = !payload || payload.sl === 'auto'
     const sl = !payload || auto ? await this.detectLang(word) : payload.sl
     // eslint-disable-next-line no-nested-ternary
@@ -118,12 +117,11 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     }
     const url = `https://fanyi.baidu.com/gettts?${querystring.stringify(query)}`
 
-    if (url in this.audioCache) {
-      playAudio(this.audioCache[url], volume)
+    if (audioCacheService.play(url, volume)) {
       return
     }
 
-    const response = await got({
+    const response = await got<ArrayBuffer>({
       method: 'GET',
       headers: {
         'Referer': 'https://fanyi.baidu.com/',
@@ -137,9 +135,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
       timeout: 5000,
     })
 
-    const arrayBuffer = response.response
-    this.audioCache[url] = arrayBuffer
-    playAudio(arrayBuffer, volume)
+    audioCacheService.play(url, response.response, volume)
   }
 }
 

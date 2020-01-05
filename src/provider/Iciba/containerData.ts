@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import { IcibaResult } from './type'
+// import { IcibaResult } from './type'
 
 const data = {
-  data: null as (IcibaResult | null),
+  data: null as (any | null),
 }
 
 export default Vue.observable(data)

@@ -1,0 +1,56 @@
+@import '~assets/styles/variables.less';
+.sense-item {
+  .sense-item-number {
+    flex: 0 0 32px;
+    text-align: right;
+    padding: 0 10px 0 0;
+    font-weight: bold;
+  }
+
+  .sense-item-box {
+    flex: 1 1 auto;
+
+    .definition-box {
+      flex: 1 1 auto;
+
+      .difinition {
+        .sense-labels {
+          margin-left: 5px;
+          font-size: 0;
+
+          .sense-difinition-label-box:not(:last-child) {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .subsense-box {
+    .subsense-item {
+      margin-top: 2px;
+
+      .subsense-number {
+        font-family: 'consolas', monospace;
+      }
+
+      .subsense-item-container {
+        flex: 1 1 auto;
+
+        .subsense-definition {
+          .subsense-labels {
+            margin-left: 5px;
+            font-size: 0;
+
+            .subsense-label-box:not(:last-child) {
+              margin-right: 5px;
+            }
+          }
+          .subsense-definition-split {
+            font-size: 0;
+          }
+        }
+      }
+    }
+  }
+}

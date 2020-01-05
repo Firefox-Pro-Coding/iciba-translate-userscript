@@ -1,68 +1,71 @@
-import Vue from 'vue'
-import { Component, Watch, Prop } from 'vue-property-decorator'
+import { createComponent, reactive, watch, onMounted } from '@vue/composition-api'
 
-@Component({
-  name: 'GoogleDictFoldable',
-})
-export default class extends Vue {
-  @Prop({ type: Boolean, default: false })
-  public fold!: boolean
+export default createComponent({
+  name: 'GFoldable',
+  props: {
+    fold: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup: (props, ctx) => {
+    const $refs: {
+      wrapper: HTMLDivElement
+    } = ctx.refs
 
-  public foldTimeout = 0
-  public duration = 300
-
-  public foldableStyle = { height: 'auto' }
-
-  public $refs!: {
-    wrapper: HTMLDivElement
-  }
-
-  public mounted() {
-    if (this.fold) {
-      this.foldableStyle = { height: '0' }
-    } else {
-      this.foldableStyle = { height: 'auto' }
-    }
-  }
-
-  @Watch('fold')
-  public foldChange() {
-    this.getFoldableStyle()
-  }
-
-  public getFoldableStyle() {
-    if (this.fold) {
-      this.doFold()
-    } else {
-      this.doExpand()
-    }
-  }
-
-  private doFold() {
-    if (this.foldTimeout) {
-      window.clearTimeout(this.foldTimeout)
-    }
-    if (this.$refs.wrapper) {
-      this.foldableStyle = {
-        height: `${this.$refs.wrapper.clientHeight}px`,
-      }
-    }
-    this.foldTimeout = window.setTimeout(() => {
-      this.foldableStyle = { height: '0' }
+    const state = reactive({
+      foldTimeout: 0,
+      duration: 300,
+      foldableStyle: { height: 'auto' },
     })
-  }
 
-  private doExpand() {
-    if (this.foldTimeout) {
-      window.clearTimeout(this.foldTimeout)
-    }
-    if (this.$refs.wrapper) {
-      this.foldableStyle = {
-        height: `${this.$refs.wrapper.clientHeight}px`,
+    const doFold = () => {
+      if (state.foldTimeout) {
+        window.clearTimeout(state.foldTimeout)
       }
+      if ($refs.wrapper) {
+        state.foldableStyle = {
+          height: `${$refs.wrapper.clientHeight}px`,
+        }
+      }
+      state.foldTimeout = window.setTimeout(() => {
+        state.foldableStyle = { height: '0' }
+      })
     }
-    this.foldTimeout = window.setTimeout(() => {
-      this.foldableStyle = { height: 'auto' }
-    }, this.duration)
-  }
-}
+
+    const doExpand = () => {
+      if (state.foldTimeout) {
+        window.clearTimeout(state.foldTimeout)
+      }
+      if ($refs.wrapper) {
+        state.foldableStyle = {
+          height: `${$refs.wrapper.clientHeight}px`,
+        }
+      }
+      state.foldTimeout = window.setTimeout(() => {
+        state.foldableStyle = { height: 'auto' }
+      }, state.duration)
+    }
+
+    watch(() => props.fold, () => {
+      if (props.fold) {
+        doFold()
+      } else {
+        doExpand()
+      }
+    })
+
+    onMounted(() => {
+      if (props.fold) {
+        state.foldableStyle = { height: '0' }
+      } else {
+        state.foldableStyle = { height: 'auto' }
+      }
+    })
+
+    return {
+      props,
+      state,
+    }
+  },
+})

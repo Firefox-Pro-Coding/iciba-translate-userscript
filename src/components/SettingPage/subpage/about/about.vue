@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex-co align-start">
     <h1 class="title mt-1">iciba划词翻译</h1>
     <div class="body-2 mt-4">
       <div>

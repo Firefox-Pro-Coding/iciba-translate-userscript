@@ -1,6 +1,6 @@
 @import '~assets/styles/variables.less';
 
-.iciba-setting-modal {
+.setting-modal {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -10,32 +10,32 @@
   background: rgba(0, 0, 0, 0.3);
   transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &.iciba-setting-modal-enter,
-  &.iciba-setting-modal-leave-to {
+  &.s-enter,
+  &.s-leave-to {
     background: rgba(0, 0, 0, 0);
 
-    .iciba-setting-window {
+    .setting-window {
       opacity: 0;
     }
   }
 
-  &.iciba-setting-modal-enter {
-    .iciba-setting-window {
+  &.s-enter {
+    .setting-window {
       transform: scale(0.9);
     }
   }
 
-  &.iciba-setting-modal-leave,
-  &.iciba-setting-modal-enter-to {
+  &.s-leave,
+  &.s-enter-to {
     background: rgba(0, 0, 0, 0.3);
 
-    .iciba-setting-window {
+    .setting-window {
       transform: scale(1);
       opacity: 1;
     }
   }
 
-  .iciba-setting-window {
+  .setting-window {
     position: relative;
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(0);
@@ -44,5 +44,9 @@
     height: 580px;
     background: white;
     overflow: hidden;
+
+    .tabs-box {
+      overflow: auto;
+    }
   }
 }

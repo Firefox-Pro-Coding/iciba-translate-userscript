@@ -1,33 +1,25 @@
-import Vue from 'vue'
-import { Component, Model } from 'vue-property-decorator'
+import { createComponent } from '@vue/composition-api'
 
-@Component({
-  name: 'RadioGroup',
-})
-export default class RadioGroup extends Vue {
-  @Model('input')
-  public value!: unknown
-
-  public mounted() {
-    this.$on('fuck', this.handleRadioClick)
-  }
-
-  public render() {
-    const defaultSlot = this.$slots.default ? this.$slots.default : []
-    return (
+export default createComponent({
+  model: {},
+  props: {
+    value: null,
+  },
+  setup: (props, setupContext) => {
+    const handleRadioClick = (value: unknown) => {
+      setupContext.emit('input', value)
+    }
+    return () => (
       <div class='radio-group flex-co align-start'>
-        { defaultSlot.map((v) => {
+        {setupContext.slots.default().map((v) => {
           if (v.componentOptions && v.componentOptions.propsData) {
-            const props = v.componentOptions.propsData as any
-            props.checked = props.value === this.value
+            const childProps = v.componentOptions.propsData as any
+            childProps.checked = childProps.value === props.value
+            childProps.updateValue = handleRadioClick
           }
           return v
-        }) }
+        })}
       </div>
     )
-  }
-
-  public handleRadioClick(value: unknown) {
-    this.$emit('input', value)
-  }
-}
+  },
+})

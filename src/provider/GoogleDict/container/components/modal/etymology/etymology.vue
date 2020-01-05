@@ -1,20 +1,21 @@
 <template>
-  <div class="etymology-box flex-co align-stretch" v-if="etymology">
+  <div class="etymology-box flex-co align-stretch" v-if="props.etymology">
     <div class="etymology-title">Origin</div>
     <div
       class="etymology-img-box"
-      v-if="etymology.images">
+      v-if="props.etymology.images"
+    >
       <image-loader
-        :height="etymology.images.tablet.height"
-        :width="etymology.images.tablet.width"
-        :url="`https://www.gstatic.com/onebox/dictionary/${etymology.images.tablet.url}`">
-      </image-loader>
+        :height="props.etymology.images.tablet.height"
+        :width="props.etymology.images.tablet.width"
+        :url="`https://www.gstatic.com/onebox/dictionary/${props.etymology.images.tablet.url}`"
+      />
     </div>
     <div class="etymology-text">
       <fragment
         class="etymology-frag"
-        :fragment="etymology.etymology.fragments">
-      </fragment>
+        :fragment="props.etymology.etymology.fragments"
+      />
     </div>
   </div>
 </template>

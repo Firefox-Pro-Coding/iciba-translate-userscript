@@ -20,8 +20,8 @@ const updateGTK = async (force?: boolean) => {
     timeout: 5000,
   })
 
-  const gtkMatch = response.responseText.match(/window\.gtk = '(.*?)'/)
-  const commonTokenMatch = response.responseText.match(/token: '(.*?)',/)
+  const gtkMatch = /window\.gtk = '(.*?)'/.exec(response.responseText)
+  const commonTokenMatch = /token: '(.*?)',/.exec(response.responseText)
 
   if (!gtkMatch) {
     throw new Error('failed to get gtk')

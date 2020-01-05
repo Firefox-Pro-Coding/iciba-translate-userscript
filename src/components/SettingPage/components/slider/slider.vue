@@ -1,20 +1,21 @@
 <template>
   <div class="slider">
-    <div ref="track" @click="handleTrackClick" class="flex track align-center">
-      <div class="track-left" :style="{ width: `${position}%` }"></div>
-      <div class="track-right" :style="{ width: `${100 - position}%` }"></div>
+    <div class="track flex align-center" ref="track" @click="handleTrackClick">
+      <div class="track-left" :style="{ width: `${position}%` }" />
+      <div class="track-right" :style="{ width: `${100 - position}%` }" />
       <div
         ref="notch"
         @mousedown="handleMouseDown"
-        :class="{ dragging: drag.dragging }"
+        :class="{ dragging: state.drag.dragging }"
         class="notch"
-        :style="{ left: `${position}%` }">
-      </div>
+        :style="{ left: `${position}%` }"
+      />
       <div
         class="bubble flex flex-center"
-        :class="{ dragging: drag.dragging }"
-        :style="{ left: `${position}%` }">
-        <div class="text">{{ cachedValue }}</div>
+        :class="{ dragging: state.drag.dragging }"
+        :style="{ left: `${position}%` }"
+      >
+        <div class="text">{{ state.cachedValue }}</div>
       </div>
     </div>
   </div>

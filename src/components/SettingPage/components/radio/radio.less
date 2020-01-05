@@ -1,50 +1,46 @@
 .radio {
   user-select: none;
+  cursor: pointer;
+}
 
-  .radio-wrapper {
-    cursor: pointer;
+.icon {
+  position: relative;
+  height: 24px;
+  width: 24px;
 
-    .icon {
-      position: relative;
-      height: 24px;
-      width: 24px;
-      margin-right: 8px;
+  .ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
 
-      .ripple {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        height: 48px;
-        width: 48px;
-        border-radius: 50%;
-
-        &.checked {
-          /deep/ .v-ripple__container {
-            color: #1976D2;
-          }
-        }
-
-        .ripple-trigger {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          height: 24px;
-          width: 24px;
-          pointer-events: all;
-        }
-
-        /deep/ .v-ripple__container {
-          height: 48px;
-          width: 48px;
-        }
+    &.checked {
+      /deep/ .v-ripple__container {
+        color: #1976D2;
       }
     }
 
-    .label {
-      color: #777;
+    .ripple-trigger {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 24px;
+      width: 24px;
+      pointer-events: all;
+    }
+
+    /deep/ .v-ripple__container {
+      height: 48px;
+      width: 48px;
     }
   }
+}
+
+.label {
+  color: #777;
 }

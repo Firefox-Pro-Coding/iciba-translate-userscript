@@ -4,7 +4,7 @@ const client = require('webpack-hot-client')
 const webpack = require('webpack')
 const express = require('express')
 const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackConfig = require('../config/webpack.dev.conf.js')
+const webpackConfig = require('../config/webpack/webpack.dev.conf.js')
 
 const app = express()
 
@@ -13,9 +13,9 @@ const server = app.listen(13333, 'localhost', () => {
   const port = server.address().port
   const url = `http://${address}:${port}/`
 
-  webpackConfig.output.publicPath = url
+  webpackConfig.output.publicPath(url)
 
-  const compiler = webpack(webpackConfig)
+  const compiler = webpack(webpackConfig.toConfig())
 
   client(compiler, {
     // logLevel: 'warn',

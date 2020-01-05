@@ -44,83 +44,15 @@
           }
         }
       }
+    }
+  }
 
-      .morph-units-box {
-        color: @main-level-5;
+  .sense-list {
+    margin: 2px 0 0 0;
 
-        .morph-units-item {
-          font-size: 0;
-
-          * {
-            font-size: 14px;
-          }
-
-          .morph-units-word-form {
-            color: @main-level-4-5;
-            font-weight: bold;
-          }
-        }
-      }
-
-      .sense-list {
-        margin: 2px 0 0 0;
-
-        .sense-item {
-          & + .sense-item {
-            margin: 5px 0 0 0;
-          }
-
-          .sense-item-number {
-            flex: 0 0 32px;
-            text-align: right;
-            padding: 0 10px 0 0;
-            font-weight: bold;
-          }
-
-          .sense-item-box {
-            flex: 1 1 auto;
-
-            .definition-box {
-              flex: 1 1 auto;
-
-              .difinition {
-                .sense-labels {
-                  margin-left: 5px;
-                  font-size: 0;
-
-                  .sense-difinition-label-box:not(:last-child) {
-                    margin-right: 5px;
-                  }
-                }
-              }
-            }
-          }
-
-          .subsense-box {
-            .subsense-item {
-              margin-top: 2px;
-
-              .subsense-number {
-                font-family: 'consolas', monospace;
-              }
-
-              .subsense-item-container {
-                flex: 1 1 auto;
-
-                .subsense-definition {
-                  .subsense-labels {
-                    margin-left: 5px;
-                    font-size: 0;
-
-                    .subsense-label-box:not(:last-child) {
-                      margin-right: 5px;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
+    .sense-item {
+      & + .sense-item {
+        margin: 5px 0 0 0;
       }
     }
   }

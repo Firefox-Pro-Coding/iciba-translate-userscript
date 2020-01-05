@@ -1,5 +1,5 @@
 <template>
-  <div class="foldable-box" :style="foldableStyle">
+  <div class="foldable-box" :style="state.foldableStyle">
     <div ref="wrapper" class="foldable-wrapper">
       <slot />
     </div>

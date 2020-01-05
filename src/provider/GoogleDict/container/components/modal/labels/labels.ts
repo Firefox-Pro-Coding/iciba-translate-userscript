@@ -1,43 +1,68 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { createComponent, reactive, computed, watch } from '@vue/composition-api'
 
-@Component({
-  name: 'GoogleDictContainerLabels',
-})
-export default class extends Vue {
-  @Prop([Array])
-  public labels!: Array<string>
-
-  @Prop({ default: 'default' })
-  public type!: string
-
-  @Prop({ default: 'plain' })
-  public color!: string
-
-  @Prop({ default: 'medium' })
-  public size!: string
-
-  public popoverVisibleMap: { [k: string]: boolean } = {}
-
-  /** 显示 popover */
-  public handleShowPopover(label: string) {
-    this.$set(this.popoverVisibleMap, label, true)
-  }
-
-  /** 隐藏 popover */
-  public handleHidePopover(label: string) {
-    this.$set(this.popoverVisibleMap, label, false)
-  }
-
-  public get labelClass() {
-    return `${this.type}-label`
-  }
-
-  public get colorClass() {
-    return `iciba-label-color-${this.color}`
-  }
-
-  public get sizeClass() {
-    return `iciba-label-size-${this.size}`
-  }
+interface Props {
+  labels: Array<string>
+  type: string
+  color: string
+  size: string
 }
+
+export default createComponent({
+  name: 'GLabels',
+  props: {
+    labels: {
+      type: Array,
+      required: true,
+    },
+    type: {
+      type: String,
+      default: 'default',
+    },
+    color: {
+      type: String,
+      default: 'plain',
+    },
+    size: {
+      type: String,
+      default: 'medium',
+    },
+  },
+  setup: (_props) => {
+    const props: Props = _props as any
+    const state = reactive({
+      popoverVisibleMap: {} as Record<string, boolean>,
+    })
+
+    /** 显示 popover */
+    const handleShowPopover = (label: string) => {
+      state.popoverVisibleMap[label] = true
+    }
+
+    /** 隐藏 popover */
+    const handleHidePopover = (label: string) => {
+      state.popoverVisibleMap[label] = false
+    }
+
+    const labelClass = computed(() => `${props.type}-label`)
+    const colorClass = computed(() => `iciba-label-color-${props.color}`)
+    const sizeClass = computed(() => `iciba-label-size-${props.size}`)
+
+    watch(() => props.labels, () => {
+      state.popoverVisibleMap = Object.fromEntries(
+        props.labels
+          .map((v) => [v, state.popoverVisibleMap[v] || false]),
+      )
+    })
+
+    return {
+      state,
+      props,
+      labelClass,
+      colorClass,
+      sizeClass,
+
+      handleShowPopover,
+      handleHidePopover,
+    }
+  },
+})

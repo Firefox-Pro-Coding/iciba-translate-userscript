@@ -1,4 +1,4 @@
-import EventEmitter from 'events'
+import { EventEmitter } from 'events'
 
 enum NAMES {
   SHOW_TOOLTIP = 'SHOW_TOOLTIP',

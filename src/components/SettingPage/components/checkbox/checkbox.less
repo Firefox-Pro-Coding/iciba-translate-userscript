@@ -1,46 +1,43 @@
 .checkbox {
   user-select: none;
+  cursor: pointer;
+}
 
-  .check-box-wrapper {
-    cursor: pointer;
+.icon {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  margin-right: 8px;
 
-    .icon {
-      position: relative;
+  .ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+
+    &.checked {
+      /deep/ .v-ripple__container {
+        color: #1976D2;
+      }
+    }
+
+    .ripple-trigger {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       height: 24px;
       width: 24px;
-      margin-right: 8px;
+      pointer-events: all;
+    }
 
-      .ripple {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        height: 48px;
-        width: 48px;
-        border-radius: 50%;
-
-        &.checked {
-          /deep/ .v-ripple__container {
-            color: #1976D2;
-          }
-        }
-
-        .ripple-trigger {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          height: 24px;
-          width: 24px;
-          pointer-events: all;
-        }
-
-        /deep/ .v-ripple__container {
-          height: 48px;
-          width: 48px;
-        }
-      }
+    /deep/ .v-ripple__container {
+      height: 48px;
+      width: 48px;
     }
   }
 }

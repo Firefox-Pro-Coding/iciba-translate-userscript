@@ -1,4 +1,4 @@
-import * as EventEmitter from 'events'
+import { EventEmitter } from 'events'
 
 enum NAMES {
   PLAY_AUDIO = 'PLAY_AUDIO',
@@ -15,7 +15,6 @@ export interface PlayAudioPayload {
 }
 
 
-// tslint:disable:unified-signatures
 class GoogleTranslateBus extends EventEmitter {
   public events = NAMES
 

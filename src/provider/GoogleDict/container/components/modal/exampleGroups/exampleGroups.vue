@@ -1,28 +1,31 @@
 <template>
   <!-- example group -->
-  <div class="example-group-box flex-co align-stretch" v-if="exampleGroups && exampleGroups.length">
+  <div class="example-group-box flex-co align-stretch" v-if="props.exampleGroups && props.exampleGroups.length">
     <div
       class="example-group-item flex-co align-stretch"
-      v-for="(exampleGroupItem, index) in exampleGroups"
-      :key="index">
+      v-for="(exampleGroupItem, index) in props.exampleGroups"
+      :key="index"
+    >
       <div
         class="example-item-box flex-co align-stretch"
-        v-if="exampleGroupItem.examples && exampleGroupItem.examples.length">
+        v-if="exampleGroupItem.examples && exampleGroupItem.examples.length"
+      >
         <!-- labels -->
         <div
           class="example-registers-box"
-          v-if="exampleGroupItem.registers && exampleGroupItem.registers.length">
+          v-if="exampleGroupItem.registers && exampleGroupItem.registers.length"
+        >
           <labels
             color="registers"
-            :labels="exampleGroupItem.registers">
-          </labels>
+            :labels="exampleGroupItem.registers"
+          />
         </div>
         <div
           class="example-item grey--text"
           v-html="example"
           v-for="(example, exampleIndex) in exampleGroupItem.examples"
-          :key="exampleIndex">
-        </div>
+          :key="exampleIndex"
+        />
       </div>
     </div>
   </div>

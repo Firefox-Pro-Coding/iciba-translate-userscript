@@ -1,13 +1,12 @@
 <template>
   <div
-    :style="{
-      height: `${computedSize}`,
-      width: `${computedSize}`,
-    }"
     class="i-icon flex flex-center"
-    :innerHTML.prop="svgContent">
-  </div>
+    :style="{
+      height: computedSize,
+      width: computedSize,
+    }"
+    :innerHTML.prop="svgContent"
+  />
 </template>
-
 <script lang="ts" src="./IIcon.ts"></script>
 <style lang="less" src="./IIcon.less" scoped></style>

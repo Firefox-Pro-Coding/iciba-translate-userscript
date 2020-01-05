@@ -1,15 +1,18 @@
-import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import {
+  createComponent,
+  reactive,
+  onMounted,
+} from '@vue/composition-api'
 
-import bus from '~/bus/bus'
-import zgen from '~/util/zIndexGenerator'
+import { bus, EVENTS } from '~/service/globalBus'
+import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'
 
 import ITabs from './components/tabs/tabs.vue'
 import ITab from './components/tab/tab.vue'
 import ITabsItems from './components/tabsItems/tabsItems.vue'
 import ITabItem from './components/tabItem/tabItem.vue'
 
-import about from './subpage/about/about.vue'
+import About from './subpage/about/about.vue'
 import CoreSetting from './subpage/coreSetting/coreSetting.vue'
 import Iciba from './subpage/iciba/iciba.vue'
 import GoogleDict from './subpage/googleDict/googleDict.vue'
@@ -19,12 +22,14 @@ import SougouTranslate from './subpage/sougouTranslate/sougouTranslate.vue'
 import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
 import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
 
-type TabNames = 'core' | 'iciba'
-
-@Component({
-  name: 'SettingPage',
+export default createComponent({
   components: {
-    about,
+    ITabs,
+    ITab,
+    ITabsItems,
+    ITabItem,
+
+    About,
     CoreSetting,
     Iciba,
     GoogleDict,
@@ -33,46 +38,38 @@ type TabNames = 'core' | 'iciba'
     SougouTranslate,
     UrbanDictionary,
     BingTranslate,
+  },
+  setup: () => {
+    const state = reactive({
+      tab: 1,
+      visible: false,
+      zIndex: 0,
+      bodyOverflowXValue: '',
+      bodyOverflowYValue: '',
+    })
 
-    ITabs,
-    ITab,
-    ITabsItems,
-    ITabItem,
+    const openSetting = () => {
+      state.bodyOverflowXValue = document.body.style.overflowX || ''
+      state.bodyOverflowYValue = document.body.style.overflowY || ''
+      state.zIndex = zIndexService.gen(Z_INDEX_KEY.GENERAL)
+      state.tab = 1
+      state.visible = true
+    }
+
+    const handleCloseSetting = () => {
+      document.body.style.overflowX = state.bodyOverflowXValue
+      document.body.style.overflowY = state.bodyOverflowYValue
+      state.visible = false
+    }
+
+    onMounted(() => {
+      bus.on(EVENTS.OPEN_SETTING, openSetting)
+    })
+
+    return {
+      state,
+
+      handleCloseSetting,
+    }
   },
 })
-export default class SettingPage extends Vue {
-  public tab = 1
-  public currentTab: TabNames = 'core'
-  public visible: boolean = false
-  public zIndex: number = 0
-  public bodyOverflowXValue: string = ''
-  public bodyOverflowYValue: string = ''
-
-  public mounted() {
-    bus.on(bus.events.SETTING_OPEN, this.openSetting)
-  }
-
-  public openSetting() {
-    this.bodyOverflowXValue = document.body.style.overflowX || ''
-    this.bodyOverflowYValue = document.body.style.overflowY || ''
-    this.zIndex = zgen()
-    this.tab = 1
-    this.visible = true
-  }
-
-  public handleCloseSetting(e: MouseEvent) {
-    if (e.target && e.target instanceof HTMLElement && e.target.classList.contains('iciba-setting-modal')) {
-      this.closeSetting()
-    }
-  }
-
-  public closeSetting() {
-    document.body.style.overflowX = this.bodyOverflowXValue
-    document.body.style.overflowY = this.bodyOverflowYValue
-    this.visible = false
-  }
-
-  public switchTab(tabName: TabNames) {
-    this.currentTab = tabName
-  }
-}

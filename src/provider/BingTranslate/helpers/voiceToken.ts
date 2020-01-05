@@ -22,7 +22,7 @@ const getToken = (ig: string, iid: string): Promise<VoiceToken> => {
     IG: ig,
     IID: iid,
   })
-  return got({
+  return got<any>({
     method: 'POST',
     url: `https://cn.bing.com/tfetspktok?${query}`,
     responseType: 'json',

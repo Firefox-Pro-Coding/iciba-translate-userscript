@@ -23,7 +23,7 @@ const parseKey = async (): Promise<string> => {
     return ''
   }
 
-  if (data && data.seccode && Date.now() - data.time < 1000 * 60 * 60) {
+  if (data?.seccode && Date.now() - data.time < 1000 * 60 * 60) {
     return data.seccode.toString()
   }
 
@@ -83,11 +83,11 @@ const getKey = async () => {
 
 // set up seccode report hook
 const init = () => {
-  if (window.location.origin !== 'https://fanyi.sogou.com') {
+  if (unsafeWindow.location.origin !== 'https://fanyi.sogou.com') {
     return
   }
-  window.addEventListener('load', () => {
-    const seccode = (window as any).seccode as number
+  unsafeWindow.addEventListener('load', () => {
+    const seccode = (unsafeWindow as any).seccode as number
     setValue(SOUGOU_SECCODE_KEY, JSON.stringify({
       seccode,
       time: Date.now(),

@@ -1,17 +1,18 @@
 <template>
-  <div>
+  <div class="flex-co align-start">
     <icon-radio-group
-      v-model="form.icon"
-      :icons="iconOptions" />
+      v-model="state.form.icon"
+      :icons="iconOptions"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       按钮图标
     </p>
 
     <i-checkbox
       class="mt-4"
-      v-model="form.display"
-      label="显示按钮">
-    </i-checkbox>
+      v-model="state.form.display"
+      label="显示按钮"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
@@ -20,10 +21,10 @@
       <div class="flex-co align-start flex-nogrow pr-5">
         <div class="grey--text text--darken-1 pr-4 mb-2">语言</div>
         <div
-          class="grey--text text--darken-1"
-          style="height: 24px; margin-bottom: 8px;"
+          class="language-option grey--text text--darken-1 mb-2"
           v-for="n of languageOptions"
-          :key="n.key">
+          :key="n.key"
+        >
           {{ n.text }}
         </div>
       </div>
@@ -31,32 +32,35 @@
         <div class="grey--text text--darken-1 pr-4 mb-1">首选语言</div>
         <i-radio-group
           class="mt-0 flex-nogrow"
-          v-model="form.targetLanguage">
+          v-model="state.form.targetLanguage"
+        >
           <i-radio
             v-for="n of languageOptions"
             :key="n.key"
             label=""
-            :value="n.key">
-          </i-radio>
+            :value="n.key"
+          />
         </i-radio-group>
       </div>
       <div class="flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">备选语言</div>
         <i-radio-group
           class="mt-0"
-          v-model="form.secondTargetLanguage">
+          v-model="state.form.secondTargetLanguage"
+        >
           <i-radio
             v-for="n of languageOptions"
             :key="n.key"
             label=""
-            :value="n.key">
-          </i-radio>
+            :value="n.key"
+          />
         </i-radio-group>
       </div>
     </div>
     <p
-      v-if="form.targetLanguage === form.secondTargetLanguage"
-      class="body-2 red--text mt-2 mb-0">
+      v-if="state.form.targetLanguage === state.form.secondTargetLanguage"
+      class="body-2 red--text mt-2 mb-0"
+    >
       首选语言和备选语言请选择不同的选项
     </p>
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">

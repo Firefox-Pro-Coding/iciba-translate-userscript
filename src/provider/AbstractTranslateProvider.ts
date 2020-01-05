@@ -1,18 +1,15 @@
-// import * as crypto from 'crypto'
-import Vue from 'vue'
+import { VueConstructor } from 'vue'
 
 import { PROVIDER } from '~/constants/constant'
 import providerIcon from '~/constants/icon'
-import store, { Config } from '~/store/index'
-
-type storeName = Exclude<keyof Config, 'core'>
+import { store } from '~/service/store'
 
 export default abstract class AbstractTranslateProvider {
   // unique name of the translate provider
   public abstract uniqName: PROVIDER
 
   // container class
-  public abstract containerComponentClass: typeof Vue
+  public abstract containerComponentClass: VueConstructor
 
   /**
    * Translate the word. return a callback to show content of current translate
@@ -20,11 +17,6 @@ export default abstract class AbstractTranslateProvider {
    * and the error message will show as translate result
    */
   public abstract translate(word: string, payload?: unknown): Promise<() => void>
-
-  // get currect set icon or default icon
-  protected getIconByStoreName(name: storeName) {
-    return store.config[name].icon
-  }
 
   // get currect set icon or default icon
   public get icon() {

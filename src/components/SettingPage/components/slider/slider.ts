@@ -1,121 +1,131 @@
-import Vue from 'vue'
-import { Component, Prop, Model, Watch } from 'vue-property-decorator'
+import { createComponent, reactive, onMounted, onUnmounted, watch, computed } from '@vue/composition-api'
 
-@Component({
+export default createComponent({
   name: 'Slider',
-})
-export default class Slider extends Vue {
-  public $refs!: {
-    track: HTMLDivElement
-    notch: HTMLDivElement
-  }
+  props: {
+    value: {
+      type: Number,
+      required: true,
+    },
+    min: {
+      type: Number,
+      default: 0,
+    },
+    max: {
+      type: Number,
+      default: 100,
+    },
+    step: {
+      type: Number,
+      default: 1,
+    },
+  },
+  setup: (props, ctx) => {
+    const $refs: {
+      track: HTMLDivElement
+      notch: HTMLDivElement
+    } = ctx.refs
 
-  @Model('input', { type: Number })
-  public value!: number
-
-  @Prop({ type: Number, default: 0 })
-  public min!: number
-
-  @Prop({ type: Number, default: 100 })
-  public max!: number
-
-  @Prop({ type: Number, default: 1 })
-  public step!: number
-
-  public drag = {
-    startX: 0,
-    dragging: false,
-    afterDragging: false,
-  }
-
-  public cachedValue = 0
-
-  public mounted() {
-    window.addEventListener('mousemove', this.handleMouseMove)
-    window.addEventListener('mouseup', this.handleMouseUp)
-    this.cachedValue = this.value
-  }
-
-  public destroyed() {
-    window.removeEventListener('mousemove', this.handleMouseMove)
-    window.removeEventListener('mouseup', this.handleMouseUp)
-  }
-
-  protected handleMouseDown(e: MouseEvent) {
-    this.drag.dragging = true
-    this.drag.afterDragging = true
-    this.drag.startX = e.clientX
-  }
-
-  protected handleMouseMove(e: MouseEvent) {
-    if (!this.drag.dragging) {
-      return
-    }
-    const deltaX = e.clientX - this.drag.startX
-    const width = this.$refs.track.getBoundingClientRect().width
-    const deltaPercentage = deltaX / width
-    this.cachedValue = this.getValueFromDeltaPercentage(deltaPercentage)
-  }
-
-  protected handleMouseUp() {
-    this.drag.dragging = false
-    setTimeout(() => {
-      this.drag.afterDragging = false
+    const state = reactive({
+      drag: {
+        startX: 0,
+        dragging: false,
+        afterDragging: false,
+      },
+      cachedValue: 0,
     })
-    this.$emit('input', this.cachedValue)
-  }
 
-  protected handleTrackClick(e: MouseEvent) {
-    if (e.target === this.$refs.notch || this.drag.afterDragging) {
-      return
-    }
+    const getValueFromPercentage = (percentage: number) => {
+      let newValue = percentage * (props.max - props.min) + props.min
 
-    const position = e.clientX - this.$refs.track.getBoundingClientRect().left
-    const width = this.$refs.track.getBoundingClientRect().width
-    const percentage = position / width
-    this.$emit('input', this.getValueFromPercentage(percentage))
-  }
-
-  public get position() {
-    return ((this.cachedValue - this.min) / (this.max - this.min)) * 100
-  }
-
-  private getValueFromDeltaPercentage(percentage: number) {
-    // return this.getValueFromPercentage(this.value / (this.max - this.min) + percentage)
-    let newValue = this.value + percentage * (this.max - this.min)
-    newValue = newValue < this.min ? this.min : newValue
-    newValue = newValue > this.max ? this.max : newValue
-
-    const mod = (newValue - this.min) % this.step
-    if (mod) {
-      if (mod < this.step / 2) {
-        newValue -= mod
-      } else {
-        newValue += this.step - mod
+      const mod = (newValue - props.min) % props.step
+      if (mod) {
+        if (mod < props.step / 2) {
+          newValue -= mod
+        } else {
+          newValue += props.step - mod
+        }
       }
+
+      return newValue
     }
 
-    return newValue
-  }
+    const getValueFromDeltaPercentage = (percentage: number) => {
+      // return this.getValueFromPercentage(props.value / (props.max - props.min) + percentage)
+      let newValue = props.value + percentage * (props.max - props.min)
+      newValue = newValue < props.min ? props.min : newValue
+      newValue = newValue > props.max ? props.max : newValue
 
-  private getValueFromPercentage(percentage: number) {
-    let newValue = percentage * (this.max - this.min) + this.min
-
-    const mod = (newValue - this.min) % this.step
-    if (mod) {
-      if (mod < this.step / 2) {
-        newValue -= mod
-      } else {
-        newValue += this.step - mod
+      const mod = (newValue - props.min) % props.step
+      if (mod) {
+        if (mod < props.step / 2) {
+          newValue -= mod
+        } else {
+          newValue += props.step - mod
+        }
       }
+
+      return newValue
     }
 
-    return newValue
-  }
+    const handleMouseDown = (e: MouseEvent) => {
+      state.drag.dragging = true
+      state.drag.afterDragging = true
+      state.drag.startX = e.clientX
+    }
 
-  /* eslint-disable-next-line @typescript-eslint/member-ordering */
-  @Watch('value')
-  public valueChange() {
-    this.cachedValue = this.value
-  }
-}
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!state.drag.dragging) {
+        return
+      }
+      const deltaX = e.clientX - state.drag.startX
+      const width = $refs.track.getBoundingClientRect().width
+      const deltaPercentage = deltaX / width
+      state.cachedValue = getValueFromDeltaPercentage(deltaPercentage)
+    }
+
+    const handleMouseUp = () => {
+      state.drag.dragging = false
+      setTimeout(() => {
+        state.drag.afterDragging = false
+      })
+      ctx.emit('input', state.cachedValue)
+    }
+
+    const handleTrackClick = (e: MouseEvent) => {
+      if (e.target === $refs.notch || state.drag.afterDragging) {
+        return
+      }
+
+      const position = e.clientX - $refs.track.getBoundingClientRect().left
+      const width = $refs.track.getBoundingClientRect().width
+      const percentage = position / width
+      ctx.emit('input', getValueFromPercentage(percentage))
+    }
+
+
+    const position = computed(() => ((state.cachedValue - props.min) / (props.max - props.min)) * 100)
+
+    watch(() => props.value, () => {
+      state.cachedValue = props.value
+    })
+
+    onMounted(() => {
+      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('mouseup', handleMouseUp)
+      state.cachedValue = props.value
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleMouseUp)
+    })
+
+    return {
+      state,
+      position,
+      handleMouseDown,
+      handleTrackClick,
+    }
+  },
+})

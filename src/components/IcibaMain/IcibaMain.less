@@ -1,221 +1,216 @@
 @import '~assets/styles/variables.less';
 
-.iciba-main {
+.iciba-main-wrap {
   position: absolute;
   display: block;
   z-index: 9999;
   overflow: visible;
-  border: none;
-  box-shadow: none;
   box-sizing: border-box;
   transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1) opacity;
   font-family: 'Microsoft Yahei', 'Arial', sans-serif;
 
-  &.iciba-main-enter {
+  &.m-enter {
     opacity: 0;
 
-    .iciba-container {
+    .iciba-main {
       transform: translateY(-6px);
     }
   }
 
-  &.iciba-main-leave-to {
+  &.m-leave-to {
     opacity: 0;
   }
 
-  &.iciba-main-leave, &.iciba-main-enter-to {
+  &.m-leave, &.m-enter-to {
     opacity: 1;
 
-    .iciba-container {
+    .iciba-main {
       transform: none;
     }
   }
+}
 
-  .iciba-container {
-    transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1) transform;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: auto;
-    border: none;
-    letter-spacing: 0;
-    font-size: @font-size-base;
-    line-height: 1.5;
-    filter:
-      drop-shadow(0 2px 1.5px rgba(0, 0, 0, 0.14))
-      drop-shadow(0 4px 2.5px rgba(0, 0, 0, 0.15))
-      drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12));
+.iciba-main {
+  transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1) transform;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: auto;
+  letter-spacing: 0;
+  font-size: @font-size-base;
+  line-height: 1.5;
+  filter:
+    drop-shadow(0 2px 1.5px rgba(0, 0, 0, 0.14))
+    drop-shadow(0 4px 2.5px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12));
+}
 
-    .stick-box {
-      position: absolute;
-      right: 0;
-      top: 0;
-      transform: translate(100%, 0);
-      background: #EEE;
-      height: 56px;
-      width: 28px;
-      background-color: @background-level-5;
-      border-left: 1px solid @border-level-1;
-      transition-duration: 0.1s;
-      z-index: 0;
+.input-box {
+  @input-container-height: 28px;
 
-      &.stick-box-enter, &.stick-box-leave-to {
-        transform: translate(0, 0);
-        transition-delay: 300ms;
-      }
+  position: relative;
+  flex: 0 0 auto;
+  background: white;
+  height: @input-container-height;
+  z-index: 1;
 
-      &.stick-box-enter-to, &.stick-box-leave {
-        transform: translate(100%, 0);
-      }
+  .iciba-input-box {
+    position: relative;
+    flex: 1 1 auto;
+    border-bottom: 1px solid @border-level-1;
 
-      .drag {
-        cursor: grab;
-        height: 28px;
-        width: 28px;
-        border-bottom: 1px solid @border-level-1;
-      }
+    .search-input {
+      letter-spacing: 0;
+      width: auto;
+      flex: 1 1 auto;
+      padding: 0 25px 0 7px;
+      line-height: @input-container-height;
+      height: @input-container-height;
+      z-index: 2;
+      color: @main-level-1;
 
-      .stick {
-        position: relative;
-        height: 28px;
-        width: 28px;
-
-        .i-icon {
-          transform: rotate(45deg);
-          opacity: 0.4;
-        }
-
-        &.pinned .i-icon {
-          transform: rotate(0);
-          opacity: 1;
-        }
+      &:focus {
+        outline: none;
       }
     }
 
-    .iciba-input-container {
-      @input-container-height: 28px;
+    &.focused::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 1px;
+      width: calc(100% - 1px);
+      height: 100%;
+      outline: 2px solid @input-outline-color;
+      outline-offset: -1px;
+    }
 
+    .setting-button {
+      @offset: 1px;
+
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: @input-container-height - @offset;
+      width: @input-container-height - @offset;
+      z-index: 2;
+      cursor: pointer;
+      opacity: 0.2;
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      &:active {
+        background-position: center calc(50% + 1px);
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .provider-box {
+    flex: 0 0 auto;
+    border-bottom: 1px solid @border-level-1;
+
+    .provider-button {
       position: relative;
-      flex: 0 0 auto;
-      background: white;
-      flex-flow: row nowrap;
+      width: @input-container-height;
+      flex: 0 0 @input-container-height;
       height: @input-container-height;
-      z-index: 1;
+      border-bottom: 1px solid @border-level-1;
+      background-color: @background-level-5;
 
-      .iciba-input-box {
-        position: relative;
-        flex: 1 1 auto;
-        border-bottom: 1px solid @border-level-1;
+      &:focus {
+        outline: none;
 
-        #iciba-search-input {
-          letter-spacing: 0;
-          width: auto;
-          flex: 1 1 auto;
-          padding: 0 25px 0 7px;
-          line-height: @input-container-height;
-          height: @input-container-height;
-          z-index: 2;
-          color: @main-level-1;
-
-          &:focus {
-            outline: none;
-          }
-        }
-
-        &.input-focused::before {
+        &::before {
           content: '';
           position: absolute;
           top: 0;
-          left: 1px;
-          width: calc(100% - 1px);
+          left: 0;
+          width: 100%;
           height: 100%;
           outline: 2px solid @input-outline-color;
           outline-offset: -1px;
         }
-
-        .iciba-setting-button {
-          @offset: 1px;
-
-          position: absolute;
-          right: 0;
-          top: 0;
-          height: @input-container-height - @offset;
-          width: @input-container-height - @offset;
-          z-index: 2;
-          cursor: pointer;
-          opacity: 0.2;
-
-          &:hover {
-            opacity: 0.6;
-          }
-
-          &:active {
-            background-position: center calc(50% + 1px);
-            opacity: 0.9;
-          }
-        }
       }
 
-      .provider-button-box {
-        flex: 0 0 auto;
-        border-bottom: 1px solid @border-level-1;
+      &:hover {
+        background-color: #FCFCFC;
+      }
 
-        .provider-button {
-          position: relative;
-          width: @input-container-height;
-          flex: 0 0 @input-container-height;
-          height: @input-container-height;
-          border: none;
-          border-bottom: 1px solid @border-level-1;
-          background-color: @background-level-5;
-
-          &:focus {
-            outline: none;
-
-            &::before {
-              content: '';
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              outline: 2px solid @input-outline-color;
-              outline-offset: -1px;
-            }
-          }
-
-          &:hover {
-            background-color: #FCFCFC;
-          }
-
-          &:active {
-            background-position: center calc(50% + 1px);
-            background-color: @background-level-4;
-            box-shadow: 0 0 6px #AAA inset;
-          }
-        }
-
-        .split {
-          width: 1px;
-          background: @border-level-1;
-        }
+      &:active {
+        background-position: center calc(50% + 1px);
+        background-color: @background-level-4;
+        box-shadow: 0 0 6px #AAA inset;
       }
     }
 
-    .iciba-content-container {
-      background: @background-level-5;
-      position: relative;
-      z-index: 2;
+    .split {
+      width: 1px;
+      background: @border-level-1;
+    }
+  }
+}
 
-      .content-box {
-        color: @main-level-1;
-        padding: 7px 10px 10px 10px;
-      }
+.content-box {
+  background: @background-level-5;
+  position: relative;
+  z-index: 2;
 
-      .google-dict-result-container {
-        flex: 1 1 0;
-      }
+  .content-box {
+    color: @main-level-1;
+    padding: 7px 10px 10px 10px;
+  }
+
+  .google-dict-result-container {
+    flex: 1 1 0;
+  }
+}
+
+.stick-box {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(100%, 0);
+  background: #EEE;
+  height: 56px;
+  width: 28px;
+  background-color: @background-level-5;
+  border-left: 1px solid @border-level-1;
+  transition-duration: 0.1s;
+  z-index: 0;
+
+  &.s-enter, &.s-leave-to {
+    transform: translate(0, 0);
+    transition-delay: 300ms;
+  }
+
+  &.s-enter-to, &.s-leave {
+    transform: translate(100%, 0);
+  }
+
+  .drag {
+    cursor: grab;
+    height: 28px;
+    width: 28px;
+    border-bottom: 1px solid @border-level-1;
+  }
+
+  .stick {
+    position: relative;
+    height: 28px;
+    width: 28px;
+
+    .i-icon {
+      transform: rotate(45deg);
+      opacity: 0.4;
+    }
+
+    &.pinned .i-icon {
+      transform: rotate(0);
+      opacity: 1;
     }
   }
 }

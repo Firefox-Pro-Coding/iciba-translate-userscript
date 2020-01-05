@@ -1,18 +1,20 @@
 <template>
   <div
     :style="{
-      height: `${Number(height) / 2}px`,
-      width: `${Number(width) / 2}px`,
+      height: `${Number(props.height) / 2}px`,
+      width: `${Number(props.width) / 2}px`,
     }"
-    class="image-loader flex">
-    <span v-if="!data" class="placeholder">img loading</span>
+    class="image-loader flex"
+  >
+    <span v-if="!state.data" class="placeholder">img loading</span>
     <img
-      v-if="data"
+      v-if="state.data"
       :style="{
-        height: `${Number(height) / 2}px`,
-        width: `${Number(width) / 2}px`,
+        height: `${Number(props.height) / 2}px`,
+        width: `${Number(props.width) / 2}px`,
       }"
-      :src="data" />
+      :src="state.data"
+    >
   </div>
 </template>
 

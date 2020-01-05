@@ -1,13 +1,14 @@
 <template>
   <transition name="circle">
     <div
-      v-show="visible"
+      ref="circle"
+      v-show="state.visible"
       :style="computedStyle"
       class="iciba-circle"
       @contextmenu.prevent
-      @mouseover="handleSelfMouseover"
-      @mouseup="handleSelfMouseUp">
-    </div>
+      @mouseover="m.handleSelfMouseover"
+      @mouseup="m.handleSelfMouseUp"
+    />
   </transition>
 </template>
 

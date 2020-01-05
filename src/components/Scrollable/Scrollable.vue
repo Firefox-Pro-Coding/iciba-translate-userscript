@@ -1,30 +1,41 @@
 <template>
   <div class="scrollable-container">
     <div
-      :class="{ moving: drag.start, 'no-scroll-bar': noScrollBar }"
       class="scroll-bar-track"
-      ref="scroll-bar-track">
+      :class="{
+        moving: state.drag.start,
+        'no-scroll-bar': state.noScrollBar,
+      }"
+      ref="scroll-bar-track"
+    >
       <div
-        v-if="!noScrollBar"
         class="scroll-bar-thumb"
+        v-if="!state.noScrollBar"
         ref="scroll-bar-thumb"
         @wheel.prevent
         @mousedown="handleScrollbarThumbClick"
-        :style="scrollbarStyle.thumb">
-      </div>
+        :style="computedScrollBarStyle.thumb"
+      />
     </div>
     <div
-      :class="{ 'no-scroll-bar': noScrollBar }"
-      class="scroll-content flex-co">
+      :class="{
+        'scroll-content flex-co': true,
+        'no-scroll-bar': state.noScrollBar,
+      }"
+    >
       <div
         v-no-overscroll
         :style="scrollBoxStyle"
         class="scroll-box flex"
-        ref="container">
+        @scroll="calcScrollbar"
+        @mouseenter="calcScrollbar"
+        ref="container"
+      >
         <div
           :style="contentWrapperStyle"
-          class="content-wrapper">
-          <slot :scroll-bar="!noScrollBar"></slot>
+          class="content-wrapper"
+        >
+          <slot :scroll-bar="!state.noScrollBar" />
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ module.exports = {
     'document': false,
     'navigator': false,
     'window': false,
+    'unsafeWindow': false,
     'GM': false,
     'GM_getValue': true,
     'GM_setValue': true,
@@ -10,7 +11,7 @@ module.exports = {
   },
 
   'extends': [
-    './lintRules/eslint/eslint.js',
+    './lintRules/eslint.js',
   ],
 
   'env': {
@@ -21,9 +22,33 @@ module.exports = {
 
   'settings': {
     'import/resolver': {
-      'webpack': {
-        'config': 'config/webpack.base.conf.js',
-      },
+      'typescript': {},
     },
   },
+
+  'overrides': [{
+    'files': [
+      '*.ts',
+      '*.tsx',
+    ],
+
+    'parser': '@typescript-eslint/parser',
+    'parserOptions': {
+      'project': 'tsconfig.json',
+      'createDefaultProgram': true,
+    },
+
+    'plugins': [
+      '@typescript-eslint',
+    ],
+
+    'rules': {
+      '@typescript-eslint/no-unused-vars-experimental': ['error', {
+        'ignoredNamesRegex': '^h$',
+      }],
+      '@typescript-eslint/no-unused-vars': ['off', {
+        'varsIgnorePattern': '^h$',
+      }],
+    },
+  }],
 }

@@ -1,4 +1,3 @@
-// tslint:disable quotemark
 /* eslint-disable quotes, max-len, @typescript-eslint/quotes */
 const knowkeys: any = [
   "root",

@@ -1,31 +1,40 @@
-import * as EventEmitter from 'events'
+import { EventEmitter } from 'events'
 
-enum NAMES {
-  PLAY_AUDIO = 'PLAY_AUDIO',
-  ENTRY_CLICK = 'ENTRY_CLICK',
+enum EVENTS {
+  PLAY_AUDIO,
 }
 
-interface EventHandler<T> {
-  (p: T): void
+interface OnOff {
+  (e: EVENTS.PLAY_AUDIO, l: (a: string) => unknown): unknown
 }
 
-// tslint:disable:unified-signatures
-class GoogleDictBus extends EventEmitter {
-  public events = NAMES
+interface Emit {
+  (e: EVENTS.PLAY_AUDIO, a: string): unknown
+}
 
-  public on(e: NAMES.PLAY_AUDIO, h: EventHandler<string>): this
-  public on(e: NAMES.ENTRY_CLICK, h: EventHandler<{ word: string, event: MouseEvent }>): this
-  public on(event: string, listener: (...args: Array<any>) => void) {
-    return super.on(event, listener)
+class GoogleDictBus {
+  public events = EVENTS
+  private bus = new EventEmitter()
+
+  public constructor() {
+    this.bus.setMaxListeners(0)
   }
 
-  public emit(e: NAMES.PLAY_AUDIO, p: string): boolean
-  public emit(e: NAMES.ENTRY_CLICK, p: { word: string, event: MouseEvent }): boolean
-  public emit(event: string, payload: unknown) {
-    return super.emit(event, payload)
-  }
+  public on: OnOff = (
+    event: EVENTS,
+    l: (...p: Array<any>) => unknown,
+  ) => this.bus.on(`${event}`, l)
+
+  public off: OnOff = (
+    event: EVENTS,
+    l: (...p: Array<any>) => unknown,
+  ) => this.bus.off(`${event}`, l)
+
+  public emit: Emit = (
+    event: EVENTS,
+    a: any,
+  ) => this.bus.off(`${event}`, a)
 }
 
 const bus = new GoogleDictBus()
-bus.setMaxListeners(0)
 export default bus

@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
-
+import { createComponent } from '@vue/composition-api'
 import labels from '../labels/labels.vue'
 
-@Component({
-  name: 'GoogleDictContainerNote',
+export default createComponent({
+  name: 'GNote',
   components: {
     labels,
   },
+  props: {
+    note: null,
+  },
+  setup: (props) => ({
+    props,
+  }),
 })
-export default class extends Vue {
-  @Prop([Object])
-  public note!: unknown
-}

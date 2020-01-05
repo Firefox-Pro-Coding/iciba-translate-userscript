@@ -1,10 +1,8 @@
 import querystring from 'querystring'
 
-import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants/constant'
-import store from '~/store/index'
+import { PROVIDER, GOOGLE_TRANSLATE_HOST_MAP } from '~/constants/constant'
+import { store } from '~/service/store'
 import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
-import { AudioCache } from '~/types'
-import playAudio from '~/util/playAudio'
 import { got } from '~/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
@@ -12,7 +10,12 @@ import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
 import GoogleTranslateBus, { PlayAudioPayload } from './bus'
-import { GoogleTranslatePayload } from '~/bus/bus'
+import { audioCacheService } from '~/service/audioCache'
+
+export interface GoogleTranslateParams {
+  sl: string
+  tl: string
+}
 
 interface GetGoogleTranslateResult {
   result: Array<string>
@@ -51,8 +54,6 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   public settingDescriptor = []
   public containerComponentClass = GoogleTranslateContainer
 
-  private audioCache: AudioCache = {}
-
   public constructor() {
     super()
 
@@ -61,7 +62,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     GoogleTranslateBus.on(GoogleTranslateBus.events.PLAY_AUDIO, this.handlePlay)
   }
 
-  public async translate(word: string, payload?: GoogleTranslatePayload) {
+  public async translate(word: string, payload?: GoogleTranslateParams) {
     const data = await this.getGoogleTranslateResult(word, payload)
     return () => {
       containerData.data = data.result
@@ -72,12 +73,12 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     }
   }
 
-  private async getGoogleTranslateResult(word: string, payload?: Omit<GoogleTranslatePayload, 'word' | 'uniqName'>): Promise<GetGoogleTranslateResult> {
+  private async getGoogleTranslateResult(word: string, payload?: GoogleTranslateParams): Promise<GetGoogleTranslateResult> {
     let token
     try {
       token = await getToken(word, this.getApiDomain())
     } catch (e) {
-      throw new Error(`获取token失败！请检查网络。(${e.message})`)
+      throw new Error(`获取token失败！请检查网络。(${(e as Error).message})`)
     }
 
     const sl = payload
@@ -98,7 +99,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
     const url = `https://${this.getApiDomain()}/translate_a/single?${querystring.stringify(query)}`
 
-    const result = await got({
+    const result = await got<any>({
       method: 'GET',
       headers: {
         'Referer': `https://${this.getApiDomain()}/`,
@@ -134,10 +135,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   }
 
   private getApiDomain() {
-    return {
-      [GOOGLE_TRANSLATE_HOST.GOOGLE_COM]: 'translate.google.com',
-      [GOOGLE_TRANSLATE_HOST.GOOGLE_CN]: 'translate.google.cn',
-    }[store.config[PROVIDER.GOOGLE_TRANSLATE].translateHost]
+    return GOOGLE_TRANSLATE_HOST_MAP[store.config[PROVIDER.GOOGLE_TRANSLATE].translateHost]
   }
 
   private async handlePlay(params: PlayAudioPayload) {
@@ -155,12 +153,11 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     }
     const url = `https://${this.getApiDomain()}/translate_tts?${querystring.stringify(query)}`
 
-    if (url in this.audioCache) {
-      playAudio(this.audioCache[url], volume)
+    if (audioCacheService.play(url, volume)) {
       return
     }
 
-    const response = await got({
+    const response = await got<ArrayBuffer>({
       method: 'GET',
       headers: {
         'Referer': `https://${this.getApiDomain()}/`,
@@ -174,10 +171,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       timeout: 5000,
     })
 
-    const arrayBuffer = response.response
-
-    this.audioCache[url] = arrayBuffer
-    playAudio(arrayBuffer, volume)
+    audioCacheService.play(url, response.response, volume)
   }
 }
 

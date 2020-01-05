@@ -1,28 +1,28 @@
 import querystring from 'querystring'
 import uuidv4 from 'uuid/v4'
-import { got } from '~/util/gmapi'
 
 import { PROVIDER } from '~/constants/constant'
-import store from '~/store'
-import { AudioCache } from '~/types'
-import { SougouTranslatePayload } from '~/bus/bus'
-import playAudio from '~/util/playAudio'
+import { got } from '~/util/gmapi'
+import { store } from '~/service/store'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
-
 import SougouTranslateContainer from './container/SougouTranslateContainer.vue'
 import containerData from './containerData'
 import getToken from './getToken'
 import getKey from './getKey'
 import SougouTranslateBus, { PlayAudioPayload } from './bus'
+import { audioCacheService } from '~/service/audioCache'
+
+export interface SougouTranslateParams {
+  sl: string
+  tl: string
+}
 
 class SougouTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.SOUGOU_TRANSLATE
   public settingDescriptor = []
   public containerComponentClass = SougouTranslateContainer
   public key = ''
-
-  private audioCache: AudioCache = {}
 
   public constructor() {
     super()
@@ -31,7 +31,7 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
     SougouTranslateBus.on(SougouTranslateBus.events.PLAY_AUDIO, this.handlePlay)
   }
 
-  public async translate(word: string, payload?: SougouTranslatePayload): Promise<() => void> {
+  public async translate(word: string, payload?: SougouTranslateParams): Promise<() => void> {
     const sl = payload ? payload.sl : 'auto'
     const tl = payload ? payload.tl : store.config[PROVIDER.SOUGOU_TRANSLATE].targetLanguage
 
@@ -56,7 +56,7 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
       s: token,
     }
 
-    const res = await got({
+    const res = await got<any>({
       method: 'POST',
       headers: {
         'Referer': 'https://fanyi.sogou.com/',
@@ -78,8 +78,6 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
     const detectLang = result.data.detect.detect
     if (detectLang === tl && detectLang === store.config[PROVIDER.SOUGOU_TRANSLATE].targetLanguage) {
       return this.translate(word, {
-        uniqName: PROVIDER.SOUGOU_TRANSLATE,
-        word,
         sl,
         tl: store.config[PROVIDER.SOUGOU_TRANSLATE].secondTargetLanguage,
       })
@@ -106,12 +104,12 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
     }
     const url = `https://fanyi.sogou.com/reventondc/synthesis?${querystring.stringify(query)}`
 
-    if (url in this.audioCache) {
-      playAudio(this.audioCache[url], volume)
+
+    if (audioCacheService.play(url, volume)) {
       return
     }
 
-    const response = await got({
+    const response = await got<ArrayBuffer>({
       method: 'GET',
       headers: {
         'Referer': 'https://fanyi.sogou.com/',
@@ -125,9 +123,7 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
       timeout: 5000,
     })
 
-    const arrayBuffer = response.response
-    this.audioCache[url] = arrayBuffer
-    playAudio(arrayBuffer, volume)
+    audioCacheService.play(url, response.response, volume)
   }
 }
 

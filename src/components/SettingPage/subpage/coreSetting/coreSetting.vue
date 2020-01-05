@@ -1,19 +1,19 @@
 <template>
-  <div>
+  <div class="flex-co align-start">
     <i-checkbox
       class="mt-0"
-      v-model="form.pressCtrlToDrag"
-      label="按住 ctrl 拖拽查词框">
-    </i-checkbox>
+      v-model="state.form.pressCtrlToDrag"
+      label="按住 ctrl 拖拽查词框"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       按住 ctrl 键拖拽移动查词结果框位置
     </p>
 
     <i-checkbox
       class="mt-4"
-      v-model="form.pressCtrlToShowCircle"
-      label="仅按住 ctrl 时查词">
-    </i-checkbox>
+      v-model="state.form.pressCtrlToShowCircle"
+      label="仅按住 ctrl 时查词"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       选择文字时，只有
       <span class="font-weight-bold">同时按住ctrl键</span>
@@ -22,27 +22,27 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="form.mouseOverTranslate"
-      label="鼠标 hover 查词">
-    </i-checkbox>
+      v-model="state.form.mouseOverTranslate"
+      label="鼠标 hover 查词"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       鼠标移到小圆圈上（而非需要点击）打开查词窗口
     </p>
 
     <i-checkbox
       class="mt-4"
-      v-model="form.showPin"
-      label="显示查词框固定图钉">
-    </i-checkbox>
+      v-model="state.form.showPin"
+      label="显示查词框固定图钉"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       显示固定图钉，可固定查词框使其不自动关闭
     </p>
 
     <i-checkbox
       class="mt-4"
-      v-model="form.icibaCircleRightClick"
-      label="右击小圆圈使用备选接口">
-    </i-checkbox>
+      v-model="state.form.icibaCircleRightClick"
+      label="右击小圆圈使用备选接口"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       右击小圆圈，使用备选接口查词
     </p>
@@ -51,10 +51,10 @@
       <div class="flex-co flex-nogrow pr-5">
         <div class="grey--text text--darken-1 pr-4 mb-2">接口</div>
         <div
-          class="grey--text text--darken-1"
-          style="height: 24px; margin-bottom: 8px;"
+          class="option-item grey--text text--darken-1 mb-2"
           v-for="n of providerOptions"
-          :key="n.key">
+          :key="n.key"
+        >
           {{ n.label }}
         </div>
       </div>
@@ -62,33 +62,36 @@
         <div class="grey--text text--darken-1 pr-4 mb-1">默认接口</div>
         <i-radio-group
           class="mt-0 flex-nogrow"
-          v-model="form.defaultProvider">
+          v-model="state.form.defaultProvider"
+        >
           <i-radio
             v-for="n of providerOptions"
-            :key="n.value"
+            :key="n.key"
             label=""
-            :value="n.value">
-          </i-radio>
+            :value="n.key"
+          />
         </i-radio-group>
       </div>
       <div class="flex-co align-center flex-nogrow">
         <div class="grey--text text--darken-1 pr-4 mb-1">备选接口</div>
         <i-radio-group
           class="mt-0"
-          v-model="form.icibaCircleRightClickProvider">
+          v-model="state.form.icibaCircleRightClickProvider"
+        >
           <i-radio
             v-for="n of providerOptions"
-            :key="n.value"
+            :key="n.key"
             label=""
-            :value="n.value">
-          </i-radio>
+            :value="n.key"
+          />
         </i-radio-group>
       </div>
     </div>
 
     <p
-      v-if="form.defaultProvider === form.icibaCircleRightClickProvider"
-      class="body-2 red--text mt-2 mb-0">
+      v-if="state.form.defaultProvider === state.form.icibaCircleRightClickProvider"
+      class="body-2 red--text mt-2 mb-0"
+    >
       默认接口和备选接口请选择不同的选项
     </p>
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
@@ -99,55 +102,59 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="form.selectionMaxLengthCut"
-      label="限制最大查词长度">
-    </i-checkbox>
+      v-model="state.form.selectionMaxLengthCut"
+      label="限制最大查词长度"
+    />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       当选择文字超过指定长度时不显示小圆圈
     </p>
 
     <i-slider
-      v-if="form.selectionMaxLengthCut"
+      v-if="state.form.selectionMaxLengthCut"
       class="mr-1 mt-0"
       :step="10"
       :min="50"
       :max="500"
-      v-model="form.selectionMaxLength" />
-    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0" v-if="form.selectionMaxLengthCut">
-      最大查词长度: {{ form.selectionMaxLength }} <span class="ml-1 caption">默认值: 150</span>
+      v-model="state.form.selectionMaxLength"
+    />
+    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0" v-if="state.form.selectionMaxLengthCut">
+      最大查词长度: {{ state.form.selectionMaxLength }} <span class="ml-1 caption">默认值: 150</span>
     </p>
 
     <div class="flex align-center mr-1 mt-4">
-      <div class="mr-3 grey--text text--darken-1">{{ form.icibaCircleSize }}px</div>
+      <div class="mr-3 grey--text text--darken-1">{{ state.form.icibaCircleSize }}px</div>
       <i-slider
         class="flex-grow"
         :min="10"
         :max="30"
         :step="1"
-        v-model="form.icibaCircleSize"
-        thumb-label />
+        v-model="state.form.icibaCircleSize"
+        thumb-label
+      />
     </div>
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       小圆圈大小（默认22px）
     </p>
 
     <div class="flex align-center mr-1 mt-4">
-      <div class="mr-3 grey--text text--darken-1">x: {{ form.icibaCircleOffsetX }}</div>
+      <div class="mr-3 grey--text text--darken-1">x: {{ state.form.icibaCircleOffsetX }}</div>
       <i-slider
         class="flex-grow"
         :min="0"
         :max="30"
-        v-model="form.icibaCircleOffsetX"
-        thumb-label />
+        v-model="state.form.icibaCircleOffsetX"
+        thumb-label
+      />
     </div>
     <div class="flex align-center mr-1">
-      <div class="mr-3 grey--text text--darken-1">y: {{ form.icibaCircleOffsetY }}</div>
+      <div class="mr-3 grey--text text--darken-1">y: {{ state.form.icibaCircleOffsetY }}</div>
       <i-slider
         class="flex-grow"
         :min="0"
         :max="30"
-        v-model="form.icibaCircleOffsetY"
-        thumb-label />
+        v-model="state.form.icibaCircleOffsetY"
+        thumb-label
+      />
     </div>
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       小圆圈偏移量（单位：px）
@@ -156,14 +163,15 @@
     </p>
 
     <div class="flex align-center mr-1 mt-4">
-      <div class="mr-3 grey--text text--darken-1">{{ form.icibaMainWidth }}px</div>
+      <div class="mr-3 grey--text text--darken-1">{{ state.form.icibaMainWidth }}px</div>
       <i-slider
         class="flex-grow"
         :min="200"
         :max="500"
         :step="10"
-        v-model="form.icibaMainWidth"
-        thumb-label />
+        v-model="state.form.icibaMainWidth"
+        thumb-label
+      />
     </div>
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
       查词框宽度（单位：px）（默认300px）

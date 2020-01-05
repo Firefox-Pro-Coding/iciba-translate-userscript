@@ -27,7 +27,7 @@ const updateTKK = async (domain: string) => {
     url: `https://${domain}`,
     timeout: 5000,
   })
-  const match = result.responseText.match(/tkk:'(.*?)'/)
+  const match = /tkk:'(.*?)'/.exec(result.responseText)
 
   if (!match) {
     throw new Error('failed to get ttk')

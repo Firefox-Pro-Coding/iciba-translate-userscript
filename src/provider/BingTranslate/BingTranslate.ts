@@ -1,11 +1,8 @@
 import querystring from 'querystring'
 
 import { PROVIDER } from '~/constants/constant'
-import { AudioCache } from '~/types'
-import playAudio from '~/util/playAudio'
 import { got } from '~/util/gmapi'
-import { BingTranslatePayload } from '~/bus/bus'
-import store from '~/store'
+import { store } from '~/service/store'
 import { BING_LANGUAGES, BING_VOICE_MAP } from '~/constants/bingLanguages'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
@@ -14,6 +11,7 @@ import containerData from './containerData'
 import getToken from './helpers/token'
 import getVoiceToken from './helpers/voiceToken'
 import GoogleTranslateBus, { PlayAudioPayload } from './bus'
+import { audioCacheService } from '~/service/audioCache'
 
 interface BingTranslateResult {
   result: Array<string>
@@ -22,13 +20,17 @@ interface BingTranslateResult {
   dl: string
 }
 
+export interface BingTranslateParams {
+  sl: string
+  tl: string
+}
+
 class GoogleTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.BING_TRANSLATE
   public settingDescriptor = []
   public containerComponentClass = GoogleTranslateContainer
 
   private un = 1
-  private audioCache: AudioCache = {}
 
   public constructor() {
     super()
@@ -38,7 +40,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     GoogleTranslateBus.on(GoogleTranslateBus.events.PLAY_AUDIO, this.handlePlay)
   }
 
-  public async translate(word: string, payload?: BingTranslatePayload) {
+  public async translate(word: string, payload?: BingTranslateParams) {
     const data = await this.getBingTranslate(word, payload)
     return () => {
       containerData.data = data.result
@@ -49,10 +51,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     }
   }
 
-  private async getBingTranslate(
-    word: string,
-    payload?: Pick<BingTranslatePayload, 'sl' | 'tl'>,
-  ): Promise<BingTranslateResult> {
+  private async getBingTranslate(word: string, payload?: BingTranslateParams): Promise<BingTranslateResult> {
     const sl = payload
       ? payload.sl
       : 'auto-detect'
@@ -76,7 +75,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
     const url = `https://cn.bing.com/ttranslatev3?${query}`
 
-    const result = await got({
+    const result = await got<any>({
       method: 'POST',
       url,
       data: body,
@@ -116,19 +115,20 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     const volume = 0.7
     const word = params.word.slice(0, 100)
     const key = `${params.tl}-${word}`
+    const namespacedKey = `bing-translate-${key}`
 
     if (word.includes(']]>')) {
       return
     }
 
-    if (key in this.audioCache) {
-      playAudio(this.audioCache[key], volume)
+    if (audioCacheService.play(namespacedKey, volume)) {
       return
     }
+
     const token = await getToken()
     const voiceToken = await getVoiceToken(token.ig, token.iid)
 
-    const voiceItem = (BING_VOICE_MAP as any)[params.tl]
+    const voiceItem = BING_VOICE_MAP[params.tl as keyof typeof BING_VOICE_MAP]
     if (!voiceItem) {
       return
     }
@@ -136,7 +136,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     const rate = '-10.00%' // 'default'
     const url = `https://${voiceToken.region}.tts.speech.microsoft.com/cognitiveservices/v1`
     const body = `<speak version="1.0" xml:lang="${locale}"><voice xml:lang="${locale}" xml:gender="${gender}" name="${voiceName}"><prosody rate="${rate}"><![CDATA[${word}]]></prosody></voice></speak>`
-    const response = await got({
+    const response = await got<ArrayBuffer>({
       method: 'POST',
       headers: {
         Authorization: `Bearer ${voiceToken.token}`,
@@ -150,10 +150,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       timeout: 5000,
     })
 
-    const arrayBuffer = response.response
-
-    this.audioCache[url] = arrayBuffer
-    playAudio(arrayBuffer, volume)
+    audioCacheService.play(namespacedKey, response.response, volume)
   }
 }
 

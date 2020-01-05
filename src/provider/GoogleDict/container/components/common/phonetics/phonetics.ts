@@ -1,21 +1,23 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { createComponent } from '@vue/composition-api'
 import googleDictBus from '~/provider/GoogleDict/bus'
 
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
-@Component({
-  name: 'GoogleDictContainerPhonetics',
+export default createComponent({
+  name: 'GPhonetics',
+  props: {
+    phonetics: null,
+  },
+  setup: (props) => {
+    const handlePlay = (url: string) => {
+      googleDictBus.emit(googleDictBus.events.PLAY_AUDIO, url)
+    }
+    return {
+      icon: {
+        play_speaker_filled_audio_tool_59284,
+      },
+      props,
+      handlePlay,
+    }
+  },
 })
-export default class extends Vue {
-  @Prop([Array])
-  public phonetics: unknown
-
-  public icon = {
-    play_speaker_filled_audio_tool_59284,
-  }
-
-  public handlePlay(url: string) {
-    googleDictBus.emit(googleDictBus.events.PLAY_AUDIO, url)
-  }
-}

@@ -1,6 +1,8 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
-import globalBus from '~/bus/bus'
+import { createComponent } from '@vue/composition-api'
+
+import { PROVIDER } from '~/constants/constant'
+import { store } from '~/service/store'
+import { bus, EVENTS } from '~/service/globalBus'
 
 import Labels from '../labels/labels.vue'
 import Foldable from '../foldable/foldable.vue'
@@ -21,24 +23,38 @@ interface ThesaurusEntry {
   headword: string
 }
 
-@Component({
-  name: 'GoogleDictContainerThesaurus',
+export default createComponent({
+  name: 'GThesaurus',
   components: {
     Labels,
     Foldable,
   },
-})
-export default class extends Vue {
-  @Prop({ type: Array, default: () => [] })
-  public thesaurusEntries!: ThesaurusEntry
+  props: {
+    thesaurusEntries: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  setup: (props) => {
+    const addQoute = (text: string): string => `"${text}"`
 
-  protected addQoute(text: string): string {
-    return `"${text}"`
-  }
-
-  protected handleNymClick(event: MouseEvent, nym: any) {
-    if (nym.numEntries) {
-      globalBus.emit(globalBus.events.GOOGLE_DICT_WORD_CLICK, { event, word: nym.nym })
+    const handleNymClick = (event: MouseEvent, nym: any) => {
+      if (nym.numEntries) {
+        bus.emit({
+          type: EVENTS.TRANSLATE,
+          word: nym.nym,
+          param: {
+            provider: PROVIDER.GOOGLE_DICT,
+          },
+          mouseEvent: event,
+        })
+      }
     }
-  }
-}
+    return {
+      t: props.thesaurusEntries as Array<ThesaurusEntry>,
+      addQoute,
+      handleNymClick,
+      store,
+    }
+  },
+})

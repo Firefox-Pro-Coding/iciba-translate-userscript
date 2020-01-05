@@ -1,15 +1,14 @@
 <template>
-  <div class="flex icon-radio">
+  <div class="icon-radio flex">
     <div
+      v-for="(icon, index) of props.icons"
+      :key="index"
       class="flex icon-box pa-2 flex-nogrow"
       @click="handleSelect(icon.key)"
-      v-for="(icon, index) of icons"
-      :key="index">
+    >
       <i-icon size="100%" :svg="icon.icon" />
-      <div
-        v-if="icon.key === value"
-        class="check-icon">
-        <i-icon size="20" :svg="checkIcon" />
+      <div class="check-icon" v-if="icon.key === props.value">
+        <i-icon size="20" :svg="checkedIconSvg" />
       </div>
     </div>
   </div>

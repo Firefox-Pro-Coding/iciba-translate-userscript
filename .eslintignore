@@ -4,3 +4,4 @@ iciba.user.js
 !.eslintrc.js
 *.d.ts
 /config/metaData.js
+/utils/vue-style-loader/

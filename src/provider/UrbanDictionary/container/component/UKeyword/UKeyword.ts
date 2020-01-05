@@ -1,61 +1,78 @@
-import Vue from 'vue'
-import { Component, Prop, Watch } from 'vue-property-decorator'
+import { createComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
 import urbanBus from '../../bus'
-import bus from '~/bus/bus'
+import { bus, EVENTS } from '~/service/globalBus'
+import { PROVIDER } from '~/constants/constant'
 
-@Component({
+export default createComponent({
   name: 'UrbanDictionaryKeyword',
-})
-export default class UrbanDictionaryKeyword extends Vue {
-  public $refs!: {
-    span: HTMLSpanElement
-  }
+  props: {
+    content: {
+      type: String,
+      default: '',
+    },
+  },
+  setup: (props, ctx) => {
+    const $refs: {
+      span: HTMLSpanElement
+    } = ctx.refs
 
-  @Prop({ type: String, default: '' })
-  public content!: string
+    const state = reactive({
+      id: 0,
+      visible: false,
+      visibleTimeout: 0,
+    })
 
-  public id = 0
-
-  public visible = false
-  public visibleTimeout = 0
-
-  public mounted() {
-    this.id = urbanBus.genId()
-  }
-
-  protected handleClick() {
-    bus.emit(bus.events.URBAN_DICTIONAR_TOOLTIP_CLICK, this.content)
-  }
-
-  protected showTooltip() {
-    if (this.visibleTimeout) {
-      window.clearTimeout(this.visibleTimeout)
-    }
-
-    this.visibleTimeout = window.setTimeout(() => {
-      this.visible = true
-    }, 200)
-  }
-
-  protected hideTooltip() {
-    window.clearTimeout(this.visibleTimeout)
-    this.visibleTimeout = 0
-    this.visible = false
-  }
-
-  @Watch('visible')
-  protected visibleChange() {
-    if (this.visible) {
-      const rect = this.$refs.span.getBoundingClientRect()
-      urbanBus.emit(urbanBus.events.SHOW_TOOLTIP, {
-        top: rect.bottom,
-        left: rect.right,
-        id: this.id,
-        text: this.content,
+    const handleClick = () => {
+      bus.emit({
+        type: EVENTS.TRANSLATE,
+        word: props.content,
+        param: {
+          provider: PROVIDER.URBAN_DICTIONARY,
+        },
       })
-    } else {
-      urbanBus.emit(urbanBus.events.HIDE_TOOLTIP, { id: this.id })
     }
-  }
-}
+
+    const showTooltip = () => {
+      if (state.visibleTimeout) {
+        window.clearTimeout(state.visibleTimeout)
+      }
+
+      state.visibleTimeout = window.setTimeout(() => {
+        state.visible = true
+      }, 200)
+    }
+
+    const hideTooltip = () => {
+      window.clearTimeout(state.visibleTimeout)
+      state.visibleTimeout = 0
+      state.visible = false
+    }
+
+
+    onMounted(() => {
+      state.id = urbanBus.genId()
+    })
+
+    watch(() => state.visible, () => {
+      if (state.visible) {
+        const rect = $refs.span.getBoundingClientRect()
+        urbanBus.emit(urbanBus.events.SHOW_TOOLTIP, {
+          top: rect.bottom,
+          left: rect.right,
+          id: state.id,
+          text: props.content,
+        })
+      } else {
+        urbanBus.emit(urbanBus.events.HIDE_TOOLTIP, { id: state.id })
+      }
+    })
+
+    return {
+      props,
+      handleClick,
+      showTooltip,
+      hideTooltip,
+    }
+  },
+})

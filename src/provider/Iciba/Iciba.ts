@@ -1,4 +1,4 @@
-import * as querystring from 'querystring'
+import querystring from 'querystring'
 
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
@@ -55,7 +55,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       timeout: 5000,
     })
     const content = response.responseText
-    const contentMatch = content.match(/callbackFnName\((.*)\)/)
+    const contentMatch = /callbackFnName\((.*)\)/.exec(content)
     if (!contentMatch) {
       return Promise.reject(new Error('数据错误！'))
     }

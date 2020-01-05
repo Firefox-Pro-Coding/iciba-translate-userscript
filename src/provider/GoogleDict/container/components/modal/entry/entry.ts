@@ -1,33 +1,33 @@
-import Vue from 'vue'
-import { Component, Prop } from 'vue-property-decorator'
+import { createComponent } from '@vue/composition-api'
 
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'
-import thesaurus from '../thesaurus/thesaurus.vue'
 import phonetics from '../../common/phonetics/phonetics.vue'
-import fragment from '../../common/fragment/fragment.vue'
 import etymology from '../etymology/etymology.vue'
-import exampleGroups from '../exampleGroups/exampleGroups.vue'
-import subEntry from '../subEntry/subEntry.vue'
 import note from '../note/note.vue'
-import foldable from '../foldable/foldable.vue'
+import senseItem from '../senseItem/senseItem.vue'
+import morphUnit from '../morphUnit/morphUnit.vue'
 
-@Component({
-  name: 'GoogleDictContainerEntry',
+export default createComponent({
+  name: 'GEntry',
   components: {
     labels,
     labelSet,
-    thesaurus,
     phonetics,
-    fragment,
     etymology,
-    exampleGroups,
-    subEntry,
     note,
-    foldable,
+    senseItem,
+    morphUnit,
   },
+  props: {
+    entry: null,
+    isSubentry: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  setup: (props) => ({
+    e: props.entry,
+    isSub: props.isSubentry,
+  }),
 })
-export default class GoogleDictContainerEntry extends Vue {
-  @Prop([Object])
-  public entry!: unknown
-}

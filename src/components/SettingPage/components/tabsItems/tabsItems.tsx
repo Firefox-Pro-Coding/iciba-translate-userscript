@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Component, Model, Watch } from 'vue-property-decorator'
+import { createComponent, reactive, watch, onMounted } from '@vue/composition-api'
 
 interface WindowStyle {
   position: string
@@ -8,187 +8,189 @@ interface WindowStyle {
   animating: boolean
 }
 
-@Component({
-  name: 'ITabsItems',
-  components: {
+export default createComponent({
+  model: {},
+  props: {
+    value: {
+      type: Number,
+      required: true,
+    },
   },
-})
-export default class ITabsItems extends Vue {
-  public $refs!: {
-    window: Array<HTMLDivElement>
-    windowContainer: HTMLDivElement
-    container: HTMLDivElement
-  }
+  setup: (props, setupContext) => {
+    const $refs: {
+      window: Array<HTMLDivElement>
+      windowContainer: HTMLDivElement
+      container: HTMLDivElement
+    } = setupContext.refs
 
-  @Model('input', { type: Number, default: 0 })
-  public value!: number
+    const state = reactive({
+      beforeValue: 0,
+      height: 0,
+      animating: false,
+      animatingTimeout: 0,
+      windowStyle: [] as Array<WindowStyle>,
+      scrollTopInterupt: null as null | (() => void),
+    })
 
-  private beforeValue = 0
-  private height = 0
-  private animating = false
-  private animatingTimeout = 0
-  private windowStyle: Array<WindowStyle> = []
-  private scrollTopInterupt: null | (() => void) = null
-
-
-  private async transform() {
-    if (this.animating) {
-      window.clearTimeout(this.animatingTimeout)
+    const scrollToTop = () => {
+      const start = $refs.container.scrollTop
+      if (!start) {
+        return
+      }
+      if (state.scrollTopInterupt) {
+        state.scrollTopInterupt()
+      }
+      const startTime = performance.now()
+      const ease = (pos: number) => (Math.cos(Math.PI * pos) - 1) * -0.5
+      let stop = false
+      const scroll = () => {
+        const time = performance.now() - startTime
+        if (time > 300 || stop) {
+          return
+        }
+        if ($refs.container.scrollTop === 0) {
+          return
+        }
+        $refs.container.scrollTop = start - ease(time / 300) * start
+        window.requestAnimationFrame(scroll)
+      }
+      state.scrollTopInterupt = () => {
+        stop = true
+        state.scrollTopInterupt = null
+      }
+      window.requestAnimationFrame(scroll)
     }
 
-    this.animating = true
+    const transform = async () => {
+      if (state.animating) {
+        window.clearTimeout(state.animatingTimeout)
+      }
 
-    // before animate state
-    const outIndex = this.beforeValue
-    const inIndex = this.value
+      state.animating = true
 
-    const containerHeight = this.$refs.windowContainer.getBoundingClientRect().height
+      // before animate state
+      const outIndex = state.beforeValue
+      const inIndex = props.value
 
-    // reset style
-    this.windowStyle.forEach((v) => {
-      v.display = 'none'
-      v.position = ''
-      v.transform = ''
-    })
+      const containerHeight = $refs.windowContainer.getBoundingClientRect().height
 
-    this.height = Math.max(
-      this.$refs.window[outIndex].getBoundingClientRect().height,
-      containerHeight,
-    )
-
-    // set pre position
-    this.$set(this.windowStyle, outIndex, {
-      position: 'absolute',
-      display: '',
-      transform: '',
-      animating: false,
-    })
-    this.$set(this.windowStyle, inIndex, {
-      position: 'absolute',
-      display: '',
-      transform: inIndex < outIndex
-        ? 'translate(-100%, 0)'
-        : 'translate(100%, 0)',
-      animating: false,
-    })
-
-    // await render
-    await new Promise<void>(rs => this.$nextTick(rs))
-
-    this.scrollToTop()
-
-    this.height = Math.max(
-      this.$refs.window[outIndex].getBoundingClientRect().height,
-      containerHeight,
-    )
-
-    this.$set(this.windowStyle, outIndex, {
-      position: 'absolute',
-      display: '',
-      transform: outIndex < inIndex
-        ? 'translate(-100%, 0)'
-        : 'translate(100%, 0)',
-      animating: true,
-    })
-    this.$set(this.windowStyle, inIndex, {
-      position: 'absolute',
-      display: '',
-      transform: '',
-      animating: true,
-    })
-
-    this.animatingTimeout = window.setTimeout(() => {
-      this.animating = false
-
-      this.$set(this.windowStyle, outIndex, {
-        position: '',
-        display: 'none',
-        transform: '',
-        animating: false,
+      // reset style
+      state.windowStyle.forEach((v) => {
+        v.display = 'none'
+        v.position = ''
+        v.transform = ''
       })
-      this.$set(this.windowStyle, inIndex, {
-        position: '',
+
+      state.height = Math.max(
+        $refs.window[outIndex].getBoundingClientRect().height,
+        containerHeight,
+      )
+
+      // set pre position
+      Vue.set(state.windowStyle, outIndex, {
+        position: 'absolute',
         display: '',
         transform: '',
         animating: false,
       })
-      this.height = 0
-    }, 300)
-  }
+      Vue.set(state.windowStyle, inIndex, {
+        position: 'absolute',
+        display: '',
+        transform: inIndex < outIndex
+          ? 'translate(-100%, 0)'
+          : 'translate(100%, 0)',
+        animating: false,
+      })
 
-  private scrollToTop() {
-    const start = this.$refs.container.scrollTop
-    if (!start) {
-      return
+      // await render
+      await new Promise<void>((rs) => Vue.nextTick(rs))
+
+      scrollToTop()
+
+      state.height = Math.max(
+        $refs.window[outIndex].getBoundingClientRect().height,
+        containerHeight,
+      )
+
+      Vue.set(state.windowStyle, outIndex, {
+        position: 'absolute',
+        display: '',
+        transform: outIndex < inIndex
+          ? 'translate(-100%, 0)'
+          : 'translate(100%, 0)',
+        animating: true,
+      })
+      Vue.set(state.windowStyle, inIndex, {
+        position: 'absolute',
+        display: '',
+        transform: '',
+        animating: true,
+      })
+
+      state.animatingTimeout = window.setTimeout(() => {
+        state.animating = false
+
+        Vue.set(state.windowStyle, outIndex, {
+          position: '',
+          display: 'none',
+          transform: '',
+          animating: false,
+        })
+        Vue.set(state.windowStyle, inIndex, {
+          position: '',
+          display: '',
+          transform: '',
+          animating: false,
+        })
+        state.height = 0
+      }, 300)
     }
-    if (this.scrollTopInterupt) {
-      this.scrollTopInterupt()
-    }
-    const startTime = performance.now()
-    const ease = (pos: number) => (Math.cos(Math.PI * pos) - 1) * -0.5
-    let stop = false
-    const scroll = () => {
-      const time = performance.now() - startTime
-      if (time > 300 || stop) {
+
+    const initStyle = (length: number) => {
+      if (length === state.windowStyle.length) {
         return
       }
-      if (this.$refs.container.scrollTop === 0) {
-        return
-      }
-      this.$refs.container.scrollTop = start - ease(time / 300) * start
-      window.requestAnimationFrame(scroll)
+      state.windowStyle = Array(length).fill(0).map((_v, i) => ({
+        position: '',
+        transform: '',
+        display: props.value === i ? '' : 'none',
+        animating: false,
+      }))
     }
-    this.scrollTopInterupt = () => {
-      stop = true
-      this.scrollTopInterupt = null
-    }
-    window.requestAnimationFrame(scroll)
-  }
 
-  private initStyle(length: number) {
-    if (length === this.windowStyle.length) {
-      return
-    }
-    this.windowStyle = Array(length).fill(0).map((_v, i) => ({
-      position: '',
-      transform: '',
-      display: this.value === i ? '' : 'none',
-      animating: false,
-    }))
-  }
+    onMounted(() => {
+      watch(() => props.value, (_value: number, old: number | undefined) => {
+        state.beforeValue = old ?? 0
+        if (old !== undefined) {
+          transform()
+        }
+      })
+    })
 
-  /* eslint-disable-next-line @typescript-eslint/member-ordering */
-  @Watch('value')
-  public valueChange(_new: number, old: number) {
-    this.beforeValue = old
-    this.transform()
-  }
-
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  public render() {
-    const defaultSlot = this.$slots.default ? this.$slots.default : []
-    const VNodes = defaultSlot.filter(v => v.componentOptions && v.componentOptions.tag === 'i-tab-item')
-    this.initStyle(VNodes.length)
-    return (
-      <div class='i-tabs-items' ref='container'>
-        <div
-          ref="windowContainer"
-          class='window-container flex'
-          style={{ height: this.height ? `${this.height}px` : 'auto' }}>
-          { ...VNodes.map((v, i) => (
-            <div
-              refInFor={true}
-              ref='window'
-              style={this.windowStyle[i]}
-              class={{
-                'vnode-window': true,
-                'animating': this.windowStyle[i].animating,
-              }}>
-              { v }
-            </div>
-          )) }
+    return () => {
+      const VNodes = setupContext.slots.default()
+      initStyle(VNodes.length)
+      return (
+        <div class='i-tabs-items' ref='container'>
+          <div
+            ref="windowContainer"
+            class='window-container flex'
+            style={{ height: state.height ? `${state.height}px` : 'auto' }}>
+            { ...VNodes.map((v, i) => (
+              <div
+                refInFor={true}
+                ref='window'
+                style={state.windowStyle[i]}
+                class={{
+                  'vnode-window': true,
+                  'animating': state.windowStyle[i].animating,
+                }}>
+                { v }
+              </div>
+            )) }
+          </div>
         </div>
-      </div>
-    )
-  }
-}
+      )
+    }
+  },
+})

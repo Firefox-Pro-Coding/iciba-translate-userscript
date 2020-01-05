@@ -26,8 +26,8 @@ const getToken = () => {
     if (!res) {
       throw new Error('网络错误！')
     }
-    const iidMatch = res.responseText.match(/data-iid="(.+?)"/)
-    const igMatch = res.responseText.match(/IG:"(.+?)"/)
+    const iidMatch = /data-iid="(.+?)"/.exec(res.responseText)
+    const igMatch = /IG:"(.+?)"/.exec(res.responseText)
     if (!iidMatch || !igMatch) {
       throw new Error('获取 token 失败！')
     }
