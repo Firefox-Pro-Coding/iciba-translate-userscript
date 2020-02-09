@@ -111,14 +111,14 @@
 
     <i-slider
       v-if="state.form.selectionMaxLengthCut"
-      class="mr-1 mt-0"
+      class="mr-1 mt-0 align-self-stretch"
       :step="10"
       :min="50"
       :max="500"
       v-model="state.form.selectionMaxLength"
     />
     <p class="body-2 grey--text text--lighten-1 mt-1 mb-0" v-if="state.form.selectionMaxLengthCut">
-      最大查词长度: {{ state.form.selectionMaxLength }} <span class="ml-1 caption">默认值: 150</span>
+      最大查词长度: {{ state.form.selectionMaxLength }} （默认值: 150）
     </p>
 
     <div class="flex align-center mr-1 mt-4">
@@ -136,7 +136,7 @@
       小圆圈大小（默认22px）
     </p>
 
-    <div class="flex align-center mr-1 mt-4">
+    <div class="flex align-center mr-1 mt-4 align-self-stretch">
       <div class="mr-3 grey--text text--darken-1">x: {{ state.form.icibaCircleOffsetX }}</div>
       <i-slider
         class="flex-grow"
@@ -146,7 +146,7 @@
         thumb-label
       />
     </div>
-    <div class="flex align-center mr-1">
+    <div class="flex align-center mr-1 align-self-stretch">
       <div class="mr-3 grey--text text--darken-1">y: {{ state.form.icibaCircleOffsetY }}</div>
       <i-slider
         class="flex-grow"
@@ -162,7 +162,7 @@
       选择文字时，小圆圈偏移鼠标指针右下方的位置。默认 x=7 y=7
     </p>
 
-    <div class="flex align-center mr-1 mt-4">
+    <div class="flex align-center mr-1 mt-4 align-self-stretch">
       <div class="mr-3 grey--text text--darken-1">{{ state.form.icibaMainWidth }}px</div>
       <i-slider
         class="flex-grow"

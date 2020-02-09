@@ -10,7 +10,7 @@ import GoogleTranslateContainer from './container/BingTranslateContainer.vue'
 import containerData from './containerData'
 import getToken from './helpers/token'
 import getVoiceToken from './helpers/voiceToken'
-import GoogleTranslateBus, { PlayAudioPayload } from './bus'
+import GoogleTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 import { audioCacheService } from '~/service/audioCache'
 
 interface BingTranslateResult {
@@ -37,7 +37,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
     // bind methods
     this.handlePlay = this.handlePlay.bind(this)
-    GoogleTranslateBus.on(GoogleTranslateBus.events.PLAY_AUDIO, this.handlePlay)
+    GoogleTranslateBus.on(NAMES.PLAY_AUDIO, this.handlePlay)
   }
 
   public async translate(word: string, payload?: BingTranslateParams) {

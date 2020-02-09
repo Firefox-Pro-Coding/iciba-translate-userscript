@@ -1,6 +1,6 @@
 import { createComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
-import urbanBus from '../../bus'
+import urbanBus, { NAMES } from '../../bus'
 import { bus, EVENTS } from '~/service/globalBus'
 import { PROVIDER } from '~/constants/constant'
 
@@ -57,14 +57,14 @@ export default createComponent({
     watch(() => state.visible, () => {
       if (state.visible) {
         const rect = $refs.span.getBoundingClientRect()
-        urbanBus.emit(urbanBus.events.SHOW_TOOLTIP, {
+        urbanBus.emit(NAMES.SHOW_TOOLTIP, {
           top: rect.bottom,
           left: rect.right,
           id: state.id,
           text: props.content,
         })
       } else {
-        urbanBus.emit(urbanBus.events.HIDE_TOOLTIP, { id: state.id })
+        urbanBus.emit(NAMES.HIDE_TOOLTIP, { id: state.id })
       }
     })
 

@@ -9,7 +9,7 @@ import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
-import GoogleTranslateBus, { PlayAudioPayload } from './bus'
+import GoogleTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 import { audioCacheService } from '~/service/audioCache'
 
 export interface GoogleTranslateParams {
@@ -59,7 +59,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
     // bind methods
     this.handlePlay = this.handlePlay.bind(this)
-    GoogleTranslateBus.on(GoogleTranslateBus.events.PLAY_AUDIO, this.handlePlay)
+    GoogleTranslateBus.on(NAMES.PLAY_AUDIO, this.handlePlay)
   }
 
   public async translate(word: string, payload?: GoogleTranslateParams) {

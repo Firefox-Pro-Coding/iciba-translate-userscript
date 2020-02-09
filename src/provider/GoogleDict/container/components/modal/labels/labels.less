@@ -1,69 +1,71 @@
 @import '~assets/styles/variables.less';
 
-.iciba-google-dict-label-box {
+.label-box {
   font-size: 0;
 
-  // size
-  &.iciba-label-size-small .iciba-label {
-    font-size: 12px;
-    padding: 1px 4px;
+  &.size {
+    &-small .label {
+      font-size: 12px;
+      padding: 1px 4px;
+    }
+
+    &-medium .label {
+      font-size: 12px;
+      padding: 2px 6px;
+    }
+
+    &-large .label {
+      font-size: 14px;
+      padding: 3px 8px;
+    }
   }
 
-  &.iciba-label-size-medium .iciba-label {
-    font-size: 12px;
-    padding: 2px 6px;
+  &.color {
+    &-main .label {
+      background: hsl(206, 50%, 60%);
+      color: white;
+    }
+
+    &-plain .label {
+      background: @background-level-4;
+      color: @main-level-3;
+    }
+
+    &-light .label {
+      background: @background-level-5;
+      color: @main-level-4-5;
+    }
+
+    &-lightpink .label {
+      background: #FBE0E0;
+      color: @main-level-3;
+    }
+
+    &-lightblue .label {
+      background: #D7EAF9;
+      color: @main-level-3;
+    }
+
+    &-geographics .label {
+      background: #DDF7BA;
+      color: @main-level-3;
+      text-transform: uppercase;
+    }
+
+    &-registers .label {
+      background: @background-level-4;
+      color: @main-level-3;
+      text-transform: uppercase;
+    }
+
+    &-subjects .label {
+      background: #F2E0FA;
+      color: @main-level-3;
+      text-transform: uppercase;
+    }
   }
 
-  &.iciba-label-size-large .iciba-label {
-    font-size: 14px;
-    padding: 3px 8px;
-  }
-
-  // color
-  &.iciba-label-color-main .iciba-label {
-    background: hsl(206, 50%, 60%);
-    color: white;
-  }
-
-  &.iciba-label-color-plain .iciba-label {
-    background: @background-level-4;
-    color: @main-level-3;
-  }
-
-  &.iciba-label-color-light .iciba-label {
-    background: @background-level-5;
-    color: @main-level-4-5;
-  }
-
-  &.iciba-label-color-lightpink .iciba-label {
-    background: #FBE0E0;
-    color: @main-level-3;
-  }
-
-  &.iciba-label-color-lightblue .iciba-label {
-    background: #D7EAF9;
-    color: @main-level-3;
-  }
-
-  &.iciba-label-color-geographics .iciba-label {
-    background: #DDF7BA;
-    color: @main-level-3;
-    text-transform: uppercase;
-  }
-
-  &.iciba-label-color-registers .iciba-label {
-    background: @background-level-4;
-    color: @main-level-3;
-    text-transform: uppercase;
-  }
-
-  &.iciba-label-color-subjects .iciba-label {
-    background: #F2E0FA;
-    color: @main-level-3;
-    text-transform: uppercase;
-  }
-
-  .iciba-label {
+  .label {
     position: relative;
     line-height: 1.5;
     margin-right: 5px;
@@ -72,22 +74,22 @@
       margin-right: 0;
     }
 
-    .popover-tooltip {
+    .tooltip {
       user-select: none;
       pointer-events: none;
       position: absolute;
-      z-index: 200000;
-      background: rgba(black, 0.5);
-      padding: 0 4px 0 3px;
-      line-height: 16px;
-      border-radius: 5px;
-      filter: drop-shadow(0 0 0.5px black);
-      color: white;
       right: 0;
       top: 50%;
+      z-index: 200000;
+      padding: 0 4px 0 3px;
       margin-right: -7px;
+      border-radius: 5px;
       transform: translate(100%, -50%);
       transition: 0.12s;
+      background: rgba(black, 0.5);
+      filter: drop-shadow(0 0 0.5px black);
+      color: white;
+      line-height: 16px;
       white-space: nowrap;
 
       &::after {
@@ -100,19 +102,15 @@
         left: 0;
         margin-left: 1px;
         transform: translate(-100%, -50%);
-        border-top: @size solid transparent;
-        border-left: @size solid transparent;
-        border-bottom: @size solid transparent;
-        border-right: @size solid rgba(black, 0.5);
+        border: @size solid transparent;
+        border-right-color: rgba(black, 0.5);
       }
 
       &.popover-leave-to, &.popover-enter {
-        // transform: translate(-50%, -90%);
         opacity: 0;
       }
 
       &.popover-enter-to, &.popover-leave {
-        // transform: translate(-50%, -100%);
         opacity: 1;
       }
     }

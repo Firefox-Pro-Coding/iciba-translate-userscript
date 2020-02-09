@@ -1,6 +1,10 @@
 <template>
   <div class="fragment-box q-inline" v-if="props.fragment && props.fragment.length">
-    <div class="q-inline fragment-item" v-for="(frag, index) in props.fragment" :key="index">
+    <div
+      class="q-inline fragment-item"
+      v-for="(frag, index) in props.fragment"
+      :key="frag.text + index"
+    >
       <a
         v-if="frag.isEntryLink"
         class="entry-link"

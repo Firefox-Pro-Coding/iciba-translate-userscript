@@ -7,7 +7,7 @@ import { PROVIDER } from '~/constants/constant'
 import { bus, EVENTS } from '~/service/globalBus'
 
 import containerData from '../containerData'
-import BaiduTranslateBus from '../bus'
+import BaiduTranslateBus, { NAMES } from '../bus'
 
 const languages = Object.entries(BAIDU_LANGUAGE_MAP)
   .map(([id, name]) => ({ id: id as BAIDU_LANGUAGES, name }))
@@ -62,7 +62,7 @@ export default createComponent({
 
     const handlePlay = (type: 'source' | 'target') => {
       BaiduTranslateBus.emit(
-        BaiduTranslateBus.events.PLAY_AUDIO,
+        NAMES.PLAY_AUDIO,
         type === 'source'
           ? {
             word: containerData.inputText,

@@ -9,7 +9,7 @@ import like_179655 from '~/assets/img/like_179655.svg'
 
 import containerData from '../containerData'
 import keywordCache from '../keywordCache'
-import bus, { ShowTooltipPayload, HideTooltipPayload } from './bus'
+import bus, { ShowTooltipPayload, HideTooltipPayload, NAMES } from './bus'
 import UKeyword from './component/UKeyword/UKeyword.vue'
 
 const icon = {
@@ -105,13 +105,13 @@ export default createComponent({
     }
 
     onMounted(() => {
-      bus.on(bus.events.SHOW_TOOLTIP, showTooltip)
-      bus.on(bus.events.HIDE_TOOLTIP, hideTooltip)
+      bus.on(NAMES.SHOW_TOOLTIP, showTooltip)
+      bus.on(NAMES.HIDE_TOOLTIP, hideTooltip)
     })
 
     onUnmounted(() => {
-      bus.removeListener(bus.events.SHOW_TOOLTIP, showTooltip)
-      bus.removeListener(bus.events.HIDE_TOOLTIP, hideTooltip)
+      bus.off(NAMES.SHOW_TOOLTIP, showTooltip)
+      bus.off(NAMES.HIDE_TOOLTIP, hideTooltip)
     })
 
     return {

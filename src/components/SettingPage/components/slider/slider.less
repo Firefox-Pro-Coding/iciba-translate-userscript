@@ -27,7 +27,7 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: #1976D2;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s width cubic-bezier(0.4, 0, 0.2, 1), 0.3s height cubic-bezier(0.4, 0, 0.2, 1);
 
   &.dragging {
     width: 0;
@@ -44,7 +44,7 @@
   margin-left: -13px;
   border-radius: 50% 50% 0;
   background: #1976D2;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s transform cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: 100% 100%;
 
   &.dragging {

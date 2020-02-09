@@ -1,8 +1,7 @@
-import Vue from 'vue'
+import { reactive } from '@vue/composition-api'
 
-const data = {
+export const containerData = reactive({
   data: null as any,
   translateData: null as any,
-}
-
-export default Vue.observable(data)
+  word: '',
+})

@@ -71,12 +71,12 @@
         <!-- poss -->
         <div class="poss font-italic" v-if="senseFamilyItem.partsOfSpeechs && senseFamilyItem.partsOfSpeechs.length">
           <div
-            :title="item.qualifier"
+            :title="poss.qualifier"
             class="pos flex flex-wrap"
-            v-for="(item, itemIndex) in senseFamilyItem.partsOfSpeechs"
-            :key="itemIndex"
+            v-for="(poss, possIndex) in senseFamilyItem.partsOfSpeechs"
+            :key="poss.value + possIndex"
           >
-            {{ item.value }}
+            {{ poss.value }}
           </div>
         </div>
 

@@ -1,6 +1,7 @@
+/* eslint-disable max-classes-per-file */
 import { EventEmitter } from 'events'
 
-enum EVENTS {
+export const enum EVENTS {
   PLAY_AUDIO,
 }
 
@@ -13,7 +14,6 @@ interface Emit {
 }
 
 class GoogleDictBus {
-  public events = EVENTS
   private bus = new EventEmitter()
 
   public constructor() {
@@ -33,7 +33,7 @@ class GoogleDictBus {
   public emit: Emit = (
     event: EVENTS,
     a: any,
-  ) => this.bus.off(`${event}`, a)
+  ) => this.bus.emit(`${event}`, a)
 }
 
 const bus = new GoogleDictBus()

@@ -41,7 +41,7 @@
         </div>
 
         <div class="translate-content flex-co" v-show="!state.visible">
-          <div class="row" v-for="(row, index) of containerData.data" :key="index">
+          <div class="row" v-for="row of containerData.data" :key="row">
             {{ row }}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { createComponent, reactive, onMounted, computed } from '@vue/composition-api'
-import { bus, EVENTS } from '~/service/globalBus'
+import { bus, EVENTS, OpenGoogleDictModalAction } from '~/service/globalBus'
 import { store } from '~/service/store'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 
@@ -10,6 +10,7 @@ import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 
 import minus from '~/assets/img/minus.svg'
 import plus from '~/assets/img/plus.svg'
+import copy from '~/util/copy'
 
 const foldOrder = [
   GOOGLE_DICT_FOLD_STATUS.FOLD,
@@ -31,8 +32,9 @@ export default createComponent({
   setup: () => {
     const state = reactive({
       zIndex: 0,
-      dictionaryData: null as any,
+      containerData: null as any,
       visible: false,
+      id: 0,
     })
 
     const loadFoldStatus = () => {
@@ -52,11 +54,13 @@ export default createComponent({
       }
     }
 
-    const handleOpenModal = (p: { googleDictData: any }) => {
+    const handleOpenModal = (p: OpenGoogleDictModalAction) => {
       state.zIndex = zIndexService.gen(Z_INDEX_KEY.GOOGLE_DICT_MODAL)
-      state.dictionaryData = p.googleDictData
 
       loadFoldStatus()
+
+      state.containerData = copy(p.googleDictData)
+      state.id += 1
 
       Vue.nextTick(() => {
         state.visible = true

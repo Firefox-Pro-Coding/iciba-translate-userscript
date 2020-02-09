@@ -1,10 +1,8 @@
-import Vue from 'vue'
-
-const icibaRoot = document.createElement('div')
+export const icibaRoot = document.createElement('div')
 icibaRoot.className = 'iciba-root'
 document.body.appendChild(icibaRoot)
 
-const shadowRoot = (() => {
+export const shadowRoot = (() => {
   let sr: ShadowRoot
 
   if (icibaRoot.attachShadow) {
@@ -17,11 +15,3 @@ const shadowRoot = (() => {
 
   return sr
 })()
-
-Vue.prototype.shadowRoot = shadowRoot
-Vue.prototype.icibaRoot = icibaRoot
-
-export {
-  shadowRoot,
-  icibaRoot,
-}

@@ -5,7 +5,7 @@
       <div class="track-right" :style="{ width: `${100 - position}%` }" />
       <div
         ref="notch"
-        @mousedown="handleMouseDown"
+        @mousedown="handleNotchMouseDown"
         :class="{ dragging: state.drag.dragging }"
         class="notch"
         :style="{ left: `${position}%` }"

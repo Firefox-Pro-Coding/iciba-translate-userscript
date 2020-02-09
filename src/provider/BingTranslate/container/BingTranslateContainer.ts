@@ -7,7 +7,7 @@ import { BING_LANGUAGE_MAP, BING_LANGUAGES } from '~/constants/bingLanguages'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
 import containerData from '../containerData'
-import GoogleTranslateBus from '../bus'
+import GoogleTranslateBus, { NAMES } from '../bus'
 
 
 const languages = Object.entries(BING_LANGUAGE_MAP)
@@ -51,7 +51,7 @@ export default createComponent({
 
     const handlePlay = (type: 'source' | 'target') => {
       GoogleTranslateBus.emit(
-        GoogleTranslateBus.events.PLAY_AUDIO,
+        NAMES.PLAY_AUDIO,
         type === 'source'
           ? {
             word: containerData.inputText,

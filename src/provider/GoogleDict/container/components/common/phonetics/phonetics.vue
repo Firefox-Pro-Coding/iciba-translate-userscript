@@ -7,8 +7,8 @@
 
     <div
       class="pl-1 play-button flex flex-center"
-      v-for="(item, index) in props.phonetics.filter(v => v.oxfordAudio)"
-      :key="index"
+      v-for="item in props.phonetics.filter(v => v.oxfordAudio)"
+      :key="item.oxfordAudio"
       @click="handlePlay(item.oxfordAudio)"
     >
       <i-icon :svg="icon.play_speaker_filled_audio_tool_59284" />

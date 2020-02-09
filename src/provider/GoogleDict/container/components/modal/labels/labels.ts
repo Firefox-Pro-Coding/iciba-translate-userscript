@@ -30,27 +30,27 @@ export default createComponent({
   setup: (_props) => {
     const props: Props = _props as any
     const state = reactive({
-      popoverVisibleMap: {} as Record<string, boolean>,
+      tipMap: {} as Record<string, boolean>,
     })
 
     /** 显示 popover */
-    const handleShowPopover = (label: string) => {
-      state.popoverVisibleMap[label] = true
+    const shopTip = (label: string) => {
+      state.tipMap[label] = true
     }
 
     /** 隐藏 popover */
-    const handleHidePopover = (label: string) => {
-      state.popoverVisibleMap[label] = false
+    const hideTip = (label: string) => {
+      state.tipMap[label] = false
     }
 
     const labelClass = computed(() => `${props.type}-label`)
-    const colorClass = computed(() => `iciba-label-color-${props.color}`)
-    const sizeClass = computed(() => `iciba-label-size-${props.size}`)
+    const colorClass = computed(() => `color-${props.color}`)
+    const sizeClass = computed(() => `size-${props.size}`)
 
     watch(() => props.labels, () => {
-      state.popoverVisibleMap = Object.fromEntries(
+      state.tipMap = Object.fromEntries(
         props.labels
-          .map((v) => [v, state.popoverVisibleMap[v] || false]),
+          .map((v) => [v, state.tipMap[v] || false]),
       )
     })
 
@@ -61,8 +61,8 @@ export default createComponent({
       colorClass,
       sizeClass,
 
-      handleShowPopover,
-      handleHidePopover,
+      shopTip,
+      hideTip,
     }
   },
 })

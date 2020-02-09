@@ -13,6 +13,7 @@ module.exports = {
     'function-paren-newline': ['error', 'consistent'],
     'lines-between-class-members': 'off', // allow compact space between class members
     'max-len': 'off',
+    'no-empty': ['error', { 'allowEmptyCatch': true }],
     'no-empty-function': ['error', {
       'allow': [
         'constructors',

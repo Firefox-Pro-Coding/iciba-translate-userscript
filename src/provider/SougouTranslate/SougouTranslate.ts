@@ -10,7 +10,7 @@ import SougouTranslateContainer from './container/SougouTranslateContainer.vue'
 import containerData from './containerData'
 import getToken from './getToken'
 import getKey from './getKey'
-import SougouTranslateBus, { PlayAudioPayload } from './bus'
+import SougouTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 import { audioCacheService } from '~/service/audioCache'
 
 export interface SougouTranslateParams {
@@ -28,7 +28,7 @@ class SougouTranslateProvider extends AbstractTranslateProvider {
     super()
 
     this.handlePlay = this.handlePlay.bind(this)
-    SougouTranslateBus.on(SougouTranslateBus.events.PLAY_AUDIO, this.handlePlay)
+    SougouTranslateBus.on(NAMES.PLAY_AUDIO, this.handlePlay)
   }
 
   public async translate(word: string, payload?: SougouTranslateParams): Promise<() => void> {

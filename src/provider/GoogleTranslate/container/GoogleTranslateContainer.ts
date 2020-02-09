@@ -7,7 +7,7 @@ import { GOOGLE_LANGUAGE_MAP, GOOGLE_LANGUAGES } from '~/constants/googleLanguag
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
 import containerData from '../containerData'
-import GoogleTranslateBus from '../bus'
+import GoogleTranslateBus, { NAMES } from '../bus'
 
 const languages = Object.entries(GOOGLE_LANGUAGE_MAP)
   .map(([id, name]) => ({ id: id as GOOGLE_LANGUAGES, name }))
@@ -49,7 +49,7 @@ export default createComponent({
 
     const handlePlay = (type: 'source' | 'target') => {
       GoogleTranslateBus.emit(
-        GoogleTranslateBus.events.PLAY_AUDIO,
+        NAMES.PLAY_AUDIO,
         type === 'source'
           ? {
             word: containerData.inputText,

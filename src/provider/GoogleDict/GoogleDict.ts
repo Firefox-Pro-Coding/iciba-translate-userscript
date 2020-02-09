@@ -1,11 +1,11 @@
 import querystring from 'querystring'
 import { got, GMXMLError } from '~/util/gmapi'
 
-import googleDictBus from '~/provider/GoogleDict/bus'
+import googleDictBus, { EVENTS } from '~/provider/GoogleDict/bus'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
-import containerDataStore from './containerDataStore'
+import { containerData } from './containerDataStore'
 
 import { PROVIDER } from '~/constants/constant'
 import { audioCacheService } from '~/service/audioCache'
@@ -22,7 +22,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
 
     // bind methods
     this.handlePlay = this.handlePlay.bind(this)
-    googleDictBus.on(googleDictBus.events.PLAY_AUDIO, this.handlePlay)
+    googleDictBus.on(EVENTS.PLAY_AUDIO, this.handlePlay)
   }
 
   public async translate(word: string) {
@@ -34,8 +34,9 @@ class GoogleDictProvider extends AbstractTranslateProvider {
         // try googletranslate
         const googleTranslateData = await this.fetchGoogleTranslate(word)
         return () => {
-          containerDataStore.data = null
-          containerDataStore.translateData = googleTranslateData
+          containerData.data = null
+          containerData.translateData = googleTranslateData
+          containerData.word = word
         }
       }
       throw e
@@ -49,8 +50,9 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     }
 
     return () => {
-      containerDataStore.data = googleDictData.dictionaryData
-      containerDataStore.translateData = null
+      containerData.data = googleDictData.dictionaryData
+      containerData.translateData = null
+      containerData.word = word
     }
   }
 

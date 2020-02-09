@@ -300,6 +300,11 @@ export default createComponent({
       width: `${store.config.core.icibaMainWidth}px`,
     }))
 
+    const showButtonProviders = computed(
+      () => translateService.state.providers
+        .filter((item) => store.config[item.uniqName].display),
+    )
+
     watch(() => state.visible, () => {
       Vue.nextTick(() => {
         if (state.visible && $refs.icibaSearchInput) {
@@ -349,7 +354,7 @@ export default createComponent({
 
       translateLoading: translateService.state.loading,
       activeProvider: translateService.state.activeProvider,
-      showButtonProviders: translateService.state.providers.filter((item) => store.config[item.uniqName].display),
+      showButtonProviders,
       errorMessage: translateService.state.errorMessage,
 
       m: {

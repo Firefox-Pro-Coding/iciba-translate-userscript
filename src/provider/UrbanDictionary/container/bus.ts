@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events'
 
-enum NAMES {
-  SHOW_TOOLTIP = 'SHOW_TOOLTIP',
-  HIDE_TOOLTIP = 'HIDE_TOOLTIP',
+export const enum NAMES {
+  SHOW_TOOLTIP,
+  HIDE_TOOLTIP,
 }
 
 interface EventHandler<T> {
@@ -20,20 +20,34 @@ export interface HideTooltipPayload {
   id: number
 }
 
-class UrbanDictionaryBus extends EventEmitter {
-  public events = NAMES
-  private id = 0
+interface OnOff {
+  (e: NAMES.SHOW_TOOLTIP, h: EventHandler<ShowTooltipPayload>): unknown
+  (e: NAMES.HIDE_TOOLTIP, h: EventHandler<HideTooltipPayload>): unknown
+}
 
-  public on(e: NAMES.SHOW_TOOLTIP, h: EventHandler<ShowTooltipPayload>): this
-  public on(e: NAMES.HIDE_TOOLTIP, h: EventHandler<HideTooltipPayload>): this
-  public on(event: string, listener: (...args: Array<any>) => void) {
-    return super.on(event, listener)
+interface Emit {
+  (e: NAMES.SHOW_TOOLTIP, h: ShowTooltipPayload): unknown
+  (e: NAMES.HIDE_TOOLTIP, h: HideTooltipPayload): unknown
+}
+
+class UrbanDictionaryBus {
+  private id = 0
+  private bus = new EventEmitter()
+
+  public constructor() {
+    this.bus.setMaxListeners(0)
   }
 
-  public emit(e: NAMES.SHOW_TOOLTIP, p: ShowTooltipPayload): boolean
-  public emit(e: NAMES.HIDE_TOOLTIP, p: HideTooltipPayload): boolean
-  public emit(event: string, payload?: unknown) {
-    return super.emit(event, payload)
+  public on: OnOff = (e: NAMES, h: EventHandler<any>) => {
+    this.bus.on(String(e), h)
+  }
+
+  public off: OnOff = (e: NAMES, h: EventHandler<any>) => {
+    this.bus.off(String(e), h)
+  }
+
+  public emit: Emit = (e: NAMES, h: any) => {
+    this.bus.emit(String(e), h)
   }
 
   public genId() {
@@ -42,6 +56,5 @@ class UrbanDictionaryBus extends EventEmitter {
   }
 }
 
-const bus = new UrbanDictionaryBus()
-bus.setMaxListeners(0)
-export default bus
+const urbanDictionaryBus = new UrbanDictionaryBus()
+export default urbanDictionaryBus

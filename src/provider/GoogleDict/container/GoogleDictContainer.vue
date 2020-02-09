@@ -12,7 +12,7 @@
             :class="{ 'with-scroll-bar': scrollBar }"
             title="展开"
             @click="handleOpenModal"
-            v-if="data.data && data.data.length"
+            v-if="containerData.data && containerData.data.length"
           >
             <i-icon :svg="icon.expand_128456" />
           </div>
@@ -20,11 +20,11 @@
           <div class="google-content-box">
             <div
               class="dictionary-data-box flex-co align-stretch"
-              v-if="data.data && data.data.length"
+              v-if="containerData.data && containerData.data.length"
             >
               <div
                 class="dictionary-data-item"
-                v-for="(dicDataItem, index) in data.data"
+                v-for="(dicDataItem, index) in containerData.data"
                 :key="index"
               >
                 <!-- entry -->
@@ -42,15 +42,15 @@
               </div>
             </div>
 
-            <div class="translate-data-box" v-if="data.translateData">
+            <div class="translate-data-box" v-if="containerData.translateData">
               <div
                 v-if="
-                  data.translateData.sentences
-                    && data.translateData.sentences[0]
-                    && data.translateData.sentences[0].trans
+                  containerData.translateData.sentences
+                    && containerData.translateData.sentences[0]
+                    && containerData.translateData.sentences[0].trans
                 "
               >
-                {{ data.translateData.sentences[0].trans }}
+                {{ containerData.translateData.sentences[0].trans }}
               </div>
               <div class="translate-source">google字典无结果，以上内容来自谷歌翻译</div>
             </div>

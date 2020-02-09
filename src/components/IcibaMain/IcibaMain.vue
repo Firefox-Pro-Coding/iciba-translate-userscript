@@ -32,6 +32,7 @@
               @focus="state.inputFocused = true"
               @blur="state.inputFocused = false"
               @keypress.13="m.handleInputConfirm"
+              @keydown.stop
             >
             <div
               class="setting-button flex flex-center"

@@ -1,8 +1,8 @@
 <template>
   <div class="icon-radio flex">
     <div
-      v-for="(icon, index) of props.icons"
-      :key="index"
+      v-for="icon of props.icons"
+      :key="icon.key"
       class="flex icon-box pa-2 flex-nogrow"
       @click="handleSelect(icon.key)"
     >

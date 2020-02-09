@@ -1,5 +1,5 @@
 import { createComponent } from '@vue/composition-api'
-import googleDictBus from '~/provider/GoogleDict/bus'
+import googleDictBus, { EVENTS } from '~/provider/GoogleDict/bus'
 
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
@@ -10,7 +10,7 @@ export default createComponent({
   },
   setup: (props) => {
     const handlePlay = (url: string) => {
-      googleDictBus.emit(googleDictBus.events.PLAY_AUDIO, url)
+      googleDictBus.emit(EVENTS.PLAY_AUDIO, url)
     }
     return {
       icon: {

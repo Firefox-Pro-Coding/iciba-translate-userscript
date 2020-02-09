@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events'
 
-enum NAMES {
-  PLAY_AUDIO = 'PLAY_AUDIO',
+export const enum NAMES {
+  PLAY_AUDIO,
 }
 
 interface EventHandler<T> {
@@ -14,21 +14,33 @@ export interface PlayAudioPayload {
   tl: string
 }
 
+interface OnOff {
+  (e: NAMES.PLAY_AUDIO, h: EventHandler<PlayAudioPayload>): unknown
+}
 
-class GoogleTranslateBus extends EventEmitter {
-  public events = NAMES
+interface Emit {
+  (e: NAMES.PLAY_AUDIO, h: PlayAudioPayload): unknown
+}
 
-  public on(e: NAMES.PLAY_AUDIO, h: EventHandler<PlayAudioPayload>): this
-  public on(event: string, listener: (...args: Array<any>) => void) {
-    return super.on(event, listener)
+class GoogleTranslateBus {
+  private bus = new EventEmitter()
+
+  public constructor() {
+    this.bus.setMaxListeners(0)
   }
 
-  public emit(e: NAMES.PLAY_AUDIO, p: PlayAudioPayload): boolean
-  public emit(event: string, payload: unknown) {
-    return super.emit(event, payload)
+  public on: OnOff = (e, h) => {
+    this.bus.on(String(e), h)
+  }
+
+  public off: OnOff = (e, h) => {
+    this.bus.off(String(e), h)
+  }
+
+  public emit: Emit = (e, h) => {
+    this.bus.emit(String(e), h)
   }
 }
 
 const bus = new GoogleTranslateBus()
-bus.setMaxListeners(0)
 export default bus

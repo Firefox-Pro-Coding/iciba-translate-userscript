@@ -2,14 +2,14 @@ import querystring from 'querystring'
 import { PROVIDER } from '~/constants/constant'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'
 import { store } from '~/service/store'
+import { audioCacheService } from '~/service/audioCache'
 import { got } from '~/util/gmapi'
 
 import AbstractTranslateProvider from '../AbstractTranslateProvider'
 import getToken from './helpers/token'
 import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
 import containerData from './containerData'
-import BaiduTranslateBus, { PlayAudioPayload } from './bus'
-import { audioCacheService } from '~/service/audioCache'
+import BaiduTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 
 export interface BaiduTranslateParams {
   sl: string
@@ -25,7 +25,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     super()
 
     this.handlePlay = this.handlePlay.bind(this)
-    BaiduTranslateBus.on(BaiduTranslateBus.events.PLAY_AUDIO, this.handlePlay)
+    BaiduTranslateBus.on(NAMES.PLAY_AUDIO, this.handlePlay)
   }
 
   public async translate(word: string, payload?: BaiduTranslateParams) {

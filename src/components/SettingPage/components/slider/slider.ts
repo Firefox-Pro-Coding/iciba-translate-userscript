@@ -68,7 +68,7 @@ export default createComponent({
       return newValue
     }
 
-    const handleMouseDown = (e: MouseEvent) => {
+    const handleNotchMouseDown = (e: MouseEvent) => {
       state.drag.dragging = true
       state.drag.afterDragging = true
       state.drag.startX = e.clientX
@@ -124,7 +124,7 @@ export default createComponent({
     return {
       state,
       position,
-      handleMouseDown,
+      handleNotchMouseDown,
       handleTrackClick,
     }
   },

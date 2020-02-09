@@ -7,7 +7,7 @@ import { PROVIDER } from '~/constants/constant'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
 import containerData from '../containerData'
-import SougouTranslateBus from '../bus'
+import SougouTranslateBus, { NAMES } from '../bus'
 
 const languages = Object.entries(SOUGOU_LANGUAGE_MAP)
   .map(([id, name]) => ({ id: id as SOUGOU_LANGUAGES, name }))
@@ -51,7 +51,7 @@ export default createComponent({
 
     const handlePlay = (type: 'source' | 'target') => {
       SougouTranslateBus.emit(
-        SougouTranslateBus.events.PLAY_AUDIO,
+        NAMES.PLAY_AUDIO,
         type === 'source'
           ? {
             word: containerData.inputText,

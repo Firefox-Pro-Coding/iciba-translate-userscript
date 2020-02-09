@@ -30,12 +30,12 @@
       >
         <div
           class="dictionary-data-box flex-co align-stretch"
-          v-if="state.dictionaryData && state.dictionaryData.length"
+          v-if="state.containerData && state.containerData.length"
         >
           <div
             class="dictionary-data-item"
-            v-for="(dicDataItem, dicDataItemIndex) in state.dictionaryData"
-            :key="dicDataItemIndex"
+            v-for="dicDataItem in state.containerData"
+            :key="state.id + dicDataItem.queryTerm"
           >
             <!-- entry -->
             <!-- <div class="entry-box flex-co align-stretch" v-if="false"> -->
@@ -45,9 +45,9 @@
             >
               <entry
                 class="entry-item"
-                v-for="(entry, entryIndex) in dicDataItem.entries"
+                v-for="entry in dicDataItem.entries"
                 :entry="entry"
-                :key="entryIndex"
+                :key="entry.entrySeqNo"
               />
             </div>
 
