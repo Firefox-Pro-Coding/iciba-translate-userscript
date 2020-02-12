@@ -6,7 +6,7 @@
         dragging: state.drag.dragging,
       }"
       :style="icibaMainWrapStyle"
-      v-show="state.visible"
+      v-if="state.visible"
       ref="icibaMainWrap"
     >
       <div
@@ -88,13 +88,13 @@
               <i-icon :svg="icon.drag_462998" />
             </div>
             <div
-              class="{
+              :class="{
                 'stick flex flex-center': true,
                 pinned: store.config.core.pinned,
               }"
               @click="m.pinDrag.handleTogglePinned"
             >
-              <i-icon svg="icon.pin_25474" />
+              <i-icon :svg="icon.pin_25474" />
             </div>
           </div>
         </transition>

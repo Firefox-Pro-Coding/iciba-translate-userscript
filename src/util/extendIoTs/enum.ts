@@ -20,6 +20,7 @@ class EnumType<A> extends Type<A> {
 }
 
 /**
+ *
  * @param name - optional enum name
  */
 export const enumType = <T>(e: object, name?: string) => new EnumType<T>(e, name)

@@ -5,8 +5,9 @@
       height: computedSize,
       width: computedSize,
     }"
-    :innerHTML.prop="svgContent"
-  />
+  >
+    <img class="svg-img" :src="svgUrl" alt="">
+  </div>
 </template>
 <script lang="ts" src="./IIcon.ts"></script>
 <style lang="less" src="./IIcon.less" scoped></style>

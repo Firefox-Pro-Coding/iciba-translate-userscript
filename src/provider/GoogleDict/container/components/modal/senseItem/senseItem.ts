@@ -9,6 +9,12 @@ import exampleGroups from '../exampleGroups/exampleGroups.vue'
 import foldable from '../foldable/foldable.vue'
 
 import { store } from '~/service/store'
+import { Sense } from '~/provider/GoogleDict/types'
+
+interface Props {
+  sense: Sense
+  index: number
+}
 
 export default createComponent({
   name: 'GSenseItem',
@@ -31,7 +37,7 @@ export default createComponent({
       required: true,
     },
   },
-  setup: (props) => ({
+  setup: (props: Props) => ({
     s: props.sense,
     store,
   }),

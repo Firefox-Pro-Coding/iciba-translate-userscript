@@ -71,7 +71,7 @@ export const got = <T = unknown>(params: IcibaExtendedGMOption) => {
         rj(error)
       },
       onload(response) {
-        if (response.status !== 200) {
+        if (response.status < 200 || response.status >= 300) {
           const err = new GMXMLError(`response with status code ${response.status}`, response)
           rj(err)
         }

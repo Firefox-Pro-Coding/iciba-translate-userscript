@@ -4,7 +4,7 @@ import {
   boolean,
   keyof,
 } from 'io-ts'
-import { enumType } from '~/util/extendIoTs'
+import { enumType } from '~/util/extendIoTs/enum'
 import { PROVIDER } from '~/constants/constant'
 import providerIcon from '~/constants/icon'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'

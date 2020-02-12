@@ -36,6 +36,9 @@ export interface TranslateAction {
   } | {
     provider: PROVIDER.URBAN_DICTIONARY
     param?: undefined
+  } | {
+    provider: PROVIDER.VOCABULARY
+    param?: undefined
   }
   mouseEvent?: MouseEvent
 }

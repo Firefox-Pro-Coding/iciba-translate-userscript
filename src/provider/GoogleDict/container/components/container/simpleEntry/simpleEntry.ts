@@ -2,7 +2,12 @@ import { createComponent } from '@vue/composition-api'
 
 import phonetics from '../../common/phonetics/phonetics.vue'
 import fragment from '../../common/fragment/fragment.vue'
+import { Entry } from '~/provider/GoogleDict/types'
 
+interface Props {
+  entry: Entry
+  isSubentry: boolean
+}
 
 export default createComponent({
   name: 'GSimpleEntry',
@@ -17,7 +22,7 @@ export default createComponent({
       default: false,
     },
   },
-  setup: (props) => ({
+  setup: (props: Props) => ({
     props,
   }),
 })

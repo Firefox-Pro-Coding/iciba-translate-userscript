@@ -13,6 +13,7 @@ import * as baiduTranslate from './modules/baiduTranslate'
 import * as sougouTranslate from './modules/sougouTranslate'
 import * as urbanDictionary from './modules/urbanDictionary'
 import * as bingTranslate from './modules/bingTranslate'
+import * as vocabulary from './modules/vocabulary'
 
 const GM_VALUE_KEY = 'iciba_store'
 
@@ -25,6 +26,7 @@ const storeType = exact(type({
   [PROVIDER.SOUGOU_TRANSLATE]: sougouTranslate.type,
   [PROVIDER.URBAN_DICTIONARY]: urbanDictionary.type,
   [PROVIDER.BING_TRANSLATE]: bingTranslate.type,
+  [PROVIDER.VOCABULARY]: vocabulary.type,
 }))
 
 export type Config = TypeOf<typeof storeType>
@@ -38,6 +40,7 @@ export const defaultData: Config = {
   [PROVIDER.SOUGOU_TRANSLATE]: sougouTranslate.defaultData,
   [PROVIDER.URBAN_DICTIONARY]: urbanDictionary.defaultData,
   [PROVIDER.BING_TRANSLATE]: bingTranslate.defaultData,
+  [PROVIDER.VOCABULARY]: vocabulary.defaultData,
 }
 
 class Store {

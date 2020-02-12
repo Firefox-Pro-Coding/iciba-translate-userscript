@@ -139,7 +139,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   }
 
   private async handlePlay(params: PlayAudioPayload) {
-    const volume = 0.7
+    const volume = 0.8
     const query = {
       ie: 'UTF-8',
       total: '1',

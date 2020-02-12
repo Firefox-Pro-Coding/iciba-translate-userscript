@@ -1,6 +1,6 @@
 @import '~assets/styles/variables.less';
 
-.google-dict-modal-wrapper {
+.modal-wrapper {
   // local variables
   @big-margin: 6px;
   @medium-margin: 4px;
@@ -29,7 +29,7 @@
   }
 
   &.modal-enter {
-    .google-dict-modal-content {
+    .modal-content {
       transform: scale(0.9);
     }
     .fold-control {
@@ -79,7 +79,7 @@
     }
   }
 
-  .google-dict-modal-bg {
+  .modal-bg {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -90,7 +90,7 @@
     z-index: 1;
   }
 
-  .google-dict-modal-content {
+  .modal-box {
     position: relative;
     z-index: 2;
     font-size: 14px;
@@ -98,10 +98,18 @@
     width: 80%;
     max-width: 800px;
     margin: 0 auto;
-    overflow-y: auto;
+    // overflow-y: auto;
     background: white;
-    padding: 20px 20px 30px 20px;
+    // padding: 20px 20px 30px 20px;
     transition: 0.3s ease transform;
+
+    .scroll-container {
+      height: 100%;
+    }
+
+    .content-box {
+      padding: 20px 20px 30px 20px;
+    }
 
     .usage-overtime {
       border-top: 1px solid @border-level-1;

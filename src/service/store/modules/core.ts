@@ -4,7 +4,7 @@ import {
   boolean,
   number,
 } from 'io-ts'
-import { enumType } from '~/util/extendIoTs'
+import { enumType } from '~/util/extendIoTs/enum'
 
 import { PROVIDER } from '~/constants/constant'
 

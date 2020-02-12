@@ -46,7 +46,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line
       const check = require('./check').default
-      check(googleDictData)
+      check(googleDictData, word)
     }
 
     return () => {

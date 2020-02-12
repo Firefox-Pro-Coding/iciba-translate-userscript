@@ -1,7 +1,11 @@
 import { createComponent } from '@vue/composition-api'
 import fragment from '../../common/fragment/fragment.vue'
 import imageLoader from '../imageLoader/imageLoader.vue'
+import { Etymology } from '~/provider/GoogleDict/types'
 
+interface Props {
+  etymology: Etymology
+}
 
 export default createComponent({
   name: 'GEtymology',
@@ -12,7 +16,7 @@ export default createComponent({
   props: {
     etymology: null,
   },
-  setup: (props) => ({
+  setup: (props: Props) => ({
     props,
   }),
 })

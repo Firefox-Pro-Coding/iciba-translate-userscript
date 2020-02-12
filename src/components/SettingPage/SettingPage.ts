@@ -21,6 +21,7 @@ import BaiduTranslate from './subpage/baiduTranslate/baiduTranslate.vue'
 import SougouTranslate from './subpage/sougouTranslate/sougouTranslate.vue'
 import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
 import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
+import Vocabulary from './subpage/vocabulary/vocabulary.vue'
 
 export default createComponent({
   components: {
@@ -38,6 +39,7 @@ export default createComponent({
     SougouTranslate,
     UrbanDictionary,
     BingTranslate,
+    Vocabulary,
   },
   setup: () => {
     const state = reactive({

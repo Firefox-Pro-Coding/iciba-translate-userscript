@@ -161,6 +161,7 @@ module.exports = {
         'vue/no-static-inline-styles': 'error',
         'vue/no-unsupported-features': 'error',
         'vue/object-curly-spacing': ['error', 'always'],
+        'vue/padding-line-between-blocks': 'off',
         'vue/require-direct-export': 'off',
         'vue/require-name-property': 'off',
         'vue/script-indent': ['error', 2, {
@@ -168,6 +169,7 @@ module.exports = {
           'switchCase': 1,
           'ignores': [],
         }],
+        'vue/sort-keys': 'off',
         'vue/space-infix-ops': 'error',
         'vue/space-unary-ops': 'error',
         'vue/static-class-names-order': 'off',

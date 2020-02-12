@@ -26,6 +26,8 @@ import bingGold from '~/assets/img/providerIcon/bingTranslate/gold.svg'
 import bingOutline from '~/assets/img/providerIcon/bingTranslate/outline.svg'
 import bingRound from '~/assets/img/providerIcon/bingTranslate/round.svg'
 
+import vocabularyLogo from '~/assets/img/providerIcon/vocabulary/logo.svg'
+
 const providerIcon = {
   [PROVIDER.ICIBA]: {
     searchIcon,
@@ -59,6 +61,9 @@ const providerIcon = {
     bingGold,
     bingOutline,
     bingRound,
+  },
+  [PROVIDER.VOCABULARY]: {
+    logo: vocabularyLogo,
   },
 }
 

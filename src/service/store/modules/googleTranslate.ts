@@ -4,7 +4,7 @@ import {
   boolean,
   keyof,
 } from 'io-ts'
-import { enumType } from '~/util/extendIoTs'
+import { enumType } from '~/util/extendIoTs/enum'
 import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants/constant'
 import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 

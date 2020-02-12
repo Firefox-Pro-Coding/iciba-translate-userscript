@@ -6,6 +6,7 @@ import BaiduTranslateProvider from '~/provider/BaiduTranslate/BaiduTranslate'
 import SougouTranslateProvider from '~/provider/SougouTranslate/SougouTranslate'
 import UrbanDictionaryProvider from '~/provider/UrbanDictionary/UrbanDictionary'
 import BingTranslateProvider from '~/provider/BingTranslate/BingTranslate'
+import VocabularyProvider from '~/provider/Vocabulary/Vocabulary'
 import { TranslateAction } from '../globalBus'
 import { PROVIDER } from '~/constants/constant'
 
@@ -35,6 +36,7 @@ const useTranslateService = () => {
     SougouTranslateProvider,
     UrbanDictionaryProvider,
     BingTranslateProvider,
+    VocabularyProvider,
   ]
 
   const state = reactive({

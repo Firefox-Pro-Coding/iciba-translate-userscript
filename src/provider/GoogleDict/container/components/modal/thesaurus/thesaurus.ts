@@ -6,21 +6,10 @@ import { bus, EVENTS } from '~/service/globalBus'
 
 import Labels from '../labels/labels.vue'
 import Foldable from '../foldable/foldable.vue'
+import { ThesaurusEntry } from '~/provider/GoogleDict/types'
 
-interface NymItem {
-  numEntries: 1 | 0
-  nym: string
-}
-
-interface ThesaurusItem {
-  nyms: Array<NymItem>
-}
-
-interface ThesaurusEntry {
-  synonyms: Array<ThesaurusItem>
-  antonyms: Array<ThesaurusItem>
-  examples: Array<string>
-  headword: string
+interface Props {
+  thesaurusEntries: Array<ThesaurusEntry>
 }
 
 export default createComponent({
@@ -35,7 +24,7 @@ export default createComponent({
       default: () => [],
     },
   },
-  setup: (props) => {
+  setup: (props: Props) => {
     const addQoute = (text: string): string => `"${text}"`
 
     const handleNymClick = (event: MouseEvent, nym: any) => {
@@ -51,7 +40,7 @@ export default createComponent({
       }
     }
     return {
-      t: props.thesaurusEntries as Array<ThesaurusEntry>,
+      t: props.thesaurusEntries,
       addQoute,
       handleNymClick,
       store,

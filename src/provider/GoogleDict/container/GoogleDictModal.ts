@@ -4,6 +4,7 @@ import { bus, EVENTS, OpenGoogleDictModalAction } from '~/service/globalBus'
 import { store } from '~/service/store'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 
+import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import imageLoader from './components/modal/imageLoader/imageLoader.vue'
 import entry from './components/modal/entry/entry.vue'
 import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
@@ -11,6 +12,7 @@ import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 import minus from '~/assets/img/minus.svg'
 import plus from '~/assets/img/plus.svg'
 import copy from '~/util/copy'
+import { Codec } from '../types'
 
 const foldOrder = [
   GOOGLE_DICT_FOLD_STATUS.FOLD,
@@ -28,11 +30,12 @@ export default createComponent({
   components: {
     imageLoader,
     entry,
+    Scrollable,
   },
   setup: () => {
     const state = reactive({
       zIndex: 0,
-      containerData: null as any,
+      containerData: null as null | Codec['dictionaryData'],
       visible: false,
       id: 0,
     })

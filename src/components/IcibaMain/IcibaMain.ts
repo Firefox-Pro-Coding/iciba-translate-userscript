@@ -33,6 +33,7 @@ interface Props {
 
 /* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-unused-vars */
 export default createComponent({
+  name: 'IcibaMain',
   components: {
     LoadingText,
   },

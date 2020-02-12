@@ -17,8 +17,8 @@ class UrbanDictionaryProvider extends AbstractTranslateProvider {
   public settingDescriptor = []
 
   public async translate(word: string) {
-    /* http://api.urbandictionary.com/v0/define?term={word} */
-    const url = `http://api.urbandictionary.com/v0/define?${querystring.stringify({ term: word })}`
+    /* https://api.urbandictionary.com/v0/define?term={word} */
+    const url = `https://api.urbandictionary.com/v0/define?${querystring.stringify({ term: word })}`
 
     const response = await got({
       method: 'GET',

@@ -31,9 +31,12 @@ export default createComponent({
       ? props.svg.replace(/(fill="#[a-fA-F0-9]{6}")/g, `fill="${props.color}"`)
       : props.svg))
 
+    const svgUrl = computed(() => `data:image/svg+xml;base64,${window.btoa(svgContent.value)}`)
+
     return {
       computedSize,
       svgContent,
+      svgUrl,
     }
   },
 })

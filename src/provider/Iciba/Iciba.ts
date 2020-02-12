@@ -16,7 +16,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
 
   public async translate(word: string) {
     /*
-    http://www.iciba.com/index.php?
+    https://www.iciba.com/index.php?
     callback=jQuery190044530474284668253_1524231993263
     a=getWordMean
     c=search
@@ -24,7 +24,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     word=select
     _=1524231993264
     */
-    const apiUrlBase = 'http://www.iciba.com/index.php?'
+    const apiUrlBase = 'https://www.iciba.com/index.php?'
     const query = {
       callback: 'callbackFnName',
       a: 'getWordMean', // action ?
@@ -47,7 +47,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
         'Cache-Control': 'no-cache',
         'Host': 'www.iciba.com',
         'Pragma': 'no-cache',
-        'Referer': 'http://www.iciba.com',
+        'Referer': 'https://www.iciba.com',
         'X-Requested-With': 'XMLHttpRequest',
         'User-Agent': window.navigator.userAgent,
       },
@@ -67,9 +67,20 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       result.baseInfo = result.baesInfo
       delete result.baesInfo
     }
+    if ('bidce' in result) {
+      result.bidec = result.bidce
+      delete result.bidce
+    }
 
     if (result.errno !== 0) {
       throw new Error(result.errmsg)
+    }
+
+    // dev only check
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line
+      const check = require('./check').default
+      check(result, word)
     }
 
     return () => {

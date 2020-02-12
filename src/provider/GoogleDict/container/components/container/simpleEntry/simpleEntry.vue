@@ -55,14 +55,16 @@
         v-for="(senseFamilyItem, senseFamilyItemIndex) in props.entry.senseFamilies"
         :key="senseFamilyItemIndex"
       >
-        <div
-          :title="item.qualifier"
-          class="poss font-italic flex flex-wrap grey--text text--darken-1"
-          v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
-          :key="index"
-        >
-          {{ item.value }}
-        </div>
+        <template v-if="senseFamilyItem.partsOfSpeechs">
+          <div
+            :title="item.qualifier"
+            class="poss font-italic flex flex-wrap grey--text text--darken-1"
+            v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
+            :key="index"
+          >
+            {{ item.value }}
+          </div>
+        </template>
 
         <!-- phonetics -->
         <phonetics

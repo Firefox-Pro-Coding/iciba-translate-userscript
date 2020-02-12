@@ -3,7 +3,7 @@ import Vue from 'vue'
 import { shadowRoot } from './service/shadowRoot'
 
 import './bootstrap'
-import '~/util/extendIoTs'
+import '~/util/extendIoTs/enum'
 import '~/util/style/genStyle'
 import '~/plugin/prototype'
 import '~/service'

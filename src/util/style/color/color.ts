@@ -95,7 +95,7 @@ export const colors = {
     a3: '2979ff',
     a4: '2962ff',
   },
-  lightBlue: {
+  'light-blue': {
     b: '03a9f4',
     l5: 'e1f5fe',
     l4: 'b3e5fc',
@@ -159,7 +159,7 @@ export const colors = {
     a3: '00e676',
     a4: '00c853',
   },
-  lightGreen: {
+  'light-green': {
     b: '8bc34a',
     l5: 'f1f8e9',
     l4: 'dcedc8',
