@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-require-imports */
 const packageInfo = require('../package.json')
@@ -8,6 +9,15 @@ const packageInfo = require('../package.json')
 const metaData = fs.readFileSync(path.join(__dirname, '../config/metaData.js'))
   .toString()
   .replace('{{ version }}', `${packageInfo.version}`)
-const indexJs = fs.readFileSync(path.join(__dirname, '../dist/iciba.user.js')).toString()
 
-fs.writeFileSync(path.join(__dirname, '../dist/iciba.user.js'), `${metaData}\n${indexJs}`)
+const scriptContent = fs.readFileSync(path.join(__dirname, '../dist/iciba.user.js')).toString()
+
+const content = [
+  metaData,
+  '\n',
+  'if (typeof GM !== \'undefined\' || typeof GM_setValue !== \'undefined\') {',
+  scriptContent,
+  '}',
+].join('')
+
+fs.writeFileSync(path.join(__dirname, '../dist/iciba.user.js'), content)
