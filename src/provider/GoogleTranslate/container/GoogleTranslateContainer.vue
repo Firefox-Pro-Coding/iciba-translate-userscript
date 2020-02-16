@@ -40,10 +40,11 @@
           </div>
         </div>
 
-        <div class="translate-content flex-co" v-show="!state.visible">
-          <div v-for="(row, index) of containerData.data" class="row" :key="index">
-            {{ row }}
-          </div>
+        <div class="translate-content" v-show="!state.visible">
+          <template v-for="(text, index) of containerData.data" class="row">
+            <span v-if="text" :key="index">{{ text }}</span>
+            <br v-if="!text" :key="index">
+          </template>
         </div>
 
         <div class="bottom-info-box flex justify-space-between" v-show="!state.visible">

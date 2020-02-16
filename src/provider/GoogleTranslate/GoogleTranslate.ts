@@ -125,7 +125,11 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       })
     }
 
-    const translateResult = data[0].map((v: any) => (v[0] ? v[0] : ''))
+    const translateResult = (data[0] as Array<Array<string>>)
+      .map((v) => (v[0] ? v[0] : ''))
+      .filter(Boolean)
+      .flatMap((v) => v.split('\n'))
+
     return {
       result: translateResult,
       sl,
