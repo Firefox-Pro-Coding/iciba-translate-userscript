@@ -1,16 +1,3 @@
 <template>
-  <div class="iciba-size-helper" />
+  <div class="iciba-size-helper fixed top-auto left-auto bottom-0 right-0 w-0 h-0 overflow-hidden" />
 </template>
-
-<style lang="less" scoped>
-  .iciba-size-helper {
-    position: fixed;
-    top: auto;
-    left: auto;
-    right: 0;
-    bottom: 0;
-    height: 0;
-    width: 0;
-    overflow: hidden;
-  }
-</style>

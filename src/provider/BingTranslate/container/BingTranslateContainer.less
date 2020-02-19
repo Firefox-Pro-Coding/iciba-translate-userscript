@@ -1,95 +1,78 @@
 @import '~assets/styles/variables.less';
 
-.google-translate-result-container {
+.bing-translate-box {
   color: @main-level-1;
-  position: relative;
   padding: 7px 0 10px 10px;
+}
 
-  .scroll-container {
-    max-height: 250px;
+.scroll-container {
+  max-height: 250px;
+}
 
-    .google-translate-result-scroll-container {
-      flex: 1 1 auto;
-      font-size: 14px;
-      line-height: 1.5;
-      word-break: break-word;
+.content-box {
+  word-break: break-word;
+}
 
-      .language-select-box {
-        user-select: none;
-        width: 100%;
+.language-select-box {
+  .title-box {
+    .cancel-button {
+      padding: 1px 6px;
+      cursor: pointer;
 
-        .title-box {
-          .cancel-button {
-            padding: 1px 6px;
-            cursor: pointer;
+      &:hover {
+        background: @background-level-2;
+      }
+    }
+  }
 
-            &:hover {
-              background: @background-level-2;
-            }
-          }
-        }
+  .language-item {
+    cursor: pointer;
+    flex: 0 0 33.3333%;
 
-        .items-box {
-          display: flex;
-          flex-flow: row wrap;
+    &.active {
+      background: @background-level-3;
+    }
 
-          .language-item {
-            cursor: pointer;
-            flex: 0 0 33.3333%;
-            padding: 1px 0;
+    &:hover {
+      background: @background-level-2;
+    }
+  }
+}
 
-            &.active {
-              background: @background-level-3;
-            }
+.bottom-info-box {
+  .tts-box {
+    user-select: none;
+    opacity: 0.9;
 
-            &:hover {
-              background: @background-level-2;
-            }
-          }
-        }
+    .play-sound {
+      cursor: pointer;
+      opacity: 0.45;
+
+      .audio-icon {
+        margin: 0 0 0 2px;
+        opacity: 0.8;
       }
 
-      .translate-content {
-        margin: 0 0 2px 0;
+      &:hover {
+        opacity: 0.7;
       }
 
-      .bottom-info-box {
-        .tts-box {
-          user-select: none;
-          opacity: 0.9;
+      &:active {
+        background-position: center calc(50% + 1px);
+        opacity: 1;
+      }
+    }
+  }
 
-          .play-sound {
-            cursor: pointer;
-            opacity: 0.45;
+  .language-info-box {
+    user-select: none;
+    color: #BBB;
 
-            .audio-icon {
-              margin: 0 0 0 2px;
-              opacity: 0.8;
-            }
+    .language {
+      cursor: pointer;
 
-            &:hover {
-              opacity: 0.7;
-            }
-
-            &:active {
-              background-position: center calc(50% + 1px);
-              opacity: 1;
-            }
-          }
-        }
-
-        .language-info-box {
-          user-select: none;
-          color: #BBB;
-
-          .language {
-            cursor: pointer;
-
-            &:hover {
-              color: @primary;
-            }
-          }
-        }
+      &:hover {
+        color: @primary;
       }
     }
   }

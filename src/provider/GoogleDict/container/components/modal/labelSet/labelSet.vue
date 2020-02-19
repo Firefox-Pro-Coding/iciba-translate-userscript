@@ -1,6 +1,6 @@
 <template>
   <div
-    class="label-set-box q-inline"
+    class="label-set-box text-0 inline"
     v-if="isValid"
   >
     <template v-for="key in Object.keys(props.labelSet)">
@@ -20,11 +20,7 @@
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
 
-  .label-set-box {
-    font-size: 0;
-
-    .inner-label-box {
-      margin-right: 5px;
-    }
+  .inner-label-box {
+    margin-right: 5px;
   }
 </style>

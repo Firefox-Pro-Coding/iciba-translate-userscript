@@ -12,13 +12,11 @@
 
         .example-padding-text {
           color: transparent;
-          flex: 0 0 auto;
           margin-right: 20px;
           user-select: none;
         }
 
         .example-text {
-          flex: 1 1 auto;
           color: @main-level-4;
         }
       }
@@ -29,13 +27,11 @@
 .thesaurus-item {
   .thesaurus-item-title {
     color: @main-level-4;
-    flex: 0 0 auto;
     margin-right: 20px;
   }
 
   .thesaurus-word-box {
     display: list-item;
-    flex: 1 1 auto;
 
     .thesaurus-word-item {
       & + .thesaurus-word-item {
@@ -48,18 +44,6 @@
 
       .nym-item {
         color: @main-level-4;
-
-        &.nym-label {
-          font-size: 12px;
-          background: @background-level-4;
-          color: @main-level-4;
-          padding: 1px 4px;
-          margin: 0 3px 0 0;
-        }
-
-        .nym-split {
-          padding-right: 3px;
-        }
       }
     }
   }

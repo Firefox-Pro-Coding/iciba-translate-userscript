@@ -1,15 +1,15 @@
-@import './reset.less';
-@import './flex.less';
-@import './ripple.less';
-@import './typography.less';
+@tailwind utilities;
 
-.overflow-hidden {
-  overflow: hidden;
+.flex-col {
+  display: flex;
 }
-.overflow-x-hidden {
-  overflow-x: hidden;
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
 }
-.overflow-y-hidden {
-  overflow-y: hidden;
-}
+
+@import './reset.less';
+@import './ripple.less';
+
 a { color: #1976D2; }

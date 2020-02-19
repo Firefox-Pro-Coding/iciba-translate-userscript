@@ -1,26 +1,26 @@
 <template>
-  <div class="r-container flex-co">
+  <div class="r-container flex-col relative">
     <scrollable
       class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
       :scroll-bar-style="{ 'padding-right': '2px' }"
     >
-      <div class="main-box flex-co" v-if="result">
+      <div class="main-box flex-col flex-auto text-14" v-if="result">
         <template v-if="isBaseInfoBaseInfoNormal(result.baseInfo)">
           <!-- symbols -->
           <div
-            class="symbols-box flex-co align-stretch"
+            class="symbols-box flex-col items-stretch"
             v-if="result.baseInfo && result.baseInfo.symbols && result.baseInfo.symbols.length"
           >
             <div
-              class="symbol-item flex-co align-stretch"
+              class="symbol-item flex-col items-stretch"
               v-for="(symbomItem, index) in result.baseInfo.symbols"
               :key="index"
             >
               <!-- pronunciation -->
-              <div class="pronunciation-box flex-co align-stretch">
+              <div class="pronunciation-box flex-col flex-none items-stretch">
                 <!-- symbol_mp3 -->
-                <div v-if="isSymbolCN(symbomItem)" class="pronunciation-item pron-en flex">
+                <div class="pronunciation-item pron-en flex" v-if="isSymbolCN(symbomItem)">
                   <div class="ipa" v-if="symbomItem.word_symbol">
                     {{ symbomItem.word_symbol }}
                   </div>
@@ -67,16 +67,16 @@
 
               <!-- meaning -->
               <div
-                class="part-box mt-1 flex-co align-stretch"
+                class="part-box mt-1 flex-col flex-none items-stretch"
                 v-if="symbomItem.parts && symbomItem.parts.length"
               >
                 <div class="part-item flex" v-for="(partItem, partItemIndex) in symbomItem.parts" :key="partItemIndex">
-                  <div class="part-item-part" v-if="partItem.part">
+                  <div class="part-item-part flex-none" v-if="partItem.part">
                     {{ partItem.part }}
                   </div>
-                  <div class="part-item-meaning-box">
+                  <div class="part-item-meaning-box flex-auto">
                     <div
-                      class="meaning-item q-inline"
+                      class="meaning-item inline"
                       v-for="(meanItem, meanItemIndex) in partItem.means"
                       :key="meanItemIndex"
                     >
@@ -128,7 +128,7 @@
                   {{ ciyiIndex + 1 }}.
                 </span>
                 <template v-if="seperateChineseJieshi(item)[0]">
-                  <span class="pr-1 grey--text">[{{ seperateChineseJieshi(item)[0] }}]</span>
+                  <span class="pr-1 text-grey-center">[{{ seperateChineseJieshi(item)[0] }}]</span>
                 </template>
                 <span>{{ seperateChineseJieshi(item)[1] }}</span>
               </div>
@@ -138,7 +138,7 @@
 
         <!-- translation -->
         <div
-          class="translation-box flex-co align-stretch"
+          class="translation-box flex-col items-stretch"
           v-if="isBaseInfoTranslate(result.baseInfo)
             && result.baseInfo.translate_type === 2
             && result.baseInfo.translate_result"
@@ -153,7 +153,7 @@
 
         <!-- suggest -->
         <!-- <div
-          class="suggest-box flex-co align-stretch"
+          class="suggest-box flex-col items-stretch"
           v-if="isBaseInfoTranslate(result.baseInfo) && result.baseInfo.translate_type === 3"
         >
           {{ result.baseInfo.suggest.map(v => v.key).join('; ') }}

@@ -7,16 +7,7 @@
   @small-margin: 3px;
   @tiny-margin: 2px;
 
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 10000;
-  justify-content: center;
-  align-items: stretch;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 1;
   font-family: 'Arial', 'Microsoft Yahei', sans-serif;
 
   /deep/ .entry-link {
@@ -42,7 +33,6 @@
   }
 
   .fold-control {
-    position: absolute;
     top: 0;
     left: 50%;
     transform: translate(-50%, 0);
@@ -60,7 +50,7 @@
       width: 1px;
     }
 
-    .button {
+    .control-btn {
       height: 32px;
       width: 32px;
 
@@ -80,28 +70,14 @@
   }
 
   .modal-bg {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: rgba(0, 0, 0, 0.4);
-    transition: 0.3s;
     z-index: 1;
   }
 
   .modal-box {
-    position: relative;
     z-index: 2;
-    font-size: 14px;
-    line-height: 1.5;
     width: 80%;
     max-width: 800px;
-    margin: 0 auto;
-    // overflow-y: auto;
-    background: white;
-    // padding: 20px 20px 30px 20px;
-    transition: 0.3s ease transform;
 
     .scroll-container {
       height: 100%;
@@ -116,7 +92,6 @@
       margin-top: 15px;
 
       .usage-title {
-        font-size: 18px;
         color: @main-level-4;
         margin: 12px 0 0 0;
       }

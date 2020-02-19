@@ -1,12 +1,12 @@
 <template>
-  <div class="r-container flex-co">
+  <div class="r-container flex-col relative">
     <scrollable
       class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
       :scroll-bar-style="{ 'padding-right': '2px' }"
     >
-      <div class="main-box flex-co grey--text text--darken-3">
-        <div class="word flex align-center">
+      <div class="main-box flex-col flex-auto text-14 text-grey-800">
+        <div class="word flex items-center">
           <span>{{ data.word }}</span>
           <div
             class="play-sound flex flex-center"
@@ -21,18 +21,18 @@
           {{ data.definition.short }}
         </div>
 
-        <div class="loing-def mt-2 caption">
-          <span class="grey--text text--darken">
+        <div class="long-def mt-2 text-12">
+          <span class="text-grey-center">
             {{ data.definition.long }}
           </span>
         </div>
 
         <div
-          class="group-item mt-2 flex caption"
+          class="group-item mt-2 flex text-12"
           v-for="group of data.definition.groups"
           :key="group.index"
         >
-          <div class="group-index mr-1 flex-noresize grey--text">
+          <div class="group-index mr-1 flex-none text-grey-center">
             {{ group.index + 1 }}.
           </div>
           <div class="group-item-box">
@@ -41,7 +41,7 @@
               v-for="(subGroup, index) of group.group"
               :key="index"
             >
-              <div class="group-type px-1 mr-1 green--text text--lighten-2 align-self-start flex-noresize">
+              <div class="group-type px-1 mr-1 text-green-600 self-start flex-none">
                 {{ subGroup.type }}.&nbsp;
               </div>
               <div>

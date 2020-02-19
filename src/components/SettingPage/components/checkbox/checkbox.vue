@@ -1,12 +1,19 @@
 <template>
-  <div class="checkbox flex align-center" @click="toggle">
-    <div class="icon" :class="{ checked: value }">
+  <div
+    class="checkbox flex items-center select-none cursor-pointer"
+    @click="toggle"
+  >
+    <div class="icon relative mr-2" :class="{ checked: value }">
       <i-icon size="100%" :svg="value ? icon.checked : icon.unchecked" />
-      <div v-ripple="{ center: true }" class="ripple" :class="{ checked: value }">
-        <div class="ripple-trigger" />
+      <div
+        class="ripple absolute rounded-full"
+        :class="{ checked: value }"
+        v-ripple="{ center: true }"
+      >
+        <div class="ripple-trigger absolute" />
       </div>
     </div>
-    <div class="label grey--text text--darken-2">{{ label }}</div>
+    <div class="label text-grey-700">{{ label }}</div>
   </div>
 </template>
 

@@ -10,7 +10,7 @@ export default createComponent({
       setupContext.emit('input', value)
     }
     return () => (
-      <div class='radio-group flex-co align-start'>
+      <div class='radio-group flex-col items-start'>
         {setupContext.slots.default().map((v) => {
           if (v.componentOptions && v.componentOptions.propsData) {
             const childProps = v.componentOptions.propsData as any

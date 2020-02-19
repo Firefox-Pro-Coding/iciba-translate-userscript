@@ -1,23 +1,23 @@
 <template>
-  <div class="google-translate-result-container flex-co">
+  <div class="google-translate-box flex-col relative">
     <Scrollable
+      class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
       :scroll-bar-style="{ 'padding-right': '2px' }"
-      class="scroll-container"
     >
-      <div class="google-translate-result-scroll-container flex-co">
-        <div class="language-select-box" v-show="state.visible">
-          <div class="title-box flex justify-space-between">
+      <div class="content-box flex-col flex-auto text-14">
+        <div class="language-select-box w-full" v-show="state.visible">
+          <div class="title-box flex justify-between">
             <div v-show="state.type === 'source'">源语言</div>
             <div v-show="state.type === 'target'">翻译到</div>
-            <div class="cancel-button text-center grey--text text--darken-1" @click="state.visible = false">取消</div>
+            <div class="cancel-button text-center text-grey-600" @click="state.visible = false">取消</div>
           </div>
-          <div class="items-box mt-1" v-show="state.visible">
+          <div class="items-box flex flex-wrap mt-1" v-show="state.visible">
             <div
               v-for="v of languages"
               :class="{
-                'language-item text-center grey--text text--darken-1': true,
-                'active text--darken-3': state.type === 'source'
+                'language-item text-center text-grey-600': true,
+                'active text-grey-800': state.type === 'source'
                   ? v.id === containerData.sourceLanguage
                   : v.id === containerData.targetLanguage,
               }"
@@ -29,8 +29,8 @@
             <div
               v-if="state.type === 'source'"
               :class="{
-                'language-item text-center grey--text text--darken-1': true,
-                'active text--darken-3': containerData.sourceLanguage === 'auto',
+                'language-item text-center text-grey-600': true,
+                'active text-grey-800': containerData.sourceLanguage === 'auto',
               }"
               key="auto"
               @click="handleLanguageSelect('auto')"
@@ -40,14 +40,14 @@
           </div>
         </div>
 
-        <div class="translate-content" v-show="!state.visible">
+        <div class="translate-content mb-2px" v-show="!state.visible">
           <template v-for="(text, index) of containerData.data" class="row">
             <span v-if="text" :key="index">{{ text }}</span>
             <br v-if="!text" :key="index">
           </template>
         </div>
 
-        <div class="bottom-info-box flex justify-space-between" v-show="!state.visible">
+        <div class="bottom-info-box flex justify-between" v-show="!state.visible">
           <div class="tts-box flex">
             <div
               class="play-sound flex flex-center"

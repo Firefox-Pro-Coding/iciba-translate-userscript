@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-co align-start">
-    <h1 class="title mt-1">iciba划词翻译</h1>
-    <div class="body-2 mt-4">
+  <div class="flex-col items-start">
+    <h1 class="text-20 mt-1">iciba划词翻译</h1>
+    <div class="text-14 mt-4">
       <div>
         修改设置会自动保存。其他已打开的标签页需要刷新后才会加载新设置。
       </div>
@@ -49,4 +49,3 @@
 </template>
 
 <script lang="ts" src="./about.ts"></script>
-<style lang="less" src="./about.less" scoped></style>

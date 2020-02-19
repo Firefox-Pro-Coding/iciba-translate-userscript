@@ -1,6 +1,9 @@
 <template>
   <transition name="toast">
-    <div class="toast-box flex flex-center" v-if="state.visible">
+    <div
+      class="toast-box fixed flex flex-center text-white ease-in-out duration-300"
+      v-if="state.visible"
+    >
       {{ props.text }}
     </div>
   </transition>

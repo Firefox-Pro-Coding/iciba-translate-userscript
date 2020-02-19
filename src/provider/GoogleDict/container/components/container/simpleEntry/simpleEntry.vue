@@ -1,26 +1,29 @@
 <template>
   <!-- entry item -->
-  <div class="entry-item flex-co align-stretch">
+  <div class="entry-item flex-col items-stretch">
     <!-- headword -->
     <div class="headword flex flex-wrap">
-      <div class="headword-word">
+      <div class="headword-word text-16">
         {{ props.entry.syllabifiedHeadword || props.entry.headword }}
       </div>
-      <div class="headword-graph-index" v-if="props.entry.homographIndex">
+      <div
+        class="headword-graph-index text-12 ml-2px"
+        v-if="props.entry.homographIndex"
+      >
         {{ props.entry.homographIndex }}
       </div>
     </div>
 
     <!-- phonetics -->
     <phonetics
-      class="phonetics-box"
+      class="phonetics-box mb-2px"
       v-if="props.entry.phonetics"
       :phonetics="props.entry.phonetics"
     />
 
     <!-- sub-sense-list -->
     <div
-      class="sense-list flex-co align-stretch"
+      class="sense-list mt-2px flex-col items-stretch"
       v-if="props.isSubentry
         && props.entry.senseFamily
         && props.entry.senseFamily.senses
@@ -33,8 +36,8 @@
         v-for="(sense, index) in props.entry.senseFamily.senses"
         :key="index"
       >
-        <div class="sense-item-number">{{ index + 1 }}.</div>
-        <div class="definition-box">
+        <div class="sense-item-number text-right">{{ index + 1 }}.</div>
+        <div class="definition-box flex-auto">
           <fragment
             class="sense-frag"
             :fragment="sense.definition.fragments"
@@ -45,20 +48,20 @@
 
     <!-- sense-family -->
     <div
-      class="sense-family-box flex-co align-stretch"
+      class="sense-family-box flex-col items-stretch"
       v-if="!props.isSubentry
         && props.entry.senseFamilies
         && props.entry.senseFamilies.length"
     >
       <div
-        class="sense-family-item flex-co align-stretch"
+        class="sense-family-item flex-col items-stretch"
         v-for="(senseFamilyItem, senseFamilyItemIndex) in props.entry.senseFamilies"
         :key="senseFamilyItemIndex"
       >
         <template v-if="senseFamilyItem.partsOfSpeechs">
           <div
             :title="item.qualifier"
-            class="poss font-italic flex flex-wrap grey--text text--darken-1"
+            class="poss italic flex flex-wrap text-grey-600"
             v-for="(item, index) in senseFamilyItem.partsOfSpeechs"
             :key="index"
           >
@@ -68,14 +71,14 @@
 
         <!-- phonetics -->
         <phonetics
-          class="phonetics-box"
+          class="phonetics-box mb-2px"
           v-if="senseFamilyItem.phonetics"
           :phonetics="senseFamilyItem.phonetics"
         />
 
         <!-- sense-list -->
         <div
-          class="sense-list flex-co align-stretch"
+          class="sense-list mt-2px flex-col items-stretch"
           v-if="senseFamilyItem.senses && senseFamilyItem.senses.length"
         >
           <div
@@ -85,8 +88,8 @@
             v-for="(sense, index) in senseFamilyItem.senses"
             :key="index"
           >
-            <div class="sense-item-number">{{ index + 1 }}.</div>
-            <div class="definition-box">
+            <div class="sense-item-number text-right">{{ index + 1 }}.</div>
+            <div class="definition-box flex-auto">
               <fragment
                 class="sense-frag"
                 :fragment="sense.definition.fragments"

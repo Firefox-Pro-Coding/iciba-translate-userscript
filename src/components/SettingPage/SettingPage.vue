@@ -1,7 +1,7 @@
 <template>
   <transition name="s">
     <div
-      class="setting-modal flex flex-center"
+      class="setting-modal flex flex-center fixed inset-0 ease-in-out duration-300"
       :class="{
         visible: state.visible,
       }"
@@ -9,11 +9,10 @@
       :style="{ zIndex: state.zIndex }"
       @click.self="handleCloseSetting"
     >
-      <div class="setting-window flex elevation-8">
-        <div class="indigo flex-noresize align-center">
+      <div class="setting-window relative flex bg-white shadow-8 ease-in-out duration-300">
+        <div class="bg-v-indigo flex-none items-center">
           <i-tabs
             v-model="state.tab"
-            color="indigo"
             dark
             slider-color="rgba(255,255,255,0.8)"
           >
@@ -31,20 +30,20 @@
         </div>
 
         <i-tabs-items
-          class="tabs-box fill-height flex-auto"
+          class="tabs-box flex-auto"
           v-no-overscroll
           v-model="state.tab"
         >
-          <i-tab-item class="pa-3"><about /></i-tab-item>
-          <i-tab-item class="pa-3"><coreSetting /></i-tab-item>
-          <i-tab-item class="pa-3"><iciba /></i-tab-item>
-          <i-tab-item class="pa-3"><googleDict /></i-tab-item>
-          <i-tab-item class="pa-3"><googleTranslate /></i-tab-item>
-          <i-tab-item class="pa-3"><baiduTranslate /></i-tab-item>
-          <i-tab-item class="pa-3"><sougouTranslate /></i-tab-item>
-          <i-tab-item class="pa-3"><urbanDictionary /></i-tab-item>
-          <i-tab-item class="pa-3"><bingTranslate /></i-tab-item>
-          <i-tab-item class="pa-3"><vocabulary /></i-tab-item>
+          <i-tab-item class="p-3"><about /></i-tab-item>
+          <i-tab-item class="p-3"><coreSetting /></i-tab-item>
+          <i-tab-item class="p-3"><iciba /></i-tab-item>
+          <i-tab-item class="p-3"><googleDict /></i-tab-item>
+          <i-tab-item class="p-3"><googleTranslate /></i-tab-item>
+          <i-tab-item class="p-3"><baiduTranslate /></i-tab-item>
+          <i-tab-item class="p-3"><sougouTranslate /></i-tab-item>
+          <i-tab-item class="p-3"><urbanDictionary /></i-tab-item>
+          <i-tab-item class="p-3"><bingTranslate /></i-tab-item>
+          <i-tab-item class="p-3"><vocabulary /></i-tab-item>
         </i-tabs-items>
       </div>
     </div>

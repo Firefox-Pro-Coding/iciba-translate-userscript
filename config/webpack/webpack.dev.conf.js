@@ -14,10 +14,6 @@ config.module.rule('eslint')
   })
   .end()
 
-// remove postcss-loader while dev for build performance
-config.module.rule('css').uses.delete('postcss-loader')
-config.module.rule('less').uses.delete('postcss-loader')
-
 config.mode('development')
 config.devtool('#eval-source-map')
 

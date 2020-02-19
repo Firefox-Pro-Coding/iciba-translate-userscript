@@ -1,7 +1,5 @@
 <template>
-  <div class="i-tab__div">
+  <div class="i-tab__div text-center">
     <slot />
   </div>
 </template>
-
-<style lang="less" src="./tab.less" scoped></style>

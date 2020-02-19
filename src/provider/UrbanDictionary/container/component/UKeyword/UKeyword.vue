@@ -1,14 +1,11 @@
 <template>
   <span
+    class="u-keyword relative"
     ref="span"
     @click="handleClick"
     @mouseenter="showTooltip"
     @mouseleave="hideTooltip"
-    class="u-keyword"
-  >
-    {{ props.content }}
-  </span>
+  >{{ props.content.trim() }}</span>
 </template>
 
 <script lang="ts" src="./UKeyword.ts"></script>
-<style lang="less" src="./UKeyword.less" scoped></style>

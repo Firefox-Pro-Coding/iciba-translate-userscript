@@ -1,8 +1,8 @@
 <template>
-  <div class="etymology-box flex-co align-stretch" v-if="props.etymology">
-    <div class="etymology-title">Origin</div>
+  <div class="etymology-box flex-col items-stretch" v-if="props.etymology">
+    <div class="etymology-title text-18">Origin</div>
     <div
-      class="etymology-img-box"
+      class="etymology-img-box mt-2"
       v-if="props.etymology.images"
     >
       <image-loader
@@ -31,13 +31,10 @@
     margin: 10px 0 0 0;
 
     .etymology-title {
-      font-size: 18px;
       color: @main-level-4;
     }
 
     .etymology-img-box {
-      margin: 8px 0 0 0;
-
       img {
         max-width: 100%;
       }

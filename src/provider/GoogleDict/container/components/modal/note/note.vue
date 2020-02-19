@@ -1,7 +1,7 @@
 <template>
   <!-- note -->
-  <div class="dict-note flex-co align-stretch" v-if="props.note">
-    <div class="note-type-box flex">
+  <div class="dict-note flex-col items-stretch" v-if="props.note">
+    <div class="note-type-box flex mb-3px">
       <labels
         class="note-label-box"
         color="plain"
@@ -10,7 +10,7 @@
         type="note"
       />
     </div>
-    <div class="note-text q-inline" v-html="props.note.text" />
+    <div class="note-text text-12 inline" v-html="props.note.text" />
   </div>
 </template>
 

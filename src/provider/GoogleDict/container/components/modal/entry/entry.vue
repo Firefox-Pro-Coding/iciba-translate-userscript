@@ -14,10 +14,13 @@
 
     <!-- headword -->
     <div class="headword flex flex-wrap">
-      <div class="headword-word">
+      <div class="headword-word text-28">
         {{ e.syllabifiedHeadword || e.headword }}
       </div>
-      <div class="headword-graph-index" v-if="e.homographIndex">
+      <div
+        class="headword-graph-index text-14 ml-2px"
+        v-if="e.homographIndex"
+      >
         {{ e.homographIndex }}
       </div>
     </div>
@@ -39,7 +42,7 @@
 
     <!-- sub-sense-list -->
     <div
-      class="sub-sense-list flex-co align-stretch"
+      class="sub-sense-list flex-col items-stretch"
       v-if="isSub && e.senseFamily && e.senseFamily.senses && e.senseFamily.senses.length"
     >
       <!-- senseFamily labelSet -->
@@ -61,15 +64,15 @@
 
     <!-- sense-family -->
     <div
-      class="sense-family-box flex-co align-stretch"
+      class="sense-family-box flex-col items-stretch"
       v-if="!isSub && e.senseFamilies && e.senseFamilies.length"
     >
-      <div class="sense-family-item flex-co align-stretch" v-for="(senseFamilyItem, index) in e.senseFamilies" :key="index">
+      <div class="sense-family-item flex-col items-stretch" v-for="(senseFamilyItem, index) in e.senseFamilies" :key="index">
         <!-- note -->
         <note :note="senseFamilyItem.note" />
 
         <!-- poss -->
-        <div class="poss font-italic" v-if="senseFamilyItem.partsOfSpeechs && senseFamilyItem.partsOfSpeechs.length">
+        <div class="poss italic" v-if="senseFamilyItem.partsOfSpeechs && senseFamilyItem.partsOfSpeechs.length">
           <div
             :title="poss.qualifier"
             class="pos flex flex-wrap"
@@ -99,7 +102,10 @@
         />
 
         <!-- sense-list -->
-        <div class="sense-list flex-co align-stretch" v-if="senseFamilyItem.senses && senseFamilyItem.senses.length">
+        <div
+          class="sense-list flex-col items-stretch mt-2px"
+          v-if="senseFamilyItem.senses && senseFamilyItem.senses.length"
+        >
           <sense-item
             class="sense-item"
             :class="{ collapsable: index !== 0 }"

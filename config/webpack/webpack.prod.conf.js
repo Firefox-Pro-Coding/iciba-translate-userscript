@@ -1,6 +1,8 @@
 const config = require('./webpack.base.conf')
 const TerserPlugin = require('terser-webpack-plugin')
 
+process.env.NODE_ENV = 'production'
+
 // using runtime only in production
 config.resolve.alias.set('vue$', 'vue/dist/vue.runtime.esm.js')
 

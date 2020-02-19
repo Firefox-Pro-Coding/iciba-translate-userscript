@@ -1,110 +1,102 @@
 @import '~assets/styles/variables.less';
 
-.urban-dictionary-result-container {
+.urban-dictionary-box {
   color: @main-level-1;
-  position: relative;
   padding: 7px 0 10px 10px;
+}
 
-  .u-keyword-toolip {
-    position: absolute;
-    background: white;
-    width: 100%;
-    max-width: 280px;
-    padding: 5px 8px;
-    z-index: 2;
-    transform: translate(calc(-50% - 5px + 15px), 14px + 3px);
-    filter:
-      drop-shadow(0 2px 1px rgba(0, 0, 0, 0.15))
-      drop-shadow(0 2px 1.2px rgba(0, 0, 0, 0.16))
-      drop-shadow(0 1px 2.2px rgba(0, 0, 0, 0.12));
+.scroll-container {
+  max-height: 250px;
 
-    .inner-content {
-      max-height: 21px * 5;
-      overflow: hidden;
-    }
+  .content-box {
+    // local variables
+    @big-margin: 6px;
+    @medium-margin: 4px;
+    @small-margin: 3px;
+    @tiny-margin: 2px;
 
-    .loadin-spinner {
-      margin: 6px 0;
-    }
+    word-break: break-word;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
 
-    @keyframes rotate {
-      0% {
-        transform: rotate(0deg);
+    .row {
+      .keyword {
+        text-decoration: underline;
+        cursor: pointer;
+
+        &.definition-keyword {
+          color: hsl(207, 65%, 65%);
+        }
+
+        &.example-keyword {
+          color: hsl(207, 60%, 75%);
+        }
       }
-      100% {
-        transform: rotate(360deg);
+
+      .definition {
+        line-height: 20px;
       }
     }
 
-    .rotate {
-      animation-name: rotate;
-      animation-duration: 1.2s;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
+    .divider {
+      height: 1px;
+      width: 100%;
     }
 
-    &::before {
-      position: absolute;
-      content: '';
-      top: -10px;
-      left: 50%;
-      transform: translate(-50%, 0) scale(1, 1.5) skewX(40deg);
-      transform-origin: 50% bottom;
-      // border-top: 10px solid white;
-      border-bottom: 10px solid white;
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
+    .thumb {
+      opacity: 0.7;
+
+      &.thumb-down {
+        transform: translate(0, 3px) rotate(180deg);
+      }
+    }
+  }
+}
+
+.u-toolip {
+  max-width: 280px;
+  padding: 5px 8px;
+  z-index: 2;
+  transform: translate(calc(-50% - 5px + 15px), 14px + 3px);
+  filter:
+    drop-shadow(0 2px 1px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 2px 1.2px rgba(0, 0, 0, 0.16))
+    drop-shadow(0 1px 2.2px rgba(0, 0, 0, 0.12));
+
+  .inner-content {
+    max-height: 21px * 5;
+    overflow: hidden;
+  }
+
+  .loadin-spinner {
+    margin: 6px 0;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 
-  .scroll-container {
-    max-height: 250px;
+  .rotate {
+    animation-name: rotate;
+    animation-duration: 1.2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
 
-    .urban-dictionary-content {
-      // local variables
-      @big-margin: 6px;
-      @medium-margin: 4px;
-      @small-margin: 3px;
-      @tiny-margin: 2px;
-
-      flex: 1 1 auto;
-      // padding: 0 10px 0 0;
-      font-size: 14px;
-      line-height: 1.5;
-      word-break: break-word;
-      font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
-
-      .row {
-        .keyword {
-          text-decoration: underline;
-          cursor: pointer;
-
-          &.definition-keyword {
-            color: hsl(207, 65%, 65%);
-          }
-
-          &.example-keyword {
-            color: hsl(207, 60%, 75%);
-          }
-        }
-
-        .definition {
-          line-height: 20px;
-        }
-      }
-
-      .divider {
-        height: 1px;
-        width: 100%;
-      }
-
-      .thumb {
-        opacity: 0.7;
-
-        &.thumb-down {
-          transform: translate(0, 3px) rotate(180deg);
-        }
-      }
-    }
+  &::before {
+    position: absolute;
+    content: '';
+    top: -10px;
+    left: 50%;
+    transform: translate(-50%, 0) scale(1, 1.5) skewX(40deg);
+    transform-origin: 50% bottom;
+    // border-top: 10px solid white;
+    border-bottom: 10px solid white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
   }
 }

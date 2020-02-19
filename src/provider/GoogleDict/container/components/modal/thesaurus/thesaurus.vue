@@ -1,9 +1,9 @@
 <template>
   <!-- thesaurus -->
   <foldable :fold="store.state.googleDict.thesaurusFolded" v-if="t && t.length">
-    <div class="thesaurus-container flex-co align-stretch">
+    <div class="thesaurus-container flex-col items-stretch">
       <div
-        class="thesaurus-entry-item flex-co align-stretch"
+        class="thesaurus-entry-item flex-col items-stretch"
         v-for="(thesaurus, thesaurusIndex) in t"
         :key="thesaurusIndex"
       >
@@ -14,8 +14,11 @@
               class="thesaurus-item flex"
               :key="type"
             >
-              <div class="thesaurus-item-title">{{ type }}:</div>
-              <div class="thesaurus-word-box flex-co align-stretch" :class="[`${type}-box`]">
+              <div class="thesaurus-item-title flex-none">{{ type }}:</div>
+              <div
+                class="thesaurus-word-box flex-col flex-auto items-stretch"
+                :class="[`${type}-box`]"
+              >
                 <div
                   class="thesaurus-word-item"
                   :class="[`${type}-item`]"
@@ -37,13 +40,13 @@
                     <div
                       @click="handleNymClick($event, nym)"
                       :class="{ 'entry-link': nym.numEntries }"
-                      class="nym-content q-inline"
+                      class="nym-content inline"
                     >
                       {{ nym.nym }}
                     </div>
                     <div
                       v-if="nymIndex !== thesaurusItem.nyms.length - 1"
-                      class="nym-split q-inline"
+                      class="nym-split inline pr-3px"
                     >
                       ,
                     </div>
@@ -56,7 +59,7 @@
 
         <!-- examples -->
         <div
-          class="example-box flex-co align-stretch"
+          class="example-box flex-col items-stretch"
           v-if="thesaurus.examples && thesaurus.examples.length"
         >
           <div
@@ -64,11 +67,14 @@
             v-for="(example, index) in thesaurus.examples"
             :key="index"
           >
-            <div class="example-padding-text">
+            <div class="example-padding-text flex-none">
               <!-- this text is invisible for placeholder only -->
               synonyms:
             </div>
-            <div class="example-text" v-html="`${addQoute(example)}`" />
+            <div
+              class="example-text flex-auto"
+              v-html="`${addQoute(example)}`"
+            />
           </div>
         </div>
       </div>

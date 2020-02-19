@@ -1,10 +1,10 @@
 <template>
-  <div class="flex-co align-start">
+  <div class="flex-col items-start">
     <icon-radio-group
       v-model="state.form.icon"
       :icons="iconOptions"
     />
-    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+    <p class="text-14 text-grey-500 mt-1 mb-0">
       按钮图标
     </p>
 
@@ -13,11 +13,10 @@
       v-model="state.form.display"
       label="显示按钮"
     />
-    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+    <p class="text-14 text-grey-500 mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
   </div>
 </template>
 
 <script lang="ts" src="./vocabulary.ts"></script>
-<style lang="less" src="./vocabulary.less" scoped></style>

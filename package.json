@@ -29,6 +29,7 @@
     "@vue/composition-api": "^0.3.4",
     "fp-ts": "^2.5.0",
     "io-ts": "^2.1.0",
+    "tailwindcss": "^1.2.0",
     "typescript": "^3.7.5",
     "uuid": "^3.4.0",
     "vue": "^2.6.11"
@@ -38,6 +39,7 @@
     "@babel/core": "^7.8.4",
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
+    "@fullhuman/postcss-purgecss": "^2.0.6",
     "@types/event-emitter": "^0.3.3",
     "@types/greasemonkey": "^4.0.0",
     "@types/node": "^13.7.1",

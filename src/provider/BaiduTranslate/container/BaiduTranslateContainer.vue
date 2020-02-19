@@ -1,23 +1,27 @@
 <template>
-  <div class="baidu-translate-container flex-co">
+  <div class="baidu-translate-box flex-col relative">
     <scrollable
+      class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
       :scroll-bar-style="{ 'padding-right': '2px' }"
-      class="scroll-container"
     >
-      <div class="baidu-translate-result-scroll-container flex-co">
-        <div class="language-select-box" v-show="state.visible">
-          <div class="title-box flex justify-space-between">
+      <div class="content-box flex-col flex-auto text-14">
+        <div
+          class="language-select-box select-none w-full"
+          v-show="state.visible"
+        >
+          <div class="title-box flex justify-between">
             <div v-show="state.type === 'source'">源语言</div>
             <div v-show="state.type === 'target'">翻译到</div>
-            <div class="cancel-button text-center grey--text text--darken-1" @click="state.visible = false">取消</div>
+            <div class="cancel-button text-center text-grey-600" @click="state.visible = false">取消</div>
           </div>
-          <div class="items-box mt-1" v-show="state.visible">
+
+          <div class="items-box flex flex-wrap mt-1" v-show="state.visible">
             <div
               v-for="v of languages"
               :class="{
-                'language-item text-center grey--text text--darken-1': true,
-                'active text--darken-3': state.type === 'source'
+                'language-item text-center text-grey-600': true,
+                'active text-grey-800': state.type === 'source'
                   ? v.id === containerData.sourceLanguage && !containerData.autoMode
                   : v.id === containerData.targetLanguage,
               }"
@@ -29,8 +33,8 @@
             <div
               v-if="state.type === 'source'"
               :class="{
-                'language-item text-center grey--text text--darken-1': true,
-                'active text--darken-3': containerData.autoMode,
+                'language-item text-center text-grey-600': true,
+                'active text-grey-800': containerData.autoMode,
               }"
               key="auto"
               @click="handleLanguageSelect('auto')"
@@ -40,13 +44,13 @@
           </div>
         </div>
 
-        <div class="translate-content flex-co" v-show="!state.visible">
+        <div class="content mb-2px flex-col" v-show="!state.visible">
           <div class="row" v-for="row of containerData.data" :key="row">
             {{ row }}
           </div>
         </div>
 
-        <div class="bottom-info-box flex justify-space-between" v-show="!state.visible">
+        <div class="bottom-info-box flex justify-between" v-show="!state.visible">
           <div class="tts-box flex">
             <div
               class="play-sound flex flex-center"

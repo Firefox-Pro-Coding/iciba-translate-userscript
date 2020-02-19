@@ -1,30 +1,30 @@
 <template>
   <transition name="m">
     <div
-      class="iciba-main-wrap"
+      class="iciba-main-wrap absolute overflow-visible ease-in-out duration-150 transition-opacity"
       :class="{
         dragging: state.drag.dragging,
       }"
       :style="icibaMainWrapStyle"
-      v-if="state.visible"
+      v-show="state.visible"
       ref="icibaMainWrap"
     >
       <div
         ref="computedIcibaMainStyle"
-        class="iciba-main flex-co align-stretch"
+        class="iciba-main absolute flex-col items-stretch text-14 ease-in-out duration-150 transition-transform"
         @mouseenter="state.stickBoxVisible = true"
         @mouseleave="state.stickBoxVisible = false"
         :style="icibaMainStyle"
       >
-        <div class="input-box flex">
+        <div class="input-box flex relative flex-none bg-white">
           <div
-            class="iciba-input-box flex"
+            class="iciba-input-box flex relative flex-auto"
             :class="{
               'focused': state.inputFocused,
             }"
           >
             <input
-              class="search-input"
+              class="search-input flex-auto"
               ref="icibaSearchInput"
               size="1"
               type="text"
@@ -35,7 +35,7 @@
               @keydown.stop
             >
             <div
-              class="setting-button flex flex-center"
+              class="setting-button flex flex-center absolute cursor-pointer"
               @click="m.handleOpenSetting"
             >
               <i-icon :svg="icon.settings_149837" />
@@ -52,7 +52,7 @@
                 :key="provider.uniqName"
                 @keydown.13="m.translateWithProvider(provider)"
                 @click="m.translateWithProvider(provider)"
-                class="provider-button flex flex-center"
+                class="provider-button flex flex-center relative flex-none"
               >
                 <i-icon :svg="provider.icon" />
               </button>
@@ -60,24 +60,24 @@
           </div>
         </div>
 
-        <div class="content-box q-flec-co">
+        <div class="content-box relative">
           <component
-            v-if="!translateLoading && !errorMessage && activeProvider"
             class="provider-container"
+            v-if="!translateLoading && !errorMessage && activeProvider"
             :is="activeProvider.containerComponentClass"
             :key="activeProvider.uniqName"
           />
-          <div class="loading-tip content-box" v-if="translateLoading">
+          <div class="loading-tip content-item" v-if="translateLoading">
             <LoadingText />
           </div>
-          <div class="provider-error-message content-box" v-if="!translateLoading && errorMessage">
+          <div class="provider-error-message content-item" v-if="!translateLoading && errorMessage">
             {{ errorMessage }}
           </div>
         </div>
 
         <transition name="s">
           <div
-            class="stick-box"
+            class="stick-box absolute"
             v-if="store.config.core.showPin"
             v-show="store.config.core.pinned || state.stickBoxVisible"
           >
@@ -88,8 +88,8 @@
               <i-icon :svg="icon.drag_462998" />
             </div>
             <div
+              class="stick flex flex-center relative"
               :class="{
-                'stick flex flex-center': true,
                 pinned: store.config.core.pinned,
               }"
               @click="m.pinDrag.handleTogglePinned"

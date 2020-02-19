@@ -65,14 +65,17 @@ export default createComponent({
       const tabs = setupContext.slots.default()
       return (
         <div
-          class="flex-co tabs__div align-stretch">
-          <div class="slider" style={sliderStyle}></div>
+          class="tabs__div flex-col flex-wrap relative items-stretch">
+          <div
+            class="slider absolute ease-in-out duration-300"
+            style={sliderStyle}
+          />
           {tabs.map((tab, index) => (
             <div
               refInFor={true}
               ref="tab"
               class={{
-                'tab__div flex flex-center': true,
+                'tab__div flex flex-center text-14': true,
                 'active': tabModel.value === index,
               }}
               v-ripple={{ class: tabModel.value === index ? 'active-ripple' : 'inactive-ripple' }}

@@ -1,10 +1,10 @@
 <template>
-  <transition name="circle">
+  <transition name="c">
     <div
       ref="circle"
       v-show="state.visible"
       :style="computedStyle"
-      class="iciba-circle"
+      class="iciba-circle absolute select-none overflow-hidden rounded-full"
       @contextmenu.prevent
       @mouseover="m.handleSelfMouseover"
       @mouseup="m.handleSelfMouseUp"

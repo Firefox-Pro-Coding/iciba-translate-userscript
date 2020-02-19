@@ -1,10 +1,10 @@
 <template>
-  <div class="flex-co align-start">
+  <div class="flex-col items-start">
     <icon-radio-group
       v-model="state.form.icon"
       :icons="iconOptions"
     />
-    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+    <p class="text-14 text-grey-500 mt-1 mb-0">
       按钮图标
     </p>
 
@@ -13,25 +13,25 @@
       v-model="state.form.display"
       label="显示按钮"
     />
-    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+    <p class="text-14 text-grey-500 mt-1 mb-0">
       在查词框右侧显示按钮
     </p>
 
     <div class="flex mt-4 pt-1">
-      <div class="flex-co align-start flex-nogrow pr-5">
-        <div class="grey--text text--darken-1 pr-4 mb-2">语言</div>
+      <div class="flex-col items-start flex-grow-0 pr-5">
+        <div class="text-grey-600 pr-4 mb-2">语言</div>
         <div
-          class="language-option grey--text text--darken-1 mb-2"
+          class="language-option text-grey-600 mb-2"
           v-for="n of languageOptions"
           :key="n.key"
         >
           {{ n.text }}
         </div>
       </div>
-      <div class="flex-co align-center flex-nogrow">
-        <div class="grey--text text--darken-1 pr-4 mb-1">首选语言</div>
+      <div class="flex-col items-center flex-grow-0">
+        <div class="text-grey-600 pr-4 mb-1">首选语言</div>
         <i-radio-group
-          class="mt-0 flex-nogrow"
+          class="mt-0 flex-grow-0"
           v-model="state.form.targetLanguage"
         >
           <i-radio
@@ -42,8 +42,8 @@
           />
         </i-radio-group>
       </div>
-      <div class="flex-co align-center flex-nogrow">
-        <div class="grey--text text--darken-1 pr-4 mb-1">备选语言</div>
+      <div class="flex-col items-center flex-grow-0">
+        <div class="text-grey-600 pr-4 mb-1">备选语言</div>
         <i-radio-group
           class="mt-0"
           v-model="state.form.secondTargetLanguage"
@@ -59,11 +59,11 @@
     </div>
     <p
       v-if="state.form.targetLanguage === state.form.secondTargetLanguage"
-      class="body-2 red--text mt-2 mb-0"
+      class="text-14 text-brightred mt-2 mb-0"
     >
       首选语言和备选语言请选择不同的选项
     </p>
-    <p class="body-2 grey--text text--lighten-1 mt-1 mb-0">
+    <p class="text-14 text-grey-500 mt-1 mb-0">
       首选语言：默认翻译到的语言
       <br>
       备选语言：当检测到翻译文本语言为首选语言时，翻译到备选语言

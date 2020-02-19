@@ -1,10 +1,10 @@
 <template>
   <div
+    class="image-loader flex justify-center items-center"
     :style="{
       height: `${Number(props.height) / 2}px`,
       width: `${Number(props.width) / 2}px`,
     }"
-    class="image-loader flex"
   >
     <span v-if="!state.data" class="placeholder">img loading</span>
     <img
@@ -24,8 +24,6 @@
   @import '~assets/styles/variables.less';
 
   .image-loader {
-    justify-content: center;
-    align-items: center;
     background: none;
 
     > .placeholder {

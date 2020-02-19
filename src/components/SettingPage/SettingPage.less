@@ -1,14 +1,8 @@
 @import '~assets/styles/variables.less';
 
 .setting-modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   z-index: 10000000;
   background: rgba(0, 0, 0, 0.3);
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.s-enter,
   &.s-leave-to {
@@ -36,13 +30,9 @@
   }
 
   .setting-window {
-    position: relative;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateY(0);
     opacity: 1;
     width: 580px;
     height: 580px;
-    background: white;
     overflow: hidden;
 
     .tabs-box {

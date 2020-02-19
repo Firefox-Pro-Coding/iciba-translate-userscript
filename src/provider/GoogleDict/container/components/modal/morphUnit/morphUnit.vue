@@ -1,14 +1,14 @@
 <template>
   <div class="morph-units-box">
     <div
-      class="morph-units-item q-inline"
+      class="morph-units-item text-0 inline"
       :title="item.formType.posTag"
       v-for="(item, morphIndex) in props.morphUnits"
       :key="morphIndex"
     >
-      <div class="morph-units-description q-inline">{{ item.formType.description }}&nbsp;</div>
-      <div class="morph-units-word-form q-inline">{{ item.wordForm }}</div>
-      <div class="morph-units-split q-inline">;&nbsp;</div>
+      <div class="morph-units-description inline">{{ item.formType.description }}&nbsp;</div>
+      <div class="morph-units-word-form inline">{{ item.wordForm }}</div>
+      <div class="morph-units-split inline">;&nbsp;</div>
     </div>
   </div>
 </template>

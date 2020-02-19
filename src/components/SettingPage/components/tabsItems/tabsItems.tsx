@@ -173,8 +173,8 @@ export default createComponent({
       return (
         <div class='i-tabs-items' ref='container'>
           <div
+            class='window-container flex relative ease-in-out duration-300'
             ref="windowContainer"
-            class='window-container flex'
             style={{ height: state.height ? `${state.height}px` : 'auto' }}>
             { ...VNodes.map((v, i) => (
               <div

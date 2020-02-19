@@ -1,14 +1,14 @@
 <template>
-  <div class="urban-dictionary-result-container flex-co" ref="container">
+  <div class="urban-dictionary-box flex-col relative" ref="container">
     <scrollable class="scroll-container">
-      <div class="urban-dictionary-content flex-co">
+      <div class="content-box flex-col flex-auto text-14">
         <template v-if="result.data && result.data.list">
           <template v-for="(item, index) of result.data.list">
             <div
-              class="row flex-co"
+              class="row flex-col"
               :key="index"
             >
-              <div class="index font-weight-bold">
+              <div class="index font-bold">
                 {{ index + 1 }}. {{ item.word }}
               </div>
               <div class="definition">
@@ -26,7 +26,7 @@
                   />
                 </template>
               </div>
-              <div class="caption grey--text mt-1">
+              <div class="text-12 text-grey-center mt-1">
                 <template v-for="(exampleItem, exampleIndex) of extractDefinition(item.example)">
                   <UKeyword
                     :content="exampleItem.text"
@@ -41,8 +41,8 @@
                   />
                 </template>
               </div>
-              <div class="flex mt-1 align-center caption grey--text">
-                <div class="mr-2 pr-1 flex flex-noresize">
+              <div class="flex mt-1 items-center text-12 text-grey-center">
+                <div class="mr-2 pr-1 flex flex-none">
                   <i-icon
                     size="14"
                     class="thumb-up thumb mr-1"
@@ -50,7 +50,7 @@
                   />
                   {{ item.thumbs_up }}
                 </div>
-                <div class="flex mr-2 flex-noresize">
+                <div class="flex mr-2 flex-none">
                   <i-icon
                     size="14"
                     color="#E64C3D"
@@ -59,14 +59,14 @@
                   />
                   {{ item.thumbs_down }}
                 </div>
-                <div class="text-truncate">
+                <div class="truncate">
                   {{ getTime(item.written_on) }}
                 </div>
               </div>
             </div>
             <div
               v-if="index !== result.data.list.length - 1"
-              class="divider my-2 grey lighten-2"
+              class="divider my-2 bg-grey-400"
               :key="`${index}-divider`"
             />
           </template>
@@ -75,10 +75,10 @@
     </scrollable>
 
     <div
+      class="u-toolip absolute bg-white w-full"
       v-for="item of state.tooltips"
       :key="item.id"
       :style="{ top: `${item.top}px`, left: `${item.left}px` }"
-      class="u-keyword-toolip"
     >
       <div
         class="inner-content"

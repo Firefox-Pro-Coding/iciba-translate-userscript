@@ -1,8 +1,6 @@
 @import '~assets/styles/variables.less';
 
 .label-box {
-  font-size: 0;
-
   &.size {
     &-small .label {
       font-size: 12px;
@@ -66,7 +64,6 @@
   }
 
   .label {
-    position: relative;
     line-height: 1.5;
     margin-right: 5px;
 
@@ -77,7 +74,6 @@
     .tooltip {
       user-select: none;
       pointer-events: none;
-      position: absolute;
       right: 0;
       top: 50%;
       z-index: 200000;
@@ -88,7 +84,6 @@
       transition: 0.12s;
       background: rgba(black, 0.5);
       filter: drop-shadow(0 0 0.5px black);
-      color: white;
       line-height: 16px;
       white-space: nowrap;
 

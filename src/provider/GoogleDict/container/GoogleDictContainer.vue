@@ -1,14 +1,14 @@
 <template>
-  <div class="google-dict-result-container flex-co">
+  <div class="google-dict-box flex-col relative">
     <scrollable
+      class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
       :scroll-bar-style="{ 'padding-right': '2px' }"
-      class="scroll-container"
     >
       <template #default="{ scrollBar }">
-        <div class="google-content-simple">
+        <div class="google-content-simple relative flex-auto">
           <div
-            class="expand-button flex flex-center"
+            class="expand-button flex flex-center absolute"
             :class="{ 'with-scroll-bar': scrollBar }"
             title="展开"
             @click="handleOpenModal"
@@ -17,9 +17,9 @@
             <i-icon :svg="icon.expand_128456" />
           </div>
           <!-- simple result -->
-          <div class="google-content-box">
+          <div class="google-content-box text-13">
             <div
-              class="dictionary-data-box flex-co align-stretch"
+              class="dictionary-data-box flex-col items-stretch"
               v-if="containerData.data && containerData.data.length"
             >
               <div
@@ -29,7 +29,7 @@
               >
                 <!-- entry -->
                 <div
-                  class="entry-box flex-co align-stretch"
+                  class="entry-box flex-col items-stretch"
                   v-if="dicDataItem.entries && dicDataItem.entries.length"
                 >
                   <simple-entry
@@ -42,7 +42,7 @@
               </div>
             </div>
 
-            <div class="translate-data-box" v-if="containerData.translateData">
+            <div class="translate-data-box text-14" v-if="containerData.translateData">
               <div
                 v-if="
                   containerData.translateData.sentences

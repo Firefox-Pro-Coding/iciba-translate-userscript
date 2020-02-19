@@ -1,12 +1,8 @@
 @import '~assets/styles/variables.less';
 
 .iciba-main-wrap {
-  position: absolute;
   display: block;
   z-index: 9999;
-  overflow: visible;
-  box-sizing: border-box;
-  transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1) opacity;
   font-family: 'Microsoft Yahei', 'Arial', sans-serif;
 
   &.m-enter {
@@ -31,15 +27,11 @@
 }
 
 .iciba-main {
-  transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1) transform;
-  position: absolute;
   top: 0;
   left: 0;
   width: 300px;
   height: auto;
   letter-spacing: 0;
-  font-size: @font-size-base;
-  line-height: 1.5;
   filter:
     drop-shadow(0 2px 1.5px rgba(0, 0, 0, 0.14))
     drop-shadow(0 4px 2.5px rgba(0, 0, 0, 0.15))
@@ -49,24 +41,17 @@
 .input-box {
   @input-container-height: 28px;
 
-  position: relative;
-  flex: 0 0 auto;
-  background: white;
   height: @input-container-height;
   z-index: 1;
 
   .iciba-input-box {
-    position: relative;
-    flex: 1 1 auto;
     border-bottom: 1px solid @border-level-1;
 
     .search-input {
       letter-spacing: 0;
-      width: auto;
-      flex: 1 1 auto;
       padding: 0 25px 0 7px;
-      line-height: @input-container-height;
-      height: @input-container-height;
+      line-height: @input-container-height - 1;
+      height: @input-container-height - 1;
       z-index: 2;
       color: @main-level-1;
 
@@ -89,13 +74,11 @@
     .setting-button {
       @offset: 1px;
 
-      position: absolute;
       right: 0;
       top: 0;
       height: @input-container-height - @offset;
       width: @input-container-height - @offset;
       z-index: 2;
-      cursor: pointer;
       opacity: 0.2;
 
       &:hover {
@@ -110,11 +93,9 @@
   }
 
   .provider-box {
-    flex: 0 0 auto;
     border-bottom: 1px solid @border-level-1;
 
     .provider-button {
-      position: relative;
       width: @input-container-height;
       flex: 0 0 @input-container-height;
       height: @input-container-height;
@@ -165,10 +146,9 @@
 
 .content-box {
   background: @background-level-5;
-  position: relative;
   z-index: 2;
 
-  .content-box {
+  .content-item {
     color: @main-level-1;
     padding: 7px 10px 10px 10px;
   }
@@ -179,7 +159,6 @@
 }
 
 .stick-box {
-  position: absolute;
   right: 0;
   top: 0;
   transform: translate(100%, 0);
@@ -208,7 +187,6 @@
   }
 
   .stick {
-    position: relative;
     height: 28px;
     width: 28px;
 

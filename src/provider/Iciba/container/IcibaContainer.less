@@ -2,7 +2,6 @@
 
 .r-container {
   color: @main-level-1;
-  position: relative;
   padding: 7px 0 10px 10px;
 }
 
@@ -17,19 +16,10 @@
   @small-margin: 3px;
   @tiny-margin: 2px;
 
-  flex: 1 1 auto;
-  font-size: 14px;
-  line-height: 1.5;
   word-break: break-word;
 
   > div:first-child {
     margin-top: 0 !important;
-  }
-
-  .pinyin {
-    color: #888;
-    font-size: 12px;
-    margin-bottom: 2px;
   }
 
   .symbols-box {
@@ -41,8 +31,6 @@
       }
 
       .pronunciation-box {
-        flex: 0 0 auto;
-
         .pronunciation-item {
           @pron-height: 20px;
 
@@ -83,8 +71,6 @@
       }
 
       .part-box {
-        flex: 0 0 auto;
-
         .part-item {
           @part-line-height: 20px;
 
@@ -93,14 +79,12 @@
           }
 
           .part-item-part {
-            flex: 0 0 auto;
             padding: 0 6px 0 0;
             color: @main-level-4;
             line-height: @part-line-height;
           }
 
           .part-item-meaning-box {
-            flex: 1 1 auto;
             line-height: @part-line-height;
 
             .meaning-item {
@@ -123,8 +107,6 @@
   }
 
   .translation-box {
-    align-items: stretch;
-
     .translate-tip {
       margin: 5px 0 0 0;
       text-align: right;

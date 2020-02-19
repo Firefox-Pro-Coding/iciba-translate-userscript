@@ -1,9 +1,9 @@
 <template>
   <div class="sense-item flex">
-    <div class="sense-item-number">{{ index + 1 }}.</div>
-    <div class="sense-item-box flex-co align-stretch">
+    <div class="sense-item-number text-right">{{ index + 1 }}.</div>
+    <div class="sense-item-box flex-col flex-auto items-stretch">
       <!-- difinition -->
-      <div class="definition-box flex-co align-stretch">
+      <div class="definition-box flex-auto flex-col items-stretch">
         <div class="difinition">
           <!-- labelSet -->
           <label-set
@@ -17,7 +17,7 @@
             :fragment="s.definition.fragments"
           />
 
-          <div class="sense-labels q-inline">
+          <div class="sense-labels inline">
             <!-- domain class -->
             <labels
               v-if="s.domainClasses && s.domainClasses.length"
@@ -51,14 +51,14 @@
         <foldable :fold="store.state.googleDict.subsenseFolded" v-if="s.subsenses && s.subsenses.length">
           <div class="subsense-box" v-if="s.subsenses && s.subsenses.length">
             <div
+              class="subsense-item flex mt-2px"
               v-for="(subsense, subsenseIndex) in sense.subsenses"
               :key="subsenseIndex"
-              class="subsense-item flex"
             >
-              <div class="subsense-number pr-2 grey--text text--darken-1">
+              <div class="subsense-number pr-2 text-grey-600">
                 {{ subsenseIndex + 1 }})
               </div>
-              <div class="subsense-item-container flex-co align-stretch">
+              <div class="subsense-item-container flex-col flex-auto items-stretch">
                 <!-- definition -->
                 <div class="subsense-definition">
                   <!-- label -->
@@ -68,7 +68,7 @@
                     :label-set="subsense.labelSet"
                   />
 
-                  <span class="subsense-definition-split">&nbsp;</span>
+                  <span class="split text-0">&nbsp;</span>
 
                   <fragment
                     class="subsense-frag"
@@ -78,7 +78,7 @@
                   <!-- etymology -->
                   <etymology :etymology="subsense.etymology" />
 
-                  <div class="subsense-labels q-inline">
+                  <div class="subsense-labels inline">
                     <!-- domain class -->
                     <labels
                       v-if="subsense.domainClasses && subsense.domainClasses.length"

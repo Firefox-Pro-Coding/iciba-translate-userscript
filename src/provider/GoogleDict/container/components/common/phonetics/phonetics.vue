@@ -1,6 +1,6 @@
 <template>
   <!-- phonetics -->
-  <div class="phonetics-component-box flex" v-if="props.phonetics && props.phonetics.length">
+  <div class="phonetics-box flex" v-if="props.phonetics && props.phonetics.length">
     <div class="phonetics flex">
       {{ `${props.phonetics.map(v => `/${v.text}/`).join(' ')}` }}
     </div>
@@ -21,7 +21,7 @@
 <style lang="less" scoped>
   @import '~assets/styles/variables.less';
 
-  .phonetics-component-box {
+  .phonetics-box {
     height: 20px;
     line-height: 20px;
     align-items: center;

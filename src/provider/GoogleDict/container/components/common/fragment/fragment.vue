@@ -1,10 +1,10 @@
 <template>
   <div
-    class="fragment-box q-inline"
+    class="fragment-box inline"
     v-if="props.fragment && props.fragment.length"
   >
     <div
-      class="q-inline fragment-item"
+      class="inline fragment-item"
       v-for="frag in props.fragment"
       :key="frag.text"
     >
@@ -14,7 +14,7 @@
         @click="handleEntryLinkClick($event, frag.text)"
         v-html="frag.text"
       />
-      <div class="q-inline" v-else v-html="frag.text" />
+      <div class="inline" v-else v-html="frag.text" />
     </div>
   </div>
 </template>

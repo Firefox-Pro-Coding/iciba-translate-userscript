@@ -1,7 +1,7 @@
 <template>
-  <div class="scrollable-container">
+  <div class="scrollable relative flex">
     <div
-      class="scroll-bar-track"
+      class="scroll-bar-track absolute"
       :class="{
         moving: state.drag.start,
         'no-scroll-bar': state.noScrollBar,
@@ -9,7 +9,7 @@
       ref="scroll-bar-track"
     >
       <div
-        class="scroll-bar-thumb"
+        class="scroll-bar-thumb rounded-full flex justify-center absolute"
         v-if="!state.noScrollBar"
         ref="scroll-bar-thumb"
         @wheel.prevent
@@ -18,22 +18,22 @@
       />
     </div>
     <div
+      class="scroll-content flex-col flex-auto overflow-hidden"
       :class="{
-        'scroll-content flex-co': true,
         'no-scroll-bar': state.noScrollBar,
       }"
     >
       <div
         v-no-overscroll
         :style="scrollBoxStyle"
-        class="scroll-box flex"
+        class="scroll-box flex flex-auto"
         @scroll="calcScrollbar"
         @mouseenter="calcScrollbar"
         ref="container"
       >
         <div
           :style="contentWrapperStyle"
-          class="content-wrapper"
+          class="w-full"
         >
           <slot :scroll-bar="!state.noScrollBar" />
         </div>

@@ -1,12 +1,26 @@
 <template>
   <div
-    class="label-box q-inline"
+    class="label-box inline text-0"
     :class="[colorClass, sizeClass]"
     v-if="labels && labels.length"
   >
+    <!--
+      prevent purgecss
+      size-small
+      size-medium
+      size-large
+      color-main
+      color-plain
+      color-light
+      color-lightpink
+      color-lightblue
+      color-geographics
+      color-registers
+      color-subjects
+     -->
     <template v-for="(label, index) in props.labels">
       <div
-        class="label inline-flex"
+        class="label relative inline-flex"
         :class="[
           labelClass,
           index === labels.length - 1 ? 'last' : '',
@@ -18,7 +32,7 @@
         {{ label }}
         <span class="label-split" :innerHTML.prop="' '" />
         <transition name="popover">
-          <div class="tooltip q-flex" v-if="state.tipMap[label]">
+          <div class="tooltip absolute text-white" v-if="state.tipMap[label]">
             {{ type }}
           </div>
         </transition>
