@@ -28,10 +28,11 @@ class VocabularyProvider extends AbstractTranslateProvider {
   public async translate(word: string) {
     await Promise.resolve()
     const autocomplete = await this.getAutocomplete(word)
-    const definition = await this.getDefinition(word)
+    const newWord = autocomplete[0].word
+    const definition = await this.getDefinition(newWord)
     return () => {
       containerData.data = copy({
-        word,
+        word: newWord,
         autocomplete,
         definition,
       })
@@ -90,8 +91,8 @@ class VocabularyProvider extends AbstractTranslateProvider {
     div.innerHTML = html
 
     const data = {
-      short: nonNull(div.querySelector('.definitionsContainer .section.blurb .short')).textContent ?? '',
-      long: nonNull(div.querySelector('.definitionsContainer .section.blurb .long')).textContent ?? '',
+      short: div.querySelector('.definitionsContainer .section.blurb .short')?.textContent?.trim() ?? undefined,
+      long: div.querySelector('.definitionsContainer .section.blurb .long')?.textContent?.trim() ?? undefined,
       audio: nonNull(div.querySelector('.dynamictext .audio')).getAttribute('data-audio'),
       groups: Array.from(div.querySelectorAll('.definitions .section.definition .group')).map((group, index) => ({
         index,
