@@ -88,6 +88,10 @@ const useTranslateService = () => {
       }
     }, (e: Error) => {
       state.errorMessage = `${provider.uniqName}: ${e.message}`
+      if (process.env.NODE_ENV === 'development') {
+        // eslint-disable-next-line no-console
+        console.error(e)
+      }
     }).finally(() => {
       if (state.activeTask?.id !== newTask.id) {
         return
