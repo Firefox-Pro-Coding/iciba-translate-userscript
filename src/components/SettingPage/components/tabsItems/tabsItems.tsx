@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { createComponent, reactive, watch, onMounted } from '@vue/composition-api'
+import { defineComponent, reactive, watch, onMounted } from '@vue/composition-api'
 
 interface WindowStyle {
   position: string
@@ -8,7 +8,7 @@ interface WindowStyle {
   animating: boolean
 }
 
-export default createComponent({
+export default defineComponent({
   model: {},
   props: {
     value: {

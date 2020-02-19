@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import checked_291201 from '~/assets/img/checked_291201.svg'
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   icons: Array<{ icon: string, key: string }>
 }
 
-export default createComponent({
+export default defineComponent({
   model: {},
   props: {
     value: {

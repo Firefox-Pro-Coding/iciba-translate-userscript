@@ -1,11 +1,11 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import { MorphUnit } from '~/provider/GoogleDict/types'
 
 interface Props {
   morphUnits: Array<MorphUnit>
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GMorphUnits',
   props: {
     morphUnits: null,

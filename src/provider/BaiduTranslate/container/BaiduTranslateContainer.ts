@@ -1,4 +1,4 @@
-import { createComponent, reactive } from '@vue/composition-api'
+import { defineComponent, reactive } from '@vue/composition-api'
 
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
@@ -16,7 +16,7 @@ const icon = {
   play_speaker_filled_audio_tool_59284,
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'BaiduTranslateContainer',
   components: {
     Scrollable,

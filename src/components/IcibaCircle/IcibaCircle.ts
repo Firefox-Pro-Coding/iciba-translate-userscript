@@ -1,5 +1,5 @@
 import {
-  createComponent,
+  defineComponent,
   onMounted,
   onUnmounted,
   computed,
@@ -29,7 +29,7 @@ const removeSelection = () => {
   selection.removeAllRanges()
 }
 
-export default createComponent({
+export default defineComponent({
   setup: (_props, setupContext) => {
     const $refs: {
       circle: HTMLDivElement

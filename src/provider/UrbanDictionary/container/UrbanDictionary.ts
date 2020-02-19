@@ -1,4 +1,4 @@
-import { createComponent, reactive, onMounted, onUnmounted } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, onUnmounted } from '@vue/composition-api'
 
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
@@ -17,7 +17,7 @@ const icon = {
   like_179655,
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'UrbanDictionaryContainer',
   components: {
     Scrollable,

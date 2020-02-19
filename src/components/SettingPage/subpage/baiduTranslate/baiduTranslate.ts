@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { createComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
 import { defaultData, store } from '~/service/store'
 import { settingPageService } from '~/service/settingPage'
@@ -18,7 +18,7 @@ const iconOptions = Object
     key: k,
   }))
 
-export default createComponent({
+export default defineComponent({
   name: 'BaiduTranslateSettings',
   components: {
     IconRadioGroup,

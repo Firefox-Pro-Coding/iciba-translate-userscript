@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import { createComponent, reactive, onMounted, createElement } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, createElement } from '@vue/composition-api'
 import { bus, EVENTS } from '~/service/globalBus'
 
-export const lazyLoadHoc = (Component: any, event: EVENTS) => createComponent({
+export const lazyLoadHoc = (Component: any, event: EVENTS) => defineComponent({
   name: `LazyLoadHoc${Component.name ? `_${Component.name as string}` : ''}`,
   setup: (_props, setupContext) => {
     const state = reactive({

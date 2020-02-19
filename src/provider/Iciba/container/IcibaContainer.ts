@@ -1,4 +1,4 @@
-import { createComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from '@vue/composition-api'
 
 import { got } from '~/util/gmapi'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
@@ -37,7 +37,7 @@ const normalizeCiyi = (p: ChineseCi['ciyi']) => (typeof p === 'string' ? [p] : p
 const isSymbolCN = (p: any): p is SymbolCN => 'word_symbol' in p
 const isSymbolEN = (p: any): p is SymbolEN => !('word_symbol' in p)
 
-export default createComponent({
+export default defineComponent({
   name: 'IcibaContainer',
   components: {
     Scrollable,

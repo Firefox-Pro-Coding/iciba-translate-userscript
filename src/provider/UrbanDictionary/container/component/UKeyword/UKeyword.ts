@@ -1,10 +1,10 @@
-import { createComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
 import urbanBus, { NAMES } from '../../bus'
 import { bus, EVENTS } from '~/service/globalBus'
 import { PROVIDER } from '~/constants/constant'
 
-export default createComponent({
+export default defineComponent({
   name: 'UrbanDictionaryKeyword',
   props: {
     content: {

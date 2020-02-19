@@ -909,10 +909,10 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.5.1.tgz#6fae50892d1841f4b38b298e2f78fb68c5960cb9"
   integrity sha1-b65QiS0YQfSziymOL3j7aMWWDLk=
 
-"@types/node@^13.7.1":
-  version "13.7.1"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.7.1.tgz?cache=0&sync_timestamp=1581451868257&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.7.1.tgz#238eb34a66431b71d2aaddeaa7db166f25971a0d"
-  integrity sha1-I46zSmZDG3HSqt3qp9sWbyWXGg0=
+"@types/node@^13.7.2":
+  version "13.7.2"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.7.2.tgz?cache=0&sync_timestamp=1582059326378&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.7.2.tgz#50375b95b5845a34efda2ffb3a087c7becbc46c6"
+  integrity sha1-UDdblbWEWjTv2i/7Ogh8e+y8RsY=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -968,40 +968,40 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
-"@typescript-eslint/eslint-plugin@^2.19.2":
-  version "2.19.2"
-  resolved "https://registry.npm.taobao.org/@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-2.19.2.tgz#e279aaae5d5c1f2547b4cff99204e1250bc7a058"
-  integrity sha1-4nmqrl1cHyVHtM/5kgThJQvHoFg=
+"@typescript-eslint/eslint-plugin@^2.20.0":
+  version "2.20.0"
+  resolved "https://registry.npm.taobao.org/@typescript-eslint/eslint-plugin/download/@typescript-eslint/eslint-plugin-2.20.0.tgz#a522d0e1e4898f7c9c6a8e1ed3579b60867693fa"
+  integrity sha1-pSLQ4eSJj3ycao4e01ebYIZ2k/o=
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.19.2"
+    "@typescript-eslint/experimental-utils" "2.20.0"
     eslint-utils "^1.4.3"
     functional-red-black-tree "^1.0.1"
     regexpp "^3.0.0"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@2.19.2":
-  version "2.19.2"
-  resolved "https://registry.npm.taobao.org/@typescript-eslint/experimental-utils/download/@typescript-eslint/experimental-utils-2.19.2.tgz#4611d44cf0f0cb460c26aa7676fc0a787281e233"
-  integrity sha1-RhHUTPDwy0YMJqp2dvwKeHKB4jM=
+"@typescript-eslint/experimental-utils@2.20.0":
+  version "2.20.0"
+  resolved "https://registry.npm.taobao.org/@typescript-eslint/experimental-utils/download/@typescript-eslint/experimental-utils-2.20.0.tgz#3b6fa5a6b8885f126d5a4280e0d44f0f41e73e32"
+  integrity sha1-O2+lpriIXxJtWkKA4NRPD0HnPjI=
   dependencies:
     "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.19.2"
+    "@typescript-eslint/typescript-estree" "2.20.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/parser@^2.19.2":
-  version "2.19.2"
-  resolved "https://registry.npm.taobao.org/@typescript-eslint/parser/download/@typescript-eslint/parser-2.19.2.tgz#21f42c0694846367e7d6a907feb08ab2f89c0879"
-  integrity sha1-IfQsBpSEY2fn1qkH/rCKsvicCHk=
+"@typescript-eslint/parser@^2.20.0":
+  version "2.20.0"
+  resolved "https://registry.npm.taobao.org/@typescript-eslint/parser/download/@typescript-eslint/parser-2.20.0.tgz?cache=0&sync_timestamp=1581963992113&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40typescript-eslint%2Fparser%2Fdownload%2F%40typescript-eslint%2Fparser-2.20.0.tgz#608e5bb06ba98a415b64ace994c79ab20f9772a9"
+  integrity sha1-YI5bsGupikFbZKzplMeasg+Xcqk=
   dependencies:
     "@types/eslint-visitor-keys" "^1.0.0"
-    "@typescript-eslint/experimental-utils" "2.19.2"
-    "@typescript-eslint/typescript-estree" "2.19.2"
+    "@typescript-eslint/experimental-utils" "2.20.0"
+    "@typescript-eslint/typescript-estree" "2.20.0"
     eslint-visitor-keys "^1.1.0"
 
-"@typescript-eslint/typescript-estree@2.19.2":
-  version "2.19.2"
-  resolved "https://registry.npm.taobao.org/@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-2.19.2.tgz#67485b00172f400474d243c6c0be27581a579350"
-  integrity sha1-Z0hbABcvQAR00kPGwL4nWBpXk1A=
+"@typescript-eslint/typescript-estree@2.20.0":
+  version "2.20.0"
+  resolved "https://registry.npm.taobao.org/@typescript-eslint/typescript-estree/download/@typescript-eslint/typescript-estree-2.20.0.tgz#90a0f5598826b35b966ca83483b1a621b1a4d0c9"
+  integrity sha1-kKD1WYgms1uWbKg0g7GmIbGk0Mk=
   dependencies:
     debug "^4.1.1"
     eslint-visitor-keys "^1.1.0"
@@ -1090,10 +1090,10 @@
     source-map "~0.6.1"
     vue-template-es2015-compiler "^1.9.0"
 
-"@vue/composition-api@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.npm.taobao.org/@vue/composition-api/download/@vue/composition-api-0.3.4.tgz#43d2c3377173cfe1d02e51e3342bcf0fbde9c4b6"
-  integrity sha1-Q9LDN3Fzz+HQLlHjNCvPD73pxLY=
+"@vue/composition-api@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.npm.taobao.org/@vue/composition-api/download/@vue/composition-api-0.4.0.tgz#04e600106687de719d587c704296aa4a5b37ca28"
+  integrity sha1-BOYAEGaH3nGdWHxwQpaqSls3yig=
   dependencies:
     tslib "^1.9.3"
 
@@ -3019,10 +3019,10 @@ eslint-plugin-react@^7.18.3:
     resolve "^1.14.2"
     string.prototype.matchall "^4.0.2"
 
-eslint-plugin-vue@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.npm.taobao.org/eslint-plugin-vue/download/eslint-plugin-vue-6.2.0.tgz#d700a61c0354da125c764385f06fa751c6b2753a"
-  integrity sha1-1wCmHANU2hJcdkOF8G+nUcaydTo=
+eslint-plugin-vue@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.npm.taobao.org/eslint-plugin-vue/download/eslint-plugin-vue-6.2.1.tgz#ca802df5c33146aed1e56bb21d250c1abb6120a3"
+  integrity sha1-yoAt9cMxRq7R5WuyHSUMGrthIKM=
   dependencies:
     natural-compare "^1.4.0"
     semver "^5.6.0"
@@ -4096,10 +4096,10 @@ invert-kv@^2.0.0:
   resolved "https://registry.npm.taobao.org/invert-kv/download/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha1-c5P1r6Weyf9fZ6J2INEcIm4+7AI=
 
-io-ts@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npm.taobao.org/io-ts/download/io-ts-2.1.0.tgz#5623a8eb567686651364443dac6826c2bdc40d64"
-  integrity sha1-ViOo61Z2hmUTZEQ9rGgmwr3EDWQ=
+io-ts@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npm.taobao.org/io-ts/download/io-ts-2.1.1.tgz#d8230ed5a30f43ceaeeeb1094bb6b4937d9c604a"
+  integrity sha1-2CMO1aMPQ86u7rEJS7a0k32cYEo=
 
 ipaddr.js@1.9.0:
   version "1.9.0"

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { createComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
 import { settingPageService } from '~/service/settingPage'
 import { defaultData, store } from '~/service/store'
@@ -25,7 +25,7 @@ const iconOptions = Object
     key: k,
   }))
 
-export default createComponent({
+export default defineComponent({
   name: 'GoogleDictSettings',
   components: {
     IconRadioGroup,

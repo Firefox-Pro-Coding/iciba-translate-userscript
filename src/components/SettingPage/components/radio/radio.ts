@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import mdi_baseline_radio_button_checked_24px from '~/assets/img/mdi/baseline-radio_button_checked-24px.svg'
 import mdi_baseline_radio_button_unchecked_24px from '~/assets/img/mdi/baseline-radio_button_unchecked-24px.svg'
@@ -8,7 +8,7 @@ const icon = {
   unchecked: mdi_baseline_radio_button_unchecked_24px,
 }
 
-export default createComponent({
+export default defineComponent({
   model: {},
   props: {
     value: null,

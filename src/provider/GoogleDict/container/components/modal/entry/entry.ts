@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'
@@ -21,7 +21,7 @@ interface PropsSubEntry {
 
 type Props = PropsEntry | PropsSubEntry
 
-export default createComponent({
+export default defineComponent({
   name: 'GEntry',
   components: {
     labels,

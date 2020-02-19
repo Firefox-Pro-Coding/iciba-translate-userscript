@@ -1,8 +1,8 @@
-import { createComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
 import { got } from '~/util/gmapi'
 
 
-export default createComponent({
+export default defineComponent({
   name: 'GImageLoader',
   props: {
     url: {

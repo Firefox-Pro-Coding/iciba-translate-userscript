@@ -1,4 +1,4 @@
-import { createComponent, reactive } from '@vue/composition-api'
+import { defineComponent, reactive } from '@vue/composition-api'
 import { bus, EVENTS } from '~/service/globalBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { PROVIDER } from '~/constants/constant'
@@ -16,7 +16,7 @@ const icon = {
   play_speaker_filled_audio_tool_59284,
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GoogleTranslateContainer',
   components: { Scrollable },
   setup: () => {

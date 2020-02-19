@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import { PROVIDER } from '~/constants/constant'
 import { store } from '~/service/store'
@@ -12,7 +12,7 @@ interface Props {
   thesaurusEntries: Array<ThesaurusEntry>
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GThesaurus',
   components: {
     Labels,

@@ -1,5 +1,5 @@
 import {
-  createComponent,
+  defineComponent,
   onMounted,
   onUnmounted,
   onUpdated,
@@ -8,7 +8,7 @@ import {
 } from '@vue/composition-api'
 import getScrollBarWidth from '~/util/scrollbar-width'
 
-export default createComponent({
+export default defineComponent({
   props: {
     scrollBarStyle: {
       type: Object,

@@ -1,12 +1,12 @@
 import {
   reactive,
   onMounted,
-  createComponent,
+  defineComponent,
   computed,
   watch,
 } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   model: {},
   props: {
     value: {

@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import { createComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
 import { settingPageService } from '~/service/settingPage'
 import { defaultData, store } from '~/service/store'
 import copy from '~/util/copy'
 import { providerOptions } from '~/constants/constant'
 
-export default createComponent({
+export default defineComponent({
   name: 'CoreSettings',
   setup: () => {
     const state = reactive({

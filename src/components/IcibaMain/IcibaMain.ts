@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {
-  createComponent,
+  defineComponent,
   onMounted,
   onUnmounted,
   computed,
@@ -32,7 +32,7 @@ interface Props {
 }
 
 /* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-unused-vars */
-export default createComponent({
+export default defineComponent({
   name: 'IcibaMain',
   components: {
     LoadingText,

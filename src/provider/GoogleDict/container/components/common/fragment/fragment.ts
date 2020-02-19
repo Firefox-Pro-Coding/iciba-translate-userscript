@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 // import googleDictBus from '~/provider/GoogleDict/bus'
 import { bus, EVENTS } from '~/service/globalBus'
 import { PROVIDER } from '~/constants/constant'
@@ -8,7 +8,7 @@ interface Props {
   fragment: Array<Fragment>
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GFragment',
   props: {
     fragment: null,

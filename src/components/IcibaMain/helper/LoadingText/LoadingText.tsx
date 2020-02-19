@@ -1,11 +1,11 @@
 import {
-  createComponent,
+  defineComponent,
   onMounted,
   onUnmounted,
   reactive,
 } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   setup: () => {
     let intervalId = 0
     const state = reactive({

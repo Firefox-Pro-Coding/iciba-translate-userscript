@@ -1,9 +1,9 @@
 import {
-  createComponent,
+  defineComponent,
   computed,
 } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   props: {
     svg: {
       type: String,

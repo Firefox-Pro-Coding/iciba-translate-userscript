@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { createComponent, reactive, onMounted, computed } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, computed } from '@vue/composition-api'
 import { bus, EVENTS, OpenGoogleDictModalAction } from '~/service/globalBus'
 import { store } from '~/service/store'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
@@ -25,7 +25,7 @@ const icon = {
   plus,
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GoogleDictModal',
   components: {
     imageLoader,

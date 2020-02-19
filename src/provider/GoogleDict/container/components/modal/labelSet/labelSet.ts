@@ -1,4 +1,4 @@
-import { createComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from '@vue/composition-api'
 import labels from '../labels/labels.vue'
 import { LabelSet } from '~/provider/GoogleDict/types'
 
@@ -8,7 +8,7 @@ interface Props {
   color: string
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GLabelSet',
   components: {
     labels,

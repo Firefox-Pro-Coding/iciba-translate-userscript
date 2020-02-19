@@ -1,5 +1,5 @@
 import {
-  createComponent,
+  defineComponent,
   reactive,
   onMounted,
 } from '@vue/composition-api'
@@ -23,7 +23,7 @@ import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
 import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
 import Vocabulary from './subpage/vocabulary/vocabulary.vue'
 
-export default createComponent({
+export default defineComponent({
   components: {
     ITabs,
     ITab,

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { createComponent, reactive } from '@vue/composition-api'
+import { defineComponent, reactive } from '@vue/composition-api'
 import Toast from './toast.vue'
 
 import { shadowRoot } from '~/service/shadowRoot'
@@ -20,7 +20,7 @@ const state = reactive({
   toasts: [] as Array<ToastItem>,
 })
 
-const ToastContainer = createComponent({
+const ToastContainer = defineComponent({
   setup: () => () => (
     <div class="toast-container">
       {state.toasts.map((item) => (

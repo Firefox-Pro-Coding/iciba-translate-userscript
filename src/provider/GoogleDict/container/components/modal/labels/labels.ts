@@ -1,4 +1,4 @@
-import { createComponent, reactive, computed, watch } from '@vue/composition-api'
+import { defineComponent, reactive, computed, watch } from '@vue/composition-api'
 
 interface Props {
   labels: Array<string>
@@ -7,7 +7,7 @@ interface Props {
   size: string
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GLabels',
   props: {
     labels: {

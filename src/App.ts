@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import { lazyLoadHoc } from '~/util/lazyLoadHoc'
 
 import IcibaMain from '~/components/IcibaMain/IcibaMain.vue'
@@ -9,7 +9,7 @@ import SettingPage from '~/components/SettingPage/SettingPage.vue'
 import GoogleDictModal from '~/provider/GoogleDict/container/GoogleDictModal.vue'
 import { EVENTS } from './service/globalBus'
 
-export default createComponent({
+export default defineComponent({
   name: 'IcibaAppRoot',
   components: {
     IcibaMain: lazyLoadHoc(IcibaMain, EVENTS.TRANSLATE),

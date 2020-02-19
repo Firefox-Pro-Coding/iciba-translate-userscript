@@ -1,6 +1,6 @@
-import { createComponent, reactive, onMounted, onUnmounted, watch, computed } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, onUnmounted, watch, computed } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   name: 'Slider',
   props: {
     value: {

@@ -1,6 +1,6 @@
-import { createComponent, reactive, watch, onMounted } from '@vue/composition-api'
+import { defineComponent, reactive, watch, onMounted } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   name: 'GFoldable',
   props: {
     fold: {

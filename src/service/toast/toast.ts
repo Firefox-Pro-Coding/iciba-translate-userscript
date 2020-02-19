@@ -1,6 +1,6 @@
-import { createComponent, reactive, onMounted } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   props: {
     text: {
       type: String,

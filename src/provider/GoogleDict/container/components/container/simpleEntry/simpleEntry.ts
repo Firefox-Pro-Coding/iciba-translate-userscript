@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import phonetics from '../../common/phonetics/phonetics.vue'
 import fragment from '../../common/fragment/fragment.vue'
@@ -9,7 +9,7 @@ interface Props {
   isSubentry: boolean
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GSimpleEntry',
   components: {
     phonetics,

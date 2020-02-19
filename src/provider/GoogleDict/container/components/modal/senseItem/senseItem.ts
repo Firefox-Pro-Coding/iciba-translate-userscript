@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'
@@ -16,7 +16,7 @@ interface Props {
   index: number
 }
 
-export default createComponent({
+export default defineComponent({
   name: 'GSenseItem',
   components: {
     labels,

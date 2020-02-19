@@ -1,4 +1,4 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import { bus, EVENTS } from '~/service/globalBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
@@ -7,7 +7,7 @@ import simpleEntry from './components/container/simpleEntry/simpleEntry.vue'
 
 import expand_128456 from '~/assets/img/expand_128456.svg'
 
-export default createComponent({
+export default defineComponent({
   name: 'GoogleDictContainer',
   components: {
     simpleEntry,

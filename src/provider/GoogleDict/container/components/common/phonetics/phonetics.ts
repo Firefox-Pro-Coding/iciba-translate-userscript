@@ -1,9 +1,9 @@
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 import googleDictBus, { EVENTS } from '~/provider/GoogleDict/bus'
 
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
-export default createComponent({
+export default defineComponent({
   name: 'GPhonetics',
   props: {
     phonetics: null,

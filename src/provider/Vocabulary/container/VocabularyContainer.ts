@@ -1,11 +1,11 @@
-import { createComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from '@vue/composition-api'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import containerData from '../containerData'
 import play from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 import { audioCacheService } from '~/service/audioCache'
 import { got } from '~/util/gmapi'
 
-export default createComponent({
+export default defineComponent({
   name: 'VocabularyContainer',
   components: {
     Scrollable,
