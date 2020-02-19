@@ -9,7 +9,7 @@
       ref="scroll-bar-track"
     >
       <div
-        class="scroll-bar-thumb rounded-full flex justify-center absolute"
+        class="scroll-bar-thumb rounded-full flex justify-center absolute ease-in-out duration-100"
         v-if="!state.noScrollBar"
         ref="scroll-bar-thumb"
         @wheel.prevent
