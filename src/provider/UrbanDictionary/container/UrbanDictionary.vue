@@ -1,7 +1,7 @@
 <template>
   <div class="urban-dictionary-box flex-col relative" ref="container">
     <scrollable class="scroll-container">
-      <div class="content-box flex-col flex-auto text-14">
+      <div class="content-box flex-col flex-auto text-14 break-words">
         <template v-if="result.data && result.data.list">
           <template v-for="(item, index) of result.data.list">
             <div

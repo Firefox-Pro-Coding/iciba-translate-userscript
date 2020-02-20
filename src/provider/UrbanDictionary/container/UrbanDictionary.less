@@ -7,47 +7,40 @@
 
 .scroll-container {
   max-height: 250px;
+}
 
-  .content-box {
-    // local variables
-    @big-margin: 6px;
-    @medium-margin: 4px;
-    @small-margin: 3px;
-    @tiny-margin: 2px;
+.content-box {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
 
-    word-break: break-word;
-    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+  .row {
+    .keyword {
+      text-decoration: underline;
+      cursor: pointer;
 
-    .row {
-      .keyword {
-        text-decoration: underline;
-        cursor: pointer;
-
-        &.definition-keyword {
-          color: hsl(207, 65%, 65%);
-        }
-
-        &.example-keyword {
-          color: hsl(207, 60%, 75%);
-        }
+      &.definition-keyword {
+        color: hsl(207, 65%, 65%);
       }
 
-      .definition {
-        line-height: 20px;
+      &.example-keyword {
+        color: hsl(207, 60%, 75%);
       }
     }
 
-    .divider {
-      height: 1px;
-      width: 100%;
+    .definition {
+      line-height: 20px;
     }
+  }
 
-    .thumb {
-      opacity: 0.7;
+  .divider {
+    height: 1px;
+    width: 100%;
+  }
 
-      &.thumb-down {
-        transform: translate(0, 3px) rotate(180deg);
-      }
+  .thumb {
+    opacity: 0.7;
+
+    &.thumb-down {
+      transform: translate(0, 3px) rotate(180deg);
     }
   }
 }

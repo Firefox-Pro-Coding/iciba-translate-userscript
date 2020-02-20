@@ -6,13 +6,13 @@
       :scroll-bar-style="{ 'padding-right': '2px' }"
     >
       <div
-        class="main-box flex-col flex-auto text-14 text-grey-800"
+        class="main-box flex-col flex-auto text-14 text-grey-800 break-words"
         v-if="data"
       >
         <div class="word flex items-center">
-          <span>{{ data.word }}</span>
+          <span class="text-15">{{ data.word }}</span>
           <div
-            class="play-sound flex flex-center"
+            class="play-sound flex flex-center mt-2px ml-1"
             v-if="data.definition.audio"
             @click="handlePlay(data.definition.audio)"
           >
@@ -28,7 +28,7 @@
         </div>
 
         <div
-          class="long-def mt-1 pt-2px text-12"
+          class="long-def mt-1 pt-2px text-13"
           v-if="data.definition.long"
         >
           <span class="text-grey-center">
@@ -37,7 +37,7 @@
         </div>
 
         <div
-          class="group-item mt-1 flex text-12"
+          class="group-item mt-1 flex text-13"
           v-for="group of data.definition.groups"
           :key="group.index"
         >

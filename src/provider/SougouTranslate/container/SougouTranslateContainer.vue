@@ -1,5 +1,5 @@
 <template>
-  <div class="sougou-translate-box flex-col relative">
+  <div class="sougou-translate-box flex-col relative break-words">
     <scrollable
       class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"

@@ -5,7 +5,7 @@
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
       :scroll-bar-style="{ 'padding-right': '2px' }"
     >
-      <div class="content-box flex-col flex-auto text-14">
+      <div class="content-box flex-col flex-auto text-14 break-words">
         <div
           class="language-select-box select-none w-full"
           v-show="state.visible"

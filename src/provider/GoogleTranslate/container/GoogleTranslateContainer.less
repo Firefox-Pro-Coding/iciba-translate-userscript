@@ -9,75 +9,71 @@
   max-height: 250px;
 }
 
-.content-box {
-  word-break: break-word;
+.language-select-box {
+  user-select: none;
 
-  .language-select-box {
-    user-select: none;
+  .title-box {
+    .cancel-button {
+      padding: 1px 6px;
+      cursor: pointer;
 
-    .title-box {
-      .cancel-button {
-        padding: 1px 6px;
-        cursor: pointer;
-
-        &:hover {
-          background: @background-level-2;
-        }
-      }
-    }
-
-    .items-box {
-      .language-item {
-        cursor: pointer;
-        flex: 0 0 33.3333%;
-        padding: 1px 0;
-
-        &.active {
-          background: @background-level-3;
-        }
-
-        &:hover {
-          background: @background-level-2;
-        }
+      &:hover {
+        background: @background-level-2;
       }
     }
   }
 
-  .bottom-info-box {
-    .tts-box {
-      user-select: none;
-      opacity: 0.9;
+  .items-box {
+    .language-item {
+      cursor: pointer;
+      flex: 0 0 33.3333%;
+      padding: 1px 0;
 
-      .play-sound {
-        cursor: pointer;
-        opacity: 0.45;
+      &.active {
+        background: @background-level-3;
+      }
 
-        .audio-icon {
-          margin: 0 0 0 2px;
-          opacity: 0.8;
-        }
-
-        &:hover {
-          opacity: 0.7;
-        }
-
-        &:active {
-          background-position: center calc(50% + 1px);
-          opacity: 1;
-        }
+      &:hover {
+        background: @background-level-2;
       }
     }
+  }
+}
 
-    .language-info-box {
-      user-select: none;
-      color: #BBB;
+.bottom-info-box {
+  .tts-box {
+    user-select: none;
+    opacity: 0.9;
 
-      .language {
-        cursor: pointer;
+    .play-sound {
+      cursor: pointer;
+      opacity: 0.45;
 
-        &:hover {
-          color: @primary;
-        }
+      .audio-icon {
+        margin: 0 0 0 2px;
+        opacity: 0.8;
+      }
+
+      &:hover {
+        opacity: 0.7;
+      }
+
+      &:active {
+        background-position: center calc(50% + 1px);
+        opacity: 1;
+      }
+    }
+  }
+
+  .language-info-box {
+    user-select: none;
+    color: #BBB;
+
+    .language {
+      cursor: pointer;
+
+      &:hover {
+        color: @primary;
       }
     }
   }
