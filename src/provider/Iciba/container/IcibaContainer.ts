@@ -2,6 +2,7 @@ import { defineComponent, computed } from '@vue/composition-api'
 
 import { got } from '~/util/gmapi'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
+import IcibaPronunciation from './components/pronunciation-item.vue'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
 import containerData from '../containerData'
@@ -40,6 +41,7 @@ const isSymbolEN = (p: any): p is SymbolEN => !('word_symbol' in p)
 export default defineComponent({
   name: 'IcibaContainer',
   components: {
+    IcibaPronunciation,
     Scrollable,
   },
   setup: () => {
