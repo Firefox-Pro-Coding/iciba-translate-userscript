@@ -5,8 +5,8 @@
   >
     <div
       class="inline fragment-item"
-      v-for="frag in props.fragment"
-      :key="frag.text"
+      v-for="(frag, fIndex) in props.fragment"
+      :key="fIndex"
     >
       <a
         v-if="frag.isEntryLink"

@@ -1,50 +1,42 @@
 @import '~assets/styles/variables.less';
 
-.thesaurus-container {
-  .thesaurus-entry-item {
-    & + .thesaurus-entry-item {
-      margin: 2px 0 0 0;
-    }
+.th-btn {
+  &.opened {
+    background: #E4E4E4;
+  }
+}
 
-    .example-box {
-      .example-item {
-        color: @main-level-4;
+.tab-group {
+  line-height: 24px;
 
-        .example-padding-text {
-          color: transparent;
-          margin-right: 20px;
-          user-select: none;
-        }
-
-        .example-text {
-          color: @main-level-4;
-        }
-      }
+  &.selected {
+    .tab-group-index {
+      background: #E4E4E4;
     }
   }
 }
 
-.thesaurus-item {
-  .thesaurus-item-title {
-    color: @main-level-4;
-    margin-right: 20px;
+.tab-item {
+  line-height: 24px;
+
+  &.selected {
+    background: #E4E4E4;
+  }
+}
+
+.th-popup {
+  transform: translate(0, 100%);
+  z-index: 1;
+
+  &.p-enter, &.p-leave-to {
+    opacity: 0;
   }
 
-  .thesaurus-word-box {
-    display: list-item;
+  .content-box {
+    padding: 3px 6px 4px 6px;
 
-    .thesaurus-word-item {
-      & + .thesaurus-word-item {
-        margin-top: 2px;
-      }
-
-      .nym-register {
-        margin-right: 5px;
-      }
-
-      .nym-item {
-        color: @main-level-4;
-      }
+    .thesaurus-word-item + .thesaurus-word-item {
+      margin-top: 1px;
     }
   }
 }

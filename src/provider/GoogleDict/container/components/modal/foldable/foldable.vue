@@ -1,9 +1,9 @@
 <template>
   <div
-    class="foldable-box w-full overflow-hidden ease-in-out duration-300"
+    class="foldable-box w-full ease-in-out duration-300"
     :style="state.foldableStyle"
   >
-    <div ref="wrapper" class="foldable-wrapper">
+    <div ref="wrapper" class="foldable-wrapper flex-col">
       <slot />
     </div>
   </div>

@@ -16,20 +16,23 @@ export default defineComponent({
     const state = reactive({
       foldTimeout: 0,
       duration: 300,
-      foldableStyle: { height: 'auto' },
+      foldableStyle: {
+        height: 'auto',
+        overflow: 'visible',
+      },
     })
 
     const doFold = () => {
       if (state.foldTimeout) {
         window.clearTimeout(state.foldTimeout)
       }
+
+      state.foldableStyle.overflow = 'hidden'
       if ($refs.wrapper) {
-        state.foldableStyle = {
-          height: `${$refs.wrapper.clientHeight}px`,
-        }
+        state.foldableStyle.height = `${$refs.wrapper.clientHeight}px`
       }
       state.foldTimeout = window.setTimeout(() => {
-        state.foldableStyle = { height: '0' }
+        state.foldableStyle.height = '0'
       })
     }
 
@@ -37,13 +40,15 @@ export default defineComponent({
       if (state.foldTimeout) {
         window.clearTimeout(state.foldTimeout)
       }
+
       if ($refs.wrapper) {
-        state.foldableStyle = {
-          height: `${$refs.wrapper.clientHeight}px`,
-        }
+        state.foldableStyle.height = `${$refs.wrapper.clientHeight}px`
       }
       state.foldTimeout = window.setTimeout(() => {
-        state.foldableStyle = { height: 'auto' }
+        state.foldableStyle = {
+          height: 'auto',
+          overflow: 'visible',
+        }
       }, state.duration)
     }
 
@@ -57,9 +62,15 @@ export default defineComponent({
 
     onMounted(() => {
       if (props.fold) {
-        state.foldableStyle = { height: '0' }
+        state.foldableStyle = {
+          height: '0',
+          overflow: 'hidden',
+        }
       } else {
-        state.foldableStyle = { height: 'auto' }
+        state.foldableStyle = {
+          height: 'auto',
+          overflow: 'visible',
+        }
       }
     })
 

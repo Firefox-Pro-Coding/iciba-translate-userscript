@@ -1,6 +1,7 @@
 <template>
   <!-- entry item -->
   <div class="entry-item">
+    <!-- sub-entry-lemma -->
     <div class="sub-entry-lemma" v-if="isSub">
       {{ e.lemma }}
       <labels
@@ -12,9 +13,21 @@
       />
     </div>
 
+    <!-- sub-entry-triggeringPhrases -->
+    <div class="triggering-phrases text-grey-500" v-if="e.triggeringPhrases">
+      <span
+        class="t-phrase-item"
+        v-for="(phrase, pIndex) of e.triggeringPhrases"
+        :key="pIndex"
+      >
+        {{ phrase }}{{ pIndex !== e.triggeringPhrases.length - 1 ? ',' : '' }}
+      </span>
+    </div>
+
+
     <!-- headword -->
     <div class="headword flex flex-wrap">
-      <div class="headword-word text-28">
+      <div class="headword-word text-28" :title="e.locale">
         {{ e.syllabifiedHeadword || e.headword }}
       </div>
       <div
@@ -42,7 +55,7 @@
 
     <!-- sub-sense-list -->
     <div
-      class="sub-sense-list flex-col items-stretch"
+      class="sub-sense-list mt-1 flex-col items-stretch"
       v-if="isSub && e.senseFamily && e.senseFamily.senses && e.senseFamily.senses.length"
     >
       <!-- senseFamily labelSet -->

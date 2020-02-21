@@ -9,11 +9,13 @@ import RadioGroup from '~/components/SettingPage/components/radioGroup/radioGrou
 import Radio from '~/components/SettingPage/components/radio/radio.vue'
 import Slider from '~/components/SettingPage/components/slider/slider.vue'
 import IIcon from '~/components/IIcon/IIcon.vue'
+import { clickOutside } from './util/diretives/click-outside'
 
 Vue.use(VueCompositionApi)
 
 Vue.directive('ripple', Ripple)
 Vue.directive('no-overscroll', NoOverscroll)
+Vue.directive('click-outside', clickOutside)
 
 Vue.component('i-checkbox', Checkbox)
 Vue.component('i-radio-group', RadioGroup)
