@@ -26,7 +26,7 @@
                   />
                 </template>
               </div>
-              <div class="text-12 text-grey-center mt-1">
+              <div class="text-12 text-grey mt-1">
                 <template v-for="(exampleItem, exampleIndex) of extractDefinition(item.example)">
                   <UKeyword
                     :content="exampleItem.text"
@@ -41,7 +41,7 @@
                   />
                 </template>
               </div>
-              <div class="flex mt-1 items-center text-12 text-grey-center">
+              <div class="flex mt-1 items-center text-12 text-grey">
                 <div class="mr-2 pr-1 flex flex-none">
                   <i-icon
                     size="14"

@@ -154,6 +154,7 @@ export const subSense = excess(intersection([
     conciseDefinition: string,
     domainClasses: array(string),
     exampleGroups: array(exampleGroup),
+    etymology,
     labelSet,
     morphUnits: array(morphUnit),
     semanticClasses: array(string),

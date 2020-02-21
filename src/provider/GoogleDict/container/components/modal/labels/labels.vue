@@ -31,13 +31,20 @@
       >
         {{ label }}
         <span class="label-split" :innerHTML.prop="' '" />
-        <transition name="popover">
-          <div class="tooltip absolute text-white" v-if="state.tipMap[label]">
+        <transition name="p">
+          <div
+            class="tooltip rounded-5 absolute text-white select-none ease-in-out"
+            v-if="state.tipMap[label]"
+          >
             {{ type }}
           </div>
         </transition>
       </div>
-      <span class="label-split" :key="`${index}-split`" :innerHTML.prop="' '" />
+      <span
+        class="label-split text-0"
+        :key="`${index}-split`"
+        :innerHTML.prop="' '"
+      />
     </template>
   </div>
 </template>

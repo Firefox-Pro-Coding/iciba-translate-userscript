@@ -1,7 +1,6 @@
 @import '~assets/styles/variables.less';
 
 .iciba-main-wrap {
-  display: block;
   z-index: 9999;
 
   &.m-enter {
@@ -18,10 +17,6 @@
 
   &.m-leave, &.m-enter-to {
     opacity: 1;
-
-    .iciba-main {
-      transform: none;
-    }
   }
 }
 
@@ -150,10 +145,6 @@
   .content-item {
     color: @main-level-1;
     padding: 7px 10px 10px 10px;
-  }
-
-  .google-dict-result-container {
-    flex: 1 1 0;
   }
 }
 

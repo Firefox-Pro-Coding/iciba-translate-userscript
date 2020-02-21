@@ -55,7 +55,7 @@
                 v-for="(tItem, tIndex) in state.current.items"
                 :key="tIndex"
               >
-                <div class="tw-index text-grey-center mr-1">
+                <div class="tw-index text-grey mr-1">
                   {{ tIndex + 1 }}.
                 </div>
                 <div>
@@ -96,11 +96,11 @@
                 v-for="(example, eIndex) in state.current.items"
                 :key="eIndex"
               >
-                <div class="example-text mr-1 index text-grey-center">
+                <div class="example-text mr-1 index text-grey">
                   {{ eIndex + 1 }}.
                 </div>
                 <div
-                  class="example-text flex-auto text-grey-center"
+                  class="example-text flex-auto text-grey"
                   v-html="`${addQoute(example)}`"
                 />
               </div>

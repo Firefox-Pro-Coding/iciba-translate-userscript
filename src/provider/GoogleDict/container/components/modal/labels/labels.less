@@ -2,61 +2,61 @@
 
 .label-box {
   &.size {
-    &-small .label {
+    &-small /deep/ .label {
       font-size: 12px;
       padding: 1px 4px;
     }
 
-    &-medium .label {
+    &-medium /deep/ .label {
       font-size: 12px;
       padding: 2px 6px;
     }
 
-    &-large .label {
+    &-large /deep/ .label {
       font-size: 14px;
       padding: 3px 8px;
     }
   }
 
   &.color {
-    &-main .label {
+    &-main /deep/ .label {
       background: hsl(206, 50%, 60%);
       color: white;
     }
 
-    &-plain .label {
+    &-plain /deep/ .label {
       background: @background-level-4;
       color: @main-level-3;
     }
 
-    &-light .label {
+    &-light /deep/ .label {
       background: @background-level-5;
       color: @main-level-4-5;
     }
 
-    &-lightpink .label {
+    &-lightpink /deep/ .label {
       background: #FBE0E0;
       color: @main-level-3;
     }
 
-    &-lightblue .label {
+    &-lightblue /deep/ .label {
       background: #D7EAF9;
       color: @main-level-3;
     }
 
-    &-geographics .label {
+    &-geographics /deep/ .label {
       background: #DDF7BA;
       color: @main-level-3;
       text-transform: uppercase;
     }
 
-    &-registers .label {
+    &-registers /deep/ .label {
       background: @background-level-4;
       color: @main-level-3;
       text-transform: uppercase;
     }
 
-    &-subjects .label {
+    &-subjects /deep/ .label {
       background: #F2E0FA;
       color: @main-level-3;
       text-transform: uppercase;
@@ -64,7 +64,6 @@
   }
 
   .label {
-    line-height: 1.5;
     margin-right: 5px;
 
     &.last {
@@ -72,14 +71,12 @@
     }
 
     .tooltip {
-      user-select: none;
-      pointer-events: none;
       right: 0;
       top: 50%;
       z-index: 200000;
+      pointer-events: none;
       padding: 0 4px 0 3px;
       margin-right: -7px;
-      border-radius: 5px;
       transform: translate(100%, -50%);
       transition: 0.12s;
       background: rgba(black, 0.5);
@@ -101,17 +98,13 @@
         border-right-color: rgba(black, 0.5);
       }
 
-      &.popover-leave-to, &.popover-enter {
+      &.p-leave-to, &.p-enter {
         opacity: 0;
       }
 
-      &.popover-enter-to, &.popover-leave {
+      &.p-enter-to, &.p-leave {
         opacity: 1;
       }
     }
-  }
-
-  .label-split {
-    font-size: 0;
   }
 }

@@ -78,7 +78,11 @@
                   <!-- etymology -->
                   <etymology :etymology="subsense.etymology" />
 
-                  <div class="subsense-labels inline">
+                  <div
+                    class="subsense-labels inline"
+                    v-if="subsense.domainClasses && subsense.domainClasses.length
+                      && subsense.semanticClasses && subsense.semanticClasses.length"
+                  >
                     <!-- domain class -->
                     <labels
                       v-if="subsense.domainClasses && subsense.domainClasses.length"

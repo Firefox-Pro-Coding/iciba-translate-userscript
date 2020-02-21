@@ -25,9 +25,9 @@ export default (data: any, word: string) => {
     })
   }
 
+  /* eslint-disable no-console, no-alert */
   console.log(c)
   if (isLeft(result)) {
-    /* eslint-disable no-console, no-alert */
     alert('type error')
     console.log(c)
     console.log(result)

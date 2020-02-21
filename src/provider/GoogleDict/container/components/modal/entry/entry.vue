@@ -24,7 +24,6 @@
       </span>
     </div>
 
-
     <!-- headword -->
     <div class="headword flex flex-wrap">
       <div class="headword-word text-28" :title="e.locale">
@@ -42,7 +41,7 @@
     <phonetics class="phonetics-box mb-1" :phonetics="e.phonetics" />
 
     <!-- labelSet -->
-    <div class="entry-label-set-box" v-if="e.labelSet && e.labelSet.length">
+    <div class="entry-label-set-box" v-if="e.labelSet">
       <label-set
         class="entry-label-set"
         size="large"

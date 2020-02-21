@@ -113,7 +113,7 @@
                   {{ ciyiIndex + 1 }}.
                 </span>
                 <template v-if="seperateChineseJieshi(item)[0]">
-                  <span class="pr-1 text-grey-center">[{{ seperateChineseJieshi(item)[0] }}]</span>
+                  <span class="pr-1 text-grey">[{{ seperateChineseJieshi(item)[0] }}]</span>
                 </template>
                 <span>{{ seperateChineseJieshi(item)[1] }}</span>
               </div>
@@ -131,7 +131,7 @@
           <div class="translate-content">
             {{ result.baseInfo.translate_result }}
           </div>
-          <div class="translate-tip">
+          <div class="translate-tip text-12">
             {{ result.baseInfo.translate_msg.replace(/。$/, '') }}
           </div>
         </div>

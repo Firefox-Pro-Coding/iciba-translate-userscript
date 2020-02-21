@@ -31,7 +31,7 @@
           class="long-def mt-1 pt-2px text-13"
           v-if="data.definition.long"
         >
-          <span class="text-grey-center">
+          <span class="text-grey">
             {{ data.definition.long }}
           </span>
         </div>

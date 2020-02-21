@@ -21,6 +21,14 @@ module.exports = {
       '3px': '3px',
     },
 
+    borderRadius: {
+      'none': '0',
+      'full': '9999px',
+      ...Array(20).fill(0)
+        .map((_v, i) => i + 1)
+        .reduce((p, c) => ({ ...p, [c]: `${c}px` }), {}),
+    },
+
     boxShadow: {
       '0': '0px 0px 0px 0px rgba(0,0,0,.2),0px 0px 0px 0px rgba(0,0,0,.14),0px 0px 0px 0px rgba(0,0,0,.12)',
       '1': '0px 2px 1px -1px rgba(0,0,0,.2),0px 1px 1px 0px rgba(0,0,0,.14),0px 1px 3px 0px rgba(0,0,0,.12)',
@@ -59,7 +67,7 @@ module.exports = {
           '300': '#EEEEEE', // lighten-3
           '400': '#E0E0E0', // lighten-2
           '500': '#BDBDBD', // lighten-1
-          'center': '#9E9E9E',
+          'default': '#9E9E9E',
           '600': '#757575', // darken-1
           '700': '#616161', // darken-2
           '800': '#424242', // darken-3

@@ -21,7 +21,7 @@
           />
         </div>
         <div
-          class="example-item text-grey-center"
+          class="example-item text-grey"
           v-html="example"
           v-for="(example, exampleIndex) in exampleGroupItem.examples"
           :key="exampleIndex"
