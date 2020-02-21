@@ -5,8 +5,9 @@ import { store } from '~/service/store'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
-import imageLoader from './components/modal/imageLoader/imageLoader.vue'
-import entry from './components/modal/entry/entry.vue'
+import ImageLoader from './components/modal/imageLoader/imageLoader.vue'
+import UsageOvertime from './components/modal/usageOvertime/usageOvertime.vue'
+import Entry from './components/modal/entry/entry.vue'
 import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 
 import minus from '~/assets/img/minus.svg'
@@ -28,8 +29,9 @@ const icon = {
 export default defineComponent({
   name: 'GoogleDictModal',
   components: {
-    imageLoader,
-    entry,
+    ImageLoader,
+    UsageOvertime,
+    Entry,
     Scrollable,
   },
   setup: () => {

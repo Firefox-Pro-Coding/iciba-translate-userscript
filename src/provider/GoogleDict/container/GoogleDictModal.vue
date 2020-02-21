@@ -59,27 +59,11 @@
                 </div>
 
                 <!-- usage over time -->
-                <div class="usage-overtime flex-col items-stretch" v-if="dicDataItem.usageOverTimeImage">
-                  <div class="usage-title text-18">
-                    Use over time for
-                    <span class="bg-grey-500 text-white px-1">
-                      {{ dicDataItem.queryTerm }}
-                    </span>
-                  </div>
-                  <div
-                    :style="{
-                      height: `${dicDataItem.usageOverTimeImage.tablet.height / 2 }px`,
-                      width: `${dicDataItem.usageOverTimeImage.tablet.width / 2 }px`,
-                    }"
-                    class="usage-img-wrapper"
-                  >
-                    <image-loader
-                      :height="dicDataItem.usageOverTimeImage.tablet.height"
-                      :width="dicDataItem.usageOverTimeImage.tablet.width"
-                      :url="`https://www.gstatic.com/onebox/dictionary/${dicDataItem.usageOverTimeImage.tablet.url}`"
-                    />
-                  </div>
-                </div>
+                <usage-overtime
+                  v-if="dicDataItem.usageOverTimeImage"
+                  :image="dicDataItem.usageOverTimeImage"
+                  :term="dicDataItem.queryTerm"
+                />
               </div>
             </div>
 
