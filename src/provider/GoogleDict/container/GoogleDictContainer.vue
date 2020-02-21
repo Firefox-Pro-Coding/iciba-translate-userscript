@@ -41,19 +41,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="translate-data-box text-14" v-if="containerData.translateData">
-              <div
-                v-if="
-                  containerData.translateData.sentences
-                    && containerData.translateData.sentences[0]
-                    && containerData.translateData.sentences[0].trans
-                "
-              >
-                {{ containerData.translateData.sentences[0].trans }}
-              </div>
-              <div class="translate-source">google字典无结果，以上内容来自谷歌翻译</div>
-            </div>
           </div>
         </div>
       </template>

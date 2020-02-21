@@ -12,7 +12,6 @@ import { PROVIDER } from '~/constants/constant'
 class IcibaTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.ICIBA
   public containerComponentClass = IcibaContainer
-  public settingDescriptor = []
 
   public async translate(word: string) {
     /*

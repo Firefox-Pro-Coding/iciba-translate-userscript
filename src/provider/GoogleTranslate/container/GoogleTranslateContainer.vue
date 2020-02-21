@@ -47,6 +47,13 @@
           </template>
         </div>
 
+        <div
+          class="google-dict-tip mt-2px mb-3px text-12 text-right text-grey"
+          v-if="containerData.fromDict"
+        >
+          google字典无结果，以上内容来自谷歌翻译
+        </div>
+
         <div class="bottom-info-box flex justify-between" v-show="!state.visible">
           <div class="tts-box flex">
             <div

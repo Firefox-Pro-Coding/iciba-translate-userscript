@@ -14,7 +14,6 @@ import { UrbanDictionaryResult } from './type'
 class UrbanDictionaryProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.URBAN_DICTIONARY
   public containerComponentClass = UrbanDictionaryContainer
-  public settingDescriptor = []
 
   public async translate(word: string) {
     /* https://api.urbandictionary.com/v0/define?term={word} */

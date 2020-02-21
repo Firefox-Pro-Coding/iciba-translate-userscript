@@ -81,7 +81,7 @@ const useTranslateService = () => {
     state.activeTask = newTask
     state.loading = true
     state.errorMessage = ''
-    return provider.translate(word, payload).then((callback) => {
+    return provider.translate(word, payload as any).then((callback) => {
       if (state.activeTask?.id === newTask.id) {
         callback()
         state.activeProvider = provider.uniqName

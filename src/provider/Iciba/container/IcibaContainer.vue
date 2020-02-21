@@ -131,7 +131,7 @@
           <div class="translate-content">
             {{ result.baseInfo.translate_result }}
           </div>
-          <div class="translate-tip text-12">
+          <div class="translate-tip mt-1 text-right text-12 text-grey">
             {{ result.baseInfo.translate_msg.replace(/。$/, '') }}
           </div>
         </div>

@@ -13,8 +13,9 @@ import GoogleTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 import { audioCacheService } from '~/service/audioCache'
 
 export interface GoogleTranslateParams {
-  sl: string
-  tl: string
+  sl?: string
+  tl?: string
+  fromDict?: boolean
 }
 
 interface GetGoogleTranslateResult {
@@ -22,6 +23,7 @@ interface GetGoogleTranslateResult {
   sl: string
   tl: string
   dl: string
+  fromDict: boolean
 }
 
 class GoogleTranslateProvider extends AbstractTranslateProvider {
@@ -51,7 +53,6 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
   }
 
   public uniqName = PROVIDER.GOOGLE_TRANSLATE
-  public settingDescriptor = []
   public containerComponentClass = GoogleTranslateContainer
 
   public constructor() {
@@ -70,6 +71,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       containerData.detectedLanguage = data.dl as GOOGLE_LANGUAGES
       containerData.sourceLanguage = data.sl
       containerData.targetLanguage = data.tl as GOOGLE_LANGUAGES
+      containerData.fromDict = data.fromDict
     }
   }
 
@@ -81,12 +83,8 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       throw new Error(`获取token失败！请检查网络。(${(e as Error).message})`)
     }
 
-    const sl = payload
-      ? payload.sl
-      : 'auto'
-    const tl = payload
-      ? payload.tl
-      : store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
+    const sl = payload?.sl ?? 'auto'
+    const tl = payload?.tl ?? store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
 
     const query = {
       ...GoogleTranslateProvider.apiQuery,
@@ -135,6 +133,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       sl,
       tl,
       dl: detectedLanguage,
+      fromDict: payload?.fromDict ?? false,
     }
   }
 

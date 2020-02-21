@@ -18,7 +18,6 @@ export interface BaiduTranslateParams {
 
 class BaiduTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.BAIDU_TRANSLATE
-  public settingDescriptor = []
   public containerComponentClass = BaiduTranslateContainer
 
   public constructor() {

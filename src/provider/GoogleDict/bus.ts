@@ -36,5 +36,4 @@ class GoogleDictBus {
   ) => this.bus.emit(`${event}`, a)
 }
 
-const bus = new GoogleDictBus()
-export default bus
+export const googleDictBus = new GoogleDictBus()

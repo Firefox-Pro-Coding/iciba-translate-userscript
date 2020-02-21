@@ -27,7 +27,6 @@ export interface BingTranslateParams {
 
 class GoogleTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.BING_TRANSLATE
-  public settingDescriptor = []
   public containerComponentClass = GoogleTranslateContainer
 
   private un = 1

@@ -20,7 +20,6 @@ export interface SougouTranslateParams {
 
 class SougouTranslateProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.SOUGOU_TRANSLATE
-  public settingDescriptor = []
   public containerComponentClass = SougouTranslateContainer
   public key = ''
 

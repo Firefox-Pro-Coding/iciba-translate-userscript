@@ -23,10 +23,8 @@ const nonNull = <T>(p: T | undefined | null) => {
 class VocabularyProvider extends AbstractTranslateProvider {
   public uniqName = PROVIDER.VOCABULARY
   public containerComponentClass = IcibaContainer
-  public settingDescriptor = []
 
-  public async translate(word: string) {
-    await Promise.resolve()
+  public async translate(word: string, _payload: unknown) {
     const autocomplete = await this.getAutocomplete(word)
     const newWord = autocomplete[0].word
     const definition = await this.getDefinition(newWord)

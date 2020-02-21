@@ -7,6 +7,7 @@ const data = {
   sourceLanguage: '',
   targetLanguage: '' as GOOGLE_LANGUAGES,
   detectedLanguage: '' as GOOGLE_LANGUAGES,
+  fromDict: false,
 }
 
 export default Vue.observable(data)
