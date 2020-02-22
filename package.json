@@ -1,6 +1,6 @@
 {
   "name": "iciba-translate-userscript",
-  "version": "4.5.3",
+  "version": "4.6.0",
   "description": "iciba划词翻译",
   "main": "server.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "analyze": "webpack --config ./config/webpack.prod.analyze.conf.js",
     "analyze:nocat": "cross-env cat=false webpack --config ./config/webpack.prod.analyze.conf.js",
     "clean:dist": "rimraf ./dist",
-    "lint:eslint": "eslint --ext \"js,jsx,ts,tsx,vue\" ./src/",
+    "lint": "eslint --ext \"js,jsx,ts,tsx,vue\" ./src/",
     "postinstall": "rimraf ./node_modules/.cache/"
   },
   "keywords": [
