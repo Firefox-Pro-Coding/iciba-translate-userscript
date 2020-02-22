@@ -1,5 +1,6 @@
-const config = require('./webpack.base.conf')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const config = require('./webpack.base.conf')
 
 process.env.NODE_ENV = 'production'
 
@@ -18,6 +19,16 @@ config.optimization.minimizer('terser')
     },
   }])
 
+config.module.rule('eslint')
+  .test(/\.(tsx?|jsx?)$/)
+  .enforce('pre')
+  .use('eslint')
+  .loader('eslint-loader')
+  .end()
+  .exclude.add(/node_modules/)
+
+config.plugin('fork-ts-checker-webpack-plugin')
+  .use(ForkTsCheckerWebpackPlugin)
 
 config.mode('production')
 config.devtool('#source-map')
