@@ -1,8 +1,8 @@
-import Vue from 'vue'
+import { reactive } from '@vue/composition-api'
 import { UrbanDictionaryResult } from './type'
 
 const data = {
   data: null as (UrbanDictionaryResult | null),
 }
 
-export default Vue.observable(data)
+export default reactive(data)

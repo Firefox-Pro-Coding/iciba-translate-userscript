@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { reactive } from '@vue/composition-api'
 
 const data = {
   data: [] as Array<string>,
@@ -8,4 +8,4 @@ const data = {
   targetLanguage: '',
 }
 
-export default Vue.observable(data)
+export default reactive(data)

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { reactive } from '@vue/composition-api'
 import { exact, type, TypeOf } from 'io-ts'
 import { getValue, setValue } from '~/util/gmapi'
 import copy from '~/util/copy'
@@ -43,21 +43,28 @@ export const defaultData: Config = {
   [PROVIDER.VOCABULARY]: vocabulary.defaultData,
 }
 
-class Store {
-  /** global states */
-  public state = Vue.observable({
+const setDefaultDataByPath = (path: Array<string>, _data: any) => {
+  let data = _data
+  let dData = defaultData as any
+  for (let i = 0; i < path.length - 1; i += 1) {
+    data = data[path[i]]
+    dData = dData[path[i]]
+  }
+  const lastPath = path[path.length - 1]
+  data[lastPath] = copy(dData[lastPath])
+}
+
+const useStore = () => {
+  const state = reactive({
     googleDict: {
       subsenseFolded: false,
       thesaurusFolded: false,
     },
   })
 
-  /** config */
-  public config!: Config
+  let config!: Config
 
-  private defaultData = defaultData
-
-  public async loadConfig() {
+  const loadConfig = async () => {
     let dataString
     try {
       dataString = await getValue(GM_VALUE_KEY, '') as string
@@ -81,28 +88,24 @@ class Store {
     if (report._tag === 'Left') {
       report.left.forEach((e) => {
         const pathArray = e.context.map((path) => path.key).filter((v) => v)
-        this.setDefaultDataByPath(pathArray, data)
+        setDefaultDataByPath(pathArray, data)
       })
     }
 
-    this.config = Vue.observable(data)
+    return reactive(data)
   }
 
-  public saveConfig() {
-    const dataString = JSON.stringify(this.config)
+  const saveConfig = () => {
+    const dataString = JSON.stringify(config)
     setValue(GM_VALUE_KEY, dataString)
   }
 
-  private setDefaultDataByPath(path: Array<string>, _data: any) {
-    let data = _data
-    let dData = this.defaultData as any
-    for (let i = 0; i < path.length - 1; i += 1) {
-      data = data[path[i]]
-      dData = dData[path[i]]
-    }
-    const lastPath = path[path.length - 1]
-    data[lastPath] = copy(dData[lastPath])
+  return {
+    state,
+    config,
+    loadConfig,
+    saveConfig,
   }
 }
 
-export const store = new Store()
+export const store = useStore()

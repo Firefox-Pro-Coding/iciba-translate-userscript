@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { reactive } from '@vue/composition-api'
 import { BING_LANGUAGES } from '~/constants/bingLanguages'
 
 const data = {
@@ -9,4 +9,4 @@ const data = {
   detectedLanguage: '' as BING_LANGUAGES,
 }
 
-export default Vue.observable(data)
+export default reactive(data)

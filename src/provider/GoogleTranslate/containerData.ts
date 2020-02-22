@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { reactive } from '@vue/composition-api'
 import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 
 const data = {
@@ -10,4 +10,4 @@ const data = {
   fromDict: false,
 }
 
-export default Vue.observable(data)
+export default reactive(data)
