@@ -1,16 +1,15 @@
-import querystring from 'querystring'
-
+import { stringify } from 'querystring'
 import { PROVIDER, GOOGLE_TRANSLATE_HOST_MAP } from '~/constants/constant'
 import { store } from '~/service/store'
+import { audioCacheService } from '~/service/audioCache'
 import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 import { got } from '~/util/gmapi'
 
-import AbstractTranslateProvider from '../AbstractTranslateProvider'
+import { ProviderType } from '../provider'
 import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
 import GoogleTranslateBus, { PlayAudioPayload, NAMES } from './bus'
-import { audioCacheService } from '~/service/audioCache'
 
 export interface GoogleTranslateParams {
   sl?: string
@@ -26,59 +25,43 @@ interface GetGoogleTranslateResult {
   fromDict: boolean
 }
 
-class GoogleTranslateProvider extends AbstractTranslateProvider {
-  public static apiQuery = {
-    client: 'webapp',
-    pc: '1',
-    otf: '1',
-    ssel: '0',
-    tsel: '0',
-    kc: '1',
-    dt: [
-      'at',
-      'bd',
-      'ex',
-      'ld',
-      'md',
-      'qca',
-      'rw',
-      'rm',
-      'ss',
-      't',
-      'gt',
-    ],
-    // ie: 'UTF-8',
-    // oe: 'UTF-8',
-    // source: 'btn',
-  }
+const apiQuery = {
+  client: 'webapp',
+  pc: '1',
+  otf: '1',
+  ssel: '0',
+  tsel: '0',
+  kc: '1',
+  dt: [
+    'at',
+    'bd',
+    'ex',
+    'ld',
+    'md',
+    'qca',
+    'rw',
+    'rm',
+    'ss',
+    't',
+    'gt',
+  ],
+  // ie: 'UTF-8',
+  // oe: 'UTF-8',
+  // source: 'btn',
+}
 
-  public uniqName = PROVIDER.GOOGLE_TRANSLATE
-  public containerComponentClass = GoogleTranslateContainer
+const useGoogleTranslateProvider = (): ProviderType => {
+  const getApiDomain = () => GOOGLE_TRANSLATE_HOST_MAP[
+    store.config[PROVIDER.GOOGLE_TRANSLATE].translateHost
+  ]
 
-  public constructor() {
-    super()
-
-    // bind methods
-    this.handlePlay = this.handlePlay.bind(this)
-    GoogleTranslateBus.on(NAMES.PLAY_AUDIO, this.handlePlay)
-  }
-
-  public async translate(word: string, payload?: GoogleTranslateParams) {
-    const data = await this.getGoogleTranslateResult(word, payload)
-    return () => {
-      containerData.data = data.result
-      containerData.inputText = word
-      containerData.detectedLanguage = data.dl as GOOGLE_LANGUAGES
-      containerData.sourceLanguage = data.sl
-      containerData.targetLanguage = data.tl as GOOGLE_LANGUAGES
-      containerData.fromDict = data.fromDict
-    }
-  }
-
-  private async getGoogleTranslateResult(word: string, payload?: GoogleTranslateParams): Promise<GetGoogleTranslateResult> {
+  const getGoogleTranslateResult = async (
+    word: string,
+    payload?: GoogleTranslateParams,
+  ): Promise<GetGoogleTranslateResult> => {
     let token
     try {
-      token = await getToken(word, this.getApiDomain())
+      token = await getToken(word, getApiDomain())
     } catch (e) {
       throw new Error(`获取token失败！请检查网络。(${(e as Error).message})`)
     }
@@ -87,7 +70,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     const tl = payload?.tl ?? store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
 
     const query = {
-      ...GoogleTranslateProvider.apiQuery,
+      ...apiQuery,
       sl,
       tl,
       hl: tl,
@@ -95,12 +78,12 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       q: word,
     }
 
-    const url = `https://${this.getApiDomain()}/translate_a/single?${querystring.stringify(query)}`
+    const url = `https://${getApiDomain()}/translate_a/single?${stringify(query)}`
 
     const result = await got<any>({
       method: 'GET',
       headers: {
-        'Referer': `https://${this.getApiDomain()}/`,
+        'Referer': `https://${getApiDomain()}/`,
         'Cache-Control': 'max-age=0',
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
@@ -117,7 +100,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
         && detectedLanguage === tl
         && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
     ) {
-      return this.getGoogleTranslateResult(word, {
+      return getGoogleTranslateResult(word, {
         sl,
         tl: store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage,
       })
@@ -137,11 +120,19 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     }
   }
 
-  private getApiDomain() {
-    return GOOGLE_TRANSLATE_HOST_MAP[store.config[PROVIDER.GOOGLE_TRANSLATE].translateHost]
+  const translate = async (word: string, payload?: GoogleTranslateParams) => {
+    const data = await getGoogleTranslateResult(word, payload)
+    return () => {
+      containerData.data = data.result
+      containerData.inputText = word
+      containerData.detectedLanguage = data.dl as GOOGLE_LANGUAGES
+      containerData.sourceLanguage = data.sl
+      containerData.targetLanguage = data.tl as GOOGLE_LANGUAGES
+      containerData.fromDict = data.fromDict
+    }
   }
 
-  private async handlePlay(params: PlayAudioPayload) {
+  const handlePlay = async (params: PlayAudioPayload) => {
     const volume = 0.8
     const query = {
       ie: 'UTF-8',
@@ -152,9 +143,9 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       q: params.word,
       tl: params.tl,
       textlen: params.word.length,
-      tk: await getToken(params.word, this.getApiDomain()),
+      tk: await getToken(params.word, getApiDomain()),
     }
-    const url = `https://${this.getApiDomain()}/translate_tts?${querystring.stringify(query)}`
+    const url = `https://${getApiDomain()}/translate_tts?${stringify(query)}`
 
     if (audioCacheService.play(url, volume)) {
       return
@@ -163,7 +154,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     const response = await got<ArrayBuffer>({
       method: 'GET',
       headers: {
-        'Referer': `https://${this.getApiDomain()}/`,
+        'Referer': `https://${getApiDomain()}/`,
         'Accept': '*/*',
         'Cache-Control': 'no-cache',
         'Pragma': 'no-cache',
@@ -176,6 +167,14 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
     audioCacheService.play(url, response.response, volume)
   }
+
+  GoogleTranslateBus.on(NAMES.PLAY_AUDIO, handlePlay)
+
+  return {
+    id: PROVIDER.GOOGLE_TRANSLATE,
+    view: GoogleTranslateContainer,
+    translate,
+  }
 }
 
-export default new GoogleTranslateProvider()
+export const googleTranslate = useGoogleTranslateProvider()

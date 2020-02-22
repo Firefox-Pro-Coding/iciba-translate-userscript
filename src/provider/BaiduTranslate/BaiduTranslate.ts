@@ -1,11 +1,11 @@
-import querystring from 'querystring'
+import { stringify } from 'querystring'
 import { PROVIDER } from '~/constants/constant'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'
 import { got } from '~/util/gmapi'
 
-import AbstractTranslateProvider from '../AbstractTranslateProvider'
+import { ProviderType } from '../provider'
 import getToken from './helpers/token'
 import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
 import containerData from './containerData'
@@ -16,38 +16,8 @@ export interface BaiduTranslateParams {
   tl: string
 }
 
-class BaiduTranslateProvider extends AbstractTranslateProvider {
-  public uniqName = PROVIDER.BAIDU_TRANSLATE
-  public containerComponentClass = BaiduTranslateContainer
-
-  public constructor() {
-    super()
-
-    this.handlePlay = this.handlePlay.bind(this)
-    BaiduTranslateBus.on(NAMES.PLAY_AUDIO, this.handlePlay)
-  }
-
-  public async translate(word: string, payload?: BaiduTranslateParams) {
-    const auto = !payload || payload.sl === 'auto'
-    const sl = !payload || auto ? await this.detectLang(word) : payload.sl
-    // eslint-disable-next-line no-nested-ternary
-    const tl = payload
-      ? payload.tl
-      : store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage !== sl
-        ? store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage
-        : store.config[PROVIDER.BAIDU_TRANSLATE].secondTargetLanguage
-
-    const result = await this.fetchTranslation({ word, sl, tl })
-    return () => {
-      containerData.data = result
-      containerData.inputText = word
-      containerData.autoMode = auto
-      containerData.sourceLanguage = sl
-      containerData.targetLanguage = tl
-    }
-  }
-
-  private async detectLang(word: string): Promise<BAIDU_LANGUAGES> {
+const useBaiduTranslateProvider = (): ProviderType => {
+  const detectLang = async (word: string): Promise<BAIDU_LANGUAGES> => {
     const formdata = {
       query: Array.from(word).splice(0, 50).join(''),
     }
@@ -58,7 +28,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
       },
       url: 'https://fanyi.baidu.com/langdetect',
-      data: querystring.stringify(formdata),
+      data: stringify(formdata),
       timeout: 5000,
     })
     const result = JSON.parse(response.responseText)
@@ -68,7 +38,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     throw new Error('检测翻译文本语言失败！')
   }
 
-  private async fetchTranslation({ word, sl, tl }: { word: string, sl: string, tl: string }) {
+  const fetchTranslation = async ({ word, sl, tl }: { word: string, sl: string, tl: string }) => {
     let token
     try {
       token = await getToken(word)
@@ -94,7 +64,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
         'User-Agent': window.navigator.userAgent,
       },
       url: 'https://fanyi.baidu.com/v2transapi',
-      data: querystring.stringify(query),
+      data: stringify(query),
       timeout: 5000,
     })
 
@@ -106,7 +76,27 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
     throw new Error('翻译出错！')
   }
 
-  private async handlePlay(params: PlayAudioPayload) {
+  const translate = async (word: string, payload?: BaiduTranslateParams) => {
+    const auto = !payload || payload.sl === 'auto'
+    const sl = !payload || auto ? await detectLang(word) : payload.sl
+    // eslint-disable-next-line no-nested-ternary
+    const tl = payload
+      ? payload.tl
+      : store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage !== sl
+        ? store.config[PROVIDER.BAIDU_TRANSLATE].targetLanguage
+        : store.config[PROVIDER.BAIDU_TRANSLATE].secondTargetLanguage
+
+    const result = await fetchTranslation({ word, sl, tl })
+    return () => {
+      containerData.data = result
+      containerData.inputText = word
+      containerData.autoMode = auto
+      containerData.sourceLanguage = sl
+      containerData.targetLanguage = tl
+    }
+  }
+
+  const handlePlay = async (params: PlayAudioPayload) => {
     const volume = 0.7
     const query = {
       lan: params.tl,
@@ -114,7 +104,7 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
       spd: params.tl === 'zh' ? 5 : 3,
       source: 'web',
     }
-    const url = `https://fanyi.baidu.com/gettts?${querystring.stringify(query)}`
+    const url = `https://fanyi.baidu.com/gettts?${stringify(query)}`
 
     if (audioCacheService.play(url, volume)) {
       return
@@ -136,6 +126,13 @@ class BaiduTranslateProvider extends AbstractTranslateProvider {
 
     audioCacheService.play(url, response.response, volume)
   }
+
+  BaiduTranslateBus.on(NAMES.PLAY_AUDIO, handlePlay)
+  return {
+    id: PROVIDER.BAIDU_TRANSLATE,
+    view: BaiduTranslateContainer,
+    translate,
+  }
 }
 
-export default new BaiduTranslateProvider()
+export const baiduTranslate = useBaiduTranslateProvider()

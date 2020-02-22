@@ -1,19 +1,14 @@
-import querystring from 'querystring'
-
+import { stringify } from 'querystring'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
+import { PROVIDER } from '~/constants/constant'
 
-import AbstractTranslateProvider from '../AbstractTranslateProvider'
+import { ProviderType } from '../provider'
 import IcibaContainer from './container/IcibaContainer.vue'
 import containerData from './containerData'
 
-import { PROVIDER } from '~/constants/constant'
-
-class IcibaTranslateProvider extends AbstractTranslateProvider {
-  public uniqName = PROVIDER.ICIBA
-  public containerComponentClass = IcibaContainer
-
-  public async translate(word: string) {
+const useIcibaProvider = (): ProviderType => {
+  const translate = async (word: string) => {
     /*
     https://www.iciba.com/index.php?
     callback=jQuery190044530474284668253_1524231993263
@@ -33,22 +28,22 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       //   .join(','),
       list: [1].join(','),
       word,
-      _: new Date().getTime(),
+      _: Date.now(),
     }
-    const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
+    const apiUrl = `${apiUrlBase}${stringify(query)}`
 
     const response = await got({
       method: 'GET',
       headers: {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-        'Cache-Control': 'no-cache',
+        // 'Accept': '*/*',
+        // 'Accept-Encoding': 'gzip, deflate',
+        // 'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+        // 'Cache-Control': 'no-cache',
         'Host': 'www.iciba.com',
-        'Pragma': 'no-cache',
+        // 'Pragma': 'no-cache',
         'Referer': 'https://www.iciba.com',
         'X-Requested-With': 'XMLHttpRequest',
-        'User-Agent': window.navigator.userAgent,
+        // 'User-Agent': window.navigator.userAgent,
       },
       url: apiUrl,
       timeout: 5000,
@@ -78,7 +73,7 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
     // dev only check
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line
-      const check = require('./check').default
+     const check = require('./check').default
       check(result, word)
     }
 
@@ -86,6 +81,12 @@ class IcibaTranslateProvider extends AbstractTranslateProvider {
       containerData.data = copy(result)
     }
   }
+
+  return {
+    id: PROVIDER.ICIBA,
+    view: IcibaContainer,
+    translate,
+  }
 }
 
-export default new IcibaTranslateProvider()
+export const iciba = useIcibaProvider()

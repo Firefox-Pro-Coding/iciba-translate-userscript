@@ -1,14 +1,16 @@
 import { computed, reactive } from '@vue/composition-api'
-import IcibaProvider from '~/provider/Iciba/Iciba'
-import GoogleDictProvider from '~/provider/GoogleDict/GoogleDict'
-import GoogleTranslateProvider from '~/provider/GoogleTranslate/GoogleTranslate'
-import BaiduTranslateProvider from '~/provider/BaiduTranslate/BaiduTranslate'
-import SougouTranslateProvider from '~/provider/SougouTranslate/SougouTranslate'
-import UrbanDictionaryProvider from '~/provider/UrbanDictionary/UrbanDictionary'
-import BingTranslateProvider from '~/provider/BingTranslate/BingTranslate'
-import VocabularyProvider from '~/provider/Vocabulary/Vocabulary'
-import { TranslateAction } from '../globalBus'
+import { iciba } from '~/provider/Iciba/Iciba'
+import { googleDict } from '~/provider/GoogleDict/GoogleDict'
+import { googleTranslate } from '~/provider/GoogleTranslate/GoogleTranslate'
+import { baiduTranslate } from '~/provider/BaiduTranslate/BaiduTranslate'
+import { sougouTranslate } from '~/provider/SougouTranslate/SougouTranslate'
+import { urbanDictionary } from '~/provider/UrbanDictionary/UrbanDictionary'
+import { bingTranslate } from '~/provider/BingTranslate/BingTranslate'
+import { vocabulary } from '~/provider/Vocabulary/Vocabulary'
 import { PROVIDER } from '~/constants/constant'
+import { ProviderType } from '~/provider/provider'
+
+import { TranslateAction } from '../globalBus'
 
 interface ActiveTask {
   word: string
@@ -17,26 +19,23 @@ interface ActiveTask {
 }
 
 const useIncrement = (id: number) => {
-  const state = reactive({
-    count: id,
-  })
-  const c = computed(() => {
-    state.count += 1
-    return state.count
-  })
-  return c
+  let v = id
+  return () => {
+    v += 1
+    return v
+  }
 }
 
 const useTranslateService = () => {
-  const providers = [
-    IcibaProvider,
-    GoogleDictProvider,
-    GoogleTranslateProvider,
-    BaiduTranslateProvider,
-    SougouTranslateProvider,
-    UrbanDictionaryProvider,
-    BingTranslateProvider,
-    VocabularyProvider,
+  const providers: Array<ProviderType> = [
+    iciba,
+    googleDict,
+    googleTranslate,
+    baiduTranslate,
+    sougouTranslate,
+    urbanDictionary,
+    bingTranslate,
+    vocabulary,
   ]
 
   const state = reactive({
@@ -47,7 +46,7 @@ const useTranslateService = () => {
     errorMessage: '',
   })
 
-  const taskId = useIncrement(0)
+  const getTaskId = useIncrement(0)
 
   /** 查词 */
   const translate = (action: TranslateAction): Promise<unknown> => {
@@ -55,7 +54,7 @@ const useTranslateService = () => {
       return Promise.resolve()
     }
 
-    const provider = providers.find((p) => p.uniqName === action.param!.provider) ?? providers[0]
+    const provider = providers.find((p) => p.id === action.param!.provider) ?? providers[0]
     const payload = action.param.param
     const word = action.word
 
@@ -67,8 +66,8 @@ const useTranslateService = () => {
 
     const newTask: ActiveTask = {
       word,
-      provider: provider.uniqName,
-      id: taskId.value,
+      provider: provider.id,
+      id: getTaskId(),
     }
 
     // ignore if task was exactly same as active task
@@ -84,10 +83,10 @@ const useTranslateService = () => {
     return provider.translate(word, payload as any).then((callback) => {
       if (state.activeTask?.id === newTask.id) {
         callback()
-        state.activeProvider = provider.uniqName
+        state.activeProvider = provider.id
       }
     }, (e: Error) => {
-      state.errorMessage = `${provider.uniqName}: ${e.message}`
+      state.errorMessage = `${provider.id as string}: ${e.message}`
       if (process.env.NODE_ENV === 'development') {
         // eslint-disable-next-line no-console
         console.error(e)
@@ -105,7 +104,7 @@ const useTranslateService = () => {
     state: {
       loading: computed(() => state.loading),
       providers,
-      activeProvider: computed(() => providers.find((v) => v.uniqName === state.activeProvider) ?? null),
+      activeProvider: computed(() => providers.find((v) => v.id === state.activeProvider) ?? null),
       lastUsedProvider: computed(() => state.lastUsedProvider),
       errorMessage: computed(() => state.errorMessage),
     },

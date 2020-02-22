@@ -1,62 +1,20 @@
-import querystring from 'querystring'
+import { stringify } from 'querystring'
 import { got, GMXMLError } from '~/util/gmapi'
-
 import { PROVIDER } from '~/constants/constant'
 import { audioCacheService } from '~/service/audioCache'
+import { EVENTS, bus } from '~/service/globalBus'
 import { googleDictBus, EVENTS as GVENTS } from '~/provider/GoogleDict/bus'
 
-import AbstractTranslateProvider from '../AbstractTranslateProvider'
+import { ProviderType } from '../provider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
 import { containerData } from './containerDataStore'
-import { EVENTS, bus } from '~/service/globalBus'
 
 type UnPromisify<T> = T extends Promise<infer U> ? U : T
 
 const wordErrorCache = {} as Record<string, boolean>
 
-class GoogleDictProvider extends AbstractTranslateProvider {
-  public uniqName = PROVIDER.GOOGLE_DICT
-  public containerComponentClass = GoogleDictContainer
-
-  public constructor() {
-    super()
-
-    // bind methods
-    this.handlePlay = this.handlePlay.bind(this)
-    googleDictBus.on(GVENTS.PLAY_AUDIO, this.handlePlay)
-  }
-
-  public async translate(word: string) {
-    if (wordErrorCache[word]) {
-      return this.tryGoogleTranslate(word)
-    }
-
-    let googleDictData: any
-    try {
-      googleDictData = await this.fetchGoogleDict(word, 'uk')
-    } catch (e) {
-      if (e.message === 'Backend Error') {
-        // try googletranslate
-        wordErrorCache[word] = true
-        return this.tryGoogleTranslate(word)
-      }
-      throw e
-    }
-
-    // dev only check
-    if (process.env.NODE_ENV === 'development') {
-      // eslint-disable-next-line
-      const check = require('./check').default
-      check(googleDictData, word)
-    }
-
-    return () => {
-      containerData.data = googleDictData.dictionaryData
-      containerData.word = word
-    }
-  }
-
-  private tryGoogleTranslate(word: string) {
+const useGoogleDictProvider = (): ProviderType => {
+  const tryGoogleTranslate = (word: string) => {
     window.setTimeout(() => {
       bus.emit({
         type: EVENTS.TRANSLATE,
@@ -76,7 +34,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     }
   }
 
-  private async fetchGoogleDict(word: string, lang: string = 'uk') {
+  const fetchGoogleDict = async (word: string, lang: string = 'uk') => {
     const apiUrlBase = 'https://content.googleapis.com/dictionaryextension/v1/knowledge/search?'
     const query = {
       term: word,
@@ -92,7 +50,7 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       // https://chrome.google.com/webstore/detail/google-dictionary-by-goog/mgijmajocgfcbeboacabfgobmjgjcoja
       key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',
     }
-    const apiUrl = `${apiUrlBase}${querystring.stringify(query)}`
+    const apiUrl = `${apiUrlBase}${stringify(query)}`
 
     let response: UnPromisify<ReturnType<typeof got>>
 
@@ -100,12 +58,12 @@ class GoogleDictProvider extends AbstractTranslateProvider {
       response = await got({
         method: 'GET',
         headers: {
-          'accept': '*/*',
-          'accept-encoding': 'gzip, deflate, br',
-          'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-          'cache-control': 'no-cache',
-          'pragma': 'no-cache',
-          'user-agent': window.navigator.userAgent,
+          // 'accept': '*/*',
+          // 'accept-encoding': 'gzip, deflate, br',
+          // 'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+          // 'cache-control': 'no-cache',
+          // 'pragma': 'no-cache',
+          // 'user-agent': window.navigator.userAgent,
           'x-goog-encode-response-if-executable': 'base64',
           'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
           'x-origin': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
@@ -134,8 +92,38 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     return data
   }
 
+  const translate = async (word: string) => {
+    if (wordErrorCache[word]) {
+      return tryGoogleTranslate(word)
+    }
+
+    let googleDictData: any
+    try {
+      googleDictData = await fetchGoogleDict(word, 'uk')
+    } catch (e) {
+      if (e.message === 'Backend Error') {
+        // try googletranslate
+        wordErrorCache[word] = true
+        return tryGoogleTranslate(word)
+      }
+      throw e
+    }
+
+    // dev only check
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line
+      const check = require('./check').default
+      check(googleDictData, word)
+    }
+
+    return () => {
+      containerData.data = googleDictData.dictionaryData
+      containerData.word = word
+    }
+  }
+
   /** 播放音频 */
-  private async handlePlay(url: string): Promise<void> {
+  const handlePlay = async (url: string): Promise<void> => {
     const volume = 0.7
     const mp3Url = `https:${url}`
 
@@ -146,13 +134,13 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     const response = await got<ArrayBuffer>({
       method: 'GET',
       headers: {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
+        // 'Accept': '*/*',
+        // 'Accept-Encoding': 'gzip, deflate, br',
+        // 'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+        // 'Cache-Control': 'no-cache',
+        // 'Pragma': 'no-cache',
         'upgrade-insecure-requests': '1',
-        'User-Agent': window.navigator.userAgent,
+        // 'User-Agent': window.navigator.userAgent,
       },
       responseType: 'arraybuffer',
       url: mp3Url,
@@ -160,6 +148,15 @@ class GoogleDictProvider extends AbstractTranslateProvider {
     })
     audioCacheService.play(mp3Url, response.response, volume)
   }
+
+  googleDictBus.on(GVENTS.PLAY_AUDIO, handlePlay)
+
+  return {
+    id: PROVIDER.GOOGLE_DICT,
+    view: GoogleDictContainer,
+    translate,
+  }
 }
 
-export default new GoogleDictProvider()
+
+export const googleDict = useGoogleDictProvider()

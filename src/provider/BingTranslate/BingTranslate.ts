@@ -1,17 +1,16 @@
-import querystring from 'querystring'
-
+import { stringify } from 'querystring'
 import { PROVIDER } from '~/constants/constant'
+import { BING_LANGUAGES, BING_VOICE_MAP } from '~/constants/bingLanguages'
 import { got } from '~/util/gmapi'
 import { store } from '~/service/store'
-import { BING_LANGUAGES, BING_VOICE_MAP } from '~/constants/bingLanguages'
+import { audioCacheService } from '~/service/audioCache'
 
-import AbstractTranslateProvider from '../AbstractTranslateProvider'
-import GoogleTranslateContainer from './container/BingTranslateContainer.vue'
+import { ProviderType } from '../provider'
+import BingTranslateContainer from './container/BingTranslateContainer.vue'
 import containerData from './containerData'
 import getToken from './helpers/token'
 import getVoiceToken from './helpers/voiceToken'
-import GoogleTranslateBus, { PlayAudioPayload, NAMES } from './bus'
-import { audioCacheService } from '~/service/audioCache'
+import BingTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 
 interface BingTranslateResult {
   result: Array<string>
@@ -24,33 +23,10 @@ export interface BingTranslateParams {
   sl: string
   tl: string
 }
+const useBingTranslateProvider = (): ProviderType => {
+  let un = 1
 
-class GoogleTranslateProvider extends AbstractTranslateProvider {
-  public uniqName = PROVIDER.BING_TRANSLATE
-  public containerComponentClass = GoogleTranslateContainer
-
-  private un = 1
-
-  public constructor() {
-    super()
-
-    // bind methods
-    this.handlePlay = this.handlePlay.bind(this)
-    GoogleTranslateBus.on(NAMES.PLAY_AUDIO, this.handlePlay)
-  }
-
-  public async translate(word: string, payload?: BingTranslateParams) {
-    const data = await this.getBingTranslate(word, payload)
-    return () => {
-      containerData.data = data.result
-      containerData.inputText = word
-      containerData.detectedLanguage = data.dl as BING_LANGUAGES
-      containerData.sourceLanguage = data.sl
-      containerData.targetLanguage = data.tl as BING_LANGUAGES
-    }
-  }
-
-  private async getBingTranslate(word: string, payload?: BingTranslateParams): Promise<BingTranslateResult> {
+  const getBingTranslate = async (word: string, payload?: BingTranslateParams): Promise<BingTranslateResult> => {
     const sl = payload
       ? payload.sl
       : 'auto-detect'
@@ -59,18 +35,18 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
       : store.config[PROVIDER.BING_TRANSLATE].targetLanguage
 
     const token = await getToken()
-    const body = querystring.stringify({
+    const body = stringify({
       text: word,
       fromLang: sl,
       to: tl,
     })
-    const query = querystring.stringify({
+    const query = stringify({
       isVertical: '1',
       IG: token.ig,
-      IID: `${token.iid}.${this.un}`,
+      IID: `${token.iid}.${un}`,
     })
 
-    this.un += 1
+    un += 1
 
     const url = `https://cn.bing.com/ttranslatev3?${query}`
 
@@ -95,7 +71,7 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
         && detectedLanguage === tl
         && detectedLanguage === store.config[PROVIDER.BING_TRANSLATE].targetLanguage
     ) {
-      return this.getBingTranslate(word, {
+      return getBingTranslate(word, {
         sl,
         tl: store.config[PROVIDER.BING_TRANSLATE].secondTargetLanguage,
       })
@@ -110,7 +86,18 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
     }
   }
 
-  private async handlePlay(params: PlayAudioPayload) {
+  const translate = async (word: string, payload?: BingTranslateParams) => {
+    const data = await getBingTranslate(word, payload)
+    return () => {
+      containerData.data = data.result
+      containerData.inputText = word
+      containerData.detectedLanguage = data.dl as BING_LANGUAGES
+      containerData.sourceLanguage = data.sl
+      containerData.targetLanguage = data.tl as BING_LANGUAGES
+    }
+  }
+
+  const handlePlay = async (params: PlayAudioPayload) => {
     const volume = 0.7
     const word = params.word.slice(0, 100)
     const key = `${params.tl}-${word}`
@@ -151,6 +138,14 @@ class GoogleTranslateProvider extends AbstractTranslateProvider {
 
     audioCacheService.play(namespacedKey, response.response, volume)
   }
+
+  BingTranslateBus.on(NAMES.PLAY_AUDIO, handlePlay)
+
+  return {
+    id: PROVIDER.BING_TRANSLATE,
+    view: BingTranslateContainer,
+    translate,
+  }
 }
 
-export default new GoogleTranslateProvider()
+export const bingTranslate = useBingTranslateProvider()

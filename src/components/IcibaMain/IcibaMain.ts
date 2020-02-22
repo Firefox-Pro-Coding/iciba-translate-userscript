@@ -17,8 +17,7 @@ import { store } from '~/service/store'
 import { bus, EVENTS, TranslateAction } from '~/service/globalBus'
 import { translateService } from '~/service/translate'
 import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'
-
-import AbstractTranslateProvider from '~/provider/AbstractTranslateProvider'
+import { getIcon, ProviderType } from '~/provider/provider'
 
 import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
@@ -122,19 +121,19 @@ export default defineComponent({
       }
     }
 
-    const translateWithProvider = (provider: AbstractTranslateProvider) => {
+    const translateWithProvider = (provider: ProviderType) => {
       handleTranslate({
         type: EVENTS.TRANSLATE,
         word: state.inputText,
         param: {
-          provider: provider.uniqName,
+          provider: provider.id,
         },
       })
     }
 
     const handleInputConfirm = () => {
       translateWithProvider(
-        translateService.state.providers.find((v) => v.uniqName === translateService.state.lastUsedProvider.value)!,
+        translateService.state.providers.find((v) => v.id === translateService.state.lastUsedProvider.value)!,
       )
     }
 
@@ -205,7 +204,6 @@ export default defineComponent({
     }
 
     const onGoogleDictModalOpen = () => { state.visible = false }
-
     /** 图钉 拖拽 */
     const pinDrag = {
       /** 切换固定状态 */
@@ -303,7 +301,7 @@ export default defineComponent({
 
     const showButtonProviders = computed(
       () => translateService.state.providers
-        .filter((item) => store.config[item.uniqName].display),
+        .filter((item) => store.config[item.id].display),
     )
 
     watch(() => state.visible, () => {
@@ -359,6 +357,7 @@ export default defineComponent({
       errorMessage: translateService.state.errorMessage,
 
       m: {
+        getIcon,
         pinDrag,
         handleOpenSetting,
         translateWithProvider,

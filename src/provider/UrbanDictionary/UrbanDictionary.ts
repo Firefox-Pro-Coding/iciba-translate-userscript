@@ -1,23 +1,18 @@
-import querystring from 'querystring'
+import { stringify } from 'querystring'
 
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
-
 import { PROVIDER } from '~/constants/constant'
 
-import AbstractTranslateProvider from '../AbstractTranslateProvider'
+import { ProviderType } from '../provider'
 import UrbanDictionaryContainer from './container/UrbanDictionary.vue'
 import containerData from './containerData'
-
 import { UrbanDictionaryResult } from './type'
 
-class UrbanDictionaryProvider extends AbstractTranslateProvider {
-  public uniqName = PROVIDER.URBAN_DICTIONARY
-  public containerComponentClass = UrbanDictionaryContainer
-
-  public async translate(word: string) {
+const useUrbanDictionaryProvider = (): ProviderType => {
+  const translate = async (word: string) => {
     /* https://api.urbandictionary.com/v0/define?term={word} */
-    const url = `https://api.urbandictionary.com/v0/define?${querystring.stringify({ term: word })}`
+    const url = `https://api.urbandictionary.com/v0/define?${stringify({ term: word })}`
 
     const response = await got({
       method: 'GET',
@@ -30,6 +25,11 @@ class UrbanDictionaryProvider extends AbstractTranslateProvider {
       containerData.data = copy(result)
     }
   }
+  return {
+    id: PROVIDER.URBAN_DICTIONARY,
+    view: UrbanDictionaryContainer,
+    translate,
+  }
 }
 
-export default new UrbanDictionaryProvider()
+export const urbanDictionary = useUrbanDictionaryProvider()

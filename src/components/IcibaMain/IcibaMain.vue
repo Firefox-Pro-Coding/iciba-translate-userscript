@@ -46,15 +46,15 @@
             <template v-for="provider of showButtonProviders">
               <div
                 class="split"
-                :key="`${provider.uniqName}index`"
+                :key="`${provider.id}index`"
               />
               <button
-                :key="provider.uniqName"
+                :key="provider.id"
                 @keydown.13="m.translateWithProvider(provider)"
                 @click="m.translateWithProvider(provider)"
                 class="provider-button flex flex-center relative flex-none"
               >
-                <i-icon :svg="provider.icon" />
+                <i-icon :svg="m.getIcon(provider)" />
               </button>
             </template>
           </div>
@@ -64,8 +64,8 @@
           <component
             class="provider-container"
             v-if="!translateLoading && !errorMessage && activeProvider"
-            :is="activeProvider.containerComponentClass"
-            :key="activeProvider.uniqName"
+            :is="activeProvider.view"
+            :key="activeProvider.id"
           />
           <div class="loading-tip content-item" v-if="translateLoading">
             <LoadingText />

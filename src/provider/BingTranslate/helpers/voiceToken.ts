@@ -1,4 +1,4 @@
-import querystring from 'querystring'
+import { stringify } from 'querystring'
 import { got } from '~/util/gmapi'
 
 interface VoiceToken {
@@ -17,7 +17,7 @@ const getToken = (ig: string, iid: string): Promise<VoiceToken> => {
   if (data.ig === ig && data.iid === iid) {
     return Promise.resolve(data.token)
   }
-  const query = querystring.stringify({
+  const query = stringify({
     isVertical: '1',
     IG: ig,
     IID: iid,
