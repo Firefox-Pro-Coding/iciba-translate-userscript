@@ -39,7 +39,7 @@
       <div class="flex-col items-start flex-grow-0 pr-5">
         <div class="text-grey-600 pr-4 mb-2">语言</div>
         <div
-          class="language-option text-grey-600 mb-2"
+          class="language-option text-16 text-grey-600 mb-2"
           v-for="n of languageOptions"
           :key="n.key"
         >
@@ -94,4 +94,3 @@
 </template>
 
 <script lang="ts" src="./googleTranslate.ts"></script>
-<style lang="sass" src="./googleTranslate.sass" scoped></style>

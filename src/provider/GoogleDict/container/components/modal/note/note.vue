@@ -1,6 +1,6 @@
 <template>
   <!-- note -->
-  <div class="dict-note flex-col items-stretch" v-if="props.note">
+  <div class="dict-note my-2 flex-col items-stretch" v-if="props.note">
     <div class="note-type-box flex mb-3px">
       <labels
         class="note-label-box"
@@ -10,9 +10,8 @@
         type="note"
       />
     </div>
-    <div class="note-text text-12 inline" v-html="props.note.text" />
+    <div class="note-text text-12 inline text-grey" v-html="props.note.text" />
   </div>
 </template>
 
 <script lang="ts" src="./note.ts"></script>
-<style lang="sass" src="./note.sass" scoped></style>

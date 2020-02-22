@@ -1,6 +1,8 @@
 <template>
   <div class="sense-item flex">
-    <div class="sense-item-number text-right">{{ index + 1 }}.</div>
+    <div class="sense-item-number text-right font-bold">
+      {{ index + 1 }}.
+    </div>
     <div class="sense-item-box flex-col flex-auto items-stretch">
       <!-- difinition -->
       <div class="definition-box flex-auto flex-col items-stretch">
@@ -21,7 +23,7 @@
             <!-- domain class -->
             <labels
               v-if="s.domainClasses && s.domainClasses.length"
-              class="sense-difinition-label-box"
+              class="ml-5px"
               color="lightpink"
               size="small"
               :labels="s.domainClasses"
@@ -31,7 +33,7 @@
             <!-- semantic class -->
             <labels
               v-if="s.semanticClasses && s.semanticClasses.length"
-              class="sense-difinition-label-box"
+              class="ml-5px"
               color="lightblue"
               size="small"
               :labels="s.semanticClasses"
@@ -86,7 +88,7 @@
                     <!-- domain class -->
                     <labels
                       v-if="subsense.domainClasses && subsense.domainClasses.length"
-                      class="subsense-label-box"
+                      class="ml-5px"
                       color="lightpink"
                       size="small"
                       :labels="subsense.domainClasses"
@@ -96,7 +98,7 @@
                     <!-- semantic class -->
                     <labels
                       v-if="subsense.semanticClasses && subsense.semanticClasses.length"
-                      class="subsense-label-box"
+                      class="ml-5px"
                       color="lightblue"
                       size="small"
                       :labels="subsense.semanticClasses"

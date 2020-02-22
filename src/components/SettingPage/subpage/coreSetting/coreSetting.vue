@@ -51,7 +51,7 @@
       <div class="flex-col flex-grow-0 pr-5">
         <div class="text-grey-600 pr-4 mb-2">接口</div>
         <div
-          class="option-item text-grey-600 mb-2"
+          class="option-item text-16 text-grey-600 mb-2"
           v-for="n of providerOptions"
           :key="n.key"
         >
@@ -180,4 +180,3 @@
 </template>
 
 <script lang="ts" src="./coreSetting.ts"></script>
-<style lang="sass" src="./coreSetting.sass" scoped></style>

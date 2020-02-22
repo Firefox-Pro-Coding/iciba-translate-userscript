@@ -6,7 +6,7 @@
     <template v-for="key in Object.keys(props.labelSet)">
       <labels
         :size="props.size"
-        class="inner-label-box"
+        class="inner-label-box mr-5px"
         :labels="props.labelSet[key]"
         :type="key"
         :color="props.color || key"
@@ -17,4 +17,3 @@
 </template>
 
 <script lang="ts" src="./labelSet.ts"></script>
-<style lang="sass" src="./labelSet.sass" scoped></style>

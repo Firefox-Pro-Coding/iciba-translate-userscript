@@ -22,14 +22,14 @@
         </div>
         <div
           class="example-item text-grey"
-          v-html="example"
           v-for="(example, exampleIndex) in exampleGroupItem.examples"
           :key="exampleIndex"
-        />
+        >
+          "{{ example }}"
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" src="./exampleGroups.ts"></script>
-<style lang="sass" src="./exampleGroups.sass" scoped></style>

@@ -30,7 +30,7 @@
         </div>
 
         <i-tabs-items
-          class="tabs-box flex-auto"
+          class="tabs-box flex-auto overflow-auto"
           v-no-overscroll
           v-model="state.tab"
         >

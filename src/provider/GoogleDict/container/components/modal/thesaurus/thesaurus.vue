@@ -50,7 +50,7 @@
             <!--  -->
             <template v-if="state.current.type === 't'">
               <div
-                class="thesaurus-word-item flex"
+                class="thesaurus-word-item mt-1px flex"
                 :class="[`${state.type}-item`]"
                 v-for="(tItem, tIndex) in state.current.items"
                 :key="tIndex"
@@ -92,7 +92,7 @@
 
             <template v-if="state.current.type === 'e'">
               <div
-                class="example-item flex"
+                class="example-item mt-1px flex"
                 v-for="(example, eIndex) in state.current.items"
                 :key="eIndex"
               >
