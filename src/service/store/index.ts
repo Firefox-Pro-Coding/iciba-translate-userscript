@@ -92,7 +92,8 @@ const useStore = () => {
       })
     }
 
-    return reactive(data)
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    store.config = reactive(data)
   }
 
   const saveConfig = () => {
@@ -100,12 +101,14 @@ const useStore = () => {
     setValue(GM_VALUE_KEY, dataString)
   }
 
-  return {
+  const store = {
     state,
     config,
     loadConfig,
     saveConfig,
   }
+
+  return store
 }
 
 export const store = useStore()

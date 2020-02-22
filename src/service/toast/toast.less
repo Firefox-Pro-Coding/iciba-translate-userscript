@@ -1,5 +1,5 @@
 .toast-box {
-  z-index: 10000000;
+  z-index: 2147483647;
   left: 50%;
   bottom: 10%;
   transform: translate(-50%, -50%);
@@ -8,15 +8,11 @@
   border-radius: 6px;
   transform-origin: left top;
 }
-.toast-box.toast-enter,
-.toast-box.toast-leave-to {
+.t-enter,
+.t-leave-to {
   opacity: 0;
 }
-.toast-box.toast-enter-to,
-.toast-box.toast-leave {
-  opacity: 1;
-}
 
-.toast-box.toast-enter {
+.toast-box.t-enter {
   transform: scale(0.9) translate(-50%, -50%);
 }
