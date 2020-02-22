@@ -54,6 +54,7 @@ const setDefaultDataByPath = (path: Array<string>, _data: any) => {
   data[lastPath] = copy(dData[lastPath])
 }
 
+/* eslint-disable @typescript-eslint/no-use-before-define */
 const useStore = () => {
   const state = reactive({
     googleDict: {
@@ -61,8 +62,6 @@ const useStore = () => {
       thesaurusFolded: false,
     },
   })
-
-  let config!: Config
 
   const loadConfig = async () => {
     let dataString
@@ -84,7 +83,6 @@ const useStore = () => {
     }
 
     const report = storeType.decode(data)
-    // eslint-disable-next-line no-underscore-dangle
     if (report._tag === 'Left') {
       report.left.forEach((e) => {
         const pathArray = e.context.map((path) => path.key).filter((v) => v)
@@ -92,18 +90,17 @@ const useStore = () => {
       })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     store.config = reactive(data)
   }
 
   const saveConfig = () => {
-    const dataString = JSON.stringify(config)
+    const dataString = JSON.stringify(store.config)
     setValue(GM_VALUE_KEY, dataString)
   }
 
   const store = {
     state,
-    config,
+    config: null as any as Config,
     loadConfig,
     saveConfig,
   }
