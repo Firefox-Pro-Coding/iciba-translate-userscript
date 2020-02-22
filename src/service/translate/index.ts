@@ -50,12 +50,9 @@ const useTranslateService = () => {
 
   /** 查词 */
   const translate = (action: TranslateAction): Promise<unknown> => {
-    if (!action.param) {
-      return Promise.resolve()
-    }
-
-    const provider = providers.find((p) => p.id === action.param!.provider) ?? providers[0]
-    const payload = action.param.param
+    const param = action.param
+    const provider = (param && providers.find((p) => p.id === param.provider)) ?? providers[0]
+    const payload = param?.param ?? null
     const word = action.word
 
     if (!word) {

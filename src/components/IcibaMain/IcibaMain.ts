@@ -113,12 +113,8 @@ export default defineComponent({
       }
 
       show()
-
       state.inputText = action.word
-
-      if (action.param) {
-        translateService.translate(action)
-      }
+      translateService.translate(action)
     }
 
     const translateWithProvider = (provider: ProviderType) => {
