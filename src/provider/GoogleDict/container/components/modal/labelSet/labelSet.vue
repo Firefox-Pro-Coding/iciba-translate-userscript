@@ -17,10 +17,4 @@
 </template>
 
 <script lang="ts" src="./labelSet.ts"></script>
-<style lang="less" scoped>
-  @import '~assets/styles/variables.less';
-
-  .inner-label-box {
-    margin-right: 5px;
-  }
-</style>
+<style lang="sass" src="./labelSet.sass" scoped></style>

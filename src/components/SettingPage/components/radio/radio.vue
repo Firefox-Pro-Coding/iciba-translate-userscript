@@ -20,4 +20,4 @@
 </template>
 
 <script lang="ts" src="./radio.ts"></script>
-<style lang="less" src="./radio.less" scoped></style>
+<style lang="sass" src="./radio.sass" scoped></style>

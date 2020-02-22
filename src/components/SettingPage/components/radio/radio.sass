@@ -1,0 +1,27 @@
+.icon
+  height: 24px
+  width: 24px
+
+  .ripple
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    pointer-events: none
+    height: 48px
+    width: 48px
+
+    &.checked
+      ::v-deep .v-ripple__container
+        color: #1976D2
+
+    .ripple-trigger
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      height: 24px
+      width: 24px
+      pointer-events: all
+
+    ::v-deep .v-ripple__container
+      height: 48px
+      width: 48px

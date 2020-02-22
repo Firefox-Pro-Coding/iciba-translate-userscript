@@ -180,4 +180,4 @@
 </template>
 
 <script lang="ts" src="./coreSetting.ts"></script>
-<style lang="less" src="./coreSetting.less" scoped></style>
+<style lang="sass" src="./coreSetting.sass" scoped></style>

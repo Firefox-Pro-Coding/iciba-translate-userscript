@@ -14,6 +14,7 @@ module.exports = ({ env }) => {
       content: [
         './src/**/*.vue',
         './src/**/*.tsx',
+        './src/**/*.js',
       ],
 
       defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],

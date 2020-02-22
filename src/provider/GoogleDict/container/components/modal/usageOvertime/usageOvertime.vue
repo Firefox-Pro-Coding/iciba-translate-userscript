@@ -26,4 +26,4 @@
 </template>
 
 <script lang="ts" src="./usageOvertime.ts"></script>
-<style lang="less" src="./usageOvertime.less" scoped></style>
+<style lang="sass" src="./usageOvertime.sass" scoped></style>

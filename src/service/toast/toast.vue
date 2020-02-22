@@ -10,4 +10,4 @@
 </template>
 
 <script src="./toast.ts" lang="ts"></script>
-<style src="./toast.less" lang="less" scoped></style>
+<style src="./toast.sass" lang="sass" scoped></style>

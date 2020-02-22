@@ -51,4 +51,4 @@
 </template>
 
 <script lang="ts" src="./SettingPage.ts"></script>
-<style lang="less" src="./SettingPage.less" scoped></style>
+<style lang="sass" src="./SettingPage.sass" scoped></style>

@@ -126,4 +126,4 @@
 </template>
 
 <script lang="ts" src="./senseItem.ts"></script>
-<style lang="less" src="./senseItem.less" scoped></style>
+<style lang="sass" src="./senseItem.sass" scoped></style>

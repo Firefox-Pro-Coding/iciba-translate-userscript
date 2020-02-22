@@ -49,4 +49,4 @@
 </template>
 
 <script lang="ts" src="./GoogleDictContainer.ts"></script>
-<style lang="less" src="./GoogleDictContainer.less" scoped></style>
+<style lang="sass" src="./GoogleDictContainer.sass" scoped></style>

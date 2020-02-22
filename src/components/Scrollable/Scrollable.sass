@@ -1,0 +1,36 @@
+@import '~assets/styles/variables.sass'
+
+.scrollable
+  $scrollbarWidth: 12px
+
+  .scroll-bar-track
+    top: 3px
+    right: 0
+    width: $scrollbarWidth
+    bottom: 3px
+    z-index: 2
+
+    .scroll-bar-thumb
+      width: 6px
+      height: 0
+      left: 3px
+      top: 0
+      background: rgba(0, 0, 0, 0.15)
+      cursor: pointer
+      transition-property: width, left
+
+    &:hover, &.moving
+      .scroll-bar-thumb
+        left: 2px
+        width: 8px
+        background: rgba(0, 0, 0, 0.25)
+
+  .scroll-content
+    &.no-scroll-bar
+      .scroll-box
+        padding-right: 0
+
+    .scroll-box
+      padding-right: $scrollbarWidth
+      overflow-x: hidden
+      overflow-y: scroll

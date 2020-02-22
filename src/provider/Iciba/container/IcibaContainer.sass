@@ -1,0 +1,45 @@
+@import '~assets/styles/variables.sass'
+
+.r-container
+  color: $main-level-1
+  padding: 7px 0 10px 10px
+
+.scroll-container
+  max-height: 250px
+
+.main-box
+  > div:first-child
+    margin-top: 0 !important
+
+.symbols-box
+  .symbol-item
+    width: 100%
+
+    & + .symbol-item
+      margin: 6px 0 0 0
+
+    .part-box
+      .part-item
+        $part-line-height: 20px
+
+        & + .part-item
+          margin: 3px 0 0 0
+
+        .part-item-part
+          padding: 0 6px 0 0
+          color: $main-level-4
+          line-height: $part-line-height
+
+
+        .part-item-meaning-box
+          line-height: $part-line-height
+
+          .meaning-item
+            &:not(:last-child)
+              padding-right: 3px
+
+.chinese-ci-box
+  line-height: 20px
+
+  .type-text
+    color: $main-level-4

@@ -14,14 +14,14 @@
 
 <script lang="ts" src="./App.ts"></script>
 
-<style lang="less">
-  @import '~assets/styles/global.less';
+<style lang="sass">
+  @import '~assets/styles/global.sass';
 </style>
 
-<style lang="less" scoped>
+<style scoped>
   .the-app {
-    // prevent style inheritance from page
-    // https://greasyfork.org/zh-CN/forum/discussion/56072
+    /* prevent style inheritance from page */
+    /* https://greasyfork.org/zh-CN/forum/discussion/56072 */
     all: initial;
     font-family: 'Roboto', 'Microsoft Yahei UI', 'Arial', sans-serif;
     line-height: 1.5;

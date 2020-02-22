@@ -28,4 +28,4 @@
 </template>
 
 <script lang="ts" src="./slider.ts"></script>
-<style lang="less" src="./slider.less" scoped></style>
+<style lang="sass" src="./slider.sass" scoped></style>

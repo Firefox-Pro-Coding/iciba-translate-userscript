@@ -147,4 +147,4 @@
 </template>
 
 <script lang="ts" src="./entry.ts"></script>
-<style lang="less" src="./entry.less" scoped></style>
+<style lang="sass" src="./entry.sass" scoped></style>

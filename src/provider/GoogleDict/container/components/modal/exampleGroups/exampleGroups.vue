@@ -32,13 +32,4 @@
 </template>
 
 <script lang="ts" src="./exampleGroups.ts"></script>
-
-<style lang="less" scoped>
-  @import '~assets/styles/variables.less';
-
-  .example-item {
-    &::before, &::after {
-      content: '"';
-    }
-  }
-</style>
+<style lang="sass" src="./exampleGroups.sass" scoped></style>

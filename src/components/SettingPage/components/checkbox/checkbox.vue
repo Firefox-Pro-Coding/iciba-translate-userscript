@@ -18,4 +18,4 @@
 </template>
 
 <script lang="ts" src="./checkbox.ts"></script>
-<style lang="less" src="./checkbox.less" scoped></style>
+<style lang="sass" src="./checkbox.sass" scoped></style>

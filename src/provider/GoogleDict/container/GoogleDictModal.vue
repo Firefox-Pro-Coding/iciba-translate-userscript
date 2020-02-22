@@ -84,4 +84,4 @@
 </template>
 
 <script lang="ts" src="./GoogleDictModal.ts"></script>
-<style lang="less" src="./GoogleDictModal.less" scoped></style>
+<style lang="sass" src="./GoogleDictModal.sass" scoped></style>

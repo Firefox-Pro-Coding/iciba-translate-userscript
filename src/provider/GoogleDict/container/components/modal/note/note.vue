@@ -15,4 +15,4 @@
 </template>
 
 <script lang="ts" src="./note.ts"></script>
-<style lang="less" src="./note.less" scoped></style>
+<style lang="sass" src="./note.sass" scoped></style>

@@ -63,9 +63,9 @@ config.module.rule('js')
   .exclude.add(/node_modules/)
 
 createCssRule('css', /\.css$/)
-createCssRule('less', /\.less$/)
-  .use('less-loader')
-  .loader('less-loader')
+createCssRule('sass', /\.(sass|scss)$/)
+  .use('sass-loader')
+  .loader('sass-loader')
   .end()
 
 config.module.rule('vue')

@@ -73,4 +73,4 @@
 </template>
 
 <script lang="ts" src="./VocabularyContainer.ts"></script>
-<style lang="less" src="./VocabularyContainer.less" scoped></style>
+<style lang="sass" src="./VocabularyContainer.sass" scoped></style>

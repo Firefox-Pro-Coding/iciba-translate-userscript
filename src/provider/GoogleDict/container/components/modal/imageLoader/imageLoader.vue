@@ -22,4 +22,4 @@
 </template>
 
 <script lang="ts" src="./imageLoader.ts"></script>
-<style lang="less" src="./imageLoader.less" scoped></style>
+<style lang="sass" src="./imageLoader.sass" scoped></style>

@@ -113,4 +113,4 @@
 </template>
 
 <script lang="ts" src="./thesaurus.ts"></script>
-<style lang="less" src="./thesaurus.less" scoped></style>
+<style lang="sass" src="./thesaurus.sass" scoped></style>

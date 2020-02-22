@@ -94,4 +94,4 @@
 </template>
 
 <script lang="ts" src="./googleTranslate.ts"></script>
-<style lang="less" src="./googleTranslate.less" scoped></style>
+<style lang="sass" src="./googleTranslate.sass" scoped></style>

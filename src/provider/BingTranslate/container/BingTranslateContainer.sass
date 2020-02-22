@@ -1,0 +1,57 @@
+@import '~assets/styles/variables.sass'
+
+.bing-translate-box
+  color: $main-level-1
+  padding: 7px 0 10px 10px
+
+.scroll-container
+  max-height: 250px
+
+.language-select-box
+  .title-box
+    .cancel-button
+      padding: 1px 6px
+      cursor: pointer
+
+      &:hover
+        background: $background-level-2
+
+  .language-item
+    cursor: pointer
+    flex: 0 0 33.3333%
+
+    &.active
+      background: $background-level-3
+
+    &:hover
+      background: $background-level-2
+
+.bottom-info-box
+  .tts-box
+    user-select: none
+    opacity: 0.9
+
+    .play-sound
+      cursor: pointer
+      opacity: 0.45
+
+      .audio-icon
+        margin: 0 0 0 2px
+        opacity: 0.8
+
+      &:hover
+        opacity: 0.7
+
+      &:active
+        background-position: center calc(50% + 1px)
+        opacity: 1
+
+  .language-info-box
+    user-select: none
+    color: #BBB
+
+    .language
+      cursor: pointer
+
+      &:hover
+        color: $primary

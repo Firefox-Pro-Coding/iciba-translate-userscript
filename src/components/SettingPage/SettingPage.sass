@@ -1,0 +1,31 @@
+.setting-modal
+  z-index: 10000000
+  background: rgba(0, 0, 0, 0.3)
+
+  &.s-enter,
+  &.s-leave-to
+    background: rgba(0, 0, 0, 0)
+
+    .setting-window
+      opacity: 0
+
+  &.s-enter
+    .setting-window
+      transform: scale(0.9)
+
+  &.s-leave,
+  &.s-enter-to
+    background: rgba(0, 0, 0, 0.3)
+
+    .setting-window
+      transform: scale(1)
+      opacity: 1
+
+  .setting-window
+    opacity: 1
+    width: 580px
+    height: 580px
+    overflow: hidden
+
+    .tabs-box
+      overflow: auto

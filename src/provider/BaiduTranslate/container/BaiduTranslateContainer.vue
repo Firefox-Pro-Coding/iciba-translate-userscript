@@ -90,4 +90,4 @@
 </template>
 
 <script lang="ts" src="./BaiduTranslateContainer.ts"></script>
-<style lang="less" src="./BaiduTranslateContainer.less" scoped></style>
+<style lang="sass" src="./BaiduTranslateContainer.sass" scoped></style>

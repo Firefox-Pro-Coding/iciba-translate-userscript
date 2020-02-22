@@ -72,4 +72,4 @@
 </template>
 
 <script lang="ts" src="./baiduTranslate.ts"></script>
-<style lang="less" src="./baiduTranslate.less" scoped></style>
+<style lang="sass" src="./baiduTranslate.sass" scoped></style>

@@ -93,6 +93,5 @@
   </div>
 </template>
 
-
 <script lang="ts" src="./GoogleTranslateContainer.ts"></script>
-<style lang="less" src="./GoogleTranslateContainer.less" scoped></style>
+<style lang="sass" src="./GoogleTranslateContainer.sass" scoped></style>

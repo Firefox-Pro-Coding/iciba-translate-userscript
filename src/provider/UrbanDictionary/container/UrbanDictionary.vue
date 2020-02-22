@@ -101,4 +101,4 @@
 </template>
 
 <script lang="ts" src="./UrbanDictionary.ts"></script>
-<style lang="less" src="./UrbanDictionary.less" scoped></style>
+<style lang="sass" src="./UrbanDictionary.sass" scoped></style>

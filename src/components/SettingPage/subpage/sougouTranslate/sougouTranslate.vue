@@ -72,4 +72,4 @@
 </template>
 
 <script lang="ts" src="./sougouTranslate.ts"></script>
-<style lang="less" src="./sougouTranslate.less" scoped></style>
+<style lang="sass" src="./sougouTranslate.sass" scoped></style>

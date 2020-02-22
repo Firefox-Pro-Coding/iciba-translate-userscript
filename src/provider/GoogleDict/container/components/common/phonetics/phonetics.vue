@@ -17,31 +17,4 @@
 </template>
 
 <script lang="ts" src="./phonetics.ts"></script>
-
-<style lang="less" scoped>
-  @import '~assets/styles/variables.less';
-
-  .phonetics-box {
-    height: 20px;
-    line-height: 20px;
-    align-items: center;
-    color: @main-level-3;
-    font-family: 'Noto Sans', 'Arial', sans-serif;
-
-    .play-button {
-      cursor: pointer;
-      height: 20px;
-      width: 22px;
-      opacity: 0.45;
-
-      &:hover {
-        opacity: 0.7;
-      }
-
-      &:active {
-        background-position: center calc(50% + 1px);
-        opacity: 1;
-      }
-    }
-  }
-</style>
+<style lang="sass" src="./phonetics.sass" scoped></style>

@@ -16,4 +16,4 @@
 </template>
 
 <script lang="ts" src="./pronunciation-item.ts"></script>
-<style lang="less" src="./pronunciation-item.less" scoped></style>
+<style lang="sass" src="./pronunciation-item.sass" scoped></style>

@@ -72,4 +72,4 @@
 </template>
 
 <script lang="ts" src="./bingTranslate.ts"></script>
-<style lang="less" src="./bingTranslate.less" scoped></style>
+<style lang="sass" src="./bingTranslate.sass" scoped></style>

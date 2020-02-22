@@ -50,4 +50,4 @@
 </template>
 
 <script lang="ts" src="./labels.ts"></script>
-<style lang="less" src="./labels.less" scoped></style>
+<style lang="sass" src="./labels.sass" scoped></style>

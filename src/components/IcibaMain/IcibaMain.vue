@@ -104,4 +104,4 @@
 </template>
 
 <script lang="ts" src="./IcibaMain.ts"></script>
-<style lang="less" src="./IcibaMain.less" scoped></style>
+<style lang="sass" src="./IcibaMain.sass" scoped></style>

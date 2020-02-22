@@ -14,4 +14,4 @@
 </template>
 
 <script lang="ts" src="./morphUnit.ts"></script>
-<style lang="less" src="./morphUnit.less" scoped></style>
+<style lang="sass" src="./morphUnit.sass" scoped></style>

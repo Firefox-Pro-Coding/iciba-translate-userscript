@@ -13,4 +13,4 @@
 </template>
 
 <script lang="ts" src="./IcibaCircle.ts"></script>
-<style src="./IcibaCircle.less" lang="less" scoped></style>
+<style src="./IcibaCircle.sass" lang="sass" scoped></style>

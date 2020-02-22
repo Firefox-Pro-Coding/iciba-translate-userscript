@@ -93,4 +93,4 @@
 </template>
 
 <script lang="ts" src="./SougouTranslateContainer.ts"></script>
-<style lang="less" src="./SougouTranslateContainer.less" scoped></style>
+<style lang="sass" src="./SougouTranslateContainer.sass" scoped></style>

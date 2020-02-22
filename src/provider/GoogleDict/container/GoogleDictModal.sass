@@ -1,0 +1,67 @@
+@import '~assets/styles/variables.sass'
+
+.modal-wrapper
+  z-index: 10000
+  font-family: 'Arial', 'Microsoft Yahei UI', sans-serif
+
+  ::v-deep .entry-link
+    color: lighten(desaturate($primary, 35%), 5%)
+    cursor: pointer
+
+  &.modal-enter, &.modal-leave-to
+    opacity: 0
+
+  &.modal-enter
+    .modal-content
+      transform: scale(0.9)
+
+    .fold-control
+      transform: translate(-50%, -100%)
+
+  &.modal-enter-to, &.modal-leave
+    opacity: 1
+
+  .fold-control
+    top: 0
+    left: 50%
+    transform: translate(-50%, 0)
+    z-index: 4
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) transform, 0.1s cubic-bezier(0.4, 0, 0.2, 1) opacity
+    background-color: $background-level-5
+    opacity: 0.7
+
+    &:hover
+      opacity: 1
+
+    .split
+      background: $border-level-1
+      width: 1px
+
+    .control-btn
+      height: 32px
+      width: 32px
+
+      &.disable
+        pointer-events: none
+        opacity: 0.2
+
+      &:hover
+        background-color: $background-level-4
+
+      &:active
+        box-shadow: 0 1px 3px rgba(black, 0.3) inset
+
+  .modal-bg
+    background: rgba(0, 0, 0, 0.4)
+    z-index: 1
+
+  .modal-box
+    z-index: 2
+    width: 80%
+    max-width: 800px
+
+    .scroll-container
+      height: 100%
+
+    .content-box
+      padding: 20px 20px 30px 20px

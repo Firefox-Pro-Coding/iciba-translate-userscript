@@ -1,2 +1,2 @@
 <script lang="ts" src="./tabs.tsx"></script>
-<style lang="less" src="./tabs.less" scoped></style>
+<style lang="sass" src="./tabs.sass" scoped></style>

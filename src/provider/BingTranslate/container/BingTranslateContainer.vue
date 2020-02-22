@@ -91,4 +91,4 @@
 
 
 <script lang="ts" src="./BingTranslateContainer.ts"></script>
-<style lang="less" src="./BingTranslateContainer.less" scoped></style>
+<style lang="sass" src="./BingTranslateContainer.sass" scoped></style>

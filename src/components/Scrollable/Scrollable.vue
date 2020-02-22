@@ -43,4 +43,4 @@
 </template>
 
 <script lang="ts" src="./Scrollable.ts"></script>
-<style lang="less" src="./Scrollable.less" scoped></style>
+<style lang="sass" src="./Scrollable.sass" scoped></style>

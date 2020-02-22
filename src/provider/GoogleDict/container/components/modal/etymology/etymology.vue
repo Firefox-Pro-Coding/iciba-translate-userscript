@@ -24,4 +24,4 @@
 </template>
 
 <script lang="ts" src="./etymology.ts"></script>
-<style lang="less" src="./etymology.less" scoped></style>
+<style lang="sass" src="./etymology.sass" scoped></style>

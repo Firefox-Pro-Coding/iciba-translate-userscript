@@ -18,4 +18,4 @@
 </template>
 
 <script lang="ts" src="./IconRadioGroup.ts"></script>
-<style lang="less" src="./IconRadioGroup.less" scoped></style>
+<style lang="sass" src="./IconRadioGroup.sass" scoped></style>
