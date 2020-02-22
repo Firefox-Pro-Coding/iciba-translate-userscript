@@ -4,13 +4,13 @@ import { BING_LANGUAGES, BING_VOICE_MAP } from '~/constants/bingLanguages'
 import { got } from '~/util/gmapi'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'
+import { PlayAudioAction, audioBus, EVENTS } from '~/service/audioBus'
 
 import { ProviderType } from '../provider'
 import BingTranslateContainer from './container/BingTranslateContainer.vue'
 import containerData from './containerData'
 import getToken from './helpers/token'
 import getVoiceToken from './helpers/voiceToken'
-import BingTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 
 interface BingTranslateResult {
   result: Array<string>
@@ -97,7 +97,11 @@ const useBingTranslateProvider = (): ProviderType => {
     }
   }
 
-  const handlePlay = async (params: PlayAudioPayload) => {
+  const handlePlay = async (payload: PlayAudioAction) => {
+    if (payload.id !== PROVIDER.BING_TRANSLATE) {
+      return
+    }
+    const params = payload.params
     const volume = 0.7
     const word = params.word.slice(0, 100)
     const key = `${params.tl}-${word}`
@@ -139,7 +143,7 @@ const useBingTranslateProvider = (): ProviderType => {
     audioCacheService.play(namespacedKey, response.response, volume)
   }
 
-  BingTranslateBus.on(NAMES.PLAY_AUDIO, handlePlay)
+  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.BING_TRANSLATE,

@@ -1,3 +1,7 @@
+export interface VocabularyPlayAudioPayload {
+  key: string
+}
+
 export interface Data {
   word: string
   autocomplete: Array<{

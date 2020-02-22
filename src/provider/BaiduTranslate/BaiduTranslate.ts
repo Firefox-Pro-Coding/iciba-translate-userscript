@@ -3,13 +3,13 @@ import { PROVIDER } from '~/constants/constant'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'
+import { audioBus, EVENTS, PlayAudioAction } from '~/service/audioBus'
 import { got } from '~/util/gmapi'
 
 import { ProviderType } from '../provider'
 import getToken from './helpers/token'
 import BaiduTranslateContainer from './container/BaiduTranslateContainer.vue'
 import containerData from './containerData'
-import BaiduTranslateBus, { PlayAudioPayload, NAMES } from './bus'
 
 export interface BaiduTranslateParams {
   sl: string
@@ -96,7 +96,11 @@ const useBaiduTranslateProvider = (): ProviderType => {
     }
   }
 
-  const handlePlay = async (params: PlayAudioPayload) => {
+  const handlePlay = async (payload: PlayAudioAction) => {
+    if (payload.id !== PROVIDER.BAIDU_TRANSLATE) {
+      return
+    }
+    const params = payload.params
     const volume = 0.7
     const query = {
       lan: params.tl,
@@ -127,7 +131,7 @@ const useBaiduTranslateProvider = (): ProviderType => {
     audioCacheService.play(url, response.response, volume)
   }
 
-  BaiduTranslateBus.on(NAMES.PLAY_AUDIO, handlePlay)
+  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
   return {
     id: PROVIDER.BAIDU_TRANSLATE,
     view: BaiduTranslateContainer,

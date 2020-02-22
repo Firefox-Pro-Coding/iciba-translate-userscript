@@ -5,9 +5,9 @@ import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { BAIDU_LANGUAGES, BAIDU_LANGUAGE_MAP } from '~/constants/baiduLanguages'
 import { PROVIDER } from '~/constants/constant'
 import { bus, EVENTS } from '~/service/globalBus'
+import { audioBus, EVENTS as AEVENTS } from '~/service/audioBus'
 
 import containerData from '../containerData'
-import BaiduTranslateBus, { NAMES } from '../bus'
 
 const languages = Object.entries(BAIDU_LANGUAGE_MAP)
   .map(([id, name]) => ({ id: id as BAIDU_LANGUAGES, name }))
@@ -61,9 +61,10 @@ export default defineComponent({
     }
 
     const handlePlay = (type: 'source' | 'target') => {
-      BaiduTranslateBus.emit(
-        NAMES.PLAY_AUDIO,
-        type === 'source'
+      audioBus.emit({
+        type: AEVENTS.PLAY_AUDIO,
+        id: PROVIDER.BAIDU_TRANSLATE,
+        params: type === 'source'
           ? {
             word: containerData.inputText,
             tl: containerData.sourceLanguage,
@@ -72,7 +73,7 @@ export default defineComponent({
             word: containerData.data.join(),
             tl: containerData.targetLanguage,
           },
-      )
+      })
     }
 
     return {

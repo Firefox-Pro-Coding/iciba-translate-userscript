@@ -2,6 +2,8 @@ import { stringify } from 'querystring'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
 import { PROVIDER } from '~/constants/constant'
+import { audioCacheService } from '~/service/audioCache'
+import { audioBus, EVENTS, PlayAudioAction } from '~/service/audioBus'
 
 import { ProviderType } from '../provider'
 import IcibaContainer from './container/IcibaContainer.vue'
@@ -81,6 +83,41 @@ const useIcibaProvider = (): ProviderType => {
       containerData.data = copy(result)
     }
   }
+
+  const handlePlay = async (payload: PlayAudioAction): Promise<void> => {
+    if (payload.id !== PROVIDER.ICIBA) {
+      return
+    }
+    const url = payload.params.url
+
+    if (!url) {
+      return
+    }
+    const volume = 0.6
+
+    if (audioCacheService.play(url, volume)) {
+      return
+    }
+
+    const response = await got<ArrayBuffer>({
+      method: 'GET',
+      headers: {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Referer': 'https://www.iciba.com/',
+        'User-Agent': window.navigator.userAgent,
+      },
+      responseType: 'arraybuffer',
+      url,
+      timeout: 5000,
+    })
+    audioCacheService.play(url, response.response, volume)
+  }
+
+  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.ICIBA,

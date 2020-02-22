@@ -12,6 +12,10 @@ import {
 } from 'io-ts'
 import { excess } from '~/util/extendIoTs/excess'
 
+export interface IcibaPlayAudioPayload {
+  url: string
+}
+
 /** 行业词典 */
 export const tradeMean = excess(type({
   word_trade: string,

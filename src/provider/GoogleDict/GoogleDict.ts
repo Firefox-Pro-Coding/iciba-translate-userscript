@@ -3,7 +3,7 @@ import { got, GMXMLError } from '~/util/gmapi'
 import { PROVIDER } from '~/constants/constant'
 import { audioCacheService } from '~/service/audioCache'
 import { EVENTS, bus } from '~/service/globalBus'
-import { googleDictBus, EVENTS as GVENTS } from '~/provider/GoogleDict/bus'
+import { audioBus, EVENTS as AEVENTS, PlayAudioAction } from '~/service/audioBus'
 
 import { ProviderType } from '../provider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
@@ -123,9 +123,12 @@ const useGoogleDictProvider = (): ProviderType => {
   }
 
   /** 播放音频 */
-  const handlePlay = async (url: string): Promise<void> => {
+  const handlePlay = async (payload: PlayAudioAction): Promise<void> => {
+    if (payload.id !== PROVIDER.GOOGLE_DICT) {
+      return
+    }
     const volume = 0.7
-    const mp3Url = `https:${url}`
+    const mp3Url = `https:${payload.params.url}`
 
     if (audioCacheService.play(mp3Url, volume)) {
       return
@@ -149,7 +152,7 @@ const useGoogleDictProvider = (): ProviderType => {
     audioCacheService.play(mp3Url, response.response, volume)
   }
 
-  googleDictBus.on(GVENTS.PLAY_AUDIO, handlePlay)
+  audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.GOOGLE_DICT,

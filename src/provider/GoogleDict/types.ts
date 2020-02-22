@@ -11,6 +11,10 @@ import {
 } from 'io-ts'
 import { excess } from '~/util/extendIoTs/excess'
 
+export interface GoogleDictPlayAudioPayload {
+  url: string
+}
+
 export const note = excess(type({
   text: string,
   type: string,

@@ -1,5 +1,6 @@
 import { defineComponent, reactive } from '@vue/composition-api'
 import { bus, EVENTS } from '~/service/globalBus'
+import { audioBus, EVENTS as AEVENTS } from '~/service/audioBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { PROVIDER } from '~/constants/constant'
 
@@ -7,7 +8,6 @@ import { BING_LANGUAGE_MAP, BING_LANGUAGES } from '~/constants/bingLanguages'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
 import containerData from '../containerData'
-import GoogleTranslateBus, { NAMES } from '../bus'
 
 
 const languages = Object.entries(BING_LANGUAGE_MAP)
@@ -50,9 +50,10 @@ export default defineComponent({
     }
 
     const handlePlay = (type: 'source' | 'target') => {
-      GoogleTranslateBus.emit(
-        NAMES.PLAY_AUDIO,
-        type === 'source'
+      audioBus.emit({
+        type: AEVENTS.PLAY_AUDIO,
+        id: PROVIDER.BING_TRANSLATE,
+        params: type === 'source'
           ? {
             word: containerData.inputText,
             tl: containerData.detectedLanguage,
@@ -61,7 +62,7 @@ export default defineComponent({
             word: containerData.data.join(' '),
             tl: containerData.targetLanguage,
           },
-      )
+      })
     }
 
     return {

@@ -3,11 +3,11 @@ import { bus, EVENTS } from '~/service/globalBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { PROVIDER } from '~/constants/constant'
 
+import { audioBus, EVENTS as AEVENTS } from '~/service/audioBus'
 import { GOOGLE_LANGUAGE_MAP, GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
 import containerData from '../containerData'
-import GoogleTranslateBus, { NAMES } from '../bus'
 
 const languages = Object.entries(GOOGLE_LANGUAGE_MAP)
   .map(([id, name]) => ({ id: id as GOOGLE_LANGUAGES, name }))
@@ -48,9 +48,10 @@ export default defineComponent({
     }
 
     const handlePlay = (type: 'source' | 'target') => {
-      GoogleTranslateBus.emit(
-        NAMES.PLAY_AUDIO,
-        type === 'source'
+      audioBus.emit({
+        type: AEVENTS.PLAY_AUDIO,
+        id: PROVIDER.GOOGLE_TRANSLATE,
+        params: type === 'source'
           ? {
             word: containerData.inputText,
             tl: containerData.detectedLanguage,
@@ -59,7 +60,7 @@ export default defineComponent({
             word: containerData.data.join(),
             tl: containerData.targetLanguage,
           },
-      )
+      })
     }
 
     return {
