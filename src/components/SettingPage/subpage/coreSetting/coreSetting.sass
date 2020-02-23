@@ -1,23 +1,37 @@
 
 .icon-move
-  transition: transform 1s
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)
 
+.icon-select
+  z-index: 1000000
 
-.icon-box
+.icon-box-container
   .icon-item
-    &.mask
-      .icon-box
-        position: absolute
+    height: 44px
+    width: 44px
 
     .mask-box
-      z-index: 3
-      border: 1px solid #777
+      z-index: 2
+      border: 1px solid #aaa
+      background: #eee
       height: 44px
       width: 44px
       border-radius: 3px
       top: 0
       left: 0
 
+      &.mask-leave, &.mask-enter-to
+        opacity: 1
+
+      &.mask-enter, &.mask-leave-to
+        opacity: 0
+
+      &.mask-leave-active
+        transition-delay: 0.2s
+
     .icon-box
-      .icon-icon
-        background: #eee
+      z-index: 3
+
+      .icon
+        &.inactive
+          opacity: 0.3

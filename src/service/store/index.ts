@@ -4,6 +4,7 @@ import { getValue, setValue } from '~/util/gmapi'
 import copy from '~/util/copy'
 
 import { PROVIDER } from '~/constants/constant'
+import { toast } from '~/service/toast'
 
 import * as core from './modules/core'
 import * as iciba from './modules/iciba'
@@ -56,6 +57,7 @@ const setDefaultDataByPath = (path: Array<string>, _data: any) => {
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 const useStore = () => {
+  let timeoutId = 0
   const state = reactive({
     googleDict: {
       subsenseFolded: false,
@@ -93,9 +95,19 @@ const useStore = () => {
     store.config = reactive(data)
   }
 
-  const saveConfig = () => {
+  const saveConfig = (showToast = true, timeout = 1000) => {
     const dataString = JSON.stringify(store.config)
     setValue(GM_VALUE_KEY, dataString)
+    if (showToast) {
+      if (timeoutId) {
+        window.clearTimeout(timeoutId)
+      }
+
+      timeoutId = window.setTimeout(() => {
+        toast('设置已保存！', 2000)
+        timeoutId = 0
+      }, timeout)
+    }
   }
 
   const store = {

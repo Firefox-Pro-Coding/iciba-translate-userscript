@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
 import { defaultData, store } from '~/service/store'
-import { settingPageService } from '~/service/settingPage'
 import copy from '~/util/copy'
 import providerIcon from '~/constants/icon'
 import { googleLanguagesOptions } from '~/constants/googleLanguages'
@@ -59,7 +58,6 @@ export default defineComponent({
 
       store.config[PROVIDER.GOOGLE_TRANSLATE] = copy(state.form)
       store.saveConfig()
-      settingPageService.showSavedToast()
     }, { deep: true, lazy: true })
 
     return {

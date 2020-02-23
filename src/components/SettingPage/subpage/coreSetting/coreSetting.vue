@@ -1,47 +1,43 @@
 <template>
   <div class="flex-col items-start">
     <div class="icon-box-wrapper relative" ref="container">
-      <transition-group class="icon-box flex mb-3" name="icon">
+      <transition-group
+        class="icon-box-container flex mb-3 ease-linear"
+        name="icon"
+      >
         <div
-          class="icon-item select-none"
+          class="icon-item relative select-none"
           :class="{ mask: iconItem.mask }"
+          :style="{ zIndex: iconItem.z }"
           v-for="iconItem of state.list"
           @dragstart.prevent
-          @mousedown="handleDragStart($event, iconItem)"
+          @mousedown="handleDragStart(iconItem)"
+          @click.right.prevent="handleToggleVisibility(iconItem.id)"
           :key="iconItem.id"
           ref="icons"
         >
-          <div class="mask-box" v-if="iconItem.mask" />
+          <transition name="mask">
+            <div
+              class="mask-box absolute ease-in-out duration-200"
+              key="mask-box"
+              v-show="iconItem.mask"
+            />
+          </transition>
           <div
-            class="icon-box rounded-3px hover:opacity-75 hover:bg-grey-200 p-1"
-            v-if="!iconItem.mask"
+            key="icon-box"
+            class="icon-box absolute rounded-3px p-1"
+            v-if="!iconItem.mask || true"
           >
             <i-icon
-              class="icon-icon"
+              class="icon"
+              :class="{ inactive: !isProviderVisible(iconItem.id) }"
               size="36"
               :svg="iconItem.icon"
             />
           </div>
         </div>
       </transition-group>
-
-      <!-- <div class="icon-item select-none" v-if="state.drag">
-        <div class="mask-box" v-if="state.drag.mask" />
-        <div
-          class="icon-box rounded-3px hover:opacity-75 hover:bg-grey-200 p-1"
-          :style="itemStyle"
-          ref="iconbox"
-        >
-          <i-icon
-            class="icon-icon"
-            size="36"
-            :svg="state.drag.icon"
-          />
-        </div>
-      </div> -->
     </div>
-
-    <button @click="shuffle">shuffle</button>
 
     <i-checkbox
       class="mt-0"

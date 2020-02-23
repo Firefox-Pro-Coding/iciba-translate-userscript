@@ -1,7 +1,6 @@
 import Vue from 'vue'
-import { defineComponent, reactive, onMounted, watch, onUnmounted, computed } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch, onUnmounted } from '@vue/composition-api'
 
-import { settingPageService } from '~/service/settingPage'
 import { defaultData, store } from '~/service/store'
 import copy from '~/util/copy'
 import { providerOptions, PROVIDER } from '~/constants/constant'
@@ -11,6 +10,13 @@ interface DragItem {
   id: PROVIDER
   icon: string
   mask: boolean
+  z: number
+}
+
+interface RectItem {
+  left: number
+  right: number
+  width: number
 }
 
 export default defineComponent({
@@ -18,164 +24,95 @@ export default defineComponent({
   setup: (_p, ctx) => {
     const $refs: {
       container: HTMLDivElement
-      icons: Array<HTMLDivElement>
     } = ctx.refs
+
     const state = reactive({
       form: copy(defaultData.core),
       loadingSetting: true,
-      list: providerOptions.map((v) => ({
-        id: v.key,
-        icon: getIcon(v.key),
+      list: store.config.core.providerOrder.map((id) => ({
+        id,
+        icon: getIcon(id),
         mask: false,
+        z: 0,
       })) as Array<DragItem>,
-      drag: null as null | DragItem,
-      startOffset: {
-        x: 0,
-        y: 0,
-      },
-      start: {
-        x: 0,
-        y: 0,
-      },
-      move: {
-        x: 0,
-        y: 0,
-      },
     })
 
-    const state2 = {
-      centers: [] as Array<number>,
-      currentIndex: 0,
-      currentIconBox: null as any as HTMLDivElement,
+    const drag = {
+      item: null as null | DragItem,
+      rects: [] as Array<RectItem>,
+      cIndex: 0,
     }
 
-    const shuffle = () => {
-      const arr = [...state.list]
-      const newArr = []
-      while (arr.length) {
-        const index = Math.floor(Math.random() * arr.length)
-        newArr.push(arr[index])
-        arr.splice(index, 1)
-      }
-      state.list = newArr
-    }
-
-    const getCenter = (d: HTMLDivElement) => {
-      const b = d.getBoundingClientRect()
-      return (b.left + b.right) / 2
-    }
-
-    const exchange = (arr: Array<any>, index: number, index2: number) => {
-      const temp = arr[index]
-      arr[index] = arr[index2]
-      arr[index2] = temp
-    }
-
-    const handleDragStart = (e: MouseEvent, icon: DragItem) => {
-      state.drag = icon
-      const cb = $refs.container.getBoundingClientRect()
-      const index = state.list.indexOf(icon)
-      const ib = ((e.currentTarget as HTMLDivElement).querySelector('.icon-box') as HTMLDivElement).getBoundingClientRect()
-      state.startOffset = {
-        x: ib.x - cb.x,
-        y: ib.y - cb.y,
-      }
-      console.log(state.startOffset.x)
-      state.start = {
-        x: e.clientX,
-        y: e.clientY,
-      }
-      state.move = {
-        x: e.clientX,
-        y: e.clientY,
-      }
-      icon.mask = true
-
-      state2.centers = Array.from($refs.container.firstElementChild!.children)
+    const threshold = 1
+    const calcCenter = () => {
+      drag.rects = Array.from($refs.container.firstElementChild!.children)
         .map((v) => {
           const b = v.getBoundingClientRect()
-          return (b.left + b.right) / 2
+          return {
+            left: b.left + (1 - threshold) * b.width * 0.5,
+            right: b.right - (1 - threshold) * b.width * 0.5,
+            width: b.width,
+          }
         })
-      state2.currentIndex = index
-      state2.currentIconBox = (e.currentTarget as HTMLDivElement).querySelector('.icon-box') as HTMLDivElement
+    }
+
+    const handleDragStart = (icon: DragItem) => {
+      icon.mask = true
+      drag.item = icon
+      state.list.forEach((v) => { v.z = 1 })
+      icon.z = 3
+      calcCenter()
+      drag.cIndex = state.list.indexOf(icon)
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!state.drag) {
+      if (!drag.item) {
         return
       }
 
-      const currentCenter = e.clientX
-      let newIndex = state2.currentIndex
-      for (let i = 0; i < state2.centers.length; i += 1) {
-        if (i !== state2.currentIndex) {
-          if (state2.centers[i] > currentCenter) {
-            newIndex = i
+      const cX = e.clientX
+      const cIndex = drag.cIndex
+
+      const c = drag.rects
+
+      let newIndex = 0
+      for (; newIndex < c.length; newIndex += 1) {
+        if (newIndex === cIndex) {
+          // eslint-disable-next-line no-continue
+          continue
+        }
+
+        const item = c[newIndex]
+
+        if (newIndex < cIndex) {
+          if (item.right > cX) {
             break
           }
+        } else if (item.left > cX) {
+          break
         }
       }
 
-      if (newIndex !== state2.currentIndex) {
-        console.log('exchange', newIndex, state2.currentIndex)
-        exchange(state.list, newIndex, state2.currentIndex)
-        exchange(state2.centers, newIndex, state2.currentIndex)
-        state2.currentIndex = newIndex
+      if (newIndex > cIndex) {
+        newIndex -= 1
       }
 
-      // const index = state.list.indexOf(state.drag)
-      // const currentCenter = getCenter(iconbox[index])
-      // const leftCenter = icons[index - 1]
-      //   ? getCenter(icons[index - 1])
-      //   : 0
-      // const rightCenter = icons[index + 1]
-      //   ? getCenter(icons[index + 1])
-      //   : Infinity
-
-      // console.log(leftCenter > currentCenter, rightCenter < currentCenter)
-
-      // if (leftCenter > currentCenter) {
-      //   exchange(state.list, index, index - 1)
-      //   exchange(iconbox, index, index - 1)
-      //   exchange(icons, index, index - 1)
-      // }
-
-      // if (rightCenter < currentCenter) {
-      //   exchange(state.list, index, index + 1)
-      //   exchange(iconbox, index, index + 1)
-      //   exchange(icons, index, index + 1)
-      // }
-
-      state.move = {
-        x: e.clientX,
-        y: e.clientY,
+      if (newIndex !== cIndex) {
+        const item = state.list.splice(cIndex, 1)
+        state.list.splice(newIndex, 0, item[0])
+        drag.cIndex = newIndex
       }
     }
 
     const handleDragEnd = () => {
-      console.log('mouseup')
-      if (!state.drag) {
+      if (!drag.item) {
         return
       }
-      state.drag.mask = false
-      state.drag = null
-      console.log('end')
+      drag.item.mask = false
+      drag.item = null
+      store.config.core.providerOrder = state.list.map((v) => v.id)
+      store.saveConfig()
     }
-
-    const itemStyle = computed(() => ({
-      top: `${state.startOffset.y + state.move.y - state.start.y}px`,
-      left: `${state.startOffset.x + state.move.x - state.start.x}px`,
-    }))
-
-    onMounted(() => {
-      window.addEventListener('mousemove', handleMouseMove)
-      window.addEventListener('mouseup', handleDragEnd)
-    })
-
-    onUnmounted(() => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleDragEnd)
-    })
 
     const loadSettings = () => {
       state.form = copy(store.config.core)
@@ -184,9 +121,12 @@ export default defineComponent({
       })
     }
 
-    onMounted(() => {
-      loadSettings()
-    })
+    const handleToggleVisibility = (key: PROVIDER) => {
+      store.config[key].display = !store.config[key].display
+      store.saveConfig()
+    }
+
+    const isProviderVisible = (key: PROVIDER) => store.config[key].display
 
     watch(() => state.form, () => {
       if (state.loadingSetting) {
@@ -199,18 +139,25 @@ export default defineComponent({
 
       store.config.core = copy(state.form)
       store.saveConfig()
-      settingPageService.showSavedToast()
     }, { deep: true, lazy: true })
+
+    onMounted(() => {
+      loadSettings()
+      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('mouseup', handleDragEnd)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleDragEnd)
+    })
 
     return {
       state,
       providerOptions,
-
-      itemStyle,
-
-      shuffle,
       handleDragStart,
-      handleDragEnd,
+      handleToggleVisibility,
+      isProviderVisible,
     }
   },
 })

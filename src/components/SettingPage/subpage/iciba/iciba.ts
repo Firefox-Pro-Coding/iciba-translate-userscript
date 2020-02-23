@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
 
-import { settingPageService } from '~/service/settingPage'
 import { defaultData, store } from '~/service/store'
 import copy from '~/util/copy'
 
@@ -46,7 +45,6 @@ export default defineComponent({
 
       store.config[PROVIDER.ICIBA] = copy(state.form)
       store.saveConfig()
-      settingPageService.showSavedToast()
     }, { deep: true, lazy: true })
 
     return {
