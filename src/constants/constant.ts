@@ -16,13 +16,18 @@ export const PROVIDER_MAP = {
   [PROVIDER.SOUGOU_TRANSLATE]: '搜狗翻译',
   [PROVIDER.URBAN_DICTIONARY]: 'urban dictionary',
   [PROVIDER.BING_TRANSLATE]: 'bing 翻译',
+  [PROVIDER.VOCABULARY]: 'vocabulary',
 }
 export const providerOptions = Object
   .entries(PROVIDER_MAP)
   .map(([k, v]) => ({
     label: v,
     key: k,
-  }))
+  })) as Array<{ key: PROVIDER, label: string }>
+
+type Keys = keyof typeof PROVIDER_MAP
+export type ProviderTestFunc<T extends Keys> = (p: T) => any
+export type ProviderTest = ProviderTestFunc<PROVIDER>
 
 export enum GOOGLE_TRANSLATE_HOST {
   GOOGLE_COM = 'GOOGLE_COM',

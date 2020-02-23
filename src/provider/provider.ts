@@ -9,7 +9,10 @@ export interface ProviderType {
   translate: (word: string, payload: any) => Promise<() => void>
 }
 
-export const getIcon = (provider: ProviderType) => {
-  const key = store.config[provider.id].icon
-  return (providerIcon[provider.id] as any)[key]
+export const getIcon = (provider: ProviderType | PROVIDER) => {
+  const id = typeof provider === 'string'
+    ? provider
+    : provider.id
+  const key = store.config[id].icon
+  return (providerIcon[id] as any)[key] as string
 }

@@ -1,5 +1,48 @@
 <template>
   <div class="flex-col items-start">
+    <div class="icon-box-wrapper relative" ref="container">
+      <transition-group class="icon-box flex mb-3" name="icon">
+        <div
+          class="icon-item select-none"
+          :class="{ mask: iconItem.mask }"
+          v-for="iconItem of state.list"
+          @dragstart.prevent
+          @mousedown="handleDragStart($event, iconItem)"
+          :key="iconItem.id"
+          ref="icons"
+        >
+          <div class="mask-box" v-if="iconItem.mask" />
+          <div
+            class="icon-box rounded-3px hover:opacity-75 hover:bg-grey-200 p-1"
+            v-if="!iconItem.mask"
+          >
+            <i-icon
+              class="icon-icon"
+              size="36"
+              :svg="iconItem.icon"
+            />
+          </div>
+        </div>
+      </transition-group>
+
+      <!-- <div class="icon-item select-none" v-if="state.drag">
+        <div class="mask-box" v-if="state.drag.mask" />
+        <div
+          class="icon-box rounded-3px hover:opacity-75 hover:bg-grey-200 p-1"
+          :style="itemStyle"
+          ref="iconbox"
+        >
+          <i-icon
+            class="icon-icon"
+            size="36"
+            :svg="state.drag.icon"
+          />
+        </div>
+      </div> -->
+    </div>
+
+    <button @click="shuffle">shuffle</button>
+
     <i-checkbox
       class="mt-0"
       v-model="state.form.pressCtrlToDrag"
@@ -189,3 +232,4 @@
 </template>
 
 <script lang="ts" src="./coreSetting.ts"></script>
+<style lang="sass" src="./coreSetting.sass"></style>
