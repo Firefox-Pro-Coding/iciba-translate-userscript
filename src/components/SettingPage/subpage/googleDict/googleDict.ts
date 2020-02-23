@@ -1,8 +1,6 @@
-import Vue from 'vue'
-import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
-import { defaultData, store } from '~/service/store'
-import copy from '~/util/copy'
+import { store } from '~/service/store'
 import providerIcon from '~/constants/icon'
 import {
   PROVIDER,
@@ -29,36 +27,9 @@ export default defineComponent({
   components: {
     IconRadioGroup,
   },
-  setup: () => {
-    const state = reactive({
-      form: copy(defaultData[PROVIDER.GOOGLE_DICT]),
-      loadingSetting: true,
-    })
-
-    const loadSettings = () => {
-      state.form = copy(store.config[PROVIDER.GOOGLE_DICT])
-      Vue.nextTick(() => {
-        state.loadingSetting = false
-      })
-    }
-
-    onMounted(() => {
-      loadSettings()
-    })
-
-    watch(() => state.form, () => {
-      if (state.loadingSetting) {
-        return
-      }
-
-      store.config[PROVIDER.GOOGLE_DICT] = copy(state.form)
-      store.saveConfig()
-    }, { deep: true, lazy: true })
-
-    return {
-      state,
-      iconOptions,
-      foldOptions,
-    }
-  },
+  setup: () => ({
+    form: store.config[PROVIDER.GOOGLE_DICT],
+    iconOptions,
+    foldOptions,
+  }),
 })

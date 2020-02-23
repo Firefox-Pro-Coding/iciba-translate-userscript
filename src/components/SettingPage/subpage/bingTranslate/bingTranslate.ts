@@ -1,12 +1,10 @@
-import Vue from 'vue'
-import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, watch, onUnmounted } from '@vue/composition-api'
 
-import { defaultData, store } from '~/service/store'
-import copy from '~/util/copy'
+import { store } from '~/service/store'
 
 import providerIcon from '~/constants/icon'
 import { PROVIDER } from '~/constants/constant'
-import { bingLanguagesOptions } from '~/constants/bingLanguages'
+import { bingLanguagesOptions, BING_LANGUAGES } from '~/constants/bingLanguages'
 
 import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
 
@@ -19,41 +17,37 @@ const iconOptions = Object
 
 export default defineComponent({
   name: 'BingTranslateSettings',
+  props: {
+    active: Boolean,
+  },
   components: {
     IconRadioGroup,
   },
-  setup: () => {
-    const state = reactive({
-      form: copy(defaultData[PROVIDER.BING_TRANSLATE]),
-      loadingSetting: true,
+  setup: (props) => {
+    const form = store.config[PROVIDER.BING_TRANSLATE]
+    let reset: Array<BING_LANGUAGES> | null = null
+
+    watch(() => [
+      form.targetLanguage,
+      form.secondTargetLanguage,
+    ], (n, o) => {
+      reset = o && n[0] === n[1]
+        ? o
+        : null
     })
 
-    const loadSettings = () => {
-      state.form = copy(store.config[PROVIDER.BING_TRANSLATE])
-      Vue.nextTick(() => {
-        state.loadingSetting = false
-      })
+    const doReset = () => {
+      if (props.active && reset) {
+        form.targetLanguage = reset[0]
+        form.secondTargetLanguage = reset[1]
+      }
     }
 
-    onMounted(() => {
-      loadSettings()
-    })
-
-    watch(() => state.form, () => {
-      if (state.loadingSetting) {
-        return
-      }
-
-      if (state.form.targetLanguage === state.form.secondTargetLanguage) {
-        return
-      }
-
-      store.config[PROVIDER.BING_TRANSLATE] = copy(state.form)
-      store.saveConfig()
-    }, { deep: true, lazy: true })
+    watch(() => props.active, doReset, { lazy: true })
+    onUnmounted(doReset)
 
     return {
-      state,
+      form,
       iconOptions,
       languageOptions: bingLanguagesOptions,
     }

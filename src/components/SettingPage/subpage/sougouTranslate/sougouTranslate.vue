@@ -1,7 +1,7 @@
 <template>
   <div class="flex-col items-start">
     <icon-radio-group
-      v-model="state.form.icon"
+      v-model="form.icon"
       :icons="iconOptions"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -10,7 +10,7 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="state.form.display"
+      v-model="form.display"
       label="显示按钮"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -32,7 +32,7 @@
         <div class="text-grey-600 pr-4 mb-1">首选语言</div>
         <i-radio-group
           class="mt-0 flex-grow-0"
-          v-model="state.form.targetLanguage"
+          v-model="form.targetLanguage"
         >
           <i-radio
             v-for="n of languageOptions"
@@ -46,7 +46,7 @@
         <div class="text-grey-600 pr-4 mb-1">备选语言</div>
         <i-radio-group
           class="mt-0"
-          v-model="state.form.secondTargetLanguage"
+          v-model="form.secondTargetLanguage"
         >
           <i-radio
             v-for="n of languageOptions"
@@ -58,7 +58,7 @@
       </div>
     </div>
     <p
-      v-if="state.form.targetLanguage === state.form.secondTargetLanguage"
+      v-if="form.targetLanguage === form.secondTargetLanguage"
       class="text-14 text-brightred mt-2 mb-0"
     >
       首选语言和备选语言请选择不同的选项
