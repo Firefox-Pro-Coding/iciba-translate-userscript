@@ -97,6 +97,9 @@ export default defineComponent({
         type: EVENTS.TRANSLATE,
         mouseEvent: event,
         word: state.word,
+        param: {
+          provider: store.config.core.defaultProvider,
+        },
       })
     }
 

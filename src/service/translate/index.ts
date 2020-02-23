@@ -11,6 +11,7 @@ import { PROVIDER } from '~/constants/constant'
 import { ProviderType } from '~/provider/provider'
 
 import { TranslateAction } from '../globalBus'
+import { store } from '../store'
 
 interface ActiveTask {
   word: string
@@ -51,7 +52,9 @@ const useTranslateService = () => {
   /** 查词 */
   const translate = (action: TranslateAction): Promise<unknown> => {
     const param = action.param
-    const provider = (param && providers.find((p) => p.id === param.provider)) ?? providers[0]
+    const provider = (param && providers.find((p) => p.id === param.provider))
+      ?? providers.find((v) => v.id === store.config.core.defaultProvider)
+      ?? providers[0]
     const payload = param?.param ?? null
     const word = action.word
 
