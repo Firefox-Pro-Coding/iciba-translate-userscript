@@ -2,12 +2,36 @@ import {
   type as tType,
   boolean,
   number,
+  Type,
+  UnknownArray,
+  success,
+  failure,
+  identity,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER, allProviders } from '~/constants/constant'
 
 const provider = enumType<PROVIDER>(PROVIDER, 'PROVIDER')
+
+const looseProviderArray = new Type<Array<PROVIDER>>(
+  'provider-array',
+  (u): u is Array<PROVIDER> => UnknownArray.is(u),
+  (u, c) => {
+    if (!UnknownArray.is(u)) {
+      return failure(u, c)
+    }
+
+    let newArr = (u as Array<PROVIDER>).filter((v) => allProviders.includes(v))
+    newArr = newArr.filter((v, i) => newArr.indexOf(v) === i)
+    newArr = newArr.concat(
+      allProviders.filter((v) => !newArr.includes(v)),
+    )
+
+    return success(newArr)
+  },
+  identity,
+)
 
 export const type = tType({
   defaultProvider: fallback(provider, PROVIDER.ICIBA),
@@ -25,6 +49,7 @@ export const type = tType({
   selectionMaxLength: fallback(number, 150),
   showPin: fallback(boolean, false),
   pinned: fallback(boolean, false),
+  providerOrder: fallback(looseProviderArray, [...allProviders]),
 })
 
 export const defaultData = getFallbackData(type)

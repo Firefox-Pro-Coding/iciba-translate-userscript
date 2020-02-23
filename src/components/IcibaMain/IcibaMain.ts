@@ -296,8 +296,9 @@ export default defineComponent({
     }))
 
     const showButtonProviders = computed(
-      () => translateService.state.providers
-        .filter((item) => store.config[item.id].display),
+      () => store.config.core.providerOrder
+        .map((id) => translateService.state.providers.find((p) => p.id === id)!)
+        .filter((p) => store.config[p.id].display),
     )
 
     watch(() => state.visible, () => {

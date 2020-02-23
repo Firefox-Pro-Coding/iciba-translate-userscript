@@ -1,10 +1,11 @@
-import { reactive } from '@vue/composition-api'
-import { exact, type, TypeOf } from 'io-ts'
+import { reactive, watch } from '@vue/composition-api'
+import { Either } from 'fp-ts/lib/Either'
+import { exact, type, TypeOf, Errors } from 'io-ts'
+
 import { getValue, setValue } from '~/util/gmapi'
 import copy from '~/util/copy'
 
 import { PROVIDER } from '~/constants/constant'
-import { toast } from '~/service/toast'
 
 import * as core from './modules/core'
 import * as iciba from './modules/iciba'
@@ -57,7 +58,6 @@ const setDefaultDataByPath = (path: Array<string>, _data: any) => {
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 const useStore = () => {
-  let timeoutId = 0
   const state = reactive({
     googleDict: {
       subsenseFolded: false,
@@ -84,30 +84,34 @@ const useStore = () => {
       data = {}
     }
 
-    const report = storeType.decode(data)
+    let report!: Either<Errors, any>
+    for (let i = 0; i < 3; i += 1) {
+      report = storeType.decode(data)
+      if (report._tag === 'Left') {
+        report.left.forEach((e) => {
+          const pathArray = e.context.map((path) => path.key).filter((v) => v)
+          setDefaultDataByPath(pathArray, data)
+        })
+      } else {
+        data = report.right
+        break
+      }
+    }
+
     if (report._tag === 'Left') {
-      report.left.forEach((e) => {
-        const pathArray = e.context.map((path) => path.key).filter((v) => v)
-        setDefaultDataByPath(pathArray, data)
-      })
+      data = defaultData
     }
 
     store.config = reactive(data)
+
+    watch(() => store.config, () => {
+      saveConfig()
+    }, { deep: true, lazy: true })
   }
 
-  const saveConfig = (showToast = true, timeout = 1000) => {
+  const saveConfig = () => {
     const dataString = JSON.stringify(store.config)
     setValue(GM_VALUE_KEY, dataString)
-    if (showToast) {
-      if (timeoutId) {
-        window.clearTimeout(timeoutId)
-      }
-
-      timeoutId = window.setTimeout(() => {
-        toast('设置已保存！', 2000)
-        timeoutId = 0
-      }, timeout)
-    }
   }
 
   const store = {

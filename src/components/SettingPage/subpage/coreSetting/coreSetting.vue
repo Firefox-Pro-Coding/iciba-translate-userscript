@@ -1,47 +1,10 @@
 <template>
   <div class="flex-col items-start">
-    <div class="icon-box-wrapper relative" ref="container">
-      <transition-group
-        class="icon-box-container flex mb-3 ease-linear"
-        name="icon"
-      >
-        <div
-          class="icon-item relative select-none"
-          :class="{ mask: iconItem.mask }"
-          :style="{ zIndex: iconItem.z }"
-          v-for="iconItem of state.list"
-          @dragstart.prevent
-          @mousedown="handleDragStart(iconItem)"
-          @click.right.prevent="handleToggleVisibility(iconItem.id)"
-          :key="iconItem.id"
-          ref="icons"
-        >
-          <transition name="mask">
-            <div
-              class="mask-box absolute ease-in-out duration-200"
-              key="mask-box"
-              v-show="iconItem.mask"
-            />
-          </transition>
-          <div
-            key="icon-box"
-            class="icon-box absolute rounded-3px p-1"
-            v-if="!iconItem.mask || true"
-          >
-            <i-icon
-              class="icon"
-              :class="{ inactive: !isProviderVisible(iconItem.id) }"
-              size="36"
-              :svg="iconItem.icon"
-            />
-          </div>
-        </div>
-      </transition-group>
-    </div>
+    <provider-sort />
 
     <i-checkbox
-      class="mt-0"
-      v-model="state.form.pressCtrlToDrag"
+      class="mt-4"
+      v-model="form.pressCtrlToDrag"
       label="按住 ctrl 拖拽查词框"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -50,7 +13,7 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="state.form.pressCtrlToShowCircle"
+      v-model="form.pressCtrlToShowCircle"
       label="仅按住 ctrl 时查词"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -61,7 +24,7 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="state.form.mouseOverTranslate"
+      v-model="form.mouseOverTranslate"
       label="鼠标 hover 查词"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -70,7 +33,7 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="state.form.showPin"
+      v-model="form.showPin"
       label="显示查词框固定图钉"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -79,7 +42,7 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="state.form.icibaCircleRightClick"
+      v-model="form.icibaCircleRightClick"
       label="右击小圆圈使用备选接口"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -88,7 +51,7 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="state.form.icibaMainInputAutoFocus"
+      v-model="form.icibaMainInputAutoFocus"
       label="查词自动聚焦输入框"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -110,7 +73,7 @@
         <div class="text-grey-600 pr-4 mb-1">默认接口</div>
         <i-radio-group
           class="mt-0 flex-grow-0"
-          v-model="state.form.defaultProvider"
+          v-model="form.defaultProvider"
         >
           <i-radio
             v-for="n of providerOptions"
@@ -124,7 +87,7 @@
         <div class="text-grey-600 pr-4 mb-1">备选接口</div>
         <i-radio-group
           class="mt-0"
-          v-model="state.form.icibaCircleRightClickProvider"
+          v-model="form.icibaCircleRightClickProvider"
         >
           <i-radio
             v-for="n of providerOptions"
@@ -137,7 +100,7 @@
     </div>
 
     <p
-      v-if="state.form.defaultProvider === state.form.icibaCircleRightClickProvider"
+      v-if="form.defaultProvider === form.icibaCircleRightClickProvider"
       class="text-14 text-brightred mt-2 mb-0"
     >
       默认接口和备选接口请选择不同的选项
@@ -150,7 +113,7 @@
 
     <i-checkbox
       class="mt-4"
-      v-model="state.form.selectionMaxLengthCut"
+      v-model="form.selectionMaxLengthCut"
       label="限制最大查词长度"
     />
     <p class="text-14 text-grey-500 mt-1 mb-0">
@@ -158,25 +121,25 @@
     </p>
 
     <i-slider
-      v-if="state.form.selectionMaxLengthCut"
+      v-if="form.selectionMaxLengthCut"
       class="mr-1 mt-0 self-stretch"
       :step="10"
       :min="50"
       :max="500"
-      v-model="state.form.selectionMaxLength"
+      v-model="form.selectionMaxLength"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0" v-if="state.form.selectionMaxLengthCut">
-      最大查词长度: {{ state.form.selectionMaxLength }} （默认值: 150）
+    <p class="text-14 text-grey-500 mt-1 mb-0" v-if="form.selectionMaxLengthCut">
+      最大查词长度: {{ form.selectionMaxLength }} （默认值: 150）
     </p>
 
     <div class="flex self-stretch items-center mr-1 mt-4">
-      <div class="mr-3 text-grey-600">{{ state.form.icibaCircleSize }}px</div>
+      <div class="mr-3 text-grey-600">{{ form.icibaCircleSize }}px</div>
       <i-slider
         class="flex-grow"
         :min="10"
         :max="30"
         :step="1"
-        v-model="state.form.icibaCircleSize"
+        v-model="form.icibaCircleSize"
         thumb-label
       />
     </div>
@@ -185,22 +148,22 @@
     </p>
 
     <div class="flex items-center mr-1 mt-4 self-stretch">
-      <div class="mr-3 text-grey-600">x: {{ state.form.icibaCircleOffsetX }}</div>
+      <div class="mr-3 text-grey-600">x: {{ form.icibaCircleOffsetX }}</div>
       <i-slider
         class="flex-grow"
         :min="0"
         :max="30"
-        v-model="state.form.icibaCircleOffsetX"
+        v-model="form.icibaCircleOffsetX"
         thumb-label
       />
     </div>
     <div class="flex items-center mr-1 self-stretch">
-      <div class="mr-3 text-grey-600">y: {{ state.form.icibaCircleOffsetY }}</div>
+      <div class="mr-3 text-grey-600">y: {{ form.icibaCircleOffsetY }}</div>
       <i-slider
         class="flex-grow"
         :min="0"
         :max="30"
-        v-model="state.form.icibaCircleOffsetY"
+        v-model="form.icibaCircleOffsetY"
         thumb-label
       />
     </div>
@@ -211,13 +174,13 @@
     </p>
 
     <div class="flex items-center mr-1 mt-4 self-stretch">
-      <div class="mr-3 text-grey-600">{{ state.form.icibaMainWidth }}px</div>
+      <div class="mr-3 text-grey-600">{{ form.icibaMainWidth }}px</div>
       <i-slider
         class="flex-grow"
         :min="200"
         :max="500"
         :step="10"
-        v-model="state.form.icibaMainWidth"
+        v-model="form.icibaMainWidth"
         thumb-label
       />
     </div>
@@ -228,4 +191,3 @@
 </template>
 
 <script lang="ts" src="./coreSetting.ts"></script>
-<style lang="sass" src="./coreSetting.sass"></style>

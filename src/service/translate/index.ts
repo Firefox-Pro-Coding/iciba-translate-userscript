@@ -1,4 +1,6 @@
 import { computed, reactive } from '@vue/composition-api'
+import { PROVIDER } from '~/constants/constant'
+import { useIncrement } from '~/util/useIncrement'
 import { iciba } from '~/provider/Iciba/Iciba'
 import { googleDict } from '~/provider/GoogleDict/GoogleDict'
 import { googleTranslate } from '~/provider/GoogleTranslate/GoogleTranslate'
@@ -7,7 +9,6 @@ import { sougouTranslate } from '~/provider/SougouTranslate/SougouTranslate'
 import { urbanDictionary } from '~/provider/UrbanDictionary/UrbanDictionary'
 import { bingTranslate } from '~/provider/BingTranslate/BingTranslate'
 import { vocabulary } from '~/provider/Vocabulary/Vocabulary'
-import { PROVIDER } from '~/constants/constant'
 import { ProviderType } from '~/provider/provider'
 
 import { TranslateAction } from '../globalBus'
@@ -17,14 +18,6 @@ interface ActiveTask {
   word: string
   provider: PROVIDER
   id: number
-}
-
-const useIncrement = (id: number) => {
-  let v = id
-  return () => {
-    v += 1
-    return v
-  }
 }
 
 const useTranslateService = () => {

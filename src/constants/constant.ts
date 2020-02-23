@@ -25,6 +25,8 @@ export const providerOptions = Object
     key: k,
   })) as Array<{ key: PROVIDER, label: string }>
 
+export const allProviders = providerOptions.map((v) => v.key)
+
 type Keys = keyof typeof PROVIDER_MAP
 export type ProviderTestFunc<T extends Keys> = (p: T) => any
 export type ProviderTest = ProviderTestFunc<PROVIDER>
