@@ -301,11 +301,13 @@ export default defineComponent({
     )
 
     watch(() => state.visible, () => {
-      Vue.nextTick(() => {
-        if (state.visible && $refs.icibaSearchInput) {
-          $refs.icibaSearchInput.focus()
-        }
-      })
+      if (store.config.core.icibaMainInputAutoFocus) {
+        Vue.nextTick(() => {
+          if (state.visible && $refs.icibaSearchInput) {
+            $refs.icibaSearchInput.focus()
+          }
+        })
+      }
     })
 
     onMounted(() => {

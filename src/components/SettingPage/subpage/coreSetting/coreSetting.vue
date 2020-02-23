@@ -47,6 +47,15 @@
       右击小圆圈，使用备选接口查词
     </p>
 
+    <i-checkbox
+      class="mt-4"
+      v-model="state.form.icibaMainInputAutoFocus"
+      label="查词自动聚焦输入框"
+    />
+    <p class="text-14 text-grey-500 mt-1 mb-0">
+      点击小圆圈查词后，自动聚焦到输入框
+    </p>
+
     <div class="flex mt-4 pt-1">
       <div class="flex-col flex-grow-0 pr-5">
         <div class="text-grey-600 pr-4 mb-2">接口</div>
