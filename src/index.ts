@@ -5,7 +5,6 @@ import { shadowRoot } from './service/shadowRoot'
 import './bootstrap'
 import '~/util/extendIoTs/enum'
 import '~/plugin/prototype'
-import '~/service'
 
 import App from '~/App.vue'
 import { store } from '~/service/store'

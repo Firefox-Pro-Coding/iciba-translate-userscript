@@ -4,6 +4,7 @@
       class="icon-box-container flex ease-linear"
       name="icon"
     >
+      <!-- purgecss icon-move -->
       <div
         class="icon-item relative select-none"
         :class="{ mask: iconItem.mask }"
@@ -50,4 +51,4 @@
 </template>
 
 <script lang="ts" src="./providerSort.ts"></script>
-<style lang="sass" src="./providerSort.sass"></style>
+<style lang="sass" src="./providerSort.sass" scoped></style>

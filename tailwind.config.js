@@ -1,5 +1,6 @@
 module.exports = {
   theme: {
+    screens: false,
     fontSize: {
       0: '0',
       ...Array(50).fill(0).map((_v, i) => i + 1).reduce((p, c) => {

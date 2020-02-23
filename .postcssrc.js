@@ -1,10 +1,8 @@
 module.exports = ({ env }) => {
   const config = {
     plugins: [
-      require('postcss-preset-env'),
-      require('autoprefixer'),
-      require('cssnano'),
       require('tailwindcss'),
+      require('postcss-preset-env'),
     ],
     sourceMap: true,
   }
@@ -22,6 +20,7 @@ module.exports = ({ env }) => {
         /(enter|leave)(-to|-active)?$/
       ],
     }))
+    config.plugins.push(require('cssnano'))
   }
 
   return config
