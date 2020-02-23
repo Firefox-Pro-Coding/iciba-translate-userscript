@@ -1,19 +1,15 @@
 import {
   type as tType,
-  TypeOf,
   keyof,
   boolean,
 } from 'io-ts'
-
+import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
 import { PROVIDER } from '~/constants/constant'
 import providerIcon from '~/constants/icon'
 
 export const type = tType({
-  icon: keyof(providerIcon[PROVIDER.VOCABULARY]),
-  display: boolean,
+  icon: fallback(keyof(providerIcon[PROVIDER.VOCABULARY]), 'logo'),
+  display: fallback(boolean, false),
 })
 
-export const defaultData: TypeOf<typeof type> = {
-  icon: 'logo',
-  display: false,
-}
+export const defaultData = getFallbackData(type)

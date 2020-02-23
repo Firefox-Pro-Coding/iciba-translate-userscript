@@ -1,45 +1,30 @@
 import {
   type as tType,
-  TypeOf,
   boolean,
   number,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
-
+import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
 import { PROVIDER } from '~/constants/constant'
 
+const provider = enumType<PROVIDER>(PROVIDER, 'PROVIDER')
+
 export const type = tType({
-  defaultProvider: enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
-  icibaCircleRightClick: boolean,
-  icibaCircleRightClickProvider: enumType<PROVIDER>(PROVIDER, 'DEFAULT_PROVIDER'),
-  pressCtrlToDrag: boolean,
-  pressCtrlToShowCircle: boolean,
-  mouseOverTranslate: boolean,
-  icibaMainInputAutoFocus: boolean,
-  icibaMainWidth: number,
-  icibaCircleSize: number,
-  icibaCircleOffsetX: number,
-  icibaCircleOffsetY: number,
-  selectionMaxLengthCut: boolean,
-  selectionMaxLength: number,
-  showPin: boolean,
-  pinned: boolean,
+  defaultProvider: fallback(provider, PROVIDER.ICIBA),
+  icibaCircleRightClick: fallback(boolean, true),
+  icibaCircleRightClickProvider: fallback(provider, PROVIDER.GOOGLE_TRANSLATE),
+  pressCtrlToDrag: fallback(boolean, true),
+  pressCtrlToShowCircle: fallback(boolean, false),
+  mouseOverTranslate: fallback(boolean, false),
+  icibaMainInputAutoFocus: fallback(boolean, false),
+  icibaMainWidth: fallback(number, 300),
+  icibaCircleSize: fallback(number, 22),
+  icibaCircleOffsetX: fallback(number, 7),
+  icibaCircleOffsetY: fallback(number, 7),
+  selectionMaxLengthCut: fallback(boolean, false),
+  selectionMaxLength: fallback(number, 150),
+  showPin: fallback(boolean, false),
+  pinned: fallback(boolean, false),
 })
 
-export const defaultData: TypeOf<typeof type> = {
-  defaultProvider: PROVIDER.ICIBA,
-  icibaCircleRightClick: true,
-  icibaCircleRightClickProvider: PROVIDER.GOOGLE_TRANSLATE,
-  pressCtrlToDrag: true,
-  pressCtrlToShowCircle: false,
-  mouseOverTranslate: false,
-  icibaMainInputAutoFocus: false,
-  icibaMainWidth: 300,
-  icibaCircleSize: 22,
-  icibaCircleOffsetX: 7,
-  icibaCircleOffsetY: 7,
-  selectionMaxLengthCut: false,
-  selectionMaxLength: 150,
-  showPin: false,
-  pinned: false,
-}
+export const defaultData = getFallbackData(type)
