@@ -422,7 +422,6 @@ export const baseInfoNormal = excess(intersection([
 ]), 'base-info-normal')
 export type BaseInfoNormal = TypeOf<typeof baseInfoNormal>
 
-
 export const baseInfoTranslate = excess(type({
   translate_result: string,
   translate_type: union([literal(2), literal(3)]),
@@ -436,9 +435,18 @@ export const baseInfoTranslate = excess(type({
 export type BaseInfoTranslate = TypeOf<typeof baseInfoTranslate>
 
 
+export const baseInfoSuggestion = excess(type({
+  translate_type: literal(3),
+  suggest: array(excess(type({
+    key: string,
+  }))),
+}), 'base-info-suggest')
+export type BaseInfoSuggestion = TypeOf<typeof baseInfoSuggestion>
+
 export const baseInfo = union([
   baseInfoNormal,
   baseInfoTranslate,
+  baseInfoSuggestion,
 ])
 export type BaseInfo = TypeOf<typeof baseInfo>
 

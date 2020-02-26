@@ -3,7 +3,7 @@ import { PROVIDER } from '~/constants/constant'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'
-import { audioBus, EVENTS, PlayAudioAction } from '~/service/audioBus'
+import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 import { got } from '~/util/gmapi'
 
 import { ProviderType } from '../provider'
@@ -131,7 +131,7 @@ const useBaiduTranslateProvider = (): ProviderType => {
     audioCacheService.play(url, response.response, volume)
   }
 
-  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
+  audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)
   return {
     id: PROVIDER.BAIDU_TRANSLATE,
     view: BaiduTranslateContainer,

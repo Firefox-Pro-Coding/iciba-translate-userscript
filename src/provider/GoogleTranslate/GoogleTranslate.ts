@@ -9,7 +9,7 @@ import { ProviderType } from '../provider'
 import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
-import { audioBus, EVENTS, PlayAudioAction } from '~/service/audioBus'
+import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 
 export interface GoogleTranslateParams {
   sl?: string
@@ -172,7 +172,7 @@ const useGoogleTranslateProvider = (): ProviderType => {
     audioCacheService.play(url, response.response, volume)
   }
 
-  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
+  audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.GOOGLE_TRANSLATE,

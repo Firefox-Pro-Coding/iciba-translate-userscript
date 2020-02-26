@@ -4,7 +4,7 @@ import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-fill
 import { SOUGOU_LANGUAGE_MAP, SOUGOU_LANGUAGES } from '~/constants/sougouLanguages'
 import { PROVIDER } from '~/constants/constant'
 import { bus, EVENTS } from '~/service/globalBus'
-import { audioBus, EVENTS as AEVENTS } from '~/service/audioBus'
+import { audioBus, AEVENTS } from '~/service/audioBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
 import containerData from '../containerData'

@@ -3,7 +3,7 @@ import { bus, EVENTS } from '~/service/globalBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { PROVIDER } from '~/constants/constant'
 
-import { audioBus, EVENTS as AEVENTS } from '~/service/audioBus'
+import { audioBus, AEVENTS } from '~/service/audioBus'
 import { GOOGLE_LANGUAGE_MAP, GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 

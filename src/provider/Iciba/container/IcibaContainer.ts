@@ -3,7 +3,7 @@ import { defineComponent, computed } from '@vue/composition-api'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import IcibaPronunciation from './components/pronunciation-item.vue'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
-import { audioBus, EVENTS } from '~/service/audioBus'
+import { audioBus, AEVENTS } from '~/service/audioBus'
 import { PROVIDER } from '~/constants/constant'
 
 import containerData from '../containerData'
@@ -15,7 +15,9 @@ import {
   ChineseCi,
   SymbolCN,
   SymbolEN,
+  BaseInfoSuggestion,
 } from '../types'
+import { bus, EVENTS } from '~/service/globalBus'
 
 const isBaseInfoBaseInfoNormal = (p: BaseInfo): p is BaseInfoNormal => {
   if (!p) {
@@ -29,6 +31,13 @@ const isBaseInfoTranslate = (p: BaseInfo): p is BaseInfoTranslate => {
     return false
   }
   return 'translate_type' in p && 'translate_result' in p
+}
+
+const isBaseInfoSuggestion = (p: BaseInfo): p is BaseInfoSuggestion => {
+  if (!p) {
+    return false
+  }
+  return 'translate_type' in p && 'suggest' in p
 }
 
 const isCodec2 = (p: any): p is Codec2 => p._word_flag === 2
@@ -53,12 +62,22 @@ export default defineComponent({
       return ['', s]
     }
 
+    const handleSuggestionClick = (word: string) => {
+      bus.emit({
+        type: EVENTS.TRANSLATE,
+        word,
+        param: {
+          provider: PROVIDER.ICIBA,
+        },
+      })
+    }
+
     const handlePlay = (url: string | undefined) => {
       if (!url) {
         return
       }
       audioBus.emit({
-        type: EVENTS.PLAY_AUDIO,
+        type: AEVENTS.PLAY_AUDIO,
         id: PROVIDER.ICIBA,
         params: {
           url,
@@ -73,14 +92,18 @@ export default defineComponent({
 
       isBaseInfoBaseInfoNormal,
       isBaseInfoTranslate,
+      isBaseInfoSuggestion,
       isCodec2,
-      normalizeCiyi,
       isSymbolCN,
       isSymbolEN,
 
-      result: computed(() => containerData.data),
-      seperateChineseJieshi,
       handlePlay,
+      handleSuggestionClick,
+
+      result: computed(() => containerData.data),
+
+      seperateChineseJieshi,
+      normalizeCiyi,
     }
   },
 })

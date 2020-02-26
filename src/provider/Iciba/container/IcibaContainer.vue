@@ -137,12 +137,22 @@
         </div>
 
         <!-- suggest -->
-        <!-- <div
-          class="suggest-box flex-col items-stretch"
-          v-if="isBaseInfoTranslate(result.baseInfo) && result.baseInfo.translate_type === 3"
-        >
-          {{ result.baseInfo.suggest.map(v => v.key).join('; ') }}
-        </div> -->
+        <template v-if="isBaseInfoSuggestion(result.baseInfo) && result.baseInfo.suggest.length">
+          do you mean?
+          <div
+            class="suggest-box flex flex-wrap items-stretch"
+            v-if="isBaseInfoSuggestion(result.baseInfo)"
+          >
+            <span
+              v-for="(item, index) of result.baseInfo.suggest"
+              class="text-blue-500 mr-1 cursor-pointer"
+              @click="handleSuggestionClick(item.key)"
+              :key="index"
+            >
+              {{ item.key }}
+            </span>
+          </div>
+        </template>
       </div>
     </scrollable>
   </div>

@@ -9,12 +9,12 @@ import { IcibaPlayAudioPayload } from '~/provider/Iciba/types'
 import { SougouTranslatePlayAudioPayload } from '~/provider/SougouTranslate/types'
 import { VocabularyPlayAudioPayload } from '~/provider/Vocabulary/types'
 
-export const enum EVENTS {
+export const enum AEVENTS {
   PLAY_AUDIO,
 }
 
 interface PlayAudioActionBase {
-  type: EVENTS.PLAY_AUDIO
+  type: AEVENTS.PLAY_AUDIO
 }
 
 type PlayAudioActionPayload = {
@@ -45,7 +45,7 @@ export type PlayAudioAction = PlayAudioActionBase & PlayAudioActionPayload
 type Actions = PlayAudioAction
 
 interface OnOff {
-  (e: EVENTS.PLAY_AUDIO, l: (a: PlayAudioAction) => unknown): unknown
+  (e: AEVENTS.PLAY_AUDIO, l: (a: PlayAudioAction) => unknown): unknown
 }
 
 class Bus {
@@ -56,12 +56,12 @@ class Bus {
   }
 
   public on: OnOff = (
-    event: EVENTS,
+    event: AEVENTS,
     l: (...p: Array<any>) => unknown,
   ) => this.bus.on(`${event}`, l)
 
   public off: OnOff = (
-    event: EVENTS,
+    event: AEVENTS,
     l: (...p: Array<any>) => unknown,
   ) => this.bus.off(`${event}`, l)
 

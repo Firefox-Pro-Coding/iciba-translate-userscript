@@ -3,7 +3,7 @@ import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
 import { PROVIDER } from '~/constants/constant'
 import { audioCacheService } from '~/service/audioCache'
-import { audioBus, EVENTS, PlayAudioAction } from '~/service/audioBus'
+import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 
 import { ProviderType } from '../provider'
 import IcibaContainer from './container/IcibaContainer.vue'
@@ -117,7 +117,7 @@ const useIcibaProvider = (): ProviderType => {
     audioCacheService.play(url, response.response, volume)
   }
 
-  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
+  audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.ICIBA,

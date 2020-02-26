@@ -4,7 +4,7 @@ import { BING_LANGUAGES, BING_VOICE_MAP } from '~/constants/bingLanguages'
 import { got } from '~/util/gmapi'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'
-import { PlayAudioAction, audioBus, EVENTS } from '~/service/audioBus'
+import { PlayAudioAction, audioBus, AEVENTS } from '~/service/audioBus'
 
 import { ProviderType } from '../provider'
 import BingTranslateContainer from './container/BingTranslateContainer.vue'
@@ -143,7 +143,7 @@ const useBingTranslateProvider = (): ProviderType => {
     audioCacheService.play(namespacedKey, response.response, volume)
   }
 
-  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
+  audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.BING_TRANSLATE,

@@ -1,6 +1,6 @@
 import { defineComponent, reactive } from '@vue/composition-api'
 import { bus, EVENTS } from '~/service/globalBus'
-import { audioBus, EVENTS as AEVENTS } from '~/service/audioBus'
+import { audioBus, AEVENTS } from '~/service/audioBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { PROVIDER } from '~/constants/constant'
 

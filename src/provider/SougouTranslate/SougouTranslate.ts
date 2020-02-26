@@ -11,7 +11,7 @@ import SougouTranslateContainer from './container/SougouTranslateContainer.vue'
 import containerData from './containerData'
 import getToken from './getToken'
 import getKey from './getKey'
-import { audioBus, EVENTS, PlayAudioAction } from '~/service/audioBus'
+import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 
 export interface SougouTranslateParams {
   sl: string
@@ -120,7 +120,7 @@ const useSougouTranslateProvider = (): ProviderType => {
     audioCacheService.play(url, response.response, volume)
   }
 
-  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
+  audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.SOUGOU_TRANSLATE,

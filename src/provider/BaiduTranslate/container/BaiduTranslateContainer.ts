@@ -5,7 +5,7 @@ import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { BAIDU_LANGUAGES, BAIDU_LANGUAGE_MAP } from '~/constants/baiduLanguages'
 import { PROVIDER } from '~/constants/constant'
 import { bus, EVENTS } from '~/service/globalBus'
-import { audioBus, EVENTS as AEVENTS } from '~/service/audioBus'
+import { audioBus, AEVENTS } from '~/service/audioBus'
 
 import containerData from '../containerData'
 

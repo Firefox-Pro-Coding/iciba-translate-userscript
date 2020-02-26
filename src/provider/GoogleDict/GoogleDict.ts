@@ -3,7 +3,7 @@ import { got, GMXMLError } from '~/util/gmapi'
 import { PROVIDER } from '~/constants/constant'
 import { audioCacheService } from '~/service/audioCache'
 import { EVENTS, bus } from '~/service/globalBus'
-import { audioBus, EVENTS as AEVENTS, PlayAudioAction } from '~/service/audioBus'
+import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 
 import { ProviderType } from '../provider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'

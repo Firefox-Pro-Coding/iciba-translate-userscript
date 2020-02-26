@@ -6,7 +6,7 @@ import { ProviderType } from '../provider'
 import IcibaContainer from './container/VocabularyContainer.vue'
 import containerData from './containerData'
 import { audioCacheService } from '~/service/audioCache'
-import { audioBus, EVENTS, PlayAudioAction } from '~/service/audioBus'
+import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 // import { ExampleResult } from './types'
 
 /*
@@ -129,7 +129,7 @@ const useVocabularyProvider = (): ProviderType => {
     audioCacheService.play(url, response.response, volume)
   }
 
-  audioBus.on(EVENTS.PLAY_AUDIO, handlePlay)
+  audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)
 
   return {
     id: PROVIDER.VOCABULARY,
