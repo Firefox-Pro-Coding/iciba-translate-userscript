@@ -1,5 +1,5 @@
 import { stringify } from 'querystring'
-import uuidv4 from 'uuid/v4'
+import { v4 } from 'uuid'
 
 import { PROVIDER } from '~/constants/constant'
 import { got } from '~/util/gmapi'
@@ -41,7 +41,7 @@ const useSougouTranslateProvider = (): ProviderType => {
       dict: 'true',
       word_group: 'true',
       second_query: 'true',
-      uuid: uuidv4(),
+      uuid: v4(),
       needQc: '1',
       s: token,
     }
