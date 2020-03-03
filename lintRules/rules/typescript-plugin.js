@@ -8,7 +8,6 @@ module.exports = {
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
       'project': 'tsconfig.json',
-      'createDefaultProgram': true,
     },
 
     'plugins': [
@@ -120,6 +119,7 @@ module.exports = {
           },
         },
       ],
+      '@typescript-eslint/no-base-to-string': 'error',
       '@typescript-eslint/no-dynamic-delete': 'off',
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
@@ -155,6 +155,7 @@ module.exports = {
       '@typescript-eslint/prefer-nullish-coalescing': 'error',
       '@typescript-eslint/prefer-optional-chain': 'error',
       '@typescript-eslint/prefer-readonly': 'off',
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
       '@typescript-eslint/prefer-regexp-exec': 'error',
       '@typescript-eslint/prefer-string-starts-ends-with': 'error',
       '@typescript-eslint/promise-function-async': 'off',
