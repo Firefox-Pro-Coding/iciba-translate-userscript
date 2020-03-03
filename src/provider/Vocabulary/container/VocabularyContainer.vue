@@ -1,5 +1,5 @@
 <template>
-  <div class="r-container flex-col relative">
+  <div class="r-container flex-col relative text-grey-900">
     <scrollable
       class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"

@@ -1,5 +1,5 @@
 <template>
-  <div class="google-translate-box flex-col relative">
+  <div class="google-translate-box flex-col relative text-grey-900">
     <Scrollable
       class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"

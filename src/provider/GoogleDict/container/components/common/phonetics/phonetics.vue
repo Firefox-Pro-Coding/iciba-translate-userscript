@@ -1,6 +1,9 @@
 <template>
   <!-- phonetics -->
-  <div class="phonetics-box flex" v-if="props.phonetics && props.phonetics.length">
+  <div
+    class="phonetics-box flex items-center text-grey-700"
+    v-if="props.phonetics && props.phonetics.length"
+  >
     <div class="phonetics flex">
       {{ `${props.phonetics.map(v => `/${v.text}/`).join(' ')}` }}
     </div>

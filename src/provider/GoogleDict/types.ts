@@ -6,7 +6,6 @@ import {
   intersection,
   boolean,
   partial,
-  record,
   TypeOf,
 } from 'io-ts'
 import { excess } from '~/util/extendIoTs/excess'
@@ -119,7 +118,12 @@ export const etymology = excess(intersection([
 ]))
 export type Etymology = TypeOf<typeof etymology>
 
-export const labelSet = record(string, array(string))
+export const labelSet = partial({
+  geographics: array(string),
+  registers: array(string),
+  subjects: array(string),
+})
+export type LabelSet = TypeOf<typeof labelSet>
 
 export const senseExampleGroup = excess(intersection([
   type({
@@ -129,7 +133,7 @@ export const senseExampleGroup = excess(intersection([
     registers: array(string),
   }),
 ]))
-export type LabelSet = TypeOf<typeof labelSet>
+export type SenseExampleGroup = TypeOf<typeof senseExampleGroup>
 
 export const exampleGroup = excess(intersection([
   type({

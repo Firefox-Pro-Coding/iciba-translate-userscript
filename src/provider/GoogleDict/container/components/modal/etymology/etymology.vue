@@ -1,6 +1,6 @@
 <template>
   <div
-    class="etymology-box mt-2 pt-2 flex-col items-stretch"
+    class="etymology-box mt-2 pt-2 flex-col items-stretch border-t border-grey-400"
     v-if="props.etymology"
   >
     <div class="etymology-title text-grey text-18">Origin</div>
@@ -24,4 +24,3 @@
 </template>
 
 <script lang="ts" src="./etymology.ts"></script>
-<style lang="sass" src="./etymology.sass" scoped></style>

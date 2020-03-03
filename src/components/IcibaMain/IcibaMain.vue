@@ -18,13 +18,13 @@
       >
         <div class="input-box flex relative flex-none bg-white">
           <div
-            class="iciba-input-box flex relative flex-auto"
+            class="iciba-input-box flex relative flex-auto border-b border-grey-450"
             :class="{
               'focused': state.inputFocused,
             }"
           >
             <input
-              class="search-input flex-auto"
+              class="search-input flex-auto text-grey-900"
               ref="icibaSearchInput"
               size="1"
               type="text"
@@ -42,10 +42,10 @@
             </div>
           </div>
 
-          <div class="provider-box flex">
+          <div class="provider-box flex border-b border-grey-450">
             <template v-for="provider of showButtonProviders">
               <div
-                class="split"
+                class="split border-l border-grey-450"
                 :key="`${provider.id}index`"
               />
               <button
@@ -67,22 +67,28 @@
             :is="activeProvider.view"
             :key="activeProvider.id"
           />
-          <div class="loading-tip content-item" v-if="translateLoading">
+          <div
+            class="loading-tip content-item text-grey-900"
+            v-if="translateLoading"
+          >
             <LoadingText />
           </div>
-          <div class="provider-error-message content-item" v-if="!translateLoading && errorMessage">
+          <div
+            class="provider-error-message content-item text-grey-900"
+            v-if="!translateLoading && errorMessage"
+          >
             {{ errorMessage }}
           </div>
         </div>
 
         <transition name="s">
           <div
-            class="stick-box absolute"
+            class="stick-box absolute border-l border-grey-450"
             v-if="store.config.core.showPin"
             v-show="store.config.core.pinned || state.stickBoxVisible"
           >
             <div
-              class="drag flex flex-center"
+              class="drag flex flex-center border-b border-grey-450"
               @mousedown="m.pinDrag.handlePinDragStart"
             >
               <i-icon :svg="icon.drag_462998" />

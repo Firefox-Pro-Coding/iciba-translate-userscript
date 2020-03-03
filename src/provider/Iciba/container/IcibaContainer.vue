@@ -1,5 +1,5 @@
 <template>
-  <div class="r-container flex-col relative">
+  <div class="r-container flex-col relative text-grey-900">
     <scrollable
       class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
@@ -55,8 +55,15 @@
                 class="part-box mt-1 flex-col flex-none items-stretch"
                 v-if="symbolItem.parts && symbolItem.parts.length"
               >
-                <div class="part-item flex" v-for="(partItem, partItemIndex) in symbolItem.parts" :key="partItemIndex">
-                  <div class="part-item-part flex-none" v-if="partItem.part">
+                <div
+                  class="part-item flex"
+                  v-for="(partItem, partItemIndex) in symbolItem.parts"
+                  :key="partItemIndex"
+                >
+                  <div
+                    class="part-item-part text-grey-600 flex-none"
+                    v-if="partItem.part"
+                  >
                     {{ partItem.part }}
                   </div>
                   <div class="part-item-meaning-box flex-auto">
@@ -109,7 +116,7 @@
                 v-for="(item, ciyiIndex) of normalizeCiyi(result.chinese.ci.ciyi)"
                 :key="ciyiIndex"
               >
-                <span class="type-text pr-1">
+                <span class="type-text text-grey-600 pr-1">
                   {{ ciyiIndex + 1 }}.
                 </span>
                 <template v-if="seperateChineseJieshi(item)[0]">

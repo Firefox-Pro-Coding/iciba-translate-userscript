@@ -1,6 +1,6 @@
 <template>
   <div
-    class="usage-overtime mt-3 flex-col items-stretch"
+    class="usage-overtime mt-3 flex-col items-stretch border-t border-grey-400 "
     v-if="m"
   >
     <div class="usage-title mt-2 pt-1 text-grey text-18">
@@ -26,4 +26,3 @@
 </template>
 
 <script lang="ts" src="./usageOvertime.ts"></script>
-<style lang="sass" src="./usageOvertime.sass" scoped></style>

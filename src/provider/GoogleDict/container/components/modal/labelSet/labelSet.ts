@@ -27,7 +27,11 @@ export default defineComponent({
   setup: (props: Props) => {
     const isValid = computed(() => {
       const l = props.labelSet
-      return l && Object.keys(l).some((k) => l[k].length)
+      if (!l) {
+        return false
+      }
+      const values = Object.values(l)
+      return values.length && values.some((arr) => arr?.length)
     })
     return {
       props,

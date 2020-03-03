@@ -1,5 +1,5 @@
 <template>
-  <div class="google-dict-box flex-col relative break-words">
+  <div class="google-dict-box flex-col relative break-words text-grey-900">
     <scrollable
       class="scroll-container"
       :no-scroll-bar-style="{ 'padding-right': '10px' }"
@@ -34,6 +34,7 @@
                 >
                   <simple-entry
                     class="entry-item"
+                    :class="{ 'border-t border-grey-400 pt-1 mt-3': !!entryIndex }"
                     :entry="entry"
                     v-for="(entry, entryIndex) in dicDataItem.entries"
                     :key="entryIndex"

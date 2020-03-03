@@ -1,11 +1,11 @@
 <template>
-  <div class="pronunciation-item flex">
+  <div class="pronunciation-item flex items-center">
     <div
-      class="ipa-type-name mr-1 text-12"
+      class="ipa-type-name text-grey-600 mr-1 text-12"
       v-if="type"
       :textContent.prop="type"
     />
-    <div class="ipa text-12">{{ ipa }}</div>
+    <div class="ipa text-grey-700 text-12">{{ ipa }}</div>
     <div
       class="play-sound flex flex-center ml-1"
       @click="handlePlay"

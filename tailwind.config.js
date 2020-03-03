@@ -69,6 +69,7 @@ module.exports = {
           '200': '#F5F5F5', // lighten-4
           '300': '#EEEEEE', // lighten-3
           '400': '#E0E0E0', // lighten-2
+          '450': '#d5d5d5', //
           '500': '#BDBDBD', // lighten-1
           'default': '#9E9E9E',
           '600': '#757575', // darken-1

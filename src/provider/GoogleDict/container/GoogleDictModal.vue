@@ -13,7 +13,7 @@
         >
           <i-icon size="20" :svg="icon.minus" />
         </div>
-        <div class="split" />
+        <div class="split border-l border-grey-400" />
         <div
           :class="{ disable: !expandable }"
           class="control-btn flex flex-center"

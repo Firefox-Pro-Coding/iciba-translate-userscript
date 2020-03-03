@@ -9,9 +9,7 @@
       size-small
       size-medium
       size-large
-      color-main
       color-plain
-      color-light
       color-lightpink
       color-lightblue
       color-geographics
@@ -20,7 +18,7 @@
      -->
     <template v-for="(label, index) in props.labels">
       <div
-        class="label relative inline-flex"
+        class="label relative inline-flex text-grey-700"
         :class="[
           labelClass,
           index === labels.length - 1 ? 'last' : '',

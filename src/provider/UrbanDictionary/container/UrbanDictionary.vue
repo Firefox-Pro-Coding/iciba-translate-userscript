@@ -1,5 +1,5 @@
 <template>
-  <div class="urban-dictionary-box flex-col relative" ref="container">
+  <div class="urban-dictionary-box flex-col relative text-grey-900" ref="container">
     <scrollable class="scroll-container">
       <div class="content-box flex-col flex-auto text-14 break-words">
         <template v-if="result.data && result.data.list">
