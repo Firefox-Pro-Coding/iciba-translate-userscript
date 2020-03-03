@@ -91,7 +91,9 @@ const useVocabularyProvider = (): ProviderType => {
 
   const translate = async (word: string, _payload: unknown) => {
     const autocomplete = await getAutocomplete(word)
-    const newWord = autocomplete[0].word
+    const newWord = autocomplete.some((v) => v.word === word)
+      ? word
+      : autocomplete[0].word
     const definition = await getDefinition(newWord)
     return () => {
       containerData.data = copy({

@@ -14,7 +14,7 @@ export default defineComponent({
   setup: () => {
     const data = computed(() => containerData.data)
 
-    const handlePlay = (key: string) => {
+    const handlePlay = (key: string | null) => {
       if (!key) {
         return
       }
