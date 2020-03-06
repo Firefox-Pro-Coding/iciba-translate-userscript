@@ -2,61 +2,44 @@
   <div class="flex-col items-start">
     <provider-sort />
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.pressCtrlToDrag"
       label="按住 ctrl 拖拽查词框"
+      text="按住 ctrl 键拖拽移动查词结果框位置"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      按住 ctrl 键拖拽移动查词结果框位置
-    </p>
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.pressCtrlToShowCircle"
       label="仅按住 ctrl 时查词"
-    />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
+    >
       选择文字时，只有
       <span class="font-bold">同时按住ctrl键</span>
       时才显示小圆圈
-    </p>
+    </i-checkbox-line>
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.mouseOverTranslate"
       label="鼠标 hover 查词"
+      text="鼠标移到小圆圈上（而非需要点击）打开查词窗口"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      鼠标移到小圆圈上（而非需要点击）打开查词窗口
-    </p>
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.showPin"
       label="显示查词框固定图钉"
+      text="显示固定图钉，可固定查词框使其不自动关闭"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      显示固定图钉，可固定查词框使其不自动关闭
-    </p>
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.icibaCircleRightClick"
       label="右击小圆圈使用备选接口"
+      text="右击小圆圈，使用备选接口查词"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      右击小圆圈，使用备选接口查词
-    </p>
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.icibaMainInputAutoFocus"
       label="查词自动聚焦输入框"
+      text="点击小圆圈查词后，自动聚焦到输入框"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      点击小圆圈查词后，自动聚焦到输入框
-    </p>
 
     <div class="flex mt-4 pt-1">
       <div class="flex-col flex-grow-0 pr-5">
@@ -111,14 +94,11 @@
       备选接口：启用时，右键键点击小圆圈使用此查词接口
     </p>
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.selectionMaxLengthCut"
       label="限制最大查词长度"
+      text="当选择文字超过指定长度时不显示小圆圈"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      当选择文字超过指定长度时不显示小圆圈
-    </p>
 
     <i-slider
       v-if="form.selectionMaxLengthCut"

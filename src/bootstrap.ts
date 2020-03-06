@@ -5,6 +5,7 @@ import Ripple from './util/diretives/ripple'
 import NoOverscroll from './util/diretives/no-overscroll'
 
 import Checkbox from '~/components/SettingPage/components/checkbox/checkbox.vue'
+import CheckboxLine from '~/components/SettingPage/components/checkboxLine/checkboxLine.vue'
 import RadioGroup from '~/components/SettingPage/components/radioGroup/radioGroup.vue'
 import Radio from '~/components/SettingPage/components/radio/radio.vue'
 import Slider from '~/components/SettingPage/components/slider/slider.vue'
@@ -17,6 +18,7 @@ Vue.directive('ripple', Ripple)
 Vue.directive('no-overscroll', NoOverscroll)
 Vue.directive('click-outside', clickOutside)
 
+Vue.component('i-checkbox-line', CheckboxLine)
 Vue.component('i-checkbox', Checkbox)
 Vue.component('i-radio-group', RadioGroup)
 Vue.component('i-radio', Radio)

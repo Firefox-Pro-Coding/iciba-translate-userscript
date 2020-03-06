@@ -8,14 +8,11 @@
       按钮图标
     </p>
 
-    <i-checkbox
-      class="mt-4"
+    <i-checkbox-line
       v-model="form.display"
       label="显示按钮"
+      text="在查词框右侧显示按钮"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      在查词框右侧显示按钮
-    </p>
 
     <div class="flex mt-4 pt-1">
       <div class="flex-col items-start flex-grow-0 pr-5">

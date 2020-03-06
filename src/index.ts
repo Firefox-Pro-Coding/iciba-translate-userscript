@@ -14,10 +14,7 @@ const main = async () => {
 
   const app = new Vue({
     render(h) {
-      return h('app')
-    },
-    components: {
-      App,
+      return h(App)
     },
   })
 
