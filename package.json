@@ -1,8 +1,7 @@
 {
   "name": "iciba-translate-userscript",
-  "version": "4.6.4",
+  "version": "4.7.0",
   "description": "iciba划词翻译",
-  "main": "server.js",
   "scripts": {
     "dev": "yarn clean:dist && node ./build/dev-server.js",
     "watch": "webpack --config ./config/webpack.dev.conf.js --watch",
