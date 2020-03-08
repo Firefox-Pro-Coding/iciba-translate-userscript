@@ -8,36 +8,42 @@ import {
   watch,
 } from '@vue/composition-api'
 
-import settings_149837 from '~/assets/img/settings_149837.svg'
-import drag_462998 from '~/assets/img/drag_462998.svg'
-import pin_25474 from '~/assets/img/pin_25474.svg'
+import settingsIcon from '~/assets/img/settings_149837.svg'
+import dragIcon from '~/assets/img/drag_462998.svg'
+import pinIcon from '~/assets/img/pin_25474.svg'
 
 import { icibaRoot, shadowRoot } from '~/service/shadowRoot'
 import { store } from '~/service/store'
-import { bus, EVENTS, TranslateAction } from '~/service/globalBus'
+import { bus, EVENTS, TranslateAction, HotKeyShowAction, HotKeyTranslateAction } from '~/service/globalBus'
 import { translateService } from '~/service/translate'
 import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'
-import { getIcon, ProviderType } from '~/provider/provider'
+import { hotkeyService } from '~/service/hotkey'
+import { getIcon } from '~/provider/provider'
 
 import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
 import LoadingText from './helper/LoadingText/LoadingText'
+import { allProviders, PROVIDER } from '~/constants/constant'
 
 interface Props {
-  getSizeHelper: () => Vue
   getIcibaCircle: () => Vue
   getGoogleDictModal: () => Vue
 }
 
-/* eslint-disable @typescript-eslint/no-use-before-define, @typescript-eslint/no-unused-vars */
+const removeSelection = () => {
+  const selection = window.getSelection()
+  if (selection?.removeAllRanges) {
+    selection.removeAllRanges()
+  }
+}
+
 export default defineComponent({
   name: 'IcibaMain',
   components: {
     LoadingText,
   },
   props: {
-    getSizeHelper: null,
     getIcibaCircle: null,
     getGoogleDictModal: null,
   },
@@ -46,6 +52,7 @@ export default defineComponent({
       icibaMainWrap: HTMLDivElement
       icibaMain: HTMLDivElement
       icibaSearchInput: HTMLInputElement
+      sizeHelper: HTMLInputElement
     } = setupContext.refs
 
     const state = reactive({
@@ -60,14 +67,14 @@ export default defineComponent({
         startTransform: { x: 0, y: 0 },
       },
 
-      icibaContainerStyle: {
+      mainStyle: {
         top: 'auto',
         bottom: 'auto',
         left: 'auto',
         right: 'auto',
       },
 
-      icibaMainStyle: {
+      wrapperStyle: {
         top: 'auto',
         bottom: 'auto',
         left: 'auto',
@@ -78,75 +85,16 @@ export default defineComponent({
       },
     })
 
-    /** 打开设置 */
-    const handleOpenSetting = () => {
-      state.visible = false
-      bus.emit({ type: EVENTS.OPEN_SETTING })
-    }
-
-    /** 查词事件 */
-    const handleTranslate = (action: TranslateAction) => {
-      const show = () => {
-        if (!action.mouseEvent) {
-          return
-        }
-        if (!state.visible) {
-          setPosition(action.mouseEvent)
-        }
-        state.visible = true
-
-        // not at top
-        const googleDictModal = props.getGoogleDictModal()
-        if (googleDictModal && state.icibaMainStyle.zIndex < zIndexService.get(Z_INDEX_KEY.GOOGLE_DICT_MODAL)) {
-          setPosition(action.mouseEvent)
-          return
-        }
-
-        // out of bound
-        const container = $refs.icibaMain
-        if (container) {
-          const rect = container.getBoundingClientRect()
-          if (rect.bottom < 0 || rect.top > window.innerHeight) {
-            setPosition(action.mouseEvent)
-          }
-        }
-      }
-
-      show()
-      state.inputText = action.word
-      translateService.translate(action)
-    }
-
-    const translateWithProvider = (provider: ProviderType) => {
-      handleTranslate({
-        type: EVENTS.TRANSLATE,
-        word: state.inputText,
-        param: {
-          provider: provider.id,
-        },
-      })
-    }
-
-    const handleInputConfirm = () => {
-      translateWithProvider(
-        translateService.state.providers.find((v) => v.id === translateService.state.lastUsedProvider.value)!,
-      )
-    }
-
     /** 设置 IcibaMain position */
-    const setPosition = (e: MouseEvent, force: boolean = false) => {
-      if (!force && state.visible && zIndexService.isTop(state.icibaMainStyle.zIndex)) {
-        return
-      }
-
+    const setPosition = (e: MouseEvent) => {
       // calc position
-      const sizeHelperBounding = props.getSizeHelper().$el.getBoundingClientRect()
+      const sizeHelperBounding = $refs.sizeHelper.getBoundingClientRect()
       const availableSpace = {
         x: sizeHelperBounding.left - e.clientX,
         y: sizeHelperBounding.top - e.clientY,
       }
 
-      state.icibaContainerStyle = {
+      state.mainStyle = {
         top: 'auto',
         bottom: 'auto',
         left: 'auto',
@@ -163,7 +111,7 @@ export default defineComponent({
 
       const calcedPosition = calcMouseEventPosition(e)
 
-      state.icibaMainStyle = {
+      state.wrapperStyle = {
         top: `${calcedPosition.top}px`,
         left: `${calcedPosition.left}px`,
         bottom: 'auto',
@@ -174,38 +122,88 @@ export default defineComponent({
       }
     }
 
-    const handleWindowClick = (e: MouseEvent) => {
-      // outside shadow-root
-      if (e.target !== icibaRoot && (!store.config.core.showPin || !store.config.core.pinned)) {
-        state.visible = false
-      }
-    }
-
-    const handleShadowRootClick = (e: Event) => {
-      const googleDictModal = props.getGoogleDictModal()
-      const ignoreCondition = [
-        Boolean(
-          googleDictModal
-          && insideOf(e.target, googleDictModal.$el)
-          && zIndexService.get(Z_INDEX_KEY.GOOGLE_DICT_MODAL) > state.icibaMainStyle.zIndex,
-        ),
-        insideOf(e.target, $refs.icibaMainWrap),
-        insideOf(e.target, props.getIcibaCircle().$el),
-        store.config.core.showPin && store.config.core.pinned,
-      ]
-      if (ignoreCondition.some((v) => v)) {
-        return
-      }
+    /** 打开设置 */
+    const handleOpenSetting = () => {
       state.visible = false
+      bus.emit({ type: EVENTS.OPEN_SETTING })
     }
 
-    const onGoogleDictModalOpen = () => { state.visible = false }
+    const showIcibaMain = (e: MouseEvent, autoFocus: boolean) => {
+      if (!state.visible) {
+        setPosition(e)
+        state.visible = true
+
+        if (autoFocus) {
+          Vue.nextTick(() => {
+            if ($refs.icibaSearchInput) {
+              $refs.icibaSearchInput.focus()
+            }
+          })
+        }
+      } else {
+        // reset if out of bound
+        const container = $refs.icibaMain
+        if (container) {
+          const rect = container.getBoundingClientRect()
+          if (rect.bottom < 0 || rect.top > window.innerHeight) {
+            setPosition(e)
+          }
+        }
+      }
+    }
+
+    /** 查词事件 */
+    const handleTranslate = (action: TranslateAction) => {
+      if (action.mouseEvent) {
+        showIcibaMain(action.mouseEvent, store.config.core.icibaMainInputAutoFocus)
+      }
+      state.inputText = action.word
+      translateService.translate(action)
+    }
+
+    /** 查词事件 */
+    const handleHotkeyTranslate = (action: HotKeyTranslateAction) => {
+      showIcibaMain(action.mouseEvent, store.config.core.providerHotkeyAutoFocus)
+      if (action.word) {
+        state.inputText = action.word
+      }
+      translateService.translate({
+        type: EVENTS.TRANSLATE,
+        word: state.inputText,
+        mouseEvent: action.mouseEvent,
+        param: {
+          provider: action.provider,
+        },
+      })
+    }
+
+    const translateWithProvider = (provider: PROVIDER) => {
+      translateService.translate({
+        type: EVENTS.TRANSLATE,
+        word: state.inputText,
+        param: {
+          provider,
+        },
+      })
+    }
+
+    const handleInputConfirm = () => {
+      translateService.translate({
+        type: EVENTS.TRANSLATE,
+        word: state.inputText,
+        param: {
+          provider: translateService.state.lastUsedProvider.value,
+        },
+      })
+    }
+
+    const handleGoogleDictModalOpen = () => { state.visible = false }
+
     /** 图钉 拖拽 */
     const pinDrag = {
       /** 切换固定状态 */
       handleTogglePinned: () => {
         store.config.core.pinned = !store.config.core.pinned
-        store.saveConfig()
       },
 
       /** 图钉拖拽 */
@@ -220,8 +218,8 @@ export default defineComponent({
             y: e.screenY,
           },
           startTransform: {
-            x: state.icibaMainStyle.translateX,
-            y: state.icibaMainStyle.translateY,
+            x: state.wrapperStyle.translateX,
+            y: state.wrapperStyle.translateY,
           },
         }
       },
@@ -246,8 +244,8 @@ export default defineComponent({
             y: e.screenY,
           },
           startTransform: {
-            x: state.icibaMainStyle.translateX,
-            y: state.icibaMainStyle.translateY,
+            x: state.wrapperStyle.translateX,
+            y: state.wrapperStyle.translateY,
           },
         }
       },
@@ -260,10 +258,8 @@ export default defineComponent({
         const deltaX = e.screenX - state.drag.startPoint.x
         const deltaY = e.screenY - state.drag.startPoint.y
 
-        window.requestAnimationFrame(() => {
-          state.icibaMainStyle.translateX = state.drag.startTransform.x + deltaX
-          state.icibaMainStyle.translateY = state.drag.startTransform.y + deltaY
-        })
+        state.wrapperStyle.translateX = state.drag.startTransform.x + deltaX
+        state.wrapperStyle.translateY = state.drag.startTransform.y + deltaY
       },
 
       handleDragEnd: () => {
@@ -271,27 +267,86 @@ export default defineComponent({
       },
     }
 
-    const removeSelection = () => {
-      const selection = window.getSelection()
-      if (selection?.removeAllRanges) {
-        selection.removeAllRanges()
+    const handleShowUp = async (action: HotKeyShowAction) => {
+      if (state.visible) {
+        setPosition(action.mouseEvent)
+        return
+      }
+
+      await new Promise((rs) => setTimeout(rs, 0))
+
+      translateService.clearActiveProvider()
+      setPosition(action.mouseEvent)
+      state.inputText = ''
+      state.visible = true
+
+      if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
+        Vue.nextTick(() => {
+          if ($refs.icibaSearchInput) {
+            $refs.icibaSearchInput.focus()
+          }
+        })
       }
     }
 
-    const icibaMainWrapStyle = computed(() => ({
-      top: state.icibaMainStyle.top,
-      bottom: state.icibaMainStyle.bottom,
-      left: state.icibaMainStyle.left,
-      right: state.icibaMainStyle.right,
-      transform: `translate(${state.icibaMainStyle.translateX}px, ${state.icibaMainStyle.translateY}px)`,
-      zIndex: state.icibaMainStyle.zIndex,
-    }))
+    const handleHotkeyPress = (keys: Array<string>) => {
+      const config = store.config
 
-    const icibaMainStyle = computed(() => ({
-      top: state.icibaContainerStyle.top,
-      bottom: state.icibaContainerStyle.bottom,
-      left: state.icibaContainerStyle.left,
-      right: state.icibaContainerStyle.right,
+      if (!state.visible || !state.inputText) {
+        return
+      }
+
+      for (const p of allProviders) {
+        const providerConfig = config[p]
+        if (!providerConfig.enableHotkey || !hotkeyService.match(keys, providerConfig.hotkey)) {
+          continue
+        }
+        removeSelection()
+        translateService.translate({
+          type: EVENTS.TRANSLATE,
+          word: state.inputText,
+          param: {
+            provider: p,
+          },
+        })
+      }
+    }
+
+    const handleWindowClick = (e: MouseEvent) => {
+      // outside shadow-root
+      if (e.target !== icibaRoot && (!store.config.core.showPin || !store.config.core.pinned)) {
+        state.visible = false
+      }
+    }
+
+    const handleShadowRootClick = (e: Event) => {
+      const googleDictModal = props.getGoogleDictModal()
+      const ignoreCondition = [
+        Boolean(
+          googleDictModal
+          && insideOf(e.target, googleDictModal.$el)
+          && zIndexService.get(Z_INDEX_KEY.GOOGLE_DICT_MODAL) > state.wrapperStyle.zIndex,
+        ),
+        insideOf(e.target, $refs.icibaMainWrap),
+        insideOf(e.target, props.getIcibaCircle().$el),
+        store.config.core.showPin && store.config.core.pinned,
+      ]
+      if (ignoreCondition.some((v) => v)) {
+        return
+      }
+      state.visible = false
+    }
+
+    const wrapperStyle = computed(() => {
+      const { translateX, translateY, ...rest } = state.wrapperStyle
+      return {
+        ...rest,
+        transform: `translate(${state.wrapperStyle.translateX}px, ${state.wrapperStyle.translateY}px)`,
+      }
+    })
+
+    const mainStyle = computed(() => ({
+      ...state.mainStyle,
       width: `${store.config.core.icibaMainWidth}px`,
     }))
 
@@ -301,15 +356,11 @@ export default defineComponent({
         .filter((p) => store.config[p.id].display),
     )
 
-    watch(() => state.visible, () => {
-      if (store.config.core.icibaMainInputAutoFocus) {
-        Vue.nextTick(() => {
-          if (state.visible && $refs.icibaSearchInput) {
-            $refs.icibaSearchInput.focus()
-          }
-        })
+    watch(() => wrapperStyle.value, (style) => {
+      if ($refs.icibaMainWrap) {
+        Object.assign($refs.icibaMainWrap.style, style)
       }
-    })
+    }, { deep: true })
 
     onMounted(() => {
       window.addEventListener('mousedown', handleWindowClick, true)
@@ -318,12 +369,15 @@ export default defineComponent({
       shadowRoot.addEventListener('mousedown', pinDrag.handleDragStart, true)
       shadowRoot.addEventListener('mousedown', handleShadowRootClick, false)
       shadowRoot.addEventListener('keyup', pinDrag.handleDragEnd, true)
+      hotkeyService.onHotkeyPress(handleHotkeyPress)
 
       bus.on(EVENTS.TRANSLATE, handleTranslate)
-      bus.on(EVENTS.OPEN_GOOGLE_DICT_MODAL, onGoogleDictModalOpen)
+      bus.on(EVENTS.OPEN_GOOGLE_DICT_MODAL, handleGoogleDictModalOpen)
+      bus.on(EVENTS.HOTKEY_SHOW, handleShowUp)
+      bus.on(EVENTS.HOTKEY_TRANSLATE, handleHotkeyTranslate)
     })
 
-    // no need to unmounted cause never unmount
+    // no need to unmounted since it never unmount
     if (process.env.NODE_ENV === 'development') {
       onUnmounted(() => {
         window.removeEventListener('mousedown', handleWindowClick, true)
@@ -332,23 +386,25 @@ export default defineComponent({
         shadowRoot.removeEventListener('mousedown', pinDrag.handleDragStart, true)
         shadowRoot.removeEventListener('mousedown', handleShadowRootClick, false)
         shadowRoot.removeEventListener('keyup', pinDrag.handleDragEnd, true)
+        hotkeyService.offHotkeyPress(handleHotkeyPress)
 
         bus.off(EVENTS.TRANSLATE, handleTranslate)
-        bus.off(EVENTS.OPEN_GOOGLE_DICT_MODAL, onGoogleDictModalOpen)
+        bus.off(EVENTS.OPEN_GOOGLE_DICT_MODAL, handleGoogleDictModalOpen)
+        bus.off(EVENTS.HOTKEY_SHOW, handleShowUp)
+        bus.off(EVENTS.HOTKEY_TRANSLATE, handleHotkeyTranslate)
       })
     }
 
     return {
       icon: {
-        settings_149837,
-        drag_462998,
-        pin_25474,
+        settingsIcon,
+        dragIcon,
+        pinIcon,
       },
       state,
       store,
 
-      icibaMainWrapStyle,
-      icibaMainStyle,
+      mainStyle,
 
       translateLoading: translateService.state.loading,
       activeProvider: translateService.state.activeProvider,

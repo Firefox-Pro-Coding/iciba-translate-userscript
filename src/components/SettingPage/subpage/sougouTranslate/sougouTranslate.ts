@@ -6,7 +6,7 @@ import providerIcon from '~/constants/icon'
 import { PROVIDER } from '~/constants/constant'
 import { sougouLanguagesOptions, SOUGOU_LANGUAGES } from '~/constants/sougouLanguages'
 
-import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
+import ProviderCommon from '../../providerCommon/providerCommon.vue'
 
 const iconOptions = Object
   .entries(providerIcon[PROVIDER.SOUGOU_TRANSLATE])
@@ -21,7 +21,7 @@ export default defineComponent({
     active: Boolean,
   },
   components: {
-    IconRadioGroup,
+    ProviderCommon,
   },
   setup: (props) => {
     const form = store.config[PROVIDER.SOUGOU_TRANSLATE]

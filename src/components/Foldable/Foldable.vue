@@ -9,4 +9,4 @@
   </div>
 </template>
 
-<script lang="ts" src="./foldable.ts"></script>
+<script lang="ts" src="./Foldable.ts"></script>

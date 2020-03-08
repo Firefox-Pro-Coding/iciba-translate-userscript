@@ -9,6 +9,7 @@ import CheckboxLine from '~/components/SettingPage/components/checkboxLine/check
 import RadioGroup from '~/components/SettingPage/components/radioGroup/radioGroup.vue'
 import Radio from '~/components/SettingPage/components/radio/radio.vue'
 import Slider from '~/components/SettingPage/components/slider/slider.vue'
+import HotkeyInput from '~/components/SettingPage/components/hotkeyInput/hotkeyInput.vue'
 import IIcon from '~/components/IIcon/IIcon.vue'
 import { clickOutside } from './util/diretives/click-outside'
 
@@ -23,4 +24,5 @@ Vue.component('i-checkbox', Checkbox)
 Vue.component('i-radio-group', RadioGroup)
 Vue.component('i-radio', Radio)
 Vue.component('i-slider', Slider)
+Vue.component('i-hotkey-input', HotkeyInput)
 Vue.component('i-icon', IIcon)

@@ -118,7 +118,6 @@ const useStore = () => {
     state,
     config: null as any as Config,
     loadConfig,
-    saveConfig,
   }
 
   return store

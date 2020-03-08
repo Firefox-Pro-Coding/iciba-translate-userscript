@@ -1,9 +1,7 @@
 <template>
   <div class="the-app">
     <iciba-circle ref="icibaCircle" />
-    <size-helper ref="sizeHelper" />
     <iciba-main
-      :get-size-helper="() => $refs.sizeHelper"
       :get-iciba-circle="() => $refs.icibaCircle"
       :get-google-dict-modal="() => $refs.googleDictModal"
     />
@@ -13,11 +11,7 @@
 </template>
 
 <script lang="ts" src="./App.ts"></script>
-
-<style lang="sass">
-  @import '~assets/styles/global.sass';
-</style>
-
+<style src="./assets/styles/global.sass" lang="sass"></style>
 <style scoped>
   .the-app {
     /* prevent style inheritance from page */

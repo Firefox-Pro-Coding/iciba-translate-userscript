@@ -8,6 +8,8 @@ import { SougouTranslateParams } from '~/provider/SougouTranslate/SougouTranslat
 
 export const enum EVENTS {
   TRANSLATE,
+  HOTKEY_SHOW,
+  HOTKEY_TRANSLATE,
   OPEN_SETTING,
   OPEN_GOOGLE_DICT_MODAL,
 }
@@ -15,6 +17,7 @@ export const enum EVENTS {
 export interface TranslateAction {
   type: EVENTS.TRANSLATE
   word: string
+  mouseEvent?: MouseEvent
   param?: {
     provider: PROVIDER.BAIDU_TRANSLATE
     param?: BaiduTranslateParams
@@ -40,7 +43,6 @@ export interface TranslateAction {
     provider: PROVIDER.VOCABULARY
     param?: undefined
   }
-  mouseEvent?: MouseEvent
 }
 
 export interface OpenSettingAction {
@@ -52,14 +54,30 @@ export interface OpenGoogleDictModalAction {
   googleDictData: any
 }
 
+export interface HotKeyShowAction {
+  type: EVENTS.HOTKEY_SHOW
+  mouseEvent: MouseEvent
+}
+
+export interface HotKeyTranslateAction {
+  type: EVENTS.HOTKEY_TRANSLATE
+  mouseEvent: MouseEvent
+  word: string
+  provider: PROVIDER
+}
+
 type Actions = TranslateAction
 | OpenSettingAction
 | OpenGoogleDictModalAction
+| HotKeyShowAction
+| HotKeyTranslateAction
 
 interface OnOff {
   (e: EVENTS.TRANSLATE, l: (a: TranslateAction) => unknown): unknown
   (e: EVENTS.OPEN_SETTING, l: (a: OpenSettingAction) => unknown): unknown
   (e: EVENTS.OPEN_GOOGLE_DICT_MODAL, l: (a: OpenGoogleDictModalAction) => unknown): unknown
+  (e: EVENTS.HOTKEY_SHOW, l: (a: HotKeyShowAction) => unknown): unknown
+  (e: EVENTS.HOTKEY_TRANSLATE, l: (a: HotKeyTranslateAction) => unknown): unknown
 }
 
 class Bus {

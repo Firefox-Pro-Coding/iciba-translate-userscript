@@ -14,6 +14,7 @@ import ITabItem from './components/tabItem/tabItem.vue'
 
 import About from './subpage/about/about.vue'
 import CoreSetting from './subpage/coreSetting/coreSetting.vue'
+import HotKey from './subpage/hotKey/hotKey.vue'
 import Iciba from './subpage/iciba/iciba.vue'
 import GoogleDict from './subpage/googleDict/googleDict.vue'
 import GoogleTranslate from './subpage/googleTranslate/googleTranslate.vue'
@@ -32,6 +33,7 @@ export default defineComponent({
 
     About,
     CoreSetting,
+    HotKey,
     Iciba,
     GoogleDict,
     GoogleTranslate,

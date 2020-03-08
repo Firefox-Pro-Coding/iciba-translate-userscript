@@ -1,43 +1,26 @@
-import { defineComponent, watch, onUnmounted, reactive, computed, onMounted } from '@vue/composition-api'
+import {
+  defineComponent,
+  onUnmounted,
+  reactive,
+  computed,
+  onMounted,
+  watch,
+} from '@vue/composition-api'
 
-import { providerOptions, PROVIDER } from '~/constants/constant'
-import { store } from '~/service/store'
-
-import Foldable from '~/components/Foldable/Foldable.vue'
-import ProviderSort from './providerSort/providerSort.vue'
+interface Props {
+  value?: Array<string>
+}
 
 export default defineComponent({
-  name: 'CoreSettings',
+  name: 'HotkeyInput',
   props: {
-    active: Boolean,
+    value: null,
   },
-  components: {
-    ProviderSort,
-    Foldable,
-  },
-  setup: (props) => {
+  setup: (props: Props, ctx) => {
     const state = reactive({
       keys: [] as Array<string>,
       setKeys: [] as Array<string>,
     })
-    const form = store.config.core
-    let reset: Array<PROVIDER> | null = null
-
-    watch(() => [
-      form.defaultProvider,
-      form.icibaCircleRightClickProvider,
-    ], (n, o) => {
-      reset = o && n[0] === n[1]
-        ? o
-        : null
-    })
-
-    const doReset = () => {
-      if (props.active && reset) {
-        form.defaultProvider = reset[0]
-        form.icibaCircleRightClickProvider = reset[1]
-      }
-    }
 
     const normalizeKey = (key: string) => (key >= 'a' && key <= 'z'
       ? key.toUpperCase()
@@ -45,7 +28,17 @@ export default defineComponent({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = normalizeKey(e.key)
-      if (!e.repeat && !state.keys.includes(key)) {
+      if (e.repeat) {
+        return
+      }
+
+      if (key === 'Backspace') {
+        state.keys = []
+        state.setKeys = []
+        return
+      }
+
+      if (!state.keys.includes(key)) {
         state.keys.push(key)
       }
       state.setKeys = [...state.keys]
@@ -59,8 +52,9 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.active, doReset, { lazy: true })
-    onUnmounted(doReset)
+    const handleClear = () => {
+      state.keys = []
+    }
 
     const input = computed(() => {
       const keys = state.setKeys
@@ -73,26 +67,44 @@ export default defineComponent({
         hasAlt && 'Alt',
         hasShift && 'Shift',
         ...keys
-          .filter((v) => !['Control', 'Alt', 'Shift'].includes(v))
-          .map((v) => v.toUpperCase()),
+          .filter((v) => !['Control', 'Alt', 'Shift'].includes(v)),
       ].filter(Boolean)
 
-      return inputs.join(' + ')
+      return inputs
+    })
+
+    const inputString = computed(() => input.value.join(' + ') || '无')
+
+    watch(() => input.value, () => {
+      ctx.emit('input', input.value)
+    })
+
+    watch(() => props.value, () => {
+      if (!props.value) {
+        return
+      }
+      if (props.value.every((v, i) => v === state.setKeys[i])) {
+        return
+      }
+      state.setKeys = [...props.value]
     })
 
     onMounted(() => {
       window.addEventListener('keyup', handleKeyUp)
+      window.addEventListener('blur', handleClear)
+      window.addEventListener('focus', handleClear)
     })
 
     onUnmounted(() => {
       window.removeEventListener('keyup', handleKeyUp)
+      window.removeEventListener('blur', handleClear)
+      window.removeEventListener('focus', handleClear)
     })
 
     return {
+      props,
       state,
-      input,
-      form,
-      providerOptions,
+      inputString,
       handleKeyDown,
       handleKeyUp,
     }

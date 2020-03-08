@@ -109,12 +109,10 @@ export default defineComponent({
       drag.item.mask = false
       drag.item = null
       store.config.core.providerOrder = state.list.map((v) => v.id)
-      store.saveConfig()
     }
 
     const handleToggleVisibility = (key: PROVIDER) => {
       store.config[key].display = !store.config[key].display
-      store.saveConfig()
     }
 
     const handleReset = () => {

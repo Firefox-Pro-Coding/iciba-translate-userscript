@@ -7,6 +7,8 @@ import {
   success,
   failure,
   identity,
+  array,
+  string,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
@@ -34,22 +36,33 @@ const looseProviderArray = new Type<Array<PROVIDER>>(
 )
 
 export const type = tType({
+  providerOrder: fallback(looseProviderArray, () => [...allProviders]),
+
   defaultProvider: fallback(provider, PROVIDER.ICIBA),
   icibaCircleRightClick: fallback(boolean, true),
   icibaCircleRightClickProvider: fallback(provider, PROVIDER.GOOGLE_TRANSLATE),
+
+  useIcibaCircle: fallback(boolean, true),
   pressCtrlToDrag: fallback(boolean, true),
   pressCtrlToShowCircle: fallback(boolean, false),
   mouseOverTranslate: fallback(boolean, false),
   icibaMainInputAutoFocus: fallback(boolean, false),
+
+  showPin: fallback(boolean, false),
+  pinned: fallback(boolean, false),
+
+  selectionMaxLengthCut: fallback(boolean, false),
+  selectionMaxLength: fallback(number, 150),
+
   icibaMainWidth: fallback(number, 300),
   icibaCircleSize: fallback(number, 22),
   icibaCircleOffsetX: fallback(number, 7),
   icibaCircleOffsetY: fallback(number, 7),
-  selectionMaxLengthCut: fallback(boolean, false),
-  selectionMaxLength: fallback(number, 150),
-  showPin: fallback(boolean, false),
-  pinned: fallback(boolean, false),
-  providerOrder: fallback(looseProviderArray, [...allProviders]),
+
+  providerHotkeyAutoFocus: fallback(boolean, false),
+  useHotkeyShowUp: fallback(boolean, false),
+  hotkeyIcibaMainInputAutoFocus: fallback(boolean, true),
+  showUpHotkey: fallback(array(string), () => []),
 })
 
 export const defaultData = getFallbackData(type)

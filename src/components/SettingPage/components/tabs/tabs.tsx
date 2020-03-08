@@ -64,8 +64,7 @@ export default defineComponent({
     return () => {
       const tabs = setupContext.slots.default()
       return (
-        <div
-          class="tabs__div flex-col flex-wrap relative items-stretch">
+        <div class="tabs__div flex-col flex-wrap relative items-stretch">
           <div
             class="slider absolute ease-in-out duration-300"
             style={sliderStyle}
@@ -80,7 +79,8 @@ export default defineComponent({
               }}
               v-ripple={{ class: tabModel.value === index ? 'active-ripple' : 'inactive-ripple' }}
               onClick={() => { tabModel.value = index }}
-              key={index}>
+              key={index}
+            >
               {tab}
             </div>
           ))}

@@ -5,7 +5,7 @@ import { store } from '~/service/store'
 import providerIcon from '~/constants/icon'
 import { PROVIDER } from '~/constants/constant'
 
-import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
+import ProviderCommon from '../../providerCommon/providerCommon.vue'
 
 const iconOptions = Object
   .entries(providerIcon[PROVIDER.URBAN_DICTIONARY])
@@ -17,7 +17,7 @@ const iconOptions = Object
 export default defineComponent({
   name: 'UrbanDictionarySettings',
   components: {
-    IconRadioGroup,
+    ProviderCommon,
   },
   setup: () => ({
     form: store.config[PROVIDER.URBAN_DICTIONARY],

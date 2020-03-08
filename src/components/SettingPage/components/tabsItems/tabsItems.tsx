@@ -175,7 +175,8 @@ export default defineComponent({
           <div
             class='window-container flex relative ease-in-out duration-300'
             ref="windowContainer"
-            style={{ height: state.height ? `${state.height}px` : 'auto' }}>
+            style={{ height: state.height ? `${state.height}px` : 'auto' }}
+          >
             { ...VNodes.map((v, i) => {
               if (v.componentOptions?.propsData) {
                 const pd: any = v.componentOptions.propsData
@@ -187,10 +188,12 @@ export default defineComponent({
                   refInFor={true}
                   ref='window'
                   style={state.windowStyle[i]}
+                  key={i}
                   class={{
                     'vnode-window': true,
                     'animating': state.windowStyle[i].animating,
-                  }}>
+                  }}
+                >
                   { v }
                 </div>
               )

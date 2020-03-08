@@ -49,10 +49,11 @@ const useTranslateService = () => {
       ?? providers.find((v) => v.id === store.config.core.defaultProvider)
       ?? providers[0]
     const payload = param?.param ?? null
-    const word = action.word
+    const word = action.word.trim()
 
     if (!word) {
-      return Promise.reject(new Error('查询不能为空！'))
+      state.errorMessage = '查询不能为空！'
+      return Promise.resolve()
     }
 
     state.activeProvider = null
@@ -93,6 +94,19 @@ const useTranslateService = () => {
     })
   }
 
+  const clearActiveProvider = () => {
+    state.activeProvider = null
+    state.errorMessage = ''
+  }
+
+  const removeSelection = () => {
+    const selection = window.getSelection()
+    if (!selection) {
+      return
+    }
+    selection.removeAllRanges()
+  }
+
   return {
     state: {
       loading: computed(() => state.loading),
@@ -103,6 +117,8 @@ const useTranslateService = () => {
     },
 
     translate,
+    clearActiveProvider,
+    removeSelection,
   }
 }
 

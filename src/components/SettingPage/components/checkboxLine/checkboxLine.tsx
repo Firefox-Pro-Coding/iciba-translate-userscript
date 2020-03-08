@@ -6,13 +6,14 @@ export default defineComponent({
     value: Boolean,
     text: String,
     label: String,
+    nomt: Boolean,
   },
 
   setup: (props, ctx) => {
     const handleInput = (v: boolean) => ctx.emit('input', v)
 
     return () => (
-      <div class="mt-4">
+      <div class={[!props.nomt && 'mt-4']}>
         <i-checkbox
           value={props.value}
           onInput={handleInput}

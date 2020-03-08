@@ -9,7 +9,7 @@ import {
   PROVIDER,
 } from '~/constants/constant'
 
-import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
+import ProviderCommon from '../../providerCommon/providerCommon.vue'
 
 const iconOptions = Object
   .entries(providerIcon[PROVIDER.GOOGLE_TRANSLATE])
@@ -29,7 +29,7 @@ export default defineComponent({
     active: Boolean,
   },
   components: {
-    IconRadioGroup,
+    ProviderCommon,
   },
   setup: (props) => {
     const form = store.config[PROVIDER.GOOGLE_TRANSLATE]

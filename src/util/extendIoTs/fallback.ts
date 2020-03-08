@@ -26,8 +26,8 @@ export class FallbackType<T> extends Type<T> {
   }
 }
 
-export const fallback = <T extends any>(p: Type<T>, dValue: T) => new FallbackType<T>(
-  p, dValue,
+export const fallback = <T extends any>(p: Type<T>, dValue: T | (() => T)) => new FallbackType<T>(
+  p, typeof dValue === 'function' ? (dValue as () => T)() : dValue,
 )
 
 interface FallbackProps {

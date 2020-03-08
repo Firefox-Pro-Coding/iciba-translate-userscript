@@ -1,6 +1,6 @@
 import { defineComponent } from '@vue/composition-api'
+import Foldable from '~/components/Foldable/Foldable.vue'
 import labels from '../labels/labels.vue'
-import foldable from '../foldable/foldable.vue'
 import { ExampleGroup } from '~/provider/GoogleDict/types'
 
 interface Props {
@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'GExampleGroups',
   components: {
     labels,
-    foldable,
+    Foldable,
   },
   props: {
     exampleGroups: null,

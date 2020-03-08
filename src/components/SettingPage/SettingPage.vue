@@ -18,6 +18,7 @@
           >
             <i-tab>设置</i-tab>
             <i-tab>core</i-tab>
+            <i-tab>热键</i-tab>
             <i-tab>iciba</i-tab>
             <i-tab>google 字典</i-tab>
             <i-tab>google 翻译</i-tab>
@@ -35,14 +36,15 @@
           v-model="state.tab"
         >
           <i-tab-item class="p-3"><about /></i-tab-item>
-          <i-tab-item class="p-3"><coreSetting /></i-tab-item>
+          <i-tab-item class="p-3"><core-setting /></i-tab-item>
+          <i-tab-item class="p-3"><hot-key /></i-tab-item>
           <i-tab-item class="p-3"><iciba /></i-tab-item>
-          <i-tab-item class="p-3"><googleDict /></i-tab-item>
-          <i-tab-item class="p-3"><googleTranslate /></i-tab-item>
-          <i-tab-item class="p-3"><baiduTranslate /></i-tab-item>
-          <i-tab-item class="p-3"><sougouTranslate /></i-tab-item>
-          <i-tab-item class="p-3"><urbanDictionary /></i-tab-item>
-          <i-tab-item class="p-3"><bingTranslate /></i-tab-item>
+          <i-tab-item class="p-3"><google-dict /></i-tab-item>
+          <i-tab-item class="p-3"><google-translate /></i-tab-item>
+          <i-tab-item class="p-3"><baidu-translate /></i-tab-item>
+          <i-tab-item class="p-3"><sougou-translate /></i-tab-item>
+          <i-tab-item class="p-3"><urban-dictionary /></i-tab-item>
+          <i-tab-item class="p-3"><bing-translate /></i-tab-item>
           <i-tab-item class="p-3"><vocabulary /></i-tab-item>
         </i-tabs-items>
       </div>

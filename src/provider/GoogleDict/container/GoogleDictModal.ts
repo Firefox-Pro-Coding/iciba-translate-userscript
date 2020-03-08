@@ -82,7 +82,6 @@ export default defineComponent({
         store.config[PROVIDER.GOOGLE_DICT].foldStatus = foldOrder[index]
       }
       loadFoldStatus()
-      store.saveConfig()
     }
 
     const handleExpand = () => {
@@ -91,7 +90,6 @@ export default defineComponent({
         store.config[PROVIDER.GOOGLE_DICT].foldStatus = foldOrder[index]
       }
       loadFoldStatus()
-      store.saveConfig()
     }
 
     onMounted(() => {

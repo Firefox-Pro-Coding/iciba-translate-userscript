@@ -9,7 +9,7 @@ export enum PROVIDER {
   VOCABULARY = 'VOCABULARY',
 }
 export const PROVIDER_MAP = {
-  [PROVIDER.ICIBA]: 'iciba查词',
+  [PROVIDER.ICIBA]: 'iciba',
   [PROVIDER.GOOGLE_DICT]: 'google字典',
   [PROVIDER.GOOGLE_TRANSLATE]: 'google翻译',
   [PROVIDER.BAIDU_TRANSLATE]: '百度翻译',

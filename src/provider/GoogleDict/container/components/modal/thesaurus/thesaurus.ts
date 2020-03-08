@@ -1,11 +1,11 @@
 import { defineComponent, reactive, watch, onMounted, computed } from '@vue/composition-api'
+import Foldable from '~/components/Foldable/Foldable.vue'
 
 import { store } from '~/service/store'
 import { PROVIDER } from '~/constants/constant'
 import { bus, EVENTS } from '~/service/globalBus'
 
 import Labels from '../labels/labels.vue'
-import Foldable from '../foldable/foldable.vue'
 import { ThesaurusEntry } from '~/provider/GoogleDict/types'
 
 interface Props {

@@ -28,7 +28,8 @@ const ToastContainer = defineComponent({
           key={item.id}
           text={item.text}
           timeout={item.timeout}
-          destroy={item.destroy} />
+          destroy={item.destroy}
+        />
       ))}
     </div>
   ),

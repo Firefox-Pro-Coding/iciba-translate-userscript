@@ -7,7 +7,8 @@ import {
   GOOGLE_DICT_FOLD_STATUS,
   GOOGLE_DICT_FOLD_STATUS_MAP,
 } from '~/constants/constant'
-import IconRadioGroup from '../../components/IconRadioGroup/IconRadioGroup.vue'
+
+import ProviderCommon from '../../providerCommon/providerCommon.vue'
 
 const foldOptions = [
   { label: GOOGLE_DICT_FOLD_STATUS_MAP[GOOGLE_DICT_FOLD_STATUS.FOLD], key: GOOGLE_DICT_FOLD_STATUS.FOLD },
@@ -25,7 +26,7 @@ const iconOptions = Object
 export default defineComponent({
   name: 'GoogleDictSettings',
   components: {
-    IconRadioGroup,
+    ProviderCommon,
   },
   setup: () => ({
     form: store.config[PROVIDER.GOOGLE_DICT],

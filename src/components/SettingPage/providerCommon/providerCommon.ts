@@ -1,0 +1,27 @@
+import { defineComponent } from '@vue/composition-api'
+
+import Foldable from '~/components/Foldable/Foldable.vue'
+import IconRadioGroup from '~/components/SettingPage/components/IconRadioGroup/IconRadioGroup.vue'
+
+export default defineComponent({
+  name: 'ProviderCommon',
+  props: {
+    icon: String,
+    display: Boolean,
+    enableHotkey: Boolean,
+    hotkey: null,
+
+    name: String,
+    icons: null,
+  },
+  components: {
+    Foldable,
+    IconRadioGroup,
+  },
+  setup: (props, ctx) => ({
+    props,
+    ctx,
+  }),
+})
+
+// TODO: 热键冲突检查

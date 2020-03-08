@@ -3,24 +3,101 @@
     <provider-sort />
 
     <i-checkbox-line
-      v-model="form.pressCtrlToDrag"
-      label="按住 ctrl 拖拽查词框"
-      text="按住 ctrl 键拖拽移动查词结果框位置"
-    />
-
-    <i-checkbox-line
-      v-model="form.pressCtrlToShowCircle"
-      label="仅按住 ctrl 时查词"
+      v-model="form.useIcibaCircle"
+      label="显示小圆圈"
     >
-      选择文字时，只有
-      <span class="font-bold">同时按住ctrl键</span>
-      时才显示小圆圈
+      选中文字后显示小圆圈
+      （关闭后<span class="font-bold">仅能使用热键</span>查词）
     </i-checkbox-line>
 
+    <foldable :fold="!form.useIcibaCircle">
+      <i-checkbox-line
+        v-model="form.pressCtrlToShowCircle"
+        label="仅按住 ctrl 时查词"
+      >
+        选择文字时，只有
+        <span class="font-bold">同时按住ctrl键</span>
+        时才显示小圆圈
+      </i-checkbox-line>
+
+      <i-checkbox-line
+        v-model="form.mouseOverTranslate"
+        label="鼠标 hover 查词"
+        text="鼠标移到小圆圈上（而非需要点击）打开查词窗口"
+      />
+
+      <i-checkbox-line
+        v-model="form.icibaMainInputAutoFocus"
+        label="查词自动聚焦输入框"
+        text="点击小圆圈查词后，自动聚焦到输入框"
+      />
+
+      <i-checkbox-line
+        v-model="form.icibaCircleRightClick"
+        label="右击小圆圈使用备选接口"
+        text="右击小圆圈，使用备选接口查词"
+      />
+
+      <foldable :fold="!form.icibaCircleRightClick">
+        <div class="flex mt-4">
+          <div class="flex-col flex-grow-0 pr-5">
+            <div class="text-grey-600 pr-4 mb-2">接口</div>
+            <div
+              class="option-item text-16 text-grey-600 mb-2"
+              v-for="n of providerOptions"
+              :key="n.key"
+            >
+              {{ n.label }}
+            </div>
+          </div>
+          <div class="flex-col items-center flex-grow-0">
+            <div class="text-grey-600 pr-4 mb-1">默认接口</div>
+            <i-radio-group
+              class="mt-0 flex-grow-0"
+              v-model="form.defaultProvider"
+            >
+              <i-radio
+                v-for="n of providerOptions"
+                :key="n.key"
+                label=""
+                :value="n.key"
+              />
+            </i-radio-group>
+          </div>
+          <div class="flex-col items-center flex-grow-0">
+            <div class="text-grey-600 pr-4 mb-1">备选接口</div>
+            <i-radio-group
+              class="mt-0"
+              v-model="form.icibaCircleRightClickProvider"
+            >
+              <i-radio
+                v-for="n of providerOptions"
+                :key="n.key"
+                label=""
+                :value="n.key"
+              />
+            </i-radio-group>
+          </div>
+        </div>
+
+        <p
+          v-if="form.defaultProvider === form.icibaCircleRightClickProvider"
+          class="text-14 text-brightred mt-2 mb-0"
+        >
+          默认接口和备选接口请选择不同的选项
+        </p>
+        <p class="text-14 text-grey-500 mt-1 mb-0">
+          默认接口：左键点击小圆圈查词接口
+          <br>
+          备选接口：启用时，右键键点击小圆圈使用此查词接口
+        </p>
+      </foldable>
+    </foldable>
+
     <i-checkbox-line
-      v-model="form.mouseOverTranslate"
-      label="鼠标 hover 查词"
-      text="鼠标移到小圆圈上（而非需要点击）打开查词窗口"
+      v-model="form.pressCtrlToDrag"
+      label="按住 Ctrl 拖拽查词框"
+      text="按住 Ctrl 键可拖拽移动查词框位置"
     />
 
     <i-checkbox-line
@@ -29,129 +106,70 @@
       text="显示固定图钉，可固定查词框使其不自动关闭"
     />
 
-    <i-checkbox-line
-      v-model="form.icibaCircleRightClick"
-      label="右击小圆圈使用备选接口"
-      text="右击小圆圈，使用备选接口查词"
-    />
+    <foldable :fold="!form.useIcibaCircle">
+      <i-checkbox-line
+        v-model="form.selectionMaxLengthCut"
+        label="限制最大查词长度"
+        text="当选择文字超过长度时不显示小圆圈"
+      />
 
-    <i-checkbox-line
-      v-model="form.icibaMainInputAutoFocus"
-      label="查词自动聚焦输入框"
-      text="点击小圆圈查词后，自动聚焦到输入框"
-    />
+      <foldable :fold="!form.selectionMaxLengthCut">
+        <i-slider
+          class="mr-1 mt-2px self-stretch"
+          :step="10"
+          :min="50"
+          :max="500"
+          v-model="form.selectionMaxLength"
+        />
+        <p class="text-14 text-grey-500">
+          最大查词长度: {{ form.selectionMaxLength }} （默认值: 150）
+        </p>
+      </foldable>
 
-    <div class="flex mt-4 pt-1">
-      <div class="flex-col flex-grow-0 pr-5">
-        <div class="text-grey-600 pr-4 mb-2">接口</div>
-        <div
-          class="option-item text-16 text-grey-600 mb-2"
-          v-for="n of providerOptions"
-          :key="n.key"
-        >
-          {{ n.label }}
+      <div class="flex self-stretch items-center mr-1 mt-4">
+        <div class="mr-3 text-grey-600">{{ form.icibaCircleSize }}px</div>
+        <i-slider
+          class="flex-grow"
+          :min="10"
+          :max="30"
+          :step="1"
+          v-model="form.icibaCircleSize"
+          thumb-label
+        />
+      </div>
+      <p class="text-14 text-grey-500 mt-1 mb-0">
+        小圆圈大小（默认22px）
+      </p>
+
+      <div class="flex mt-4">
+        <div class="flex-col justify-around flex-none">
+          <div class="mr-3 text-grey-600">x: {{ form.icibaCircleOffsetX }}</div>
+          <div class="mr-3 text-grey-600">y: {{ form.icibaCircleOffsetY }}</div>
+        </div>
+        <div class="flex-col justify-around flex-auto">
+          <i-slider
+            class="flex-grow"
+            :min="0"
+            :max="30"
+            v-model="form.icibaCircleOffsetX"
+            thumb-label
+          />
+
+          <i-slider
+            class="flex-grow"
+            :min="0"
+            :max="30"
+            v-model="form.icibaCircleOffsetY"
+            thumb-label
+          />
         </div>
       </div>
-      <div class="flex-col items-center flex-grow-0">
-        <div class="text-grey-600 pr-4 mb-1">默认接口</div>
-        <i-radio-group
-          class="mt-0 flex-grow-0"
-          v-model="form.defaultProvider"
-        >
-          <i-radio
-            v-for="n of providerOptions"
-            :key="n.key"
-            label=""
-            :value="n.key"
-          />
-        </i-radio-group>
-      </div>
-      <div class="flex-col items-center flex-grow-0">
-        <div class="text-grey-600 pr-4 mb-1">备选接口</div>
-        <i-radio-group
-          class="mt-0"
-          v-model="form.icibaCircleRightClickProvider"
-        >
-          <i-radio
-            v-for="n of providerOptions"
-            :key="n.key"
-            label=""
-            :value="n.key"
-          />
-        </i-radio-group>
-      </div>
-    </div>
-
-    <p
-      v-if="form.defaultProvider === form.icibaCircleRightClickProvider"
-      class="text-14 text-brightred mt-2 mb-0"
-    >
-      默认接口和备选接口请选择不同的选项
-    </p>
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      默认接口：左键点击小圆圈查词接口
-      <br>
-      备选接口：启用时，右键键点击小圆圈使用此查词接口
-    </p>
-
-    <i-checkbox-line
-      v-model="form.selectionMaxLengthCut"
-      label="限制最大查词长度"
-      text="当选择文字超过指定长度时不显示小圆圈"
-    />
-
-    <i-slider
-      v-if="form.selectionMaxLengthCut"
-      class="mr-1 mt-0 self-stretch"
-      :step="10"
-      :min="50"
-      :max="500"
-      v-model="form.selectionMaxLength"
-    />
-    <p class="text-14 text-grey-500 mt-1 mb-0" v-if="form.selectionMaxLengthCut">
-      最大查词长度: {{ form.selectionMaxLength }} （默认值: 150）
-    </p>
-
-    <div class="flex self-stretch items-center mr-1 mt-4">
-      <div class="mr-3 text-grey-600">{{ form.icibaCircleSize }}px</div>
-      <i-slider
-        class="flex-grow"
-        :min="10"
-        :max="30"
-        :step="1"
-        v-model="form.icibaCircleSize"
-        thumb-label
-      />
-    </div>
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      小圆圈大小（默认22px）
-    </p>
-
-    <div class="flex items-center mr-1 mt-4 self-stretch">
-      <div class="mr-3 text-grey-600">x: {{ form.icibaCircleOffsetX }}</div>
-      <i-slider
-        class="flex-grow"
-        :min="0"
-        :max="30"
-        v-model="form.icibaCircleOffsetX"
-        thumb-label
-      />
-    </div>
-    <div class="flex items-center mr-1 self-stretch">
-      <div class="mr-3 text-grey-600">y: {{ form.icibaCircleOffsetY }}</div>
-      <i-slider
-        class="flex-grow"
-        :min="0"
-        :max="30"
-        v-model="form.icibaCircleOffsetY"
-        thumb-label
-      />
-    </div>
-    <p class="text-14 text-grey-500 mt-1 mb-0">
-      小圆圈偏移量（单位：px）
-      <br>
-      选择文字时，小圆圈偏移鼠标指针右下方的位置。默认 x=7 y=7
-    </p>
+      <p class="text-14 text-grey-500 mt-1 mb-0">
+        小圆圈位置偏移（单位：px）
+        <br>
+        选择文字时，小圆圈偏移鼠标指针右下方的位置。默认 x=7 y=7
+      </p>
+    </foldable>
 
     <div class="flex items-center mr-1 mt-4 self-stretch">
       <div class="mr-3 text-grey-600">{{ form.icibaMainWidth }}px</div>

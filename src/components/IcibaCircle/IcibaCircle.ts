@@ -12,21 +12,15 @@ import { bus, EVENTS } from '~/service/globalBus'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 import { store } from '~/service/store'
 import { shadowRoot, icibaRoot } from '~/service/shadowRoot'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER, allProviders } from '~/constants/constant'
+import { hotkeyService } from '~/service/hotkey'
+import { translateService } from '~/service/translate'
 
 interface IcibaCirclePosition {
   top?: string
   bottom?: string
   left?: string
   right?: string
-}
-
-const removeSelection = () => {
-  const selection = window.getSelection()
-  if (!selection) {
-    return
-  }
-  selection.removeAllRanges()
 }
 
 export default defineComponent({
@@ -37,8 +31,9 @@ export default defineComponent({
 
     const state = reactive({
       visible: false,
-      word: '' as string,
-      zIndex: 0 as number,
+      word: '',
+      currentWord: '',
+      zIndex: 0,
       style: {
         top: '0',
         left: '0',
@@ -47,8 +42,9 @@ export default defineComponent({
       } as IcibaCirclePosition,
     })
 
+    let storedMouseEvent: MouseEvent | null = null
+
     const showIcibaCircle = (e: MouseEvent, word: string) => {
-      // await sleep(10)
       state.visible = true
       state.word = word
       state.zIndex = zIndexService.gen(Z_INDEX_KEY.GENERAL)
@@ -57,6 +53,15 @@ export default defineComponent({
         top: `${calcedPosition.top + store.config.core.icibaCircleOffsetY}px`,
         left: `${calcedPosition.left + store.config.core.icibaCircleOffsetX}px`,
       }
+    }
+
+    const getSelectionString = () => {
+      const selection = window.getSelection()
+      if (!selection || !String(selection)) {
+        return ''
+      }
+
+      return selection.toString().trim()
     }
 
     const handleSelfMouseUp = (event: MouseEvent) => {
@@ -83,7 +88,7 @@ export default defineComponent({
             provider,
           },
         })
-        removeSelection()
+        translateService.removeSelection()
       })
     }
 
@@ -105,7 +110,6 @@ export default defineComponent({
 
     const handleMouseUp = (e: MouseEvent, proxied = false) => {
       // let handleShadowRootClick handle
-
       if (!proxied && e.target === icibaRoot) {
         return
       }
@@ -113,27 +117,37 @@ export default defineComponent({
         return
       }
 
-      if (store.config.core.pressCtrlToShowCircle && !e.ctrlKey) {
+      const hide = () => {
         state.visible = false
+      }
+
+      const selectionString = getSelectionString()
+      state.currentWord = selectionString
+      if (!selectionString) {
+        hide()
         return
       }
 
-      const selection = window.getSelection()
-      if (!selection || !String(selection)) {
-        state.visible = false
+      storedMouseEvent = e
+
+      const config = store.config
+
+      if (config.core.pressCtrlToShowCircle && !e.ctrlKey) {
+        hide()
         return
       }
 
-      const selectionString = selection.toString().trim()
-      // only show button if selection is valid
-      if (!selectionString.length) {
-        state.visible = false
+      if (config.core.selectionMaxLengthCut
+        && selectionString.length > config.core.selectionMaxLength) {
+        hide()
         return
       }
 
-      if (store.config.core.selectionMaxLengthCut
-        && selectionString.length > store.config.core.selectionMaxLength) {
-        state.visible = false
+      // dummy proof
+      const hasShowUpHotkey = config.core.useHotkeyShowUp && config.core.showUpHotkey.length
+      const hasProviderUsingHotkey = allProviders.some((p) => config[p].enableHotkey && config[p].hotkey.length)
+      const hasHotkey = hasShowUpHotkey || hasProviderUsingHotkey
+      if (!config.core.useIcibaCircle && hasHotkey) {
         return
       }
 
@@ -142,6 +156,35 @@ export default defineComponent({
 
     const handleShadowRootMouseUp = (e: Event) => {
       handleMouseUp(e as MouseEvent, true)
+    }
+
+    const handleHotkeyPress = (keys: Array<string>) => {
+      const config = store.config
+      const word = state.currentWord
+
+      if (!word || !storedMouseEvent) {
+        return
+      }
+
+      for (const p of allProviders) {
+        const providerConfig = config[p]
+        if (!providerConfig.enableHotkey || !hotkeyService.match(keys, providerConfig.hotkey)) {
+          continue
+        }
+        const mouseEvent = storedMouseEvent
+        setTimeout(() => {
+          bus.emit({
+            type: EVENTS.HOTKEY_TRANSLATE,
+            word,
+            mouseEvent,
+            provider: p,
+          })
+        })
+        translateService.removeSelection()
+        state.currentWord = ''
+        state.visible = false
+        break
+      }
     }
 
     const computedStyle = computed(() => ({
@@ -154,12 +197,14 @@ export default defineComponent({
     onMounted(() => {
       window.addEventListener('mouseup', handleMouseUp, true)
       shadowRoot.addEventListener('mouseup', handleShadowRootMouseUp, true)
+      hotkeyService.onHotkeyPress(handleHotkeyPress)
     })
 
     if (process.env.NODE_ENV === 'development') {
       onUnmounted(() => {
-        window.removeEventListener('mouseup', handleMouseUp, false)
+        window.removeEventListener('mouseup', handleMouseUp, true)
         shadowRoot.removeEventListener('mouseup', handleShadowRootMouseUp, true)
+        hotkeyService.offHotkeyPress(handleHotkeyPress)
       })
     }
 
