@@ -26,6 +26,8 @@ config.mode('none')
 
 config.resolveLoader.alias.set('local-vue-style-loader', path.join(__dirname, '../../utils/vue-style-loader'))
 
+config.context(path.join(__dirname, '../..'))
+
 config.entry('index')
   .add(resolve('./src/index.ts'))
 

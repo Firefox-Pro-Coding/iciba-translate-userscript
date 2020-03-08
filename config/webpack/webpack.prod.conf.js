@@ -1,4 +1,3 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const config = require('./webpack.base.conf')
 
@@ -20,17 +19,21 @@ config.optimization.minimizer('terser')
   }])
 
 config.module.rule('eslint')
-  .test(/\.(tsx?|jsx?)$/)
+  .test(/\.(vue|tsx?|jsx?)$/)
   .enforce('pre')
   .use('eslint')
   .loader('eslint-loader')
   .end()
   .exclude.add(/node_modules/)
 
-config.plugin('fork-ts-checker-webpack-plugin')
-  .use(ForkTsCheckerWebpackPlugin)
+config.module.rule('ts')
+  .use('ts')
+  .loader('ts-loader')
+  .options({ happyPackMode: true })
+
+config.plugins.delete('fork-ts-checker-webpack-plugin')
 
 config.mode('production')
-config.devtool('#source-map')
+config.devtool('source-map')
 
 module.exports = config
