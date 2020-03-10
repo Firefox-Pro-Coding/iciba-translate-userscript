@@ -1,6 +1,7 @@
 import {
   type as tType,
   keyof,
+  boolean,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
@@ -13,8 +14,10 @@ import { providerCommonStore } from '../provider'
 const bingLanguage = enumType<BING_LANGUAGES>(BING_LANGUAGES, 'BING_LANGUAGES')
 
 export const type = tType({
-  icon: fallback(keyof(providerIcon[PROVIDER.BING_TRANSLATE]), 'bingFlat'),
   ...providerCommonStore,
+  display: fallback(boolean, false),
+  icon: fallback(keyof(providerIcon[PROVIDER.BING_TRANSLATE]), 'bingFlat'),
+
 
   targetLanguage: fallback(bingLanguage, BING_LANGUAGES.zh),
   secondTargetLanguage: fallback(bingLanguage, BING_LANGUAGES.en),

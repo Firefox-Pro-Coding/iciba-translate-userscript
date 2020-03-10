@@ -8,5 +8,4 @@ const providerHotkeyType = {
 
 export const providerCommonStore = {
   ...providerHotkeyType,
-  display: fallback(boolean, false),
 }

@@ -1,6 +1,7 @@
 import {
   type as tType,
   keyof,
+  boolean,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
@@ -14,8 +15,9 @@ const translateHost = enumType<GOOGLE_TRANSLATE_HOST>(GOOGLE_TRANSLATE_HOST, 'GO
 const googleLanguage = enumType<GOOGLE_LANGUAGES>(GOOGLE_LANGUAGES, 'GOOGLE_LANGUAGES')
 
 export const type = tType({
-  icon: fallback(keyof(providerIcon[PROVIDER.GOOGLE_TRANSLATE]), 'type_1_translate_281759'),
   ...providerCommonStore,
+  icon: fallback(keyof(providerIcon[PROVIDER.GOOGLE_TRANSLATE]), 'type_1_translate_281759'),
+  display: fallback(boolean, true),
 
   translateHost: fallback(translateHost, GOOGLE_TRANSLATE_HOST.GOOGLE_COM),
   targetLanguage: fallback(googleLanguage, GOOGLE_LANGUAGES.zh),
