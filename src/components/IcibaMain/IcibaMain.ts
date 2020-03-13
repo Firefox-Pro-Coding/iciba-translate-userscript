@@ -85,6 +85,14 @@ export default defineComponent({
       },
     })
 
+    const focusInput = () => {
+      Vue.nextTick(() => {
+        if ($refs.icibaSearchInput) {
+          $refs.icibaSearchInput.focus()
+        }
+      })
+    }
+
     /** 设置 IcibaMain position */
     const setPosition = (e: MouseEvent) => {
       // calc position
@@ -132,13 +140,8 @@ export default defineComponent({
       if (!state.visible) {
         setPosition(e)
         state.visible = true
-
         if (autoFocus) {
-          Vue.nextTick(() => {
-            if ($refs.icibaSearchInput) {
-              $refs.icibaSearchInput.focus()
-            }
-          })
+          focusInput()
         }
       } else {
         // reset if out of bound
@@ -270,22 +273,20 @@ export default defineComponent({
     const handleShowUp = async (action: HotKeyShowAction) => {
       if (state.visible) {
         setPosition(action.mouseEvent)
+        if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
+          focusInput()
+        }
         return
       }
 
       await new Promise((rs) => setTimeout(rs, 0))
-
       translateService.clearActiveProvider()
       setPosition(action.mouseEvent)
       state.inputText = ''
       state.visible = true
 
       if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
-        Vue.nextTick(() => {
-          if ($refs.icibaSearchInput) {
-            $refs.icibaSearchInput.focus()
-          }
-        })
+        focusInput()
       }
     }
 
