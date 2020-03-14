@@ -145,6 +145,9 @@ module.exports = {
       '@typescript-eslint/no-unnecessary-qualifier': 'error',
       '@typescript-eslint/no-unnecessary-type-arguments': 'error',
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+      '@typescript-eslint/no-unsafe-call': 'error',
+      '@typescript-eslint/no-unsafe-member-access': 'error',
+      '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-unused-vars-experimental': 'error',
       '@typescript-eslint/no-var-requires': 'error',
       '@typescript-eslint/prefer-as-const': 'error',
@@ -242,7 +245,9 @@ module.exports = {
       '@typescript-eslint/no-useless-constructor': 'error',
 
       'quotes': 'off',
-      '@typescript-eslint/quotes': ['error', 'single'],
+      '@typescript-eslint/quotes': ['error', 'single', {
+        'avoidEscape': true,
+      }],
 
       'require-await': 'off',
       '@typescript-eslint/require-await': 'error',
