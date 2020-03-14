@@ -70,7 +70,7 @@ export default defineComponent({
           url: `https://api.urbandictionary.com/v0/tooltip?term=${encodeURIComponent(p.text)}`,
           timeout: 5000,
           responseType: 'json',
-        }).then((response) => JSON.parse(response.responseText).string)
+        }).then((response) => JSON.parse(response.responseText).string) // eslint-disable-line @typescript-eslint/no-unsafe-return
         cacheItem = { data: tooltipPromise }
         keywordCache[p.text] = cacheItem
       }

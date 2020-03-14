@@ -33,7 +33,7 @@ const useBaiduTranslateProvider = (): ProviderType => {
     })
     const result = JSON.parse(response.responseText)
     if (result.error === 0) {
-      return result.lan
+      return result.lan as BAIDU_LANGUAGES
     }
     throw new Error('检测翻译文本语言失败！')
   }
@@ -70,8 +70,9 @@ const useBaiduTranslateProvider = (): ProviderType => {
 
     const result = JSON.parse(response.responseText)
 
-    if (result.trans_result && result.trans_result.type === 2 && result.trans_result.status === 0) {
-      return result.trans_result.data.map((v: any) => v.dst) as Array<string>
+    const trans_result = result.trans_result
+    if (trans_result && trans_result.type === 2 && trans_result.status === 0) {
+      return (trans_result.data as Array<any>).map((v: any) => v.dst as string)
     }
     throw new Error('翻译出错！')
   }

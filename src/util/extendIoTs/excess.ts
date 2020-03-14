@@ -17,7 +17,7 @@ const getProps = (codec: t.HasProps): t.Props => {
     case 'InterfaceType':
     case 'StrictType':
     case 'PartialType':
-      return codec.props
+      return codec.props as t.Props
     case 'IntersectionType':
       return codec.types.reduce<t.Props>((props, type) => Object.assign(props, getProps(type)), {})
   }
@@ -73,7 +73,7 @@ export const excess = <C extends t.HasProps>(codec: C, name: string = getExcessT
         ),
       ),
     ),
-    (a) => codec.encode((stripKeys(a, props) as Right<any>).right),
+    (a) => codec.encode((stripKeys(a, props) as Right<any>).right) as C['_A'],
     codec,
   )
 }

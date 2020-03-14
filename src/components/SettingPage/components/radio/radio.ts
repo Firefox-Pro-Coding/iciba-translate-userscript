@@ -8,10 +8,16 @@ const icon = {
   unchecked: mdi_baseline_radio_button_unchecked_24px,
 }
 
+export interface RadioProps {
+  value: boolean
+  label: string
+  checked: boolean
+  updateValue: (p: boolean) => unknown
+}
+
 export default defineComponent({
-  model: {},
   props: {
-    value: null,
+    value: Boolean,
     label: {
       type: String,
       default: '',
@@ -22,7 +28,7 @@ export default defineComponent({
     },
     updateValue: null,
   },
-  setup: (props) => {
+  setup: (props: RadioProps) => {
     const handleClick = () => {
       props.updateValue(props.value)
     }

@@ -8,6 +8,7 @@ import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 import { ProviderType } from '../provider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
 import { containerData } from './containerDataStore'
+import { Codec } from './types'
 
 type UnPromisify<T> = T extends Promise<infer U> ? U : T
 
@@ -89,7 +90,7 @@ const useGoogleDictProvider = (): ProviderType => {
     if (Object.getOwnPropertyNames(data).length === 0) {
       throw new Error('无查询结果！')
     }
-    return data
+    return data as Codec
   }
 
   const translate = async (word: string) => {
@@ -112,7 +113,7 @@ const useGoogleDictProvider = (): ProviderType => {
     // dev only check
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line
-      const check = require('./check').default
+      const check = require('./check').default as (...args: Array<any>) => unknown
       check(googleDictData, word)
     }
 

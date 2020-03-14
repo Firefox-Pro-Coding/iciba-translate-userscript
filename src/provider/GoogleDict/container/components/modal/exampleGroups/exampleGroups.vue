@@ -24,9 +24,8 @@
           class="example-item text-grey"
           v-for="(example, exampleIndex) in exampleGroupItem.examples"
           :key="exampleIndex"
-        >
-          "{{ example }}"
-        </div>
+          v-html="`&quot;${example}&quot;`"
+        />
       </div>
     </div>
   </div>

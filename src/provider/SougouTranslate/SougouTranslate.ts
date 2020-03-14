@@ -73,7 +73,7 @@ const useSougouTranslateProvider = (): ProviderType => {
       })
     }
 
-    const translateData = result.data.translate.dit.split('\n')
+    const translateData = (result.data.translate.dit as string).split('\n')
 
     return () => {
       containerData.data = translateData

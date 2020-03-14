@@ -38,4 +38,5 @@ type GetFallback = <P extends FallbackProps>(t: InterfaceType<P>) => {
   [k in keyof P]: P[k]['d']
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 export const getFallbackData: GetFallback = (t) => Object.fromEntries(Object.entries(t.props).map(([k, v]) => [k, v.d])) as any

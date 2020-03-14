@@ -77,7 +77,7 @@ const useBingTranslateProvider = (): ProviderType => {
       })
     }
 
-    const translation = data.translations[0].text.split('\n')
+    const translation = (data.translations[0].text as string).split('\n')
     return {
       result: translation,
       sl,

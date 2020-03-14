@@ -1,11 +1,11 @@
 import { PathReporter } from 'io-ts/lib/PathReporter'
 import { isLeft, isRight } from 'fp-ts/lib/Either'
 import copy from '~/util/copy'
-import { codec } from './types'
+import { codec, Codec } from './types'
 import { got } from '~/util/gmapi'
 import { PROVIDER } from '~/constants/constant'
 
-export default (data: any, word: string) => {
+export default (data: Codec, word: string) => {
   const c = copy(data)
   const result = codec.decode(c)
 
@@ -34,7 +34,7 @@ export default (data: any, word: string) => {
     console.log(PathReporter.report(result))
   }
 
-  if (c.dictionaryData.some((d: any) => d.entries && d.entries.some((e: any) => e.subentries))) {
+  if (c.dictionaryData.some((d) => d.entries && d.entries.some((e) => e.subentries))) {
     alert('sub entry')
   }
 }

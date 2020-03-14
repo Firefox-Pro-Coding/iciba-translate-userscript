@@ -12,7 +12,7 @@ export const clickOutside: DirectiveOptions = {
       }
 
       if (!el.contains(node)) {
-        binding.value(e)
+        (binding.value as (p: Event) => unknown)(e)
       }
     }
     shadowRoot.addEventListener('click', c)

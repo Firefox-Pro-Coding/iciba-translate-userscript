@@ -75,7 +75,7 @@ const useIcibaProvider = (): ProviderType => {
     // dev only check
     if (process.env.NODE_ENV === 'development') {
       // eslint-disable-next-line
-     const check = require('./check').default
+     const check = require('./check').default as (...args: Array<any>) => unknown
       check(result, word)
     }
 

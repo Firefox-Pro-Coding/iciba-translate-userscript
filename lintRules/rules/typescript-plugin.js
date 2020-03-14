@@ -146,7 +146,7 @@ module.exports = {
       '@typescript-eslint/no-unnecessary-type-arguments': 'error',
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
       '@typescript-eslint/no-unsafe-call': 'error',
-      '@typescript-eslint/no-unsafe-member-access': 'error',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-unused-vars-experimental': 'error',
       '@typescript-eslint/no-var-requires': 'error',
