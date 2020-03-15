@@ -5,9 +5,14 @@
       v-if="type"
       :textContent.prop="type"
     />
-    <div class="ipa text-grey-700 text-12">{{ ipa }}</div>
     <div
-      class="play-sound flex flex-center ml-1"
+      v-if="ipa !== '[]'"
+      class="ipa text-grey-700 text-12 mr-1"
+    >
+      {{ ipa }}
+    </div>
+    <div
+      class="play-sound flex flex-center"
       @click="handlePlay"
     >
       <i-icon :svg="icon.play" />
