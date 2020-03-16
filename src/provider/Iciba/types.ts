@@ -254,7 +254,7 @@ export const symbol = union([
 export type Symbol = TypeOf<typeof symbol>
 
 
-export const exchange = excess(type({
+export const exchange = excess(partial({
   word_pl: array(string),
   word_third: array(string),
   word_past: array(string),
