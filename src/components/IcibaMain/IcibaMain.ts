@@ -17,25 +17,17 @@ import { store } from '~/service/store'
 import { bus, EVENTS, TranslateAction, HotKeyShowAction, HotKeyTranslateAction } from '~/service/globalBus'
 import { translateService } from '~/service/translate'
 import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'
-import { hotkeyService } from '~/service/hotkey'
 import { getIcon } from '~/provider/provider'
 
 import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
 import LoadingText from './helper/LoadingText/LoadingText'
-import { allProviders, PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants/constant'
 
 interface Props {
   getIcibaCircle: () => Vue
   getGoogleDictModal: () => Vue
-}
-
-const removeSelection = () => {
-  const selection = window.getSelection()
-  if (selection?.removeAllRanges) {
-    selection.removeAllRanges()
-  }
 }
 
 export default defineComponent({
@@ -89,6 +81,8 @@ export default defineComponent({
       Vue.nextTick(() => {
         if ($refs.icibaSearchInput) {
           $refs.icibaSearchInput.focus()
+          $refs.icibaSearchInput.selectionStart = state.inputText.length
+          $refs.icibaSearchInput.selectionEnd = state.inputText.length
         }
       })
     }
@@ -164,12 +158,43 @@ export default defineComponent({
       translateService.translate(action)
     }
 
-    /** 查词事件 */
+    /** 热键显示 */
+    const handleShowUp = async (action: HotKeyShowAction) => {
+      if (state.visible) {
+        setPosition(action.mouseEvent)
+        if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
+          focusInput()
+        }
+        return
+      }
+
+      await new Promise((rs) => setTimeout(rs, 0))
+      translateService.clearActiveProvider()
+      setPosition(action.mouseEvent)
+      state.inputText = ''
+      state.visible = true
+
+      if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
+        focusInput()
+      }
+    }
+
+    /** 热键查词 */
     const handleHotkeyTranslate = (action: HotKeyTranslateAction) => {
-      showIcibaMain(action.mouseEvent, store.config.core.providerHotkeyAutoFocus)
+      if (!state.visible) {
+        if (!action.word) {
+          return
+        }
+        showIcibaMain(action.mouseEvent, store.config.core.providerHotkeyAutoFocus)
+        state.inputText = action.word
+      } else {
+        state.inputText = action.word || state.inputText
+      }
+
       if (action.word) {
         state.inputText = action.word
       }
+
       translateService.translate({
         type: EVENTS.TRANSLATE,
         word: state.inputText,
@@ -178,6 +203,10 @@ export default defineComponent({
           provider: action.provider,
         },
       })
+
+      if (store.config.core.providerHotkeyAutoFocus) {
+        focusInput()
+      }
     }
 
     const translateWithProvider = (provider: PROVIDER) => {
@@ -212,7 +241,7 @@ export default defineComponent({
       /** 图钉拖拽 */
       handlePinDragStart: (e: MouseEvent) => {
         e.preventDefault()
-        removeSelection()
+        translateService.removeSelection()
         state.drag = {
           dragging: true,
           ignoreCtrl: true,
@@ -237,7 +266,7 @@ export default defineComponent({
         if (!store.config.core.pressCtrlToDrag) {
           return
         }
-        removeSelection()
+        translateService.removeSelection()
         e.preventDefault()
         state.drag = {
           dragging: true,
@@ -268,49 +297,6 @@ export default defineComponent({
       handleDragEnd: () => {
         state.drag.dragging = false
       },
-    }
-
-    const handleShowUp = async (action: HotKeyShowAction) => {
-      if (state.visible) {
-        setPosition(action.mouseEvent)
-        if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
-          focusInput()
-        }
-        return
-      }
-
-      await new Promise((rs) => setTimeout(rs, 0))
-      translateService.clearActiveProvider()
-      setPosition(action.mouseEvent)
-      state.inputText = ''
-      state.visible = true
-
-      if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
-        focusInput()
-      }
-    }
-
-    const handleHotkeyPress = (keys: Array<string>) => {
-      const config = store.config
-
-      if (!state.visible || !state.inputText) {
-        return
-      }
-
-      for (const p of allProviders) {
-        const providerConfig = config[p]
-        if (!providerConfig.enableHotkey || !hotkeyService.match(keys, providerConfig.hotkey)) {
-          continue
-        }
-        removeSelection()
-        translateService.translate({
-          type: EVENTS.TRANSLATE,
-          word: state.inputText,
-          param: {
-            provider: p,
-          },
-        })
-      }
     }
 
     const handleWindowClick = (e: MouseEvent) => {
@@ -370,7 +356,6 @@ export default defineComponent({
       shadowRoot.addEventListener('mousedown', pinDrag.handleDragStart, true)
       shadowRoot.addEventListener('mousedown', handleShadowRootClick, false)
       shadowRoot.addEventListener('keyup', pinDrag.handleDragEnd, true)
-      hotkeyService.onHotkeyPress(handleHotkeyPress)
 
       bus.on(EVENTS.TRANSLATE, handleTranslate)
       bus.on(EVENTS.OPEN_GOOGLE_DICT_MODAL, handleGoogleDictModalOpen)
@@ -387,7 +372,6 @@ export default defineComponent({
         shadowRoot.removeEventListener('mousedown', pinDrag.handleDragStart, true)
         shadowRoot.removeEventListener('mousedown', handleShadowRootClick, false)
         shadowRoot.removeEventListener('keyup', pinDrag.handleDragEnd, true)
-        hotkeyService.offHotkeyPress(handleHotkeyPress)
 
         bus.off(EVENTS.TRANSLATE, handleTranslate)
         bus.off(EVENTS.OPEN_GOOGLE_DICT_MODAL, handleGoogleDictModalOpen)

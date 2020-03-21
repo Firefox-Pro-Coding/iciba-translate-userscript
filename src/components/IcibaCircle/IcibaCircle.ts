@@ -13,7 +13,6 @@ import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 import { store } from '~/service/store'
 import { shadowRoot, icibaRoot } from '~/service/shadowRoot'
 import { PROVIDER, allProviders } from '~/constants/constant'
-import { hotkeyService } from '~/service/hotkey'
 import { translateService } from '~/service/translate'
 
 interface IcibaCirclePosition {
@@ -41,8 +40,6 @@ export default defineComponent({
         right: 'auto',
       } as IcibaCirclePosition,
     })
-
-    let storedMouseEvent: MouseEvent | null = null
 
     const showIcibaCircle = (e: MouseEvent, word: string) => {
       state.visible = true
@@ -128,8 +125,6 @@ export default defineComponent({
         return
       }
 
-      storedMouseEvent = e
-
       const config = store.config
 
       if (config.core.pressCtrlToShowCircle && !e.ctrlKey) {
@@ -158,35 +153,6 @@ export default defineComponent({
       handleMouseUp(e as MouseEvent, true)
     }
 
-    const handleHotkeyPress = (keys: Array<string>) => {
-      const config = store.config
-      const word = state.currentWord
-
-      if (!word || !storedMouseEvent) {
-        return
-      }
-
-      for (const p of allProviders) {
-        const providerConfig = config[p]
-        if (!providerConfig.enableHotkey || !hotkeyService.match(keys, providerConfig.hotkey)) {
-          continue
-        }
-        const mouseEvent = storedMouseEvent
-        setTimeout(() => {
-          bus.emit({
-            type: EVENTS.HOTKEY_TRANSLATE,
-            word,
-            mouseEvent,
-            provider: p,
-          })
-        })
-        translateService.removeSelection()
-        state.currentWord = ''
-        state.visible = false
-        break
-      }
-    }
-
     const computedStyle = computed(() => ({
       ...state.style,
       zIndex: state.zIndex,
@@ -197,14 +163,12 @@ export default defineComponent({
     onMounted(() => {
       window.addEventListener('mouseup', handleMouseUp, true)
       shadowRoot.addEventListener('mouseup', handleShadowRootMouseUp, true)
-      hotkeyService.onHotkeyPress(handleHotkeyPress)
     })
 
     if (process.env.NODE_ENV === 'development') {
       onUnmounted(() => {
         window.removeEventListener('mouseup', handleMouseUp, true)
         shadowRoot.removeEventListener('mouseup', handleShadowRootMouseUp, true)
-        hotkeyService.offHotkeyPress(handleHotkeyPress)
       })
     }
 

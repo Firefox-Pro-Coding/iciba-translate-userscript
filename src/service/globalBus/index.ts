@@ -12,6 +12,7 @@ export const enum EVENTS {
   HOTKEY_TRANSLATE,
   OPEN_SETTING,
   OPEN_GOOGLE_DICT_MODAL,
+  HIDE_CIRCLE,
 }
 
 export interface TranslateAction {
@@ -66,11 +67,16 @@ export interface HotKeyTranslateAction {
   provider: PROVIDER
 }
 
+export interface HideCircleTranslateAction {
+  type: EVENTS.HIDE_CIRCLE
+}
+
 type Actions = TranslateAction
 | OpenSettingAction
 | OpenGoogleDictModalAction
 | HotKeyShowAction
 | HotKeyTranslateAction
+| HideCircleTranslateAction
 
 interface OnOff {
   (e: EVENTS.TRANSLATE, l: (a: TranslateAction) => unknown): unknown
@@ -78,6 +84,7 @@ interface OnOff {
   (e: EVENTS.OPEN_GOOGLE_DICT_MODAL, l: (a: OpenGoogleDictModalAction) => unknown): unknown
   (e: EVENTS.HOTKEY_SHOW, l: (a: HotKeyShowAction) => unknown): unknown
   (e: EVENTS.HOTKEY_TRANSLATE, l: (a: HotKeyTranslateAction) => unknown): unknown
+  (e: EVENTS.HIDE_CIRCLE, l: (a: HideCircleTranslateAction) => unknown): unknown
 }
 
 class Bus {

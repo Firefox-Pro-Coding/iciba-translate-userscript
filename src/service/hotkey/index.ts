@@ -1,3 +1,6 @@
+import { allProviders } from '~/constants/constant'
+import { store } from '../store'
+
 const normalizeKey = (key: string) => (
   key >= 'a' && key <= 'z'
     ? key.toUpperCase()
@@ -58,10 +61,21 @@ const useHotkeyService = () => {
 
   const match = (k1: Array<string>, k2: Array<string>) => k1.length === k2.length && k1.every((k) => k2.includes(k))
 
+  const getHotkeyMatchedProvider = (ks: Array<string>) => {
+    const config = store.config
+    const provider = allProviders.find((p) => {
+      const providerConfig = config[p]
+      return providerConfig.enableHotkey && match(ks, providerConfig.hotkey)
+    })
+
+    return provider ?? null
+  }
+
   return {
     onHotkeyPress,
     offHotkeyPress,
     match,
+    getHotkeyMatchedProvider,
   }
 }
 
