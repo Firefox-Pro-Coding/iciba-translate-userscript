@@ -17,6 +17,8 @@
     /* prevent style inheritance from page */
     /* https://greasyfork.org/zh-CN/forum/discussion/56072 */
     /* all: initial; */
+    font-size: 16px;
+    color: initial;
     font-family: 'Roboto', 'Microsoft Yahei UI', 'Arial', sans-serif;
     line-height: 1.5;
   }
