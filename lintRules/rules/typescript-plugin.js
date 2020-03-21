@@ -50,6 +50,7 @@ module.exports = {
           },
         },
       }],
+      '@typescript-eslint/class-literal-property-style': 'off',
       '@typescript-eslint/consistent-type-assertions': ['off', {
         'assertionStyle': 'as',
         'objectLiteralTypeAssertions': 'allow-as-parameter',
