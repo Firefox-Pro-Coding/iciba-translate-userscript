@@ -13,9 +13,11 @@ export default defineComponent({
       <div class='radio-group flex-col items-start'>
         {setupContext.slots.default().map((v) => {
           if (v.componentOptions && v.componentOptions.propsData) {
+            v.componentOptions.listeners = v.componentOptions.listeners ?? {}
+            const listeners = v.componentOptions.listeners as any
+            listeners.update_value = handleRadioClick
             const childProps = v.componentOptions.propsData as any
             childProps.checked = childProps.value === props.value
-            childProps.updateValue = handleRadioClick
           }
           return v
         })}

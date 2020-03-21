@@ -17,7 +17,7 @@ export interface RadioProps {
 
 export default defineComponent({
   props: {
-    value: Boolean,
+    value: null,
     label: {
       type: String,
       default: '',
@@ -26,11 +26,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    updateValue: null,
   },
-  setup: (props: RadioProps) => {
+  setup: (props: RadioProps, ctx) => {
     const handleClick = () => {
-      props.updateValue(props.value)
+      ctx.emit('update_value', props.value)
     }
     return {
       handleClick,
