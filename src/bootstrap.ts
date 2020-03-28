@@ -26,3 +26,8 @@ Vue.component('i-radio', Radio)
 Vue.component('i-slider', Slider)
 Vue.component('i-hotkey-input', HotkeyInput)
 Vue.component('i-icon', IIcon)
+
+
+const style = document.createElement('style')
+style.innerHTML = '.iciba-root{all:initial}'
+document.head.appendChild(style)
