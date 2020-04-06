@@ -7,7 +7,7 @@ const normalizeKey = (key: string) => (
     : key
 )
 
-type HotKeyHandler = (keys: Array<string>, e: MouseEvent) => unknown
+type HotKeyHandler = (keys: Array<string>, e: MouseEvent, stop: () => void) => unknown
 
 const useHotkeyService = () => {
   const listeners = new Set<HotKeyHandler>()
@@ -23,7 +23,7 @@ const useHotkeyService = () => {
     if (!e.repeat && !keys.includes(key)) {
       keys.push(key)
       if (mouseEvent) {
-        Array.from(listeners).forEach((v) => v([...keys], mouseEvent!))
+        Array.from(listeners).forEach((v) => v([...keys], mouseEvent!, () => e.stopPropagation()))
       }
     }
   }
@@ -48,7 +48,7 @@ const useHotkeyService = () => {
   ] as const
 
   list.forEach((v) => {
-    window.addEventListener(v[0], v[1] as any)
+    window.addEventListener(v[0], v[1] as any, true)
   })
 
   const onHotkeyPress = (fn: HotKeyHandler) => {

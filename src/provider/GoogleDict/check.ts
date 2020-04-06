@@ -33,8 +33,4 @@ export default (data: Codec, word: string) => {
     console.log(result)
     console.log(PathReporter.report(result))
   }
-
-  if (c.dictionaryData.some((d) => d.entries && d.entries.some((e) => e.subentries))) {
-    alert('sub entry')
-  }
 }

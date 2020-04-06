@@ -229,6 +229,10 @@ export default defineComponent({
       })
     }
 
+    const handleInputKeydownCapture = (e: KeyboardEvent) => {
+      e.stopPropagation()
+    }
+
     const handleGoogleDictModalOpen = () => { state.visible = false }
 
     /** 图钉 拖拽 */
@@ -402,6 +406,7 @@ export default defineComponent({
         handleOpenSetting,
         translateWithProvider,
         handleInputConfirm,
+        handleInputKeydownCapture,
       },
     }
   },

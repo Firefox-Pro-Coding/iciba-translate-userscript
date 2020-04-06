@@ -32,6 +32,7 @@
                 v-model="state.inputText"
                 @focus="state.inputFocused = true"
                 @blur="state.inputFocused = false"
+                @keydown.capture="m.handleInputKeydownCapture"
                 @keypress.13="m.handleInputConfirm"
               >
               <div

@@ -34,7 +34,7 @@ export default defineComponent({
       lastMouseMoveEvent = e
     }
 
-    const handleShowUpHotkeyPress = (keys: Array<string>) => {
+    const handleShowUpHotkeyPress = (keys: Array<string>, stop: () => void) => {
       if (!store.config.core.useHotkeyShowUp) {
         return
       }
@@ -43,6 +43,7 @@ export default defineComponent({
       if (!hotkeyMatch || !lastMouseMoveEvent) {
         return
       }
+      stop()
 
       bus.emit({
         type: EVENTS.HOTKEY_SHOW,
@@ -50,7 +51,7 @@ export default defineComponent({
       })
     }
 
-    const handleTranslateHotkeyPress = (keys: Array<string>) => {
+    const handleTranslateHotkeyPress = (keys: Array<string>, stop: () => void) => {
       const word = window.getSelection()?.toString().trim() ?? ''
 
       if (!lastMouseUpEvent) {
@@ -61,6 +62,7 @@ export default defineComponent({
       if (matchedProvider) {
         const mouseEvent = lastMouseUpEvent
         translateService.removeSelection()
+        stop()
         bus.emit({
           type: EVENTS.HIDE_CIRCLE,
         })
@@ -73,9 +75,9 @@ export default defineComponent({
       }
     }
 
-    const handleHotkeyPress = (keys: Array<string>) => {
-      handleShowUpHotkeyPress(keys)
-      handleTranslateHotkeyPress(keys)
+    const handleHotkeyPress = (keys: Array<string>, _e: MouseEvent, stop: () => void) => {
+      handleShowUpHotkeyPress(keys, stop)
+      handleTranslateHotkeyPress(keys, stop)
     }
 
     onMounted(() => {
