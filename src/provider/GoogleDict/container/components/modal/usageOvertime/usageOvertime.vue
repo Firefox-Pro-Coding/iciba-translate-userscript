@@ -3,7 +3,7 @@
     class="usage-overtime mt-3 flex-col items-stretch border-t border-grey-400 "
     v-if="m"
   >
-    <div class="usage-title mt-2 pt-1 text-grey text-18">
+    <div class="usage-title mt-2 pt-1 text-grey-500 text-18">
       Use over time for
       <span class="bg-grey-500 text-white px-1">
         {{ term }}

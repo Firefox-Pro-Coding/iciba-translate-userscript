@@ -58,13 +58,6 @@ const setDefaultDataByPath = (path: Array<string>, _data: any) => {
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 const useStore = () => {
-  const state = reactive({
-    googleDict: {
-      subsenseFolded: false,
-      thesaurusFolded: false,
-    },
-  })
-
   const loadConfig = async () => {
     let dataString
     try {
@@ -115,7 +108,6 @@ const useStore = () => {
   }
 
   const store = {
-    state,
     config: null as any as Config,
     loadConfig,
   }

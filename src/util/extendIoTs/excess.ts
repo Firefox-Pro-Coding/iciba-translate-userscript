@@ -73,6 +73,7 @@ export const excess = <C extends t.HasProps>(codec: C, name: string = getExcessT
         ),
       ),
     ),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     (a) => codec.encode((stripKeys(a, props) as Right<any>).right) as C['_A'],
     codec,
   )

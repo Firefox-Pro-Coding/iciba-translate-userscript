@@ -1,3 +1,5 @@
+const colors = require('./utils/color-palette')
+
 module.exports = {
   theme: {
     screens: false,
@@ -61,23 +63,7 @@ module.exports = {
     },
 
     extend: {
-      colors: {
-        'v-indigo': '#3F51B5',
-        brightred: '#F44336',
-        grey: {
-          '100': '#FAFAFA', // lighten-5
-          '200': '#F5F5F5', // lighten-4
-          '300': '#EEEEEE', // lighten-3
-          '400': '#E0E0E0', // lighten-2
-          '450': '#d5d5d5', //
-          '500': '#BDBDBD', // lighten-1
-          'default': '#9E9E9E',
-          '600': '#757575', // darken-1
-          '700': '#616161', // darken-2
-          '800': '#424242', // darken-3
-          '900': '#212121', // darken-4
-        },
-      },
+      colors,
     },
   },
 }

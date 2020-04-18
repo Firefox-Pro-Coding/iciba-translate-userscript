@@ -14,7 +14,7 @@
     </div>
 
     <!-- sub-entry-triggeringPhrases -->
-    <div class="triggering-phrases text-grey-500" v-if="e.triggeringPhrases">
+    <div class="triggering-phrases text-grey-400" v-if="e.triggeringPhrases">
       <span
         class="t-phrase-item"
         v-for="(phrase, pIndex) of e.triggeringPhrases"

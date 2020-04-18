@@ -10,7 +10,7 @@
         type="note"
       />
     </div>
-    <div class="note-text text-12 inline text-grey" v-html="props.note.text" />
+    <div class="note-text text-12 inline text-grey-500" v-html="props.note.text" />
   </div>
 </template>
 

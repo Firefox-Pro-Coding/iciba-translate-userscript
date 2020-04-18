@@ -36,7 +36,7 @@
       </div>
     </transition-group>
 
-    <p class="text-14 text-grey-500 mt-6px mb-0">
+    <p class="text-14 text-grey-400 mt-6px mb-0">
       按住左键拖拽调整图标显示顺序<br>
       右键单击切换显示隐藏状态<br>
       点击

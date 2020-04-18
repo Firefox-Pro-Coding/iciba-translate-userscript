@@ -82,11 +82,11 @@
 
         <p
           v-if="form.defaultProvider === form.icibaCircleRightClickProvider"
-          class="text-14 text-brightred mt-2 mb-0"
+          class="text-14 text-red-500 mt-2 mb-0"
         >
           默认接口和备选接口请选择不同的选项
         </p>
-        <p class="text-14 text-grey-500 mt-1 mb-0">
+        <p class="text-14 text-grey-400 mt-1 mb-0">
           默认接口：左键点击小圆圈查词接口
           <br>
           备选接口：启用时，右键键点击小圆圈使用此查词接口
@@ -121,7 +121,7 @@
           :max="500"
           v-model="form.selectionMaxLength"
         />
-        <p class="text-14 text-grey-500">
+        <p class="text-14 text-grey-400">
           最大查词长度: {{ form.selectionMaxLength }} （默认值: 150）
         </p>
       </foldable>
@@ -137,7 +137,7 @@
           thumb-label
         />
       </div>
-      <p class="text-14 text-grey-500 mt-1 mb-0">
+      <p class="text-14 text-grey-400 mt-1 mb-0">
         小圆圈大小（默认22px）
       </p>
 
@@ -164,7 +164,7 @@
           />
         </div>
       </div>
-      <p class="text-14 text-grey-500 mt-1 mb-0">
+      <p class="text-14 text-grey-400 mt-1 mb-0">
         小圆圈位置偏移（单位：px）
         <br>
         选择文字时，小圆圈偏移鼠标指针右下方的位置。默认 x=7 y=7
@@ -182,7 +182,7 @@
         thumb-label
       />
     </div>
-    <p class="text-14 text-grey-500 mt-1 mb-0">
+    <p class="text-14 text-grey-400 mt-1 mb-0">
       查词框宽度（单位：px）（默认300px）
     </p>
   </div>

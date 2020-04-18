@@ -5,7 +5,7 @@
       @input="ctx.emit('update:icon', $event)"
       :icons="props.icons"
     />
-    <p class="text-14 text-grey-500 mt-1 mb-0">
+    <p class="text-14 text-grey-400 mt-1 mb-0">
       按钮图标
     </p>
 
@@ -29,7 +29,7 @@
         :value="props.hotkey"
         @input="ctx.emit('update:hotkey', $event)"
       />
-      <p class="text-14 text-grey-500 mt-1 mb-0">
+      <p class="text-14 text-grey-400 mt-1 mb-0">
         查词热键
       </p>
     </foldable>

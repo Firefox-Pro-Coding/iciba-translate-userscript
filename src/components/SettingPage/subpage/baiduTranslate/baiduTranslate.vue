@@ -51,11 +51,11 @@
     </div>
     <p
       v-if="form.targetLanguage === form.secondTargetLanguage"
-      class="text-14 text-brightred mt-2 mb-0"
+      class="text-14 text-red-500 mt-2 mb-0"
     >
       首选语言和备选语言请选择不同的选项
     </p>
-    <p class="text-14 text-grey-500 mt-1 mb-0">
+    <p class="text-14 text-grey-400 mt-1 mb-0">
       首选语言：默认翻译到的语言
       <br>
       备选语言：当检测到翻译文本语言为首选语言时，翻译到备选语言

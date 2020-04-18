@@ -7,7 +7,7 @@
       width: `${Number(props.width) / 2}px`,
     }"
   >
-    <span class="placeholder text-grey-500" v-if="!state.data">
+    <span class="placeholder text-grey-400" v-if="!state.data">
       loading....
     </span>
     <img

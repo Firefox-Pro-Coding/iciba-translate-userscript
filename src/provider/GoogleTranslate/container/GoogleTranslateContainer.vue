@@ -48,7 +48,7 @@
         </div>
 
         <div
-          class="google-dict-tip mt-2px mb-3px text-12 text-right text-grey"
+          class="google-dict-tip mt-2px mb-3px text-12 text-right text-grey-500"
           v-if="containerData.fromDict"
         >
           google字典无结果，以上内容来自谷歌翻译

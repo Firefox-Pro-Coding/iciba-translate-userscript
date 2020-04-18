@@ -26,7 +26,7 @@
                   />
                 </template>
               </div>
-              <div class="text-12 text-grey mt-1">
+              <div class="text-12 text-grey-500 mt-1">
                 <template v-for="(exampleItem, exampleIndex) of extractDefinition(item.example)">
                   <UKeyword
                     :content="exampleItem.text"
@@ -41,7 +41,7 @@
                   />
                 </template>
               </div>
-              <div class="flex mt-1 items-center text-12 text-grey">
+              <div class="flex mt-1 items-center text-12 text-grey-500">
                 <div class="mr-2 pr-1 flex flex-none">
                   <i-icon
                     size="14"
@@ -66,7 +66,7 @@
             </div>
             <div
               v-if="index !== result.data.list.length - 1"
-              class="divider my-2 bg-grey-400"
+              class="divider my-2 bg-grey-300"
               :key="`${index}-divider`"
             />
           </template>

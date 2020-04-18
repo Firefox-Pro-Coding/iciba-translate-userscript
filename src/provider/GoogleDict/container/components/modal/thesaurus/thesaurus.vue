@@ -1,113 +1,64 @@
 <template>
   <!-- thesaurus -->
-  <foldable :fold="folded" v-if="t && t.length">
-    <div
-      class="thesaurus-container flex items-center relative"
-      v-if="t.length"
-    >
-      <div
-        class="th-btn px-1 bg-grey-200 text-grey-700 select-none ease-in-out duration-100"
-        :class="{ opened: state.visible }"
-        @click="handleToggleVisible"
+  <foldable :fold="folded">
+    <div class="thesaurus-box flex-col items-start">
+      <!-- <div
+        class="example-box"
+        :key="i"
+        v-if="item.examples"
       >
-        thesaurus
-      </div>
-
-      <transition name="p">
         <div
-          class="th-popup flex-col items-start absolute left-0 bottom-0 shadow-4 bg-white ease-in-out duration-100"
-          v-click-outside="handleClose"
-          v-show="state.visible"
+          class="example-item mt-1px flex"
+          v-for="(example, eIndex) in item.examples"
+          :key="eIndex"
         >
-          <div class="tabs flex">
-            <div
-              class="tab-group"
-              :class="{ selected: tGroup.groups.some(v => v === state.current) }"
-              v-for="(tGroup, tGroupIndex) of state.groups"
-              :key="tGroupIndex"
+          <div
+            class="example-text flex-auto text-grey-500"
+            v-html="`${addQoute(example)}`"
+          />
+        </div>
+      </div> -->
+
+      <template v-for="type of ['synonyms', 'antonyms']">
+        <div class="thesaurus-syn-ant" :key="type" v-if="combined[type].length">
+          <div>
+            <span
+              :class="{
+                [`type-${type}`]: true,
+                'cursor-pointer': !getShowMoreExpanded(combined[type]) && combined[type].length > 1,
+              }"
+              @click="handleShowMore(combined[type])"
             >
-              <div
-                class="tab-group-index px-1 select-none cursor-pointer"
-                @click="handleSelectThesaurus(tGroup.groups[0])"
+              {{ type }}
+              <span
+                class="show-more inline cursor-pointer select-none"
+                v-if="!getShowMoreExpanded(combined[type]) && combined[type].length > 1"
               >
-                group {{ tGroupIndex + 1 }}
-              </div>
-              <div class="tab-group-box flex">
-                <div
-                  class="tab-item px-1 select-none cursor-pointer"
-                  :class="{ selected: state.current === tItem }"
-                  v-for="tItem of tGroup.groups"
-                  :key="`${tGroupIndex}-${tItem.name}`"
-                  @click="handleSelectThesaurus(tItem)"
-                >
-                  {{ tItem.name }}
-                </div>
-              </div>
-            </div>
+                [more]
+              </span>
+            </span>
           </div>
-
-          <div class="content-box" v-if="state.current">
-            <!--  -->
-            <template v-if="state.current.type === 't'">
-              <div
-                class="thesaurus-word-item mt-1px flex"
-                :class="[`${state.type}-item`]"
-                v-for="(tItem, tIndex) in state.current.items"
+          <div class="thesaurus-box ml-3">
+            <ThesaurusRow
+              class="mt-1px"
+              :index="0"
+              :item="combined[type][0]"
+            />
+            <foldable
+              v-if="combined[type].length > 1"
+              :fold="!getShowMoreExpanded(combined[type])"
+            >
+              <ThesaurusRow
+                class="mt-1px"
+                v-for="(tItem, tIndex) in combined[type].slice(1)"
                 :key="tIndex"
-              >
-                <div class="tw-index text-grey mr-1">
-                  {{ tIndex + 1 }}.
-                </div>
-                <div>
-                  <labels
-                    class="nym-register mr-1"
-                    type="register"
-                    size="small"
-                    v-if="tItem.register"
-                    :labels="[tItem.register]"
-                  />
-                  <div
-                    class="nym-item inline-flex text-grey-500"
-                    v-for="(nym, nymIndex) in tItem.nyms"
-                    :class="{ 'is-core': nym.isCore }"
-                    :key="nymIndex"
-                  >
-                    <div
-                      @click="handleNymClick($event, nym)"
-                      :class="{ 'entry-link': nym.numEntries }"
-                      class="nym-content inline"
-                    >
-                      {{ nym.nym }}
-                    </div>
-                    <div
-                      v-if="nymIndex !== tItem.nyms.length - 1"
-                      class="nym-split inline pr-3px"
-                    >
-                      ,
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </template>
-
-            <template v-if="state.current.type === 'e'">
-              <div
-                class="example-item mt-1px flex"
-                v-for="(example, eIndex) in state.current.items"
-                :key="eIndex"
-              >
-                <div class="example-text mr-1 index text-grey">
-                  {{ eIndex + 1 }}.
-                </div>
-                <div
-                  class="example-text flex-auto text-grey"
-                  v-html="`${addQoute(example)}`"
-                />
-              </div>
-            </template>
+                :index="tIndex + 1"
+                :item="tItem"
+              />
+            </foldable>
           </div>
         </div>
-      </transition>
+      </template>
     </div>
   </foldable>
 </template>

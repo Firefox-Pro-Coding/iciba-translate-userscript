@@ -11,7 +11,17 @@ class EnumType<A> extends Type<A> {
   public constructor(e: object, name?: string) {
     super(
       name ?? 'enum',
-      (u): u is A => Object.values(this.enumObject).some((v) => v === u),
+      (u): u is A => {
+        if (!Object.values(this.enumObject).find((v) => v === u)) {
+          return false
+        }
+
+        if (typeof (this.enumObject as any)[u as string] === 'number') {
+          return false
+        }
+
+        return true
+      },
       (u, c) => (this.is(u) ? success(u) : failure(u, c)),
       identity,
     )

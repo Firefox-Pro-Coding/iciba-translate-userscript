@@ -19,7 +19,7 @@
         >
           <div class="input-box flex relative flex-none bg-white">
             <div
-              class="iciba-input-box flex relative flex-auto border-b border-grey-450"
+              class="iciba-input-box flex relative flex-auto border-b border-grey-350"
               :class="{
                 'focused': state.inputFocused,
               }"
@@ -43,10 +43,10 @@
               </div>
             </div>
 
-            <div class="provider-box flex border-b border-grey-450">
+            <div class="provider-box flex border-b border-grey-350">
               <template v-for="provider of showButtonProviders">
                 <div
-                  class="split border-l border-grey-450"
+                  class="split border-l border-grey-350"
                   :key="`${provider.id}index`"
                 />
                 <button
@@ -81,7 +81,7 @@
               {{ errorMessage }}
             </div>
             <div
-              class="show-up-tip content-item text-grey"
+              class="show-up-tip content-item text-grey-500"
               v-if="!activeProvider && !translateLoading && !errorMessage"
             >
               等待输入查词
@@ -90,12 +90,12 @@
 
           <transition name="s">
             <div
-              class="stick-box absolute border-l border-grey-450"
+              class="stick-box absolute border-l border-grey-350"
               v-if="store.config.core.showPin"
               v-show="store.config.core.pinned || state.stickBoxVisible"
             >
               <div
-                class="drag flex flex-center border-b border-grey-450"
+                class="drag flex flex-center border-b border-grey-350"
                 @mousedown="m.pinDrag.handlePinDragStart"
               >
                 <i-icon :svg="icon.dragIcon" />

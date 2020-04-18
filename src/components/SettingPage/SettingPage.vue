@@ -10,7 +10,7 @@
       @click.self="handleCloseSetting"
     >
       <div class="setting-window relative flex bg-white shadow-8 ease-in-out duration-300">
-        <div class="bg-v-indigo flex-none items-center">
+        <div class="bg-indigo-500 flex-none items-center">
           <i-tabs
             v-model="state.tab"
             dark

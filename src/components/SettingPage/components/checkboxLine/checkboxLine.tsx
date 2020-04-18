@@ -19,7 +19,7 @@ export default defineComponent({
           onInput={handleInput}
           label={props.label ?? ''}
         />
-        <p class="text-14 text-grey-500 mt-1 mb-0">
+        <p class="text-14 text-grey-400 mt-1 mb-0">
           {ctx.slots.default && ctx.slots.default()}
           {!ctx.slots.default && (props.text || '')}
         </p>

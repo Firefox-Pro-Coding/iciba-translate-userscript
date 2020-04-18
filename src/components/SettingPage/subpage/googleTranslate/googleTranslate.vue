@@ -21,7 +21,7 @@
       />
     </i-radio-group>
 
-    <p class="text-14 text-grey-500 mt-1 mb-0">
+    <p class="text-14 text-grey-400 mt-1 mb-0">
       google翻译接口域名。
       <br>
       translate.google.cn 在国内大部分区域可直接访问
@@ -69,17 +69,17 @@
     </div>
     <p
       v-if="form.targetLanguage === form.secondTargetLanguage"
-      class="text-14 text-brightred mt-2 mb-0"
+      class="text-14 text-red-500 mt-2 mb-0"
     >
       首选语言和备选语言请选择不同的选项
     </p>
-    <p class="text-14 text-grey-500 mt-1 mb-0">
+    <p class="text-14 text-grey-400 mt-1 mb-0">
       首选语言：默认翻译到的语言
       <br>
       备选语言：当检测到翻译文本语言为首选语言时，翻译到备选语言
     </p>
 
-    <p class="text-14 text-grey-500 mt-4 mb-0">
+    <p class="text-14 text-grey-400 mt-4 mb-0">
       ps：当出现 response with status code 503 时，有可能是触发了验证码。请手动打开google翻译点击验证码。
     </p>
   </div>

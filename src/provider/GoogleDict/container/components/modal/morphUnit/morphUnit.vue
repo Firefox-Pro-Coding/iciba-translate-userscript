@@ -1,7 +1,7 @@
 <template>
   <div class="morph-units-box">
     <div
-      class="morph-units-item inline text-grey"
+      class="morph-units-item inline text-grey-500"
       :title="item.formType.posTag"
       v-for="(item, morphIndex) in props.morphUnits"
       :key="morphIndex"

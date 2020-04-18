@@ -16,7 +16,7 @@ export const type = tType({
   display: fallback(boolean, true),
   icon: fallback(keyof(providerIcon[PROVIDER.GOOGLE_DICT]), 'type_0_google'),
 
-  foldStatus: fallback(foldStatus, GOOGLE_DICT_FOLD_STATUS.HALF_FOLD),
+  foldStatus: fallback(foldStatus, GOOGLE_DICT_FOLD_STATUS.UNFOLD),
 })
 
 export const defaultData = getFallbackData(type)
