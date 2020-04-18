@@ -39,7 +39,7 @@ module.exports = {
         'vue/no-async-in-computed-properties': 'error',
         'vue/no-dupe-keys': 'error',
         'vue/no-duplicate-attributes': 'error',
-        'vue/no-parsing-error': 'error',
+        'vue/no-parsing-error': 'off',
         'vue/no-reserved-keys': 'error',
         'vue/no-shared-component-data': 'error',
         'vue/no-side-effects-in-computed-properties': 'error',

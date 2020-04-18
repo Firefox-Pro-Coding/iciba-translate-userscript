@@ -100,6 +100,7 @@ module.exports = {
           'private-instance-method',
         ],
       }],
+      '@typescript-eslint/method-signature-style': ['error', 'property'],
       'camelcase': 'off',
       '@typescript-eslint/naming-convention': [
         'error',
@@ -146,6 +147,7 @@ module.exports = {
       '@typescript-eslint/no-unnecessary-qualifier': 'error',
       '@typescript-eslint/no-unnecessary-type-arguments': 'error',
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'error',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'error',
@@ -160,13 +162,16 @@ module.exports = {
       '@typescript-eslint/prefer-optional-chain': 'error',
       '@typescript-eslint/prefer-readonly': 'off',
       '@typescript-eslint/prefer-readonly-parameter-types': 'off',
+      '@typescript-eslint/prefer-reduce-type-parameter': 'error',
       '@typescript-eslint/prefer-regexp-exec': 'error',
       '@typescript-eslint/prefer-string-starts-ends-with': 'error',
+      '@typescript-eslint/prefer-ts-expect-error': 'off',
       '@typescript-eslint/promise-function-async': 'off',
       '@typescript-eslint/require-array-sort-compare': 'error',
       '@typescript-eslint/restrict-plus-operands': 'error',
       '@typescript-eslint/restrict-template-expressions': ['error', {
         'allowNumber': true,
+        'allowAny': true,
       }],
       '@typescript-eslint/strict-boolean-expressions': 'off', // too much noise
       '@typescript-eslint/triple-slash-reference': ['error', { 'path': 'never', 'types': 'never', 'lib': 'never' }],
