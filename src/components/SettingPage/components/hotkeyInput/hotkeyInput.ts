@@ -63,17 +63,23 @@ export default defineComponent({
       const hasShift = keys.includes('Shift')
 
       const inputs = [
-        hasCtrl && 'Ctrl',
+        hasCtrl && 'Control',
         hasAlt && 'Alt',
         hasShift && 'Shift',
-        ...keys
-          .filter((v) => !['Control', 'Alt', 'Shift'].includes(v)),
+        ...keys.filter((v) => !['Control', 'Alt', 'Shift'].includes(v)),
       ].filter(Boolean)
 
       return inputs
     })
 
-    const inputString = computed(() => input.value.join(' + ') || '无')
+    const inputString = computed(() => {
+      if (!input.value.length) {
+        return '无'
+      }
+      return input.value
+        .map((v) => (v === 'Control' ? 'Ctrl' : v))
+        .join(' + ')
+    })
 
     watch(() => input.value, () => {
       ctx.emit('input', input.value)
