@@ -25,7 +25,7 @@
 
     <foldable :fold="!props.enableHotkey">
       <i-hotkey-input
-        class="mt-3"
+        class="mt-4"
         :value="props.hotkey"
         @input="ctx.emit('update:hotkey', $event)"
       />

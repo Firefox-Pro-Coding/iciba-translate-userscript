@@ -9,9 +9,9 @@
       :icons="iconOptions"
     />
 
-    <div class="flex mt-4 pt-1">
-      <div class="flex-col items-start flex-grow-0 pr-5">
-        <div class="text-grey-600 pr-4 mb-2">语言</div>
+    <div class="flex mt-6 pt-1">
+      <div class="flex-col items-start flex-grow-0 pr-12">
+        <div class="text-grey-600 pr-6 mb-2">语言</div>
         <div
           class="language-option text-16 text-grey-600 mb-2"
           v-for="n of languageOptions"
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="flex-col items-center flex-grow-0">
-        <div class="text-grey-600 pr-4 mb-1">首选语言</div>
+        <div class="text-grey-600 pr-6 mb-1">首选语言</div>
         <i-radio-group
           class="mt-0 flex-grow-0"
           v-model="form.targetLanguage"
@@ -35,7 +35,7 @@
         </i-radio-group>
       </div>
       <div class="flex-col items-center flex-grow-0">
-        <div class="text-grey-600 pr-4 mb-1">备选语言</div>
+        <div class="text-grey-600 pr-6 mb-1">备选语言</div>
         <i-radio-group
           class="mt-0"
           v-model="form.secondTargetLanguage"

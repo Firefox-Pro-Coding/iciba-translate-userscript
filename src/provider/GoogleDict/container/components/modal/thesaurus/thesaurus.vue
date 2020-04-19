@@ -38,7 +38,7 @@
               </span>
             </span>
           </div>
-          <div class="thesaurus-box ml-3">
+          <div class="thesaurus-box ml-4">
             <ThesaurusRow
               class="mt-1px"
               :index="0"

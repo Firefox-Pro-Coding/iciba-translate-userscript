@@ -10,7 +10,7 @@
     />
 
     <i-radio-group
-      class="mt-4"
+      class="mt-6"
       v-model="form.foldStatus"
     >
       <i-radio
@@ -24,7 +24,7 @@
       查词详细结果默认折叠状态
     </p>
 
-    <p class="text-14 text-grey-400 mt-5 mb-0">
+    <p class="text-14 text-grey-400 mt-12 mb-0">
       如果你经常出现 request failed 0，这不是脚本出问题也不是网络问题。
     </p>
     <p class="text-14 text-grey-400 mt-1 mb-0">

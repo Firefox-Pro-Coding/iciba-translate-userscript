@@ -34,7 +34,7 @@
                 >
                   <simple-entry
                     class="entry-item"
-                    :class="{ 'border-t border-grey-400 pt-1 mt-3': !!entryIndex }"
+                    :class="{ 'border-t border-grey-400 pt-1 mt-4': !!entryIndex }"
                     :entry="entry"
                     v-for="(entry, entryIndex) in dicDataItem.entries"
                     :key="entryIndex"

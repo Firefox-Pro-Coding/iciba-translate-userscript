@@ -1,6 +1,6 @@
 <template>
   <div
-    class="usage-overtime mt-3 flex-col items-stretch border-t border-grey-400 "
+    class="usage-overtime mt-4 flex-col items-stretch border-t border-grey-400 "
     v-if="m"
   >
     <div class="usage-title mt-2 pt-1 text-grey-500 text-18">

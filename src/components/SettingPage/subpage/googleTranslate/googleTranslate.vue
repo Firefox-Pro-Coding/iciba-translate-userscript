@@ -10,7 +10,7 @@
     />
 
     <i-radio-group
-      class="mt-4"
+      class="mt-6"
       v-model="form.translateHost"
     >
       <i-radio
@@ -27,9 +27,9 @@
       translate.google.cn 在国内大部分区域可直接访问
     </p>
 
-    <div class="flex mt-4 pt-1">
-      <div class="flex-col items-start flex-grow-0 pr-5">
-        <div class="text-grey-600 pr-4 mb-2">语言</div>
+    <div class="flex mt-6 pt-1">
+      <div class="flex-col items-start flex-grow-0 pr-12">
+        <div class="text-grey-600 pr-6 mb-2">语言</div>
         <div
           class="language-option text-16 text-grey-600 mb-2"
           v-for="n of languageOptions"
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="flex-col items-center flex-grow-0">
-        <div class="text-grey-600 pr-4 mb-1">首选语言</div>
+        <div class="text-grey-600 pr-6 mb-1">首选语言</div>
         <i-radio-group
           class="mt-0 flex-grow-0"
           v-model="form.targetLanguage"
@@ -53,7 +53,7 @@
         </i-radio-group>
       </div>
       <div class="flex-col items-center flex-grow-0">
-        <div class="text-grey-600 pr-4 mb-1">备选语言</div>
+        <div class="text-grey-600 pr-6 mb-1">备选语言</div>
         <i-radio-group
           class="mt-0"
           v-model="form.secondTargetLanguage"
@@ -79,7 +79,7 @@
       备选语言：当检测到翻译文本语言为首选语言时，翻译到备选语言
     </p>
 
-    <p class="text-14 text-grey-400 mt-4 mb-0">
+    <p class="text-14 text-grey-400 mt-6 mb-0">
       ps：当出现 response with status code 503 时，有可能是触发了验证码。请手动打开google翻译点击验证码。
     </p>
   </div>

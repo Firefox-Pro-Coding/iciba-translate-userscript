@@ -35,17 +35,17 @@
           v-no-overscroll
           v-model="state.tab"
         >
-          <i-tab-item class="p-3"><about /></i-tab-item>
-          <i-tab-item class="p-3"><core-setting /></i-tab-item>
-          <i-tab-item class="p-3"><hot-key /></i-tab-item>
-          <i-tab-item class="p-3"><iciba /></i-tab-item>
-          <i-tab-item class="p-3"><google-dict /></i-tab-item>
-          <i-tab-item class="p-3"><google-translate /></i-tab-item>
-          <i-tab-item class="p-3"><baidu-translate /></i-tab-item>
-          <i-tab-item class="p-3"><sougou-translate /></i-tab-item>
-          <i-tab-item class="p-3"><urban-dictionary /></i-tab-item>
-          <i-tab-item class="p-3"><bing-translate /></i-tab-item>
-          <i-tab-item class="p-3"><vocabulary /></i-tab-item>
+          <i-tab-item class="p-4"><about /></i-tab-item>
+          <i-tab-item class="p-4"><core-setting /></i-tab-item>
+          <i-tab-item class="p-4"><hot-key /></i-tab-item>
+          <i-tab-item class="p-4"><iciba /></i-tab-item>
+          <i-tab-item class="p-4"><google-dict /></i-tab-item>
+          <i-tab-item class="p-4"><google-translate /></i-tab-item>
+          <i-tab-item class="p-4"><baidu-translate /></i-tab-item>
+          <i-tab-item class="p-4"><sougou-translate /></i-tab-item>
+          <i-tab-item class="p-4"><urban-dictionary /></i-tab-item>
+          <i-tab-item class="p-4"><bing-translate /></i-tab-item>
+          <i-tab-item class="p-4"><vocabulary /></i-tab-item>
         </i-tabs-items>
       </div>
     </div>

@@ -4,37 +4,28 @@
       class="mt-1"
       nomt
       v-model="core.useHotkeyShowUp"
-      label="热键打开查词框"
-      text="按下热键在鼠标位置打开查词框（仅打开，不进行查词）"
+      label="打开查词框热键"
+      text="按热键在鼠标位置打开查词框"
     />
+
+    <i-hotkey-input
+      class="mt-6"
+      v-model="core.showUpHotkey"
+    />
+    <p class="text-14 text-grey-400 mt-1 mb-0">
+      打开查词框热键
+    </p>
 
     <foldable :fold="!core.useHotkeyShowUp">
       <i-checkbox-line
         v-model="core.hotkeyIcibaMainInputAutoFocus"
-        label="热键打开查词框自动聚焦输入框"
+        label="热键打开聚焦输入框"
         text="使用 打开查词框热键 打开查词框后，自动聚焦到输入框"
       />
-
-      <i-hotkey-input
-        class="mt-4"
-        v-model="core.showUpHotkey"
-      />
-      <p class="text-14 text-grey-400 mt-1 mb-0">
-        打开查词框热键
-      </p>
     </foldable>
 
-    <i-checkbox-line
-      class="mt-4"
-      nomt
-      v-model="core.providerHotkeyAutoFocus"
-      label="接口热键查词自动聚焦输入框"
-    >
-      使用 接口热键 查词后，自动聚焦到输入框
-    </i-checkbox-line>
-
-    <p class="text-14 text-grey-400 mt-4 mb-0">
-      接口查词热键
+    <p class="text-14 text-grey-400 mt-8 mb-0">
+      快速查词热键（选中文本按下热键直接查词）
     </p>
     <div class="">
       <div
@@ -55,7 +46,16 @@
       </div>
     </div>
 
-    <p class="text-14 text-grey-400 mt-4 mb-0">
+    <i-checkbox-line
+      class="mt-6"
+      nomt
+      v-model="core.providerHotkeyAutoFocus"
+      label="快速查词热键聚焦输入框"
+    >
+      使用 快速查词热键 查词后，自动聚焦到输入框
+    </i-checkbox-line>
+
+    <p class="text-14 text-grey-400 mt-6 mb-0">
       tips: 选中文字后按下定义的热键查词。
     </p>
     <p class="text-14 text-grey-400 mt-1 mb-0">

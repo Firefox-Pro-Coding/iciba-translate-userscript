@@ -13,7 +13,7 @@
     <foldable :fold="!form.useIcibaCircle">
       <i-checkbox-line
         v-model="form.pressCtrlToShowCircle"
-        label="仅按住 ctrl 时查词"
+        label="选择文本仅按住 ctrl 时显示小圆圈"
       >
         选择文字时，只有
         <span class="font-bold">同时按住ctrl键</span>
@@ -39,9 +39,9 @@
       />
 
       <foldable :fold="!form.icibaCircleRightClick">
-        <div class="flex mt-4">
-          <div class="flex-col flex-grow-0 pr-5">
-            <div class="text-grey-600 pr-4 mb-2">接口</div>
+        <div class="flex mt-6">
+          <div class="flex-col flex-grow-0 pr-12">
+            <div class="text-grey-600 pr-6 mb-2">接口</div>
             <div
               class="option-item text-16 text-grey-600 mb-2"
               v-for="n of providerOptions"
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="flex-col items-center flex-grow-0">
-            <div class="text-grey-600 pr-4 mb-1">默认接口</div>
+            <div class="text-grey-600 pr-6 mb-1">默认接口</div>
             <i-radio-group
               class="mt-0 flex-grow-0"
               v-model="form.defaultProvider"
@@ -65,7 +65,7 @@
             </i-radio-group>
           </div>
           <div class="flex-col items-center flex-grow-0">
-            <div class="text-grey-600 pr-4 mb-1">备选接口</div>
+            <div class="text-grey-600 pr-6 mb-1">备选接口</div>
             <i-radio-group
               class="mt-0"
               v-model="form.icibaCircleRightClickProvider"
@@ -126,8 +126,8 @@
         </p>
       </foldable>
 
-      <div class="flex self-stretch items-center mr-1 mt-4">
-        <div class="mr-3 text-grey-600">{{ form.icibaCircleSize }}px</div>
+      <div class="flex self-stretch items-center mr-1 mt-6">
+        <div class="mr-4 text-grey-600">{{ form.icibaCircleSize }}px</div>
         <i-slider
           class="flex-grow"
           :min="10"
@@ -141,10 +141,10 @@
         小圆圈大小（默认22px）
       </p>
 
-      <div class="flex mt-4">
+      <div class="flex mt-6">
         <div class="flex-col justify-around flex-none">
-          <div class="mr-3 text-grey-600">x: {{ form.icibaCircleOffsetX }}</div>
-          <div class="mr-3 text-grey-600">y: {{ form.icibaCircleOffsetY }}</div>
+          <div class="mr-4 text-grey-600">x: {{ form.icibaCircleOffsetX }}</div>
+          <div class="mr-4 text-grey-600">y: {{ form.icibaCircleOffsetY }}</div>
         </div>
         <div class="flex-col justify-around flex-auto">
           <i-slider
@@ -171,8 +171,8 @@
       </p>
     </foldable>
 
-    <div class="flex items-center mr-1 mt-4 self-stretch">
-      <div class="mr-3 text-grey-600">{{ form.icibaMainWidth }}px</div>
+    <div class="flex items-center mr-1 mt-6 self-stretch">
+      <div class="mr-4 text-grey-600">{{ form.icibaMainWidth }}px</div>
       <i-slider
         class="flex-grow"
         :min="200"
