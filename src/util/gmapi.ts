@@ -82,3 +82,9 @@ export const got = <T = unknown>(params: IcibaExtendedGMOption) => {
     api(option as any)
   })
 }
+
+export const registerMenuCommand = (name: string, fn: () => unknown) => {
+  if (typeof GM_registerMenuCommand !== 'undefined') {
+    GM_registerMenuCommand(name, fn)
+  }
+}

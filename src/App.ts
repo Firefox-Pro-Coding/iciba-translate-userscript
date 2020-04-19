@@ -10,6 +10,7 @@ import { EVENTS, bus } from './service/globalBus'
 import { hotkeyService } from './service/hotkey'
 import { store } from './service/store'
 import { translateService } from './service/translate'
+import { registerMenuCommand } from './util/gmapi'
 
 export default defineComponent({
   name: 'IcibaAppRoot',
@@ -90,6 +91,12 @@ export default defineComponent({
           return
         }
         hotkeyService.onHotkeyPress(handleHotkeyPress)
+      })
+
+      registerMenuCommand('打开iciba划词翻译设置', () => {
+        bus.emit({
+          type: EVENTS.OPEN_SETTING,
+        })
       })
     })
 

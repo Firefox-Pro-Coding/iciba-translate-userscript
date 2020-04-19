@@ -7,6 +7,7 @@ module.exports = {
     'GM': false,
     'GM_getValue': true,
     'GM_setValue': true,
+    'GM_registerMenuCommand': true,
     'GM_xmlhttpRequest': true,
   },
 
