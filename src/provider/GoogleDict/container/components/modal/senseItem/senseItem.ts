@@ -41,12 +41,22 @@ export default defineComponent({
     const conbineExamples = (
       eg: Array<ExampleGroup> | undefined,
       th: Array<ThesaurusEntry> | undefined,
-    ): Array<ExampleGroup> => [
-      ...eg ?? [],
-      ...(th ?? []).filter((v) => v.examples).map((v) => ({
-        examples: v.examples as Array<string>,
-      })),
-    ]
+    ): Array<ExampleGroup> => {
+      const examples = eg ?? []
+      const thesaurusExamples = (th ?? [])
+        .map((v) => v.examples as Array<string>)
+        .filter(Boolean)
+        .map((v) => v.filter((l) => !examples.find((u) => !u.registers && u.examples.includes(l))))
+        .filter((v) => v.length)
+        .map((v) => ({
+          examples: v,
+        }))
+
+      return [
+        ...examples,
+        ...thesaurusExamples,
+      ]
+    }
 
     const subSenseFolded = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_SUBSENSE)
 
