@@ -4,7 +4,6 @@
       class="icon-box-container flex ease-linear"
       name="icon"
     >
-      <!-- purgecss icon-move -->
       <div
         class="icon-item relative select-none"
         :class="{ mask: iconItem.mask }"

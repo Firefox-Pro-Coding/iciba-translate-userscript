@@ -7,7 +7,7 @@ const resolve = (dir) => path.join(__dirname, '../..', dir)
 
 const config = new Config()
 
-const createCssRule = (name, test) => config.module.rule(name)
+const createCssRule = (name, test, tailwind = false) => config.module.rule(name)
   .test(test)
   .use('cache-loader')
   .loader('cache-loader')
@@ -20,6 +20,13 @@ const createCssRule = (name, test) => config.module.rule(name)
   .end()
   .use('postcss-loader')
   .loader('postcss-loader')
+  .options({
+    config: {
+      ctx: {
+        tailwind,
+      },
+    },
+  })
   .end()
 
 config.mode('none')
@@ -77,6 +84,10 @@ config.module.rule('js')
 
 createCssRule('css', /\.css$/)
 createCssRule('sass', /\.(sass|scss)$/)
+  .use('sass-loader')
+  .loader('sass-loader')
+  .end()
+createCssRule('tailwind', /tailwind\.tws$/, true)
   .use('sass-loader')
   .loader('sass-loader')
   .end()

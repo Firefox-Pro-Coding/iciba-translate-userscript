@@ -1,13 +1,13 @@
-module.exports = ({ env }) => {
+module.exports = ({ env, options }) => {
   const config = {
     plugins: [
-      require('tailwindcss'),
+      ...options.tailwind ? [require('tailwindcss')] : [],
       require('postcss-preset-env'),
     ],
     sourceMap: true,
   }
 
-  if (env === 'production') {
+  if (env === 'production' && options.tailwind) {
     config.plugins.push(require('@fullhuman/postcss-purgecss')({
       content: [
         './src/**/*.vue',
@@ -17,9 +17,12 @@ module.exports = ({ env }) => {
 
       defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
       whitelistPatterns: [
-        /(enter|leave)(-to|-active)?$/
+        /-(leave|enter|appear)(|-(to|from|active))$/,
       ],
     }))
+  }
+
+  if (env === 'production') {
     config.plugins.push(require('cssnano'))
   }
 

@@ -4,18 +4,6 @@
     :class="[colorClass, sizeClass]"
     v-if="labels && labels.length"
   >
-    <!--
-      prevent purgecss
-      size-small
-      size-medium
-      size-large
-      color-plain
-      color-lightpink
-      color-lightblue
-      color-geographics
-      color-registers
-      color-subjects
-     -->
     <template v-for="(label, index) in props.labels">
       <div
         class="label relative inline-flex text-grey-700"
