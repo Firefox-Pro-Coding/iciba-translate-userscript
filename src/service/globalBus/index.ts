@@ -78,14 +78,12 @@ type Actions = TranslateAction
 | HotKeyTranslateAction
 | HideCircleTranslateAction
 
-interface OnOff {
-  (e: EVENTS.TRANSLATE, l: (a: TranslateAction) => unknown): unknown
-  (e: EVENTS.OPEN_SETTING, l: (a: OpenSettingAction) => unknown): unknown
-  (e: EVENTS.OPEN_GOOGLE_DICT_MODAL, l: (a: OpenGoogleDictModalAction) => unknown): unknown
-  (e: EVENTS.HOTKEY_SHOW, l: (a: HotKeyShowAction) => unknown): unknown
-  (e: EVENTS.HOTKEY_TRANSLATE, l: (a: HotKeyTranslateAction) => unknown): unknown
-  (e: EVENTS.HIDE_CIRCLE, l: (a: HideCircleTranslateAction) => unknown): unknown
-}
+type OnOffPayload = { event: EVENTS.TRANSLATE, listener: (a: TranslateAction) => unknown }
+| { event: EVENTS.OPEN_SETTING, listener: (a: OpenSettingAction) => unknown }
+| { event: EVENTS.OPEN_GOOGLE_DICT_MODAL, listener: (a: OpenGoogleDictModalAction) => unknown }
+| { event: EVENTS.HOTKEY_SHOW, listener: (a: HotKeyShowAction) => unknown }
+| { event: EVENTS.HOTKEY_TRANSLATE, listener: (a: HotKeyTranslateAction) => unknown }
+| { event: EVENTS.HIDE_CIRCLE, listener: (a: HideCircleTranslateAction) => unknown }
 
 class Bus {
   private bus = new EventEmitter()
@@ -94,15 +92,13 @@ class Bus {
     this.bus.setMaxListeners(0)
   }
 
-  public on: OnOff = (
-    event: EVENTS,
-    l: (...p: Array<any>) => unknown,
-  ) => this.bus.on(`${event}`, l)
+  public on(p: OnOffPayload) {
+    this.bus.on(`${p.event}`, p.listener)
+  }
 
-  public off: OnOff = (
-    event: EVENTS,
-    l: (...p: Array<any>) => unknown,
-  ) => this.bus.off(`${event}`, l)
+  public off(p: OnOffPayload) {
+    this.bus.off(`${p.event}`, p.listener)
+  }
 
   public emit(action: Actions) {
     return this.bus.emit(`${action.type}`, action)

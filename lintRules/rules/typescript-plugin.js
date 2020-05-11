@@ -131,6 +131,7 @@ module.exports = {
       '@typescript-eslint/no-for-in-array': 'error',
       '@typescript-eslint/no-implied-eval': 'error',
       '@typescript-eslint/no-inferrable-types': 'off',
+      '@typescript-eslint/no-invalid-void-type': 'error',
       '@typescript-eslint/no-misused-new': 'error',
       // false positive
       '@typescript-eslint/no-misused-promises': 'off',
@@ -196,6 +197,9 @@ module.exports = {
       'default-param-last': 'off',
       '@typescript-eslint/default-param-last': 'error',
 
+      'dot-notation': 'off',
+      '@typescript-eslint/dot-notation': 'error',
+
       'func-call-spacing': 'off',
       '@typescript-eslint/func-call-spacing': ['error', 'never'],
 
@@ -203,6 +207,19 @@ module.exports = {
       '@typescript-eslint/indent': ['error', 2, {
         'SwitchCase': 1,
         'VariableDeclarator': 1,
+      }],
+
+      '@typescript-eslint/init-declarations': 'off',
+
+      'keyword-spacing': 'off',
+      '@typescript-eslint/keyword-spacing': ['error', {
+        'before': true,
+        'after': true,
+        'overrides': {
+          'return': { 'after': true },
+          'throw': { 'after': true },
+          'case': { 'after': true }
+        }
       }],
 
       'no-array-constructor': 'off',
@@ -227,6 +244,9 @@ module.exports = {
 
       'no-extra-semi': 'off',
       '@typescript-eslint/no-extra-semi': 'error',
+
+      'no-invalid-this': 'off',
+      '@typescript-eslint/no-invalid-this': 'error',
 
       'no-magic-numbers': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',

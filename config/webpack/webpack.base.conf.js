@@ -1,13 +1,14 @@
 const path = require('path')
 const Config = require('webpack-chain')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
 const resolve = (dir) => path.join(__dirname, '../..', dir)
 
 const config = new Config()
 
-const createCssRule = (name, test, tailwind = false) => config.module.rule(name)
+const createCssRule = (name, test) => config.module.rule(name)
   .test(test)
   .use('cache-loader')
   .loader('cache-loader')
@@ -20,13 +21,6 @@ const createCssRule = (name, test, tailwind = false) => config.module.rule(name)
   .end()
   .use('postcss-loader')
   .loader('postcss-loader')
-  .options({
-    config: {
-      ctx: {
-        tailwind,
-      },
-    },
-  })
   .end()
 
 config.mode('none')
@@ -87,10 +81,6 @@ createCssRule('sass', /\.(sass|scss)$/)
   .use('sass-loader')
   .loader('sass-loader')
   .end()
-createCssRule('tailwind', /tailwind\.tws$/, true)
-  .use('sass-loader')
-  .loader('sass-loader')
-  .end()
 
 config.module.rule('vue')
   .test(/\.vue$/)
@@ -114,5 +104,8 @@ config.plugin('vue-loader-plugin')
 
 config.plugin('fork-ts-checker-webpack-plugin')
   .use(ForkTsCheckerWebpackPlugin, [{ eslint: true, vue: true }])
+
+config.plugin('duplicate-package-checker-webpack-plugin')
+  .use(DuplicatePackageCheckerPlugin)
 
 module.exports = config

@@ -22,7 +22,10 @@ export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => de
 
       const events = Array.isArray(event) ? event : [event]
       events.forEach((e) => {
-        bus.on(e as any, cb)
+        bus.on({
+          event: e as any,
+          listener: cb,
+        })
       })
     })
     return () => state.load && createElement(Component, {

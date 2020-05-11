@@ -1,6 +1,11 @@
 const colors = require('./utils/color-palette')
 
 module.exports = {
+  purge: [
+    './src/**/*.vue',
+    './src/**/*.tsx',
+    './src/**/*.js',
+  ],
   theme: {
     screens: false,
     fontSize: {

@@ -67,7 +67,10 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      bus.on(EVENTS.OPEN_SETTING, openSetting)
+      bus.on({
+        event: EVENTS.OPEN_SETTING,
+        listener: openSetting,
+      })
     })
 
     return {

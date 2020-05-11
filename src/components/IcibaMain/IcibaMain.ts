@@ -361,10 +361,22 @@ export default defineComponent({
       shadowRoot.addEventListener('mousedown', handleShadowRootClick, false)
       shadowRoot.addEventListener('keyup', pinDrag.handleDragEnd, true)
 
-      bus.on(EVENTS.TRANSLATE, handleTranslate)
-      bus.on(EVENTS.OPEN_GOOGLE_DICT_MODAL, handleGoogleDictModalOpen)
-      bus.on(EVENTS.HOTKEY_SHOW, handleShowUp)
-      bus.on(EVENTS.HOTKEY_TRANSLATE, handleHotkeyTranslate)
+      bus.on({
+        event: EVENTS.TRANSLATE,
+        listener: handleTranslate,
+      })
+      bus.on({
+        event: EVENTS.OPEN_GOOGLE_DICT_MODAL,
+        listener: handleGoogleDictModalOpen,
+      })
+      bus.on({
+        event: EVENTS.HOTKEY_SHOW,
+        listener: handleShowUp,
+      })
+      bus.on({
+        event: EVENTS.HOTKEY_TRANSLATE,
+        listener: handleHotkeyTranslate,
+      })
     })
 
     // no need to unmounted since it never unmount
@@ -377,10 +389,22 @@ export default defineComponent({
         shadowRoot.removeEventListener('mousedown', handleShadowRootClick, false)
         shadowRoot.removeEventListener('keyup', pinDrag.handleDragEnd, true)
 
-        bus.off(EVENTS.TRANSLATE, handleTranslate)
-        bus.off(EVENTS.OPEN_GOOGLE_DICT_MODAL, handleGoogleDictModalOpen)
-        bus.off(EVENTS.HOTKEY_SHOW, handleShowUp)
-        bus.off(EVENTS.HOTKEY_TRANSLATE, handleHotkeyTranslate)
+        bus.off({
+          event: EVENTS.TRANSLATE,
+          listener: handleTranslate,
+        })
+        bus.off({
+          event: EVENTS.OPEN_GOOGLE_DICT_MODAL,
+          listener: handleGoogleDictModalOpen,
+        })
+        bus.off({
+          event: EVENTS.HOTKEY_SHOW,
+          listener: handleShowUp,
+        })
+        bus.off({
+          event: EVENTS.HOTKEY_TRANSLATE,
+          listener: handleHotkeyTranslate,
+        })
       })
     }
 

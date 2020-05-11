@@ -20,16 +20,6 @@ export interface HideTooltipPayload {
   id: number
 }
 
-interface OnOff {
-  (e: NAMES.SHOW_TOOLTIP, h: EventHandler<ShowTooltipPayload>): unknown
-  (e: NAMES.HIDE_TOOLTIP, h: EventHandler<HideTooltipPayload>): unknown
-}
-
-interface Emit {
-  (e: NAMES.SHOW_TOOLTIP, h: ShowTooltipPayload): unknown
-  (e: NAMES.HIDE_TOOLTIP, h: HideTooltipPayload): unknown
-}
-
 class UrbanDictionaryBus {
   private id = 0
   private bus = new EventEmitter()
@@ -38,15 +28,21 @@ class UrbanDictionaryBus {
     this.bus.setMaxListeners(0)
   }
 
-  public on: OnOff = (e: NAMES, h: EventHandler<any>) => {
+  public on(e: NAMES.SHOW_TOOLTIP, h: EventHandler<ShowTooltipPayload>): void
+  public on(e: NAMES.HIDE_TOOLTIP, h: EventHandler<HideTooltipPayload>): void
+  public on(e: NAMES, h: EventHandler<any>) {
     this.bus.on(String(e), h)
   }
 
-  public off: OnOff = (e: NAMES, h: EventHandler<any>) => {
+  public off(e: NAMES.SHOW_TOOLTIP, h: EventHandler<ShowTooltipPayload>): void
+  public off(e: NAMES.HIDE_TOOLTIP, h: EventHandler<HideTooltipPayload>): void
+  public off(e: NAMES, h: EventHandler<any>) {
     this.bus.off(String(e), h)
   }
 
-  public emit: Emit = (e: NAMES, h: any) => {
+  public emit(e: NAMES.SHOW_TOOLTIP, h: ShowTooltipPayload): void
+  public emit(e: NAMES.HIDE_TOOLTIP, h: HideTooltipPayload): void
+  public emit(e: NAMES, h: any) {
     this.bus.emit(String(e), h)
   }
 

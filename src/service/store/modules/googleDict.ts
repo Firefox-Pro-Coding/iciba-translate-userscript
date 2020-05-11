@@ -3,11 +3,11 @@ import {
   keyof,
   boolean,
 } from 'io-ts'
-import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
 import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
 import providerIcon from '~/constants/icon'
 import { providerCommonStore } from '../provider'
+import { enumType } from '~/util/extendIoTs/enum'
 
 const foldStatus = enumType<GOOGLE_DICT_FOLD_STATUS>(GOOGLE_DICT_FOLD_STATUS, 'GOOGLE_DICT_FOLD_STATUS')
 

@@ -44,10 +44,6 @@ export type PlayAudioAction = PlayAudioActionBase & PlayAudioActionPayload
 
 type Actions = PlayAudioAction
 
-interface OnOff {
-  (e: AEVENTS.PLAY_AUDIO, l: (a: PlayAudioAction) => unknown): unknown
-}
-
 class Bus {
   private bus = new EventEmitter()
 
@@ -55,15 +51,15 @@ class Bus {
     this.bus.setMaxListeners(0)
   }
 
-  public on: OnOff = (
-    event: AEVENTS,
-    l: (...p: Array<any>) => unknown,
-  ) => this.bus.on(`${event}`, l)
+  public on(e: AEVENTS.PLAY_AUDIO, l: (a: PlayAudioAction) => unknown): unknown
+  public on(event: AEVENTS, l: (...p: Array<any>) => unknown) {
+    this.bus.on(`${event}`, l)
+  }
 
-  public off: OnOff = (
-    event: AEVENTS,
-    l: (...p: Array<any>) => unknown,
-  ) => this.bus.off(`${event}`, l)
+  public off(e: AEVENTS.PLAY_AUDIO, l: (a: PlayAudioAction) => unknown): unknown
+  public off(event: AEVENTS, l: (...p: Array<any>) => unknown) {
+    this.bus.off(`${event}`, l)
+  }
 
   public emit(action: Actions) {
     return this.bus.emit(`${action.type}`, action)

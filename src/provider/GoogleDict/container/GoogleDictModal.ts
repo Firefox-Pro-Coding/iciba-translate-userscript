@@ -8,7 +8,12 @@ import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import ImageLoader from './components/modal/imageLoader/imageLoader.vue'
 import UsageOvertime from './components/modal/usageOvertime/usageOvertime.vue'
 import Entry from './components/modal/entry/entry.vue'
-import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
+import {
+  PROVIDER,
+  GOOGLE_DICT_FOLD_STATUS,
+  GOOGLE_DICT_FOLD_STATUS_NEXT_MAP,
+  GOOGLE_DICT_FOLD_STATUS_PREV_MAP,
+} from '~/constants/constant'
 
 import minus from '~/assets/img/minus.svg'
 import plus from '~/assets/img/plus.svg'
@@ -53,15 +58,20 @@ export default defineComponent({
 
 
     const handleShrink = () => {
-      store.config[PROVIDER.GOOGLE_DICT].foldStatus += 1
+      const status = store.config[PROVIDER.GOOGLE_DICT].foldStatus
+      store.config[PROVIDER.GOOGLE_DICT].foldStatus = GOOGLE_DICT_FOLD_STATUS_NEXT_MAP[status]
     }
 
     const handleExpand = () => {
-      store.config[PROVIDER.GOOGLE_DICT].foldStatus -= 1
+      const status = store.config[PROVIDER.GOOGLE_DICT].foldStatus
+      store.config[PROVIDER.GOOGLE_DICT].foldStatus = GOOGLE_DICT_FOLD_STATUS_PREV_MAP[status]
     }
 
     onMounted(() => {
-      bus.on(EVENTS.OPEN_GOOGLE_DICT_MODAL, handleOpenModal)
+      bus.on({
+        event: EVENTS.OPEN_GOOGLE_DICT_MODAL,
+        listener: handleOpenModal,
+      })
     })
 
     const shrinkable = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus < GOOGLE_DICT_FOLD_STATUS.FOLD_SUBSENSE)

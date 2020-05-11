@@ -2,7 +2,6 @@
 import Vue from 'vue'
 import { shadowRoot } from './service/shadowRoot'
 
-import '~/assets/styles/tailwind.tws'
 import './bootstrap'
 import '~/util/extendIoTs/enum'
 import '~/plugin/prototype'
