@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events'
+import { EventEmitter } from '~/util/events'
 
 export const enum NAMES {
   SHOW_TOOLTIP,
@@ -23,10 +23,6 @@ export interface HideTooltipPayload {
 class UrbanDictionaryBus {
   private id = 0
   private bus = new EventEmitter()
-
-  public constructor() {
-    this.bus.setMaxListeners(0)
-  }
 
   public on(e: NAMES.SHOW_TOOLTIP, h: EventHandler<ShowTooltipPayload>): void
   public on(e: NAMES.HIDE_TOOLTIP, h: EventHandler<HideTooltipPayload>): void

@@ -1,10 +1,10 @@
 /* eslint-disable max-classes-per-file */
-import { EventEmitter } from 'events'
 import { PROVIDER } from '~/constants/constant'
 import { BaiduTranslateParams } from '~/provider/BaiduTranslate/BaiduTranslate'
 import { BingTranslateParams } from '~/provider/BingTranslate/BingTranslate'
 import { GoogleTranslateParams } from '~/provider/GoogleTranslate/GoogleTranslate'
 import { SougouTranslateParams } from '~/provider/SougouTranslate/SougouTranslate'
+import { EventEmitter } from '~/util/events'
 
 export const enum EVENTS {
   TRANSLATE,
@@ -87,10 +87,6 @@ type OnOffPayload = { event: EVENTS.TRANSLATE, listener: (a: TranslateAction) =>
 
 class Bus {
   private bus = new EventEmitter()
-
-  public constructor() {
-    this.bus.setMaxListeners(0)
-  }
 
   public on(p: OnOffPayload) {
     this.bus.on(`${p.event}`, p.listener)

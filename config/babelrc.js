@@ -10,6 +10,6 @@ module.exports = () => ({
       corejs: 3,
       useESModules: true,
     }],
-    require('../utils/plugin/injectH')
+    require('../utils/plugin/injectH'),
   ],
 })

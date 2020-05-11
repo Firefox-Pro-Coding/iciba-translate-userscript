@@ -1,5 +1,4 @@
 /* eslint-disable max-classes-per-file */
-import { EventEmitter } from 'events'
 import { PROVIDER } from '~/constants/constant'
 import { BaiduTranslatePlayAudioPayload } from '~/provider/BaiduTranslate/types'
 import { BingTranslatePlayAudioPayload } from '~/provider/BingTranslate/types'
@@ -8,6 +7,7 @@ import { GoogleTranslatePlayAudioPayload } from '~/provider/GoogleTranslate/type
 import { IcibaPlayAudioPayload } from '~/provider/Iciba/types'
 import { SougouTranslatePlayAudioPayload } from '~/provider/SougouTranslate/types'
 import { VocabularyPlayAudioPayload } from '~/provider/Vocabulary/types'
+import { EventEmitter } from '~/util/events'
 
 export const enum AEVENTS {
   PLAY_AUDIO,
@@ -47,10 +47,6 @@ type Actions = PlayAudioAction
 class Bus {
   private bus = new EventEmitter()
 
-  public constructor() {
-    this.bus.setMaxListeners(0)
-  }
-
   public on(e: AEVENTS.PLAY_AUDIO, l: (a: PlayAudioAction) => unknown): unknown
   public on(event: AEVENTS, l: (...p: Array<any>) => unknown) {
     this.bus.on(`${event}`, l)
@@ -62,7 +58,7 @@ class Bus {
   }
 
   public emit(action: Actions) {
-    return this.bus.emit(`${action.type}`, action)
+    this.bus.emit(`${action.type}`, action)
   }
 }
 
