@@ -27,6 +27,9 @@ greasyfork： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译](http
 ### 设置
 点击输入框右侧的灰色齿轮按钮打开设置窗口
 
+### 热键
+支持使用热键呼出查词框，或者一键查词
+
 ## 环境
 ### 浏览器支持
 - Chrome 53+

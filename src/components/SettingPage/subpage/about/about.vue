@@ -39,7 +39,7 @@
       </div>
 
       <div class="mt-4">
-        有任何问题或者建议？打开
+        遇到了任何问题或者错误，有其他建议？打开
         <a target="_blank" rel="noopener" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript">github repo</a>
         提交
         <a target="_blank" rel="noopener" href="https://github.com/Firefox-Pro-Coding/iciba-translate-userscript/issues">issue</a>
