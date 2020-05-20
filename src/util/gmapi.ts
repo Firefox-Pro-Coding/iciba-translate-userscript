@@ -59,8 +59,6 @@ export const got = <T = unknown>(params: IcibaExtendedGMOption) => {
 
   return new Promise<IcibaExtendedGMXMLHttpRequestResponse<T>>((rs, rj) => {
     const option: IcibaExtendedGMOption = {
-      method: 'GET',
-      url: '',
       timeout: 10000,
       ontimeout(res) {
         const error = new GMXMLError('timeout exceeded', res)

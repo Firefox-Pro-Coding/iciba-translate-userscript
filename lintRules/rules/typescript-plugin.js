@@ -218,8 +218,14 @@ module.exports = {
         'overrides': {
           'return': { 'after': true },
           'throw': { 'after': true },
-          'case': { 'after': true }
-        }
+          'case': { 'after': true },
+        },
+      }],
+
+      'lines-between-class-members': 'off',
+      '@typescript-eslint/lines-between-class-members': ['error', 'always', {
+        'exceptAfterOverload': true,
+        'exceptAfterSingleLine': true,
       }],
 
       'no-array-constructor': 'off',
@@ -227,7 +233,7 @@ module.exports = {
 
       'no-empty-function': 'off',
       '@typescript-eslint/no-empty-function': ['error', {
-        allow: [
+        'allow': [
           'constructors',
           'arrowFunctions',
         ],
@@ -235,11 +241,11 @@ module.exports = {
 
       'no-extra-parens': 'off',
       '@typescript-eslint/no-extra-parens': ['error', 'all', {
-        conditionalAssign: true,
-        nestedBinaryExpressions: false,
-        returnAssign: false,
-        ignoreJSX: 'all', // delegate to eslint-plugin-react
-        enforceForArrowConditionals: false,
+        'conditionalAssign': true,
+        'nestedBinaryExpressions': false,
+        'returnAssign': false,
+        'ignoreJSX': 'all', // delegate to eslint-plugin-react
+        'enforceForArrowConditionals': false,
       }],
 
       'no-extra-semi': 'off',
