@@ -437,9 +437,14 @@ export type BaseInfoTranslate = TypeOf<typeof baseInfoTranslate>
 
 export const baseInfoSuggestion = excess(type({
   translate_type: literal(3),
-  suggest: array(excess(type({
-    key: string,
-  }))),
+  suggest: array(excess(intersection([
+    type({
+      key: string,
+    }),
+    partial({
+      value: number,
+    }),
+  ]))),
 }), 'base-info-suggest')
 export type BaseInfoSuggestion = TypeOf<typeof baseInfoSuggestion>
 

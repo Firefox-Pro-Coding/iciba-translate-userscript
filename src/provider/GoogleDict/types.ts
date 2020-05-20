@@ -195,6 +195,7 @@ export const senseFamily = excess(intersection([
   }),
   partial({
     labelSet,
+    note,
     morphUnits: array(morphUnit),
     partsOfSpeechs: array(partsOfSpeech),
     phonetics: array(phonetic),

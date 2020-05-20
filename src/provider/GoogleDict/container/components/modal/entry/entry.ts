@@ -10,7 +10,7 @@ import morphUnit from '../morphUnit/morphUnit.vue'
 import { Entry, SubEntry } from '~/provider/GoogleDict/types'
 
 interface PropsEntry {
-  entry: Entry
+  entry: Entry & SubEntry
   isSubentry?: false
 }
 
