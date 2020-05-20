@@ -13,7 +13,7 @@
     <foldable :fold="!form.useIcibaCircle">
       <i-checkbox-line
         v-model="form.pressCtrlToShowCircle"
-        label="选择文本仅按住 ctrl 时显示小圆圈"
+        label="仅按住 ctrl 时显示小圆圈"
       >
         选择文字时，只有
         <span class="font-bold">同时按住ctrl键</span>
@@ -22,13 +22,13 @@
 
       <i-checkbox-line
         v-model="form.mouseOverTranslate"
-        label="鼠标 hover 查词"
-        text="鼠标移到小圆圈上（而非需要点击）打开查词窗口"
+        label="hover 小圆圈自动点击"
+        text="鼠标移到小圆圈上自动点击并打开查词窗口"
       />
 
       <i-checkbox-line
         v-model="form.icibaMainInputAutoFocus"
-        label="查词自动聚焦输入框"
+        label="自动聚焦输入框"
         text="点击小圆圈查词后，自动聚焦到输入框"
       />
 
@@ -102,7 +102,7 @@
 
     <i-checkbox-line
       v-model="form.showPin"
-      label="显示查词框固定图钉"
+      label="启用固定图钉"
       text="显示固定图钉，可固定查词框使其不自动关闭"
     />
 
