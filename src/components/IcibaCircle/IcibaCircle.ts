@@ -65,16 +65,13 @@ export default defineComponent({
       // have to wait handleContextmenu trigger
       setTimeout(() => {
         state.visible = false
-
         let provider = PROVIDER.ICIBA
-        if (event) {
-          if (event.button === 0) {
-            // 默认 provider
-            provider = store.config.core.defaultProvider
-          } else if (event.button === 2 && store.config.core.icibaCircleRightClick) {
-            // 备选 provider
-            provider = store.config.core.icibaCircleRightClickProvider
-          }
+        if (event.button === 0) {
+          // 默认 provider
+          provider = store.config.core.defaultProvider
+        } else if (event.button === 2 && store.config.core.icibaCircleRightClick) {
+          // 备选 provider
+          provider = store.config.core.icibaCircleRightClickProvider
         }
 
         bus.emit({
@@ -139,7 +136,7 @@ export default defineComponent({
       }
 
       // dummy proof
-      const hasShowUpHotkey = config.core.useHotkeyShowUp && config.core.showUpHotkey.length
+      const hasShowUpHotkey = config.core.useHotkeyShowUp && !!config.core.showUpHotkey.length
       const hasProviderUsingHotkey = allProviders.some((p) => config[p].enableHotkey && config[p].hotkey.length)
       const hasHotkey = hasShowUpHotkey || hasProviderUsingHotkey
       if (!config.core.useIcibaCircle && hasHotkey) {

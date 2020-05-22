@@ -35,6 +35,7 @@ config.entry('index')
 config.output
   .path(resolve('dist'))
   .filename('iciba.user.js')
+  .set('uniqueName', 'iciba')
 
 config.resolve.extensions
   .merge(['.ts', '.tsx', '.js', '.jsx', '.vue', '.json'])

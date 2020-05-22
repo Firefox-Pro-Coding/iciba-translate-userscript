@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+const webpackHookKey = 'webpackHotUpdateiciba'
+
 /* eslint-disable no-underscore-dangle */
 // #!dev_only attach Vue to the devtools hook
 const install = (top: any) => {
@@ -14,8 +16,8 @@ const install = (top: any) => {
 const exposeWebpackHotUpdate = (_module: any, _top: any, _unsafeWindow: any) => {
   try {
     // don't overwrite existed webpackHotUpdate
-    if (_module.hot && !_unsafeWindow.webpackHotUpdate) {
-      _unsafeWindow.webpackHotUpdate = _top.webpackHotUpdate
+    if (_module.hot && !_unsafeWindow[webpackHookKey]) {
+      _unsafeWindow[webpackHookKey] = _top[webpackHookKey]
     }
   } catch (e) {
     //

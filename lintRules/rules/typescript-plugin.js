@@ -1,20 +1,20 @@
 module.exports = {
-  'overrides': [{
-    'files': [
+  overrides: [{
+    files: [
       '*.ts',
       '*.tsx',
     ],
 
-    'parser': '@typescript-eslint/parser',
-    'parserOptions': {
-      'project': 'tsconfig.json',
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      project: 'tsconfig.json',
     },
 
-    'plugins': [
+    plugins: [
       '@typescript-eslint',
     ],
 
-    'rules': {
+    rules: {
       'vue/script-indent': 'off',
 
       // conficts with typescript overload
@@ -22,55 +22,79 @@ module.exports = {
 
       // Base Rules
       '@typescript-eslint/adjacent-overload-signatures': 'error',
-      '@typescript-eslint/array-type': ['error', { 'default': 'generic' }],
+      '@typescript-eslint/array-type': ['error', { default: 'generic' }],
       '@typescript-eslint/await-thenable': 'error',
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/ban-types': ['error', {
-        'types': {
-          'Object': {
-            'message': 'Avoid using the `Object` type. Did you mean `object`?',
-            'fixWith': 'object',
+        types: {
+          'String': {
+            message: 'Use string instead',
+            fixWith: 'string',
+
           },
-          'Function': 'Avoid using the `Function` type. Prefer a specific function type, like `() => void`.',
           'Boolean': {
-            'message': 'Avoid using the `Boolean` type. Did you mean `boolean`?',
-            'fixWith': 'boolean',
+            message: 'Use boolean instead',
+            fixWith: 'boolean',
           },
           'Number': {
-            'message': 'Avoid using the `Number` type. Did you mean `number`?',
-            'fixWith': 'number',
-          },
-          'String': {
-            'message': 'Avoid using the `String` type. Did you mean `string`?',
-            'fixWith': 'string',
+            message: 'Use number instead',
+            fixWith: 'number',
           },
           'Symbol': {
-            'message': 'Avoid using the `Symbol` type. Did you mean `symbol`?',
-            'fixWith': 'symbol',
+            message: 'Use symbol instead',
+            fixWith: 'symbol',
+          },
+          'Function': {
+            message: [
+              'The `Function` type accepts any function-like value.',
+              'It provides no type safety when calling the function, which can be a common source of bugs.',
+              'It also accepts things like class declarations, which will throw at runtime as they will not be called with `new`.',
+              'If you are expecting the function to accept certain arguments, you should explicitly define the function shape.',
+            ].join('\n'),
+          },
+          'Object': {
+            message: [
+              'The `Object` type actually means "any non-nullish value", so it is marginally better than `unknown`.',
+              '- If you want a type meaning "any object", you probably want `Record<string, unknown>` instead.',
+              '- If you want a type meaning "any value", you probably want `unknown` instead.',
+            ].join('\n'),
+          },
+          '{}': {
+            message: [
+              '`{}` actually means "any non-nullish value".',
+              '- If you want a type meaning "any object", you probably want `Record<string, unknown>` instead.',
+              '- If you want a type meaning "any value", you probably want `unknown` instead.',
+            ].join('\n'),
+          },
+          'object': {
+            message: [
+              'The `object` type is currently hard to use ([see this issue](https://github.com/microsoft/TypeScript/issues/21732)).',
+              'Consider using `Record<string, unknown>` instead, as it allows you to more easily inspect and use the keys.',
+            ].join('\n'),
           },
         },
       }],
       '@typescript-eslint/class-literal-property-style': 'off',
       '@typescript-eslint/consistent-type-assertions': ['off', {
-        'assertionStyle': 'as',
-        'objectLiteralTypeAssertions': 'allow-as-parameter',
+        assertionStyle: 'as',
+        objectLiteralTypeAssertions: 'allow-as-parameter',
       }],
       '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-member-accessibility': 'error',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/member-delimiter-style': ['error', {
-        'multiline': {
-          'delimiter': 'none',
-          'requireLast': true,
+        multiline: {
+          delimiter: 'none',
+          requireLast: true,
         },
-        'singleline': {
-          'delimiter': 'comma',
-          'requireLast': false,
+        singleline: {
+          delimiter: 'comma',
+          requireLast: false,
         },
       }],
       '@typescript-eslint/member-ordering': ['error', {
-        'default': [
+        default: [
           'public-abstract-field',
           'protected-abstract-field',
           'private-abstract-field',
@@ -143,7 +167,7 @@ module.exports = {
       '@typescript-eslint/no-this-alias': 'error',
       '@typescript-eslint/no-throw-literal': 'error',
       '@typescript-eslint/no-type-alias': 'off',
-      // too many false positive https://github.com/typescript-eslint/typescript-eslint/issues/989
+      // too many false positive due to 3ed lib typing https://github.com/typescript-eslint/typescript-eslint/issues/989
       '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/no-unnecessary-qualifier': 'error',
       '@typescript-eslint/no-unnecessary-type-arguments': 'error',
@@ -170,16 +194,17 @@ module.exports = {
       '@typescript-eslint/promise-function-async': 'off',
       '@typescript-eslint/require-array-sort-compare': 'error',
       '@typescript-eslint/restrict-plus-operands': 'error',
-      '@typescript-eslint/restrict-template-expressions': ['error', {
-        'allowNumber': true,
-        'allowAny': true,
-      }],
+      '@typescript-eslint/restrict-template-expressions': 'error',
       '@typescript-eslint/strict-boolean-expressions': 'off', // too much noise
-      '@typescript-eslint/triple-slash-reference': ['error', { 'path': 'never', 'types': 'never', 'lib': 'never' }],
+      '@typescript-eslint/triple-slash-reference': ['error', {
+        path: 'never',
+        types: 'never',
+        lib: 'never',
+      }],
       '@typescript-eslint/type-annotation-spacing': ['error', {
-        'overrides': {
-          'colon': { 'before': false, 'after': true },
-          'arrow': { 'before': true, 'after': true },
+        overrides: {
+          colon: { before: false, after: true },
+          arrow: { before: true, after: true },
         },
       }],
       '@typescript-eslint/typedef': 'off',
@@ -205,27 +230,27 @@ module.exports = {
 
       'indent': 'off',
       '@typescript-eslint/indent': ['error', 2, {
-        'SwitchCase': 1,
-        'VariableDeclarator': 1,
+        SwitchCase: 1,
+        VariableDeclarator: 1,
       }],
 
       '@typescript-eslint/init-declarations': 'off',
 
       'keyword-spacing': 'off',
       '@typescript-eslint/keyword-spacing': ['error', {
-        'before': true,
-        'after': true,
-        'overrides': {
-          'return': { 'after': true },
-          'throw': { 'after': true },
-          'case': { 'after': true },
+        before: true,
+        after: true,
+        overrides: {
+          return: { after: true },
+          throw: { after: true },
+          case: { after: true },
         },
       }],
 
       'lines-between-class-members': 'off',
       '@typescript-eslint/lines-between-class-members': ['error', 'always', {
-        'exceptAfterOverload': true,
-        'exceptAfterSingleLine': true,
+        exceptAfterOverload: true,
+        exceptAfterSingleLine: true,
       }],
 
       'no-array-constructor': 'off',
@@ -233,7 +258,7 @@ module.exports = {
 
       'no-empty-function': 'off',
       '@typescript-eslint/no-empty-function': ['error', {
-        'allow': [
+        allow: [
           'constructors',
           'arrowFunctions',
         ],
@@ -241,11 +266,11 @@ module.exports = {
 
       'no-extra-parens': 'off',
       '@typescript-eslint/no-extra-parens': ['error', 'all', {
-        'conditionalAssign': true,
-        'nestedBinaryExpressions': false,
-        'returnAssign': false,
-        'ignoreJSX': 'all', // delegate to eslint-plugin-react
-        'enforceForArrowConditionals': false,
+        conditionalAssign: true,
+        nestedBinaryExpressions: false,
+        returnAssign: false,
+        ignoreJSX: 'all', // delegate to eslint-plugin-react
+        enforceForArrowConditionals: false,
       }],
 
       'no-extra-semi': 'off',
@@ -259,9 +284,9 @@ module.exports = {
 
       'no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-expressions': ['error', {
-        'allowShortCircuit': false,
-        'allowTernary': false,
-        'allowTaggedTemplates': false,
+        allowShortCircuit: false,
+        allowTernary: false,
+        allowTaggedTemplates: false,
       }],
 
       'no-unused-vars': 'off',
@@ -269,8 +294,8 @@ module.exports = {
 
       'no-use-before-define': 'off',
       '@typescript-eslint/no-use-before-define': ['error', {
-        'functions': false,
-        'classes': false,
+        functions: false,
+        classes: false,
       }],
 
       'no-useless-constructor': 'off',
@@ -278,7 +303,7 @@ module.exports = {
 
       'quotes': 'off',
       '@typescript-eslint/quotes': ['error', 'single', {
-        'avoidEscape': true,
+        avoidEscape: true,
       }],
 
       'require-await': 'off',
@@ -292,9 +317,9 @@ module.exports = {
 
       'space-before-function-paren': 'off',
       '@typescript-eslint/space-before-function-paren': ['error', {
-        'anonymous': 'always',
-        'named': 'never',
-        'asyncArrow': 'always',
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always',
       }],
     },
   }],

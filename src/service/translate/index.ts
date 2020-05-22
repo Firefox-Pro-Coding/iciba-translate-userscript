@@ -43,7 +43,7 @@ const useTranslateService = () => {
   const getTaskId = useIncrement(0)
 
   /** 查词 */
-  const translate = (action: TranslateAction): Promise<unknown> => {
+  const translate = (action: TranslateAction): Promise<void> => {
     const param = action.param
     const provider = (param && providers.find((p) => p.id === param.provider))
       ?? providers.find((v) => v.id === store.config.core.defaultProvider)

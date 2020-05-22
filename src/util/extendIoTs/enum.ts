@@ -7,8 +7,8 @@ import {
 
 class EnumType<A> extends Type<A> {
   public readonly _tag: 'EnumType' = 'EnumType'
-  public enumObject!: object
-  public constructor(e: object, name?: string) {
+  public enumObject!: Record<string, string>
+  public constructor(e: Record<string, string>, name?: string) {
     super(
       name ?? 'enum',
       (u): u is A => {
@@ -33,4 +33,4 @@ class EnumType<A> extends Type<A> {
  *
  * @param name - optional enum name
  */
-export const enumType = <T>(e: object, name?: string) => new EnumType<T>(e, name)
+export const enumType = <T>(e: Record<string, string>, name?: string) => new EnumType<T>(e, name)

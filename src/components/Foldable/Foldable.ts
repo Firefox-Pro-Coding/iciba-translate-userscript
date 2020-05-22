@@ -10,7 +10,7 @@ export default defineComponent({
   },
   setup: (props, ctx) => {
     const $refs: {
-      wrapper: HTMLDivElement
+      wrapper: HTMLDivElement | undefined
     } = ctx.refs
 
     const state = reactive({

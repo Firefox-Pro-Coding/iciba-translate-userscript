@@ -1,7 +1,7 @@
 module.exports = {
-  'plugins': ['import'],
+  plugins: ['import'],
 
-  'settings': {
+  settings: {
     'import/parsers': {
       '@typescript-eslint/parser': [
         '.ts',
@@ -11,7 +11,7 @@ module.exports = {
   },
 
 
-  'rules': {
+  rules: {
     /* Static analysis */
     'import/no-unresolved': ['error', { commonjs: true, caseSensitive: false }],
     'import/named': 'error',
@@ -48,12 +48,12 @@ module.exports = {
     'import/no-duplicates': 'error',
     // 'import/no-namespace': 'error',
     'import/extensions': ['error', 'never', {
-      'vue': 'always',
+      vue: 'always',
     }],
     'import/order': [
       'error',
       {
-        'groups': [
+        groups: [
           'builtin',
           ['external', 'internal'],
           ['parent', 'sibling', 'unknown'],

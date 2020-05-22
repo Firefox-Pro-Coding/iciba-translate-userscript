@@ -1,5 +1,5 @@
 node_modules/
-lintRules/
+# lintRules/
 iciba.user.js
 !.eslintrc.js
 *.d.ts

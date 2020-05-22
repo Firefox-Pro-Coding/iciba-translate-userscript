@@ -1,31 +1,31 @@
 module.exports = {
-  'extends': [
+  extends: [
     // 'plugin:vue/essential',
   ],
 
-  'overrides': [
+  overrides: [
     {
-      'files': ['*.vue'],
+      files: ['*.vue'],
 
-      'parser': 'vue-eslint-parser',
-      'parserOptions': {
-        'ecmaVersion': 2019,
-        'sourceType': 'module',
-        'ecmaFeatures': {
-          'jsx': true,
+      parser: 'vue-eslint-parser',
+      parserOptions: {
+        ecmaVersion: 2019,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
         },
       },
 
-      'env': {
-        'browser': true,
-        'es6': true,
+      env: {
+        browser: true,
+        es6: true,
       },
 
-      'plugins': [
+      plugins: [
         'vue',
       ],
 
-      'rules': {
+      rules: {
         // disable some rules due to vue-eslint-parset limitation
         // https://github.com/mysticatea/vue-eslint-parser#%EF%B8%8F-known-limitations
         'indent': 'off',
@@ -73,36 +73,36 @@ module.exports = {
         // strongly-recommended
         'vue/attribute-hyphenation': ['error', 'always'],
         'vue/html-closing-bracket-newline': ['error', {
-          'singleline': 'never',
-          'multiline': 'always',
+          singleline: 'never',
+          multiline: 'always',
         }],
         'vue/html-closing-bracket-spacing': ['error', {
-          'startTag': 'never',
-          'endTag': 'never',
-          'selfClosingTag': 'always',
+          startTag: 'never',
+          endTag: 'never',
+          selfClosingTag: 'always',
         }],
         'vue/html-end-tags': 'error',
         'vue/html-indent': ['error', 2, {
-          'attribute': 1,
-          'closeBracket': 0,
-          'alignAttributesVertically': false,
-          'ignores': [],
+          attribute: 1,
+          closeBracket: 0,
+          alignAttributesVertically: false,
+          ignores: [],
         }],
         'vue/html-quotes': ['error', 'double'],
         'vue/html-self-closing': ['error', {
-          'html': {
-            'void': 'never',
-            'normal': 'always',
-            'component': 'always',
+          html: {
+            void: 'never',
+            normal: 'always',
+            component: 'always',
           },
-          'svg': 'always',
-          'math': 'always',
+          svg: 'always',
+          math: 'always',
         }],
         'vue/max-attributes-per-line': ['error', {
-          'singleline': 100,
-          'multiline': {
-            'max': 1,
-            'allowFirstLine': false,
+          singleline: 100,
+          multiline: {
+            max: 1,
+            allowFirstLine: false,
           },
         }],
         'vue/multiline-html-element-content-newline': 'error',
@@ -126,7 +126,7 @@ module.exports = {
 
         // Uncategorized
         'vue/array-bracket-spacing': ['error', 'never'],
-        'vue/arrow-spacing': ['error', { 'before': true, 'after': true }],
+        'vue/arrow-spacing': ['error', { before: true, after: true }],
         'vue/block-spacing': ['error', 'always'],
         'vue/brace-style': ['error', '1tbs'],
         'vue/camelcase': 'error',
@@ -134,18 +134,18 @@ module.exports = {
         'vue/component-definition-name-casing': 'error',
         'vue/component-name-in-template-casing': ['error', 'kebab-case'],
         'vue/component-tags-order': ['error', {
-          'order': ['template', 'script', 'style'],
+          order: ['template', 'script', 'style'],
         }],
         'vue/dot-location': ['error', 'property'],
         'vue/eqeqeq': 'error',
         'vue/key-spacing': 'error',
         'vue/keyword-spacing': ['error', {
-          'before': true,
-          'after': true,
-          'overrides': {
-            'return': { 'after': true },
-            'throw': { 'after': true },
-            'case': { 'after': true },
+          before: true,
+          after: true,
+          overrides: {
+            return: { after: true },
+            throw: { after: true },
+            case: { after: true },
           },
         }],
         'vue/match-component-file-name': 'error',
@@ -165,9 +165,9 @@ module.exports = {
         'vue/require-direct-export': 'off',
         'vue/require-name-property': 'off',
         'vue/script-indent': ['error', 2, {
-          'baseIndent': 1,
-          'switchCase': 1,
-          'ignores': [],
+          baseIndent: 1,
+          switchCase: 1,
+          ignores: [],
         }],
         'vue/sort-keys': 'off',
         'vue/space-infix-ops': 'error',

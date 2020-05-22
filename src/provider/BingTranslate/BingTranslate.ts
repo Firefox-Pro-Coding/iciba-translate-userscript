@@ -56,8 +56,8 @@ const useBingTranslateProvider = (): ProviderType => {
       data: body,
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        origin: 'https://cn.bing.com',
-        referer: 'https://cn.bing.com/Translator',
+        'origin': 'https://cn.bing.com',
+        'referer': 'https://cn.bing.com/Translator',
       },
       responseType: 'json',
     })
@@ -129,7 +129,7 @@ const useBingTranslateProvider = (): ProviderType => {
     const response = await got<ArrayBuffer>({
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${voiceToken.token}`,
+        'Authorization': `Bearer ${voiceToken.token}`,
         'X-MICROSOFT-OutputFormat': 'audio-16khz-32kbitrate-mono-mp3',
         'Cache-Control': 'no-cache',
         'Content-Type': 'application/ssml+xml',

@@ -10,6 +10,7 @@ export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => de
     })
 
     onMounted(() => {
+      const events = Array.isArray(event) ? event : [event]
       const cb = (action: any) => {
         if (state.load) {
           return
@@ -20,7 +21,6 @@ export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => de
         })
       }
 
-      const events = Array.isArray(event) ? event : [event]
       events.forEach((e) => {
         bus.on({
           event: e as any,

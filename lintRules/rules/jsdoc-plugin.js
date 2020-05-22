@@ -1,22 +1,22 @@
 module.exports = {
-  'plugins': [
+  plugins: [
     'jsdoc',
   ],
 
-  'settings': {
-    'jsdoc': {
-      'allowOverrideWithoutParam': true,
-      'tagNamePreference': {
-        'arg': 'param',
-        'argument': 'param',
-        'constructor': 'class',
-        'returns': 'return',
-        'virtual': 'abstract',
+  settings: {
+    jsdoc: {
+      allowOverrideWithoutParam: true,
+      tagNamePreference: {
+        arg: 'param',
+        argument: 'param',
+        constructor: 'class',
+        returns: 'return',
+        virtual: 'abstract',
       },
     },
   },
 
-  'rules': {
+  rules: {
     // check-access
     // check-alignment
     // check-examples

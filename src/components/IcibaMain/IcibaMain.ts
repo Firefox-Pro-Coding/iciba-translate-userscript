@@ -27,7 +27,7 @@ import { PROVIDER } from '~/constants/constant'
 
 interface Props {
   getIcibaCircle: () => Vue
-  getGoogleDictModal: () => Vue
+  getGoogleDictModal: () => Vue | undefined
 }
 
 export default defineComponent({
@@ -41,9 +41,9 @@ export default defineComponent({
   },
   setup: (props: Props, setupContext) => {
     const $refs: {
-      icibaMainWrap: HTMLDivElement
-      icibaMain: HTMLDivElement
-      icibaSearchInput: HTMLInputElement
+      icibaMainWrap: HTMLDivElement | undefined
+      icibaMain: HTMLDivElement | undefined
+      icibaSearchInput: HTMLInputElement | undefined
       sizeHelper: HTMLInputElement
     } = setupContext.refs
 
@@ -264,7 +264,7 @@ export default defineComponent({
       handleDragStart: (_e: Event) => {
         const e: MouseEvent = _e as any
         state.drag.ignoreCtrl = false
-        if (!insideOf(e.target, $refs.icibaMainWrap) || !e.ctrlKey) {
+        if (!insideOf(e.target, $refs.icibaMainWrap!) || !e.ctrlKey) {
           return
         }
         if (!store.config.core.pressCtrlToDrag) {
@@ -318,7 +318,7 @@ export default defineComponent({
           && insideOf(e.target, googleDictModal.$el)
           && zIndexService.get(Z_INDEX_KEY.GOOGLE_DICT_MODAL) > state.wrapperStyle.zIndex,
         ),
-        insideOf(e.target, $refs.icibaMainWrap),
+        insideOf(e.target, $refs.icibaMainWrap!),
         insideOf(e.target, props.getIcibaCircle().$el),
         store.config.core.showPin && store.config.core.pinned,
       ]

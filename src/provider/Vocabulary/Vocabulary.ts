@@ -26,8 +26,8 @@ const useVocabularyProvider = (): ProviderType => {
       method: 'GET',
       url: `https://www.vocabulary.com/dictionary/autocomplete?search=${encodeURIComponent(word)}`,
       headers: {
-        'Accept': '*/*',
-        'Host': 'www.vocabulary.com',
+        Accept: '*/*',
+        Host: 'www.vocabulary.com',
       },
     })
 
@@ -63,8 +63,8 @@ const useVocabularyProvider = (): ProviderType => {
       method: 'GET',
       url: `https://www.vocabulary.com/dictionary/definition.ajax?search=${encodeURIComponent(word)}&lang=en`,
       headers: {
-        'Accept': '*/*',
-        'Host': 'www.vocabulary.com',
+        Accept: '*/*',
+        Host: 'www.vocabulary.com',
       },
     })
 
@@ -122,7 +122,7 @@ const useVocabularyProvider = (): ProviderType => {
     const response = await got<ArrayBuffer>({
       method: 'GET',
       headers: {
-        'Referer': 'https://www.vocabulary.com',
+        Referer: 'https://www.vocabulary.com',
       },
       responseType: 'arraybuffer',
       url,
