@@ -15,7 +15,14 @@ export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => de
         if (state.load) {
           return
         }
+
         state.load = true
+        events.forEach((e) => {
+          bus.off({
+            event: e,
+            listener: cb,
+          })
+        })
         Vue.nextTick(() => {
           bus.emit(action)
         })
@@ -23,7 +30,7 @@ export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => de
 
       events.forEach((e) => {
         bus.on({
-          event: e as any,
+          event: e,
           listener: cb,
         })
       })
