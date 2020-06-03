@@ -11,6 +11,7 @@ config.performance.maxAssetSize((1024 ** 2) * 5)
 
 config.optimization.minimizer('terser')
   .use(TerserPlugin, [{
+    extractComments: false,
     terserOptions: {
       output: {
         comments: false,
@@ -34,6 +35,6 @@ config.module.rule('ts')
 config.plugins.delete('fork-ts-checker-webpack-plugin')
 
 config.mode('production')
-config.devtool('source-map')
+config.devtool(false)
 
 module.exports = config

@@ -15,9 +15,9 @@ const scriptContent = fs.readFileSync(path.join(__dirname, '../dist/iciba.user.j
 const content = [
   metaData,
   '\n',
-  'if (typeof GM !== \'undefined\' || typeof GM_setValue !== \'undefined\') {',
+  'if (typeof GM !== \'undefined\' || typeof GM_setValue !== \'undefined\') {\n',
   scriptContent,
-  '}',
+  '\n}',
 ].join('')
 
 fs.writeFileSync(path.join(__dirname, '../dist/iciba.user.js'), content)

@@ -1,15 +1,12 @@
-module.exports = ({ env }) => {
-  const config = {
-    plugins: [
-      require('tailwindcss'),
-      require('postcss-preset-env'),
-    ],
-    sourceMap: true,
-  }
-
-  if (env === 'production') {
-    config.plugins.push(require('cssnano'))
-  }
-
-  return config
-}
+module.exports = ({ env, options }) => ({
+  plugins: [
+    options.tailwind && (
+      require('tailwindcss')
+    ),
+    require('postcss-preset-env'),
+    env === 'production' && (
+      require('cssnano')
+    )
+  ].filter(Boolean),
+  sourceMap: true,
+})

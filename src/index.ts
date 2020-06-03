@@ -6,6 +6,8 @@ import './bootstrap'
 import '~/util/extendIoTs/enum'
 import '~/plugin/prototype'
 
+import '~/assets/styles/tailwind.custom'
+
 import App from '~/App.vue'
 import { store } from '~/service/store'
 
