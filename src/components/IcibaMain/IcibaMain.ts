@@ -27,7 +27,6 @@ import { PROVIDER } from '~/constants/constant'
 
 interface Props {
   getIcibaCircle: () => Vue
-  getGoogleDictModal: () => Vue | undefined
 }
 
 export default defineComponent({
@@ -37,7 +36,6 @@ export default defineComponent({
   },
   props: {
     getIcibaCircle: null,
-    getGoogleDictModal: null,
   },
   setup: (props: Props, setupContext) => {
     const $refs: {
@@ -311,13 +309,7 @@ export default defineComponent({
     }
 
     const handleShadowRootClick = (e: Event) => {
-      const googleDictModal = props.getGoogleDictModal()
       const ignoreCondition = [
-        Boolean(
-          googleDictModal
-          && insideOf(e.target, googleDictModal.$el)
-          && zIndexService.get(Z_INDEX_KEY.GOOGLE_DICT_MODAL) > state.wrapperStyle.zIndex,
-        ),
         insideOf(e.target, $refs.icibaMainWrap!),
         insideOf(e.target, props.getIcibaCircle().$el),
         store.config.core.showPin && store.config.core.pinned,

@@ -48,7 +48,7 @@ module.exports = {
     'object-curly-newline': ['error', { consistent: true }], // airbnb rulu was too strict
     'prefer-destructuring': 'off', // it not a common use case
     'prefer-object-spread': 'error',
-    'quote-props': ['error', 'consistent-as-needed'], // airbnb this rule was too inflexible
+    'quote-props': 'off', // airbnb this rule was too inflexible
     'semi': ['error', 'never'], // disalow semi
     'strict': 'off',
   },

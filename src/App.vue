@@ -3,10 +3,9 @@
     <iciba-circle ref="icibaCircle" />
     <iciba-main
       :get-iciba-circle="() => $refs.icibaCircle"
-      :get-google-dict-modal="() => $refs.googleDictModal"
     />
     <setting-page />
-    <google-dict-modal ref="googleDictModal" />
+    <google-dict-modal />
   </div>
 </template>
 
