@@ -1,3 +1,5 @@
+import { shadowRoot } from '~/service/shadowRoot'
+
 let scrollBarWidth: number
 
 export default () => {
@@ -12,7 +14,7 @@ export default () => {
   outer.style.width = '100px'
   outer.style.position = 'absolute'
   outer.style.top = '-9999px'
-  document.body.appendChild(outer)
+  shadowRoot.append(outer)
 
   const widthNoScroll = outer.offsetWidth
   outer.style.overflow = 'scroll'
@@ -22,7 +24,7 @@ export default () => {
   outer.appendChild(inner)
 
   const widthWithScroll = inner.offsetWidth
-  document.body.removeChild(outer)
+  shadowRoot.removeChild(outer)
   scrollBarWidth = widthNoScroll - widthWithScroll
 
   return scrollBarWidth
