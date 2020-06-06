@@ -90,7 +90,7 @@
           <div
             v-if="
               (!result.baseInfo || !result.baseInfo.symbols || !result.baseInfo.symbols.length)
-                && isCodec2(result) && result.chinese && result.chinese.zi
+                && result.chinese && result.chinese.zi
             "
             class="chinese-zi-box mt-1"
           >
@@ -107,7 +107,7 @@
 
           <!-- chinese ci -->
           <div
-            v-if="isCodec2(result) && result.chinese && result.chinese.ci && result.chinese.ci.ciyi && result.chinese.ci.ciyi.length"
+            v-if="result.chinese && result.chinese.ci && result.chinese.ci.ciyi && result.chinese.ci.ciyi.length"
             class="chinese-ci-box mt-1"
           >
             <div class="ciyi-box">

@@ -11,7 +11,6 @@ import {
   BaseInfo,
   BaseInfoNormal,
   BaseInfoTranslate,
-  Codec2,
   ChineseCi,
   SymbolCN,
   SymbolEN,
@@ -39,8 +38,6 @@ const isBaseInfoSuggestion = (p: BaseInfo): p is BaseInfoSuggestion => {
   }
   return 'translate_type' in p && 'suggest' in p
 }
-
-const isCodec2 = (p: any): p is Codec2 => p._word_flag === 2
 
 const normalizeCiyi = (p: ChineseCi['ciyi']) => (typeof p === 'string' ? [p] : p)
 
@@ -93,7 +90,6 @@ export default defineComponent({
       isBaseInfoBaseInfoNormal,
       isBaseInfoTranslate,
       isBaseInfoSuggestion,
-      isCodec2,
       isSymbolCN,
       isSymbolEN,
 
