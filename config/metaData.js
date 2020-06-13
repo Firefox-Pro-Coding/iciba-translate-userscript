@@ -4,6 +4,7 @@
 // @author             noe132
 // @include            http://*
 // @include            https://*
+// @include            file://*
 // @exclude            http://www.iciba.com*
 // @grant              GM_xmlhttpRequest
 // @grant              GM_getValue
