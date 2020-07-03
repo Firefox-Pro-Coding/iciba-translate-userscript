@@ -115,7 +115,16 @@ config.plugin('vue-loader-plugin')
   .use(VueLoaderPlugin)
 
 config.plugin('fork-ts-checker-webpack-plugin')
-  .use(ForkTsCheckerWebpackPlugin, [{ eslint: true, vue: true }])
+  .use(ForkTsCheckerWebpackPlugin, [{
+    eslint: {
+      files: './src/**/*.{ts,tsx,js,jsx,vue}',
+    },
+    typescript: {
+      extensions: {
+        vue: true,
+      },
+    },
+  }])
 
 config.plugin('duplicate-package-checker-webpack-plugin')
   .use(DuplicatePackageCheckerPlugin)

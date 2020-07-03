@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { defineComponent, reactive, onMounted, createElement } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, h } from '@vue/composition-api'
 import { bus, EVENTS } from '~/service/globalBus'
 
 export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => defineComponent({
@@ -35,7 +35,7 @@ export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => de
         })
       })
     })
-    return () => state.load && createElement(Component, {
+    return () => state.load && h(Component, {
       props: setupContext.attrs,
     })
   },

@@ -67,12 +67,12 @@ const useIcibaProvider = (): ProviderType => {
     const response = await got<ArrayBuffer>({
       method: 'GET',
       headers: {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'Referer': 'https://www.iciba.com/',
+        // 'Accept': '*/*',
+        // 'Accept-Encoding': 'gzip, deflate',
+        // 'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+        // 'Cache-Control': 'no-cache',
+        // 'Pragma': 'no-cache',
+        // 'Referer': 'https://www.iciba.com/',
         'User-Agent': window.navigator.userAgent,
       },
       responseType: 'arraybuffer',

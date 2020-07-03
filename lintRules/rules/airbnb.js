@@ -11,7 +11,7 @@ module.exports = {
   ].map(require.resolve),
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 2019,
+    ecmaVersion: 2020,
     ecmaFeatures: {
       jsx: true,
     },

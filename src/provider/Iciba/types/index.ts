@@ -76,7 +76,6 @@ export const newSentence = excess(type({
 }), 'new_sentence')
 export type NewSentence = TypeOf<typeof newSentence>
 
-
 export const codec = excess(intersection([
   type({
     baseInfo,
@@ -112,6 +111,7 @@ export const codec = excess(intersection([
     synthesize: any,
     tik_word_info: tikWordInfo,
     trade_means: array(tradeMean),
+    traditional: any,
     word_name: string,
   }),
 ]), 'codec')

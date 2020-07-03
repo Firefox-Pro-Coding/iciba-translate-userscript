@@ -43,7 +43,7 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.active, doReset, { lazy: true })
+    watch(() => props.active, doReset)
     onUnmounted(doReset)
 
     return {

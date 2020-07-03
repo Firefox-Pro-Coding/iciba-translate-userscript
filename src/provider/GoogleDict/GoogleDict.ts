@@ -36,7 +36,8 @@ const useGoogleDictProvider = (): ProviderType => {
   }
 
   const fetchGoogleDict = async (word: string, lang: string = 'uk') => {
-    const apiUrlBase = 'https://content.googleapis.com/dictionaryextension/v1/knowledge/search?'
+    // const apiUrlBase = 'https://content.googleapis.com/dictionaryextension/v1/knowledge/search?'
+    const apiUrlBase = 'https://content-dictionaryextension-pa.googleapis.com/v1/dictionaryExtensionData?'
     const query = {
       term: word,
       language: 'en',
@@ -49,7 +50,8 @@ const useGoogleDictProvider = (): ProviderType => {
       },
       // this key is hard coded in background.min.js
       // https://chrome.google.com/webstore/detail/google-dictionary-by-goog/mgijmajocgfcbeboacabfgobmjgjcoja
-      key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',
+      // key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',
+      key: 'AIzaSyA6EEtrDCfBkHV8uU2lgGY-N383ZgAOo7Y',
     }
     const apiUrl = `${apiUrlBase}${stringify(query)}`
 
@@ -65,11 +67,11 @@ const useGoogleDictProvider = (): ProviderType => {
           // 'cache-control': 'no-cache',
           // 'pragma': 'no-cache',
           // 'user-agent': window.navigator.userAgent,
-          'x-goog-encode-response-if-executable': 'base64',
-          'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
+          // 'x-goog-encode-response-if-executable': 'base64',
+          // 'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
           'x-origin': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
           'x-referer': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
-          'x-requested-with': 'XMLHttpRequest',
+          // 'x-requested-with': 'XMLHttpRequest',
         },
         url: apiUrl,
         timeout: 10000,
@@ -98,7 +100,7 @@ const useGoogleDictProvider = (): ProviderType => {
       return tryGoogleTranslate(word)
     }
 
-    let googleDictData: any
+    let googleDictData: Codec
     try {
       googleDictData = await fetchGoogleDict(word, 'uk')
     } catch (e) {
@@ -108,6 +110,11 @@ const useGoogleDictProvider = (): ProviderType => {
         return tryGoogleTranslate(word)
       }
       throw e
+    }
+
+    if (googleDictData.status !== 200) {
+      // try googletranslate
+      return tryGoogleTranslate(word)
     }
 
     // dev only check

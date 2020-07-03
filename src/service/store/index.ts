@@ -99,7 +99,7 @@ const useStore = () => {
 
     watch(() => store.config, () => {
       saveConfig()
-    }, { deep: true, lazy: true })
+    }, { deep: true })
   }
 
   const saveConfig = () => {

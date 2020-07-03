@@ -29,7 +29,7 @@ export const chineseZiItem = excess(type({
   yanbian: string, // "0"
   nixu: string, // ""
   english: string, // "提防：guard against"
-  ziyi: array(string), // ["提防。"]
+  ziyi: union([array(string), string]), // ["提防。"]
   sid: string, // "1171"
 }), 'chinese-zi-item')
 export type ChineseZiItem = TypeOf<typeof chineseZiItem>

@@ -9,12 +9,12 @@ module.exports = {
     './rules/imports',
     './rules/strict',
   ].map(require.resolve),
-  'parser': 'babel-eslint',
-  'parserOptions': {
-    'ecmaVersion': 2019,
-    'ecmaFeatures': {
-      'jsx': true,
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaVersion: 2020,
+    ecmaFeatures: {
+      jsx: true,
     },
-    'sourceType': 'module',
+    sourceType: 'module',
   },
 }

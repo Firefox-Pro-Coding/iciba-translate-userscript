@@ -16,7 +16,13 @@ declare module "vue-tsx-support/types/base" {
   }
 }
 
-declare module "@vue/composition-api/dist/component/component" {
+// declare module "@vue/composition-api/dist/component/component" {
+//   interface SetupContext {
+//     readonly refs: any
+//   }
+// }
+
+declare module '@vue/composition-api' {
   interface SetupContext {
     readonly refs: any
   }

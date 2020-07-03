@@ -15,6 +15,9 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    windowClass: {
+      type: String,
+    },
   },
   setup: (props, setupContext) => {
     const $refs: {
@@ -190,6 +193,7 @@ export default defineComponent({
                   style={state.windowStyle[i]}
                   key={i}
                   class={{
+                    [props.windowClass ?? '']: true,
                     'vnode-window': true,
                     'animating': state.windowStyle[i].animating,
                   }}

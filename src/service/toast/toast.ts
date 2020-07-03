@@ -12,7 +12,7 @@ export default defineComponent({
     },
     destroy: {
       type: Function,
-      required: true,
+      default: () => () => 1,
     },
   },
   setup: (props) => {
@@ -25,7 +25,7 @@ export default defineComponent({
       setTimeout(() => {
         state.visible = false
         setTimeout(() => {
-          props.destroy()
+          (props.destroy as () => unknown)()
         }, 3000)
       }, props.timeout)
     })
