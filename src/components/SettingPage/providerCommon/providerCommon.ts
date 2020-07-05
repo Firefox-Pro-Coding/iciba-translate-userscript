@@ -18,10 +18,29 @@ export default defineComponent({
     Foldable,
     IconRadioGroup,
   },
-  setup: (props, ctx) => ({
-    props,
-    ctx,
-  }),
+  setup: (props, ctx) => {
+    const handleUpdateIcon = (icon: string) => {
+      ctx.emit('update:icon', icon)
+    }
+    const handleUpdateDisplay = (display: boolean) => {
+      ctx.emit('update:display', display)
+    }
+    const handleUpdateEnableHotkey = (enableHotkey: boolean) => {
+      ctx.emit('update:enableHotkey', enableHotkey)
+    }
+    const handleUpdateHotkey = (hotkey: Array<string>) => {
+      ctx.emit('update:hotkey', hotkey)
+    }
+
+    return {
+      props,
+
+      handleUpdateIcon,
+      handleUpdateDisplay,
+      handleUpdateEnableHotkey,
+      handleUpdateHotkey,
+    }
+  },
 })
 
 // TODO: 热键冲突检查

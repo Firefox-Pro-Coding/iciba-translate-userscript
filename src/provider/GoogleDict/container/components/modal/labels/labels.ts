@@ -52,7 +52,7 @@ export default defineComponent({
         props.labels
           .map((v) => [v, state.tipMap[v] || false]),
       )
-    })
+    }, { immediate: true })
 
     return {
       state,

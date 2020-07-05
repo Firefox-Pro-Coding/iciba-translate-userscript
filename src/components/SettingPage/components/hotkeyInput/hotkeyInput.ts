@@ -7,6 +7,10 @@ import {
   watch,
 } from '@vue/composition-api'
 
+const normalizeKey = (key: string) => (key >= 'a' && key <= 'z'
+  ? key.toUpperCase()
+  : key)
+
 interface Props {
   value?: Array<string>
 }
@@ -18,13 +22,9 @@ export default defineComponent({
   },
   setup: (props: Props, ctx) => {
     const state = reactive({
-      keys: [] as Array<string>,
+      keys: props.value ?? [] as Array<string>,
       setKeys: [] as Array<string>,
     })
-
-    const normalizeKey = (key: string) => (key >= 'a' && key <= 'z'
-      ? key.toUpperCase()
-      : key)
 
     const handleKeyDown = (e: KeyboardEvent) => {
       const key = normalizeKey(e.key)
@@ -56,7 +56,7 @@ export default defineComponent({
       state.keys = []
     }
 
-    const input = computed(() => {
+    const sortedKeys = computed(() => {
       const keys = state.setKeys
       const hasCtrl = keys.includes('Control')
       const hasAlt = keys.includes('Alt')
@@ -72,17 +72,17 @@ export default defineComponent({
       return inputs
     })
 
-    const inputString = computed(() => {
-      if (!input.value.length) {
+    const inputDisplayString = computed(() => {
+      if (!sortedKeys.value.length) {
         return '无'
       }
-      return input.value
+      return sortedKeys.value
         .map((v) => (v === 'Control' ? 'Ctrl' : v))
         .join(' + ')
     })
 
-    watch(() => input.value, () => {
-      ctx.emit('input', input.value)
+    watch(() => sortedKeys.value, () => {
+      ctx.emit('input', sortedKeys.value)
     })
 
     watch(() => props.value, () => {
@@ -93,7 +93,7 @@ export default defineComponent({
         return
       }
       state.setKeys = [...props.value]
-    })
+    }, { immediate: true })
 
     onMounted(() => {
       window.addEventListener('keyup', handleKeyUp)
@@ -110,7 +110,7 @@ export default defineComponent({
     return {
       props,
       state,
-      inputString,
+      inputString: inputDisplayString,
       handleKeyDown,
       handleKeyUp,
     }

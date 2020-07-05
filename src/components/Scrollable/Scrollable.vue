@@ -17,12 +17,7 @@
         :style="computedScrollBarStyle.thumb"
       />
     </div>
-    <div
-      class="scroll-content flex-col flex-auto overflow-hidden"
-      :class="{
-        'no-scroll-bar': state.noScrollBar,
-      }"
-    >
+    <div class="scroll-content flex-col flex-auto overflow-hidden">
       <div
         v-no-overscroll
         :style="scrollBoxStyle"
@@ -32,8 +27,8 @@
         ref="container"
       >
         <div
-          :style="contentWrapperStyle"
           class="w-full"
+          ref="scrollBox"
         >
           <slot :scroll-bar="!state.noScrollBar" />
         </div>

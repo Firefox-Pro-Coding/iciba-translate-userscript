@@ -87,11 +87,15 @@ const init = () => {
     return
   }
   unsafeWindow.addEventListener('load', () => {
-    const seccode = (unsafeWindow as any).seccode as number
-    setValue(SOUGOU_SECCODE_KEY, JSON.stringify({
-      seccode,
-      time: Date.now(),
-    }))
+    try {
+      const seccode = (unsafeWindow as any).__INITIAL_STATE__.CONFIG.secretCode as number
+      setValue(SOUGOU_SECCODE_KEY, JSON.stringify({
+        seccode,
+        time: Date.now(),
+      }))
+    } catch (e) {
+      //
+    }
   })
 }
 

@@ -108,7 +108,7 @@ export default defineComponent({
 
     watch(() => props.value, () => {
       state.cachedValue = props.value
-    })
+    }, { immediate: true })
 
     onMounted(() => {
       window.addEventListener('mousemove', handleMouseMove)

@@ -42,7 +42,7 @@ export default defineComponent({
 
     watch(() => props.thesaurusEntries, () => {
       state.showMoreSet = []
-    })
+    }, { immediate: true })
 
     const combined = computed(() => {
       const synonyms = props.thesaurusEntries

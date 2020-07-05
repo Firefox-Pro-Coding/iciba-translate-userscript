@@ -19,24 +19,16 @@ module.exports = {
     spacing: {
       'auto': 'auto',
       '0': '0',
-      '1': '4px',
-      '2': '8px',
-      '3': '12px',
-      '4': '16px',
-      '5': '20px',
-      '6': '24px',
-      '7': '28px',
-      '8': '32px',
-      '9': '36px',
-      '10': '40px',
-      '11': '44px',
-      '12': '48px',
-
-      '1px': '1px',
-      '2px': '2px',
-      '3px': '3px',
-      '5px': '5px',
-      '6px': '6px',
+      ...Object.fromEntries(
+        Array(20).fill(0).map(
+          (_v, i) => [`${i + 1}px`, `${(i + 1)}px`],
+        ),
+      ),
+      ...Object.fromEntries(
+        Array(64).fill(0).map(
+          (_v, i) => [i + 1, `${4 * (i + 1)}px`],
+        ),
+      ),
     },
 
     borderRadius: {

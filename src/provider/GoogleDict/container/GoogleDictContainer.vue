@@ -1,12 +1,14 @@
 <template>
   <div class="google-dict-box flex-col relative break-words text-grey-900">
-    <scrollable
-      class="scroll-container"
-      :no-scroll-bar-style="{ 'padding-right': '10px' }"
-      :scroll-bar-style="{ 'padding-right': '2px' }"
-    >
+    <scrollable class="scroll-container">
       <template #default="{ scrollBar }">
-        <div class="google-content-simple relative flex-auto">
+        <div
+          class="google-content-simple relative flex-auto"
+          :class="[
+            scrollBar && 'pt-10px pb-10px pl-10px pr-14px',
+            !scrollBar && 'p-10px',
+          ]"
+        >
           <div
             class="expand-button flex flex-center absolute"
             :class="{ 'with-scroll-bar': scrollBar }"

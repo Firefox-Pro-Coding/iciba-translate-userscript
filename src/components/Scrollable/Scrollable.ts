@@ -6,22 +6,14 @@ import {
   computed,
   reactive,
 } from '@vue/composition-api'
+import ResizeObserver from 'resize-observer-polyfill'
 import getScrollBarWidth from '~/util/scrollbar-width'
 
 export default defineComponent({
-  props: {
-    scrollBarStyle: {
-      type: Object,
-      default: () => ({}),
-    },
-    noScrollBarStyle: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
   setup: (props, setupContext) => {
     const $refs: {
       container: HTMLDivElement
+      scrollBox: HTMLDivElement
     } = setupContext.refs
 
     const state = reactive({
@@ -84,6 +76,9 @@ export default defineComponent({
     }
 
     const calcScrollbar = () => {
+      if (!$refs.container) {
+        return
+      }
       const {
         scrollTop,
         scrollHeight,
@@ -128,17 +123,20 @@ export default defineComponent({
       'margin-right': `${-state.scrollbarWidth}px`,
     }))
 
-    const contentWrapperStyle = computed(() => ({
-      ...state.noScrollBar
-        ? { ...props.noScrollBarStyle }
-        : { ...props.scrollBarStyle },
-    }))
-
-
     onMounted(() => {
       window.addEventListener('resize', calcScrollbarWidth, false)
       window.addEventListener('mousemove', handleScrollbarThumbMousemove, false)
       window.addEventListener('mouseup', handleScrollbarThumbMouseup, false)
+
+      const ro = new ResizeObserver(calcScrollbar)
+      window.setTimeout(() => {
+        if ($refs.container) {
+          ro.observe($refs.container)
+        }
+        if ($refs.scrollBox) {
+          ro.observe($refs.scrollBox)
+        }
+      })
 
       calcScrollbar()
     })
@@ -158,8 +156,6 @@ export default defineComponent({
       props,
       computedScrollBarStyle,
       scrollBoxStyle,
-      contentWrapperStyle,
-
       calcScrollbar,
       handleScrollbarThumbClick,
     }

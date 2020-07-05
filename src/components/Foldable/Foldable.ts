@@ -1,4 +1,4 @@
-import { defineComponent, reactive, watch, onMounted } from '@vue/composition-api'
+import { defineComponent, reactive, watch } from '@vue/composition-api'
 
 export default defineComponent({
   name: 'GFoldable',
@@ -16,10 +16,7 @@ export default defineComponent({
     const state = reactive({
       foldTimeout: 0,
       duration: 300,
-      foldableStyle: {
-        height: 'auto',
-        overflow: 'visible',
-      },
+      height: props.fold ? '0' : 'auto',
     })
 
     const doFold = () => {
@@ -27,12 +24,14 @@ export default defineComponent({
         window.clearTimeout(state.foldTimeout)
       }
 
-      state.foldableStyle.overflow = 'hidden'
+      state.height = 'auto'
+
       if ($refs.wrapper) {
-        state.foldableStyle.height = `${$refs.wrapper.clientHeight}px`
+        state.height = `${$refs.wrapper.clientHeight}px`
       }
+
       state.foldTimeout = window.setTimeout(() => {
-        state.foldableStyle.height = '0'
+        state.height = '0'
       })
     }
 
@@ -42,13 +41,11 @@ export default defineComponent({
       }
 
       if ($refs.wrapper) {
-        state.foldableStyle.height = `${$refs.wrapper.clientHeight}px`
+        state.height = `${$refs.wrapper.clientHeight}px`
       }
+
       state.foldTimeout = window.setTimeout(() => {
-        state.foldableStyle = {
-          height: 'auto',
-          overflow: 'visible',
-        }
+        state.height = 'auto'
       }, state.duration)
     }
 
@@ -57,20 +54,6 @@ export default defineComponent({
         doFold()
       } else {
         doExpand()
-      }
-    })
-
-    onMounted(() => {
-      if (props.fold) {
-        state.foldableStyle = {
-          height: '0',
-          overflow: 'hidden',
-        }
-      } else {
-        state.foldableStyle = {
-          height: 'auto',
-          overflow: 'visible',
-        }
       }
     })
 

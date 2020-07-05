@@ -85,13 +85,14 @@ export default defineComponent({
       window.addEventListener('mouseup', handleMouseUp, true)
       window.addEventListener('mousemove', handleMouseMove, true)
 
-      watch(() => store.config.core.useHotkeyShowUp || true, (showUp) => {
+
+      watch(() => store.config.core.useHotkeyShowUp, (showUp) => {
         if (!showUp) {
           hotkeyService.offHotkeyPress(handleHotkeyPress)
           return
         }
         hotkeyService.onHotkeyPress(handleHotkeyPress)
-      })
+      }, { immediate: true })
 
       registerMenuCommand('打开iciba划词翻译设置', () => {
         bus.emit({

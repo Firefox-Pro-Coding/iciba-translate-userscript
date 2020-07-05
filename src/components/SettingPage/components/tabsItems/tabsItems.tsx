@@ -167,7 +167,7 @@ export default defineComponent({
         if (old !== undefined) {
           transform()
         }
-      })
+      }, { immediate: true })
     })
 
     return () => {

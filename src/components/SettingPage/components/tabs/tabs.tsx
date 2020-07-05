@@ -58,7 +58,7 @@ export default defineComponent({
     onMounted(() => {
       watch(() => props.value, () => {
         updateSlider()
-      })
+      }, { immediate: true })
     })
 
     return () => {
