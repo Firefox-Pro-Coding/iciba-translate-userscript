@@ -1,6 +1,6 @@
 {
   "name": "iciba-translate-userscript",
-  "version": "4.7.9",
+  "version": "4.7.10",
   "description": "iciba划词翻译",
   "scripts": {
     "dev": "yarn clean:dist && node ./build/dev-server.js",
