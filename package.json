@@ -68,7 +68,7 @@
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-vue": "^6.2.2",
     "express": "^4.17.1",
-    "fork-ts-checker-webpack-plugin": "^5.0.5",
+    "fork-ts-checker-webpack-plugin": "^5.0.6",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "raw-loader": "^4.0.1",
