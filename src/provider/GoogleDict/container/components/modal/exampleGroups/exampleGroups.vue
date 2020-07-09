@@ -1,7 +1,10 @@
 <template>
   <!-- example group -->
   <foldable :fold="folded">
-    <div class="example-group-box flex-col items-stretch" v-if="props.exampleGroups && props.exampleGroups.length">
+    <div
+      class="example-group-box flex-col items-stretch"
+      v-if="props.exampleGroups && props.exampleGroups.length"
+    >
       <div
         class="example-group-item flex-col items-stretch"
         v-for="(exampleGroupItem, index) in props.exampleGroups"

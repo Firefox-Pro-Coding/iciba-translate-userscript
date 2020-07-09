@@ -44,13 +44,16 @@
 
 
         <!-- example groups -->
-        <example-groups :example-groups="conbineExamples(s.exampleGroups, s.thesaurusEntries)" />
+        <example-groups :example-groups="combinedGroups" />
 
         <!-- thesaurus -->
         <thesaurus :thesaurus-entries="s.thesaurusEntries" />
 
         <!-- subsense -->
-        <foldable :fold="subSenseFolded" v-if="s.subsenses && s.subsenses.length">
+        <foldable
+          :fold="subSenseFolded"
+          v-if="s.subsenses && s.subsenses.length"
+        >
           <div class="subsense-box" v-if="s.subsenses && s.subsenses.length">
             <div
               class="subsense-item flex mt-2px"
