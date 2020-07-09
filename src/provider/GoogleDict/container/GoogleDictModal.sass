@@ -36,6 +36,7 @@
     .control-btn
       height: 32px
       width: 32px
+      position: relative
 
       &.disable
         pointer-events: none
@@ -44,8 +45,25 @@
       &:hover
         background-color: $background-level-4
 
+        .tooltip
+          opacity: 1
+
       &:active
         box-shadow: 0 1px 3px rgba(black, 0.3) inset
+
+      .tooltip
+        opacity: 0
+        font-size: 12px
+        position: absolute
+        bottom: -8px
+        left: 50%
+        transform: translate(-50%, 100%)
+        background: rgba(black, 0.5)
+        padding: 1px 4px
+        color: white
+        border-radius: 4px
+        pointer-events: none
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1)
 
   .modal-bg
     background: rgba(0, 0, 0, 0.4)

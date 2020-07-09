@@ -8,10 +8,13 @@
       <div class="fold-control flex shadow-2 absolute">
         <div
           :class="{ disable: !shrinkable }"
-          class="control-btn flex flex-center"
+          class="control-btn flex flex-center relative"
           @click="handleShrink"
         >
           <i-icon size="20" :svg="icon.minus" />
+          <div class="tooltip">
+            less
+          </div>
         </div>
         <div class="split border-l border-grey-400" />
         <div
@@ -20,6 +23,9 @@
           @click="handleExpand"
         >
           <i-icon size="20" :svg="icon.plus" />
+          <div class="tooltip">
+            more
+          </div>
         </div>
       </div>
 
