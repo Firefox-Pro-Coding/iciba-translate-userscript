@@ -31,11 +31,13 @@ export default defineComponent({
 
     const getShowMoreExpanded = (item: unknown) => state.showMoreSet.includes(item)
 
-    const handleShowMore = (item: unknown) => {
-      if (getShowMoreExpanded(item)) {
-        return
+    const handleToggleMoreOrLess = (item: unknown) => {
+      const index = state.showMoreSet.indexOf(item)
+      if (index === -1) {
+        state.showMoreSet.push(item)
+      } else {
+        state.showMoreSet.splice(index, 1)
       }
-      state.showMoreSet.push(item)
     }
 
     const addQoute = (text: string): string => `"${text}"`
@@ -71,7 +73,7 @@ export default defineComponent({
 
       addQoute,
 
-      handleShowMore,
+      handleToggleMoreOrLess,
       getShowMoreExpanded,
     }
   },

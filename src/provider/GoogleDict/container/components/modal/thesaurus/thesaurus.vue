@@ -25,16 +25,21 @@
             <span
               :class="{
                 [`type-${type}`]: true,
-                'cursor-pointer': !getShowMoreExpanded(combined[type]) && combined[type].length > 1,
+                'cursor-pointer': combined[type].length > 1,
               }"
-              @click="handleShowMore(combined[type])"
+              @click="handleToggleMoreOrLess(combined[type])"
             >
               {{ type }}
               <span
-                class="show-more inline cursor-pointer select-none"
-                v-if="!getShowMoreExpanded(combined[type]) && combined[type].length > 1"
+                class="show-more-or-less inline cursor-pointer select-none"
+                v-if="combined[type].length > 1"
               >
-                [more]
+                <template v-if="getShowMoreExpanded(combined[type])">
+                  [less]
+                </template>
+                <template v-if="!getShowMoreExpanded(combined[type])">
+                  [more]
+                </template>
               </span>
             </span>
           </div>
