@@ -5,7 +5,7 @@
       :style="{ zIndex: state.zIndex }"
       v-if="state.visible"
     >
-      <div class="fold-control flex shadow-2 absolute">
+      <div class="fold-control select-none flex shadow-2 absolute">
         <div
           :class="{ disable: !shrinkable }"
           class="control-btn flex flex-center relative"
@@ -57,8 +57,10 @@
                   v-if="dicDataItem.entries && dicDataItem.entries.length"
                 >
                   <entry
-                    class="entry-item"
-                    v-for="entry in dicDataItem.entries"
+                    :class="{
+                      'mt-5': entryIndex !== 0,
+                    }"
+                    v-for="(entry, entryIndex) in dicDataItem.entries"
                     :entry="entry"
                     :key="entry.entrySeqNo"
                   />

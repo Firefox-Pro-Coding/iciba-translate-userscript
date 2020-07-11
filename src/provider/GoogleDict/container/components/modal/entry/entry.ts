@@ -34,13 +34,10 @@ export default defineComponent({
   },
   props: {
     entry: null,
-    isSubentry: {
-      type: Boolean,
-      default: false,
-    },
+    isSubentry: null,
   },
   setup: (props: Props) => ({
     e: props.entry,
-    isSub: props.isSubentry,
+    isSub: !!props.isSubentry,
   }),
 })

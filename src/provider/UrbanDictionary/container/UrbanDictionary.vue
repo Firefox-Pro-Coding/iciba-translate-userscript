@@ -5,7 +5,7 @@
         <div
           class="content-box flex-col flex-auto text-14 break-words"
           :class="[
-            scrollBar && 'pt-10px pb-10px pl-10px pr-14px',
+            scrollBar && 'py-10px pl-10px pr-14px',
             !scrollBar && 'p-10px',
           ]"
         >

@@ -5,7 +5,7 @@
         <div
           class="main-box flex-col flex-auto text-14 text-grey-800 break-words"
           :class="[
-            scrollBar && 'pt-10px pb-10px pl-10px pr-14px',
+            scrollBar && 'py-10px pl-10px pr-14px',
             !scrollBar && 'p-10px',
           ]"
           v-if="data"

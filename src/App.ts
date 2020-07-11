@@ -11,6 +11,7 @@ import { hotkeyService } from './service/hotkey'
 import { store } from './service/store'
 import { translateService } from './service/translate'
 import { registerMenuCommand } from './util/gmapi'
+import { scrollBarWidthService } from './service/scrollBarWidth'
 
 export default defineComponent({
   name: 'IcibaAppRoot',
@@ -85,7 +86,6 @@ export default defineComponent({
       window.addEventListener('mouseup', handleMouseUp, true)
       window.addEventListener('mousemove', handleMouseMove, true)
 
-
       watch(() => store.config.core.useHotkeyShowUp, (showUp) => {
         if (!showUp) {
           hotkeyService.offHotkeyPress(handleHotkeyPress)
@@ -99,6 +99,8 @@ export default defineComponent({
           type: EVENTS.OPEN_SETTING,
         })
       })
+
+      scrollBarWidthService.init()
     })
 
     if (process.env.NODE_ENV === 'development') {

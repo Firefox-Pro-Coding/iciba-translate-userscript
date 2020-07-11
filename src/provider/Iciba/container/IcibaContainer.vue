@@ -5,7 +5,7 @@
         <div
           class="main-box flex-col flex-auto text-14 break-words"
           :class="[
-            scrollBar && 'pt-10px pb-10px pl-10px pr-14px',
+            scrollBar && 'py-10px pl-10px pr-14px',
             !scrollBar && 'p-10px',
           ]"
           v-if="result"
@@ -17,7 +17,10 @@
               v-if="result.baseInfo && result.baseInfo.symbols && result.baseInfo.symbols.length"
             >
               <div
-                class="symbol-item flex-col items-stretch"
+                class="symbol-item flex-col items-stretch w-full"
+                :class="{
+                  'mt-6px': index !== 0,
+                }"
                 v-for="(symbolItem, index) in result.baseInfo.symbols"
                 :key="index"
               >
@@ -61,11 +64,14 @@
                 >
                   <div
                     class="part-item flex"
+                    :class="{
+                      'mt-3px': partItemIndex !== 0,
+                    }"
                     v-for="(partItem, partItemIndex) in symbolItem.parts"
                     :key="partItemIndex"
                   >
                     <div
-                      class="part-item-part text-grey-600 flex-none"
+                      class="part-item-part pr-6px text-grey-600 flex-none"
                       v-if="partItem.part"
                     >
                       {{ partItem.part }}
@@ -73,6 +79,9 @@
                     <div class="part-item-meaning-box flex-auto">
                       <div
                         class="meaning-item inline"
+                        :class="{
+                          'pr-3px': meanItemIndex !== partItem.means.length - 1,
+                        }"
                         v-for="(meanItem, meanItemIndex) in partItem.means"
                         :key="meanItemIndex"
                       >
@@ -112,7 +121,7 @@
             <!-- chinese ci -->
             <div
               v-if="result.chinese && result.chinese.ci && result.chinese.ci.ciyi && result.chinese.ci.ciyi.length"
-              class="chinese-ci-box mt-1"
+              class="chinese-ci-box mt-1 leading-normal"
             >
               <div class="ciyi-box">
                 <div

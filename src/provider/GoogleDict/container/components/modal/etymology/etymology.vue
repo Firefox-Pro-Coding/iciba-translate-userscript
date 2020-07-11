@@ -1,6 +1,6 @@
 <template>
   <div
-    class="etymology-box mt-2 pt-2 flex-col items-stretch border-t border-grey-400"
+    class="etymology-box mt-4 pt-4 flex-col items-stretch border-t border-grey-400"
     v-if="props.etymology"
   >
     <div class="etymology-title text-grey-500 text-18">Origin</div>

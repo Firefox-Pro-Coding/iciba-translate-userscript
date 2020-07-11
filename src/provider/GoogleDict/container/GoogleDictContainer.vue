@@ -5,7 +5,7 @@
         <div
           class="google-content-simple relative flex-auto"
           :class="[
-            scrollBar && 'pt-10px pb-10px pl-10px pr-14px',
+            scrollBar && 'py-10px pl-10px pr-14px',
             !scrollBar && 'p-10px',
           ]"
         >
@@ -36,7 +36,10 @@
                 >
                   <simple-entry
                     class="entry-item"
-                    :class="{ 'border-t border-grey-400 pt-1 mt-4': !!entryIndex }"
+                    :class="{
+                      '-mt-2px': entryIndex === 0,
+                      'border-t border-grey-400 pt-1 mt-4': entryIndex !== 0,
+                    }"
                     :entry="entry"
                     v-for="(entry, entryIndex) in dicDataItem.entries"
                     :key="entryIndex"

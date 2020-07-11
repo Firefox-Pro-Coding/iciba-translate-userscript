@@ -7,7 +7,7 @@ import {
   reactive,
 } from '@vue/composition-api'
 import ResizeObserver from 'resize-observer-polyfill'
-import getScrollBarWidth from '~/util/scrollbar-width'
+import { scrollBarWidthService } from '~/service/scrollBarWidth'
 
 export default defineComponent({
   setup: (props, setupContext) => {
@@ -32,12 +32,7 @@ export default defineComponent({
           position: '0',
         },
       },
-      scrollbarWidth: getScrollBarWidth(),
     })
-
-    const calcScrollbarWidth = () => {
-      state.scrollbarWidth = getScrollBarWidth()
-    }
 
     const handleScrollbarThumbClick = (e: MouseEvent) => {
       e.preventDefault()
@@ -120,11 +115,10 @@ export default defineComponent({
     }))
 
     const scrollBoxStyle = computed(() => ({
-      'margin-right': `${-state.scrollbarWidth}px`,
+      'margin-right': `${-scrollBarWidthService.state.scrollBarWidth}px`,
     }))
 
     onMounted(() => {
-      window.addEventListener('resize', calcScrollbarWidth, false)
       window.addEventListener('mousemove', handleScrollbarThumbMousemove, false)
       window.addEventListener('mouseup', handleScrollbarThumbMouseup, false)
 
@@ -142,7 +136,6 @@ export default defineComponent({
     })
 
     onUnmounted(() => {
-      window.removeEventListener('resize', calcScrollbarWidth, false)
       window.removeEventListener('mousemove', handleScrollbarThumbMousemove, false)
       window.removeEventListener('mouseup', handleScrollbarThumbMouseup, false)
     })

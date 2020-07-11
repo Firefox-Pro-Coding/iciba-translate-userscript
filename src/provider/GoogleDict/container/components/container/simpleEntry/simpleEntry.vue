@@ -1,8 +1,8 @@
 <template>
   <!-- entry item -->
-  <div class="entry-item flex-col items-stretch">
+  <div class="entry-item flex-col items-stretch leading-snug">
     <!-- headword -->
-    <div class="headword flex flex-wrap">
+    <div class="headword flex flex-wrap leading-normal">
       <div class="headword-word text-16">
         {{ props.entry.syllabifiedHeadword || props.entry.headword }}
       </div>
@@ -31,7 +31,6 @@
     >
       <div
         class="sense-item flex"
-        :class="{ collapsable: index !== 0 }"
         v-show="index < 2"
         v-for="(sense, index) in props.entry.senseFamily.senses"
         :key="index"
@@ -55,6 +54,9 @@
     >
       <div
         class="sense-family-item flex-col items-stretch"
+        :class="{
+          'mt-6px': senseFamilyItemIndex !== 0,
+        }"
         v-for="(senseFamilyItem, senseFamilyItemIndex) in props.entry.senseFamilies"
         :key="senseFamilyItemIndex"
       >
@@ -83,12 +85,13 @@
         >
           <div
             class="sense-item flex"
-            :class="{ collapsable: index !== 0 }"
             v-show="index < 2"
             v-for="(sense, index) in senseFamilyItem.senses"
             :key="index"
           >
-            <div class="sense-item-number text-right">{{ index + 1 }}.</div>
+            <div class="sense-item-number text-right pr-2 font-bold">
+              {{ index + 1 }}.
+            </div>
             <div class="definition-box flex-auto">
               <fragment
                 class="sense-frag"
