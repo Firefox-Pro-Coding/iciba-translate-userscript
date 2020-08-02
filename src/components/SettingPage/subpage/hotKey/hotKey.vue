@@ -43,7 +43,7 @@
         />
         <foldable :fold="!config[provider.key].enableHotkey">
           <i-hotkey-input
-            class="mt-2 mb-2"
+            class="my-1"
             v-model="config[provider.key].hotkey"
           />
         </foldable>
