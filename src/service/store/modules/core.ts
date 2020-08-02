@@ -41,6 +41,7 @@ export const type = tType({
   defaultProvider: fallback(provider, PROVIDER.ICIBA),
   icibaCircleRightClick: fallback(boolean, true),
   icibaCircleRightClickProvider: fallback(provider, PROVIDER.GOOGLE_TRANSLATE),
+  icibaCircleNoCJK: fallback(boolean, false),
 
   useIcibaCircle: fallback(boolean, true),
   pressCtrlToDrag: fallback(boolean, true),

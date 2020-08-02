@@ -92,6 +92,12 @@
           备选接口：启用时，右键键点击小圆圈使用此查词接口
         </p>
       </foldable>
+
+      <i-checkbox-line
+        v-model="form.icibaCircleNoCJK"
+        label="非英语（拉丁）字符不显示小圆圈"
+        text="划去文字包含中文、日文、韩文等字符时不显示小圆圈"
+      />
     </foldable>
 
     <i-checkbox-line

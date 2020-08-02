@@ -143,6 +143,16 @@ export default defineComponent({
         return
       }
 
+      if (config.core.icibaCircleNoCJK) {
+        // 669 is last of Latin Extended Additional
+        // https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended_Additional
+        const hasCJK = Array.from(selectionString).some((v) => v.charCodeAt(0) > 669)
+        if (hasCJK) {
+          hide()
+          return
+        }
+      }
+
       showIcibaCircle(e, selectionString)
     }
 
