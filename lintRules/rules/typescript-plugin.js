@@ -182,6 +182,7 @@ module.exports = {
       '@typescript-eslint/prefer-for-of': 'off',
       '@typescript-eslint/prefer-function-type': 'off',
       '@typescript-eslint/prefer-includes': 'error',
+      '@typescript-eslint/prefer-literal-enum-member': 'error',
       '@typescript-eslint/prefer-namespace-keyword': 'error',
       '@typescript-eslint/prefer-nullish-coalescing': 'error',
       '@typescript-eslint/prefer-optional-chain': 'error',
@@ -278,6 +279,8 @@ module.exports = {
 
       'no-invalid-this': 'off',
       '@typescript-eslint/no-invalid-this': 'error',
+
+      '@typescript-eslint/no-loss-of-precision': 'off',
 
       'no-magic-numbers': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',
