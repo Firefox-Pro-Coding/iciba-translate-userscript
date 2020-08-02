@@ -16,7 +16,7 @@ export const collinExample = excess(intersection([
     tran: string, // 翻译
   }),
   partial({
-    tts_mp3: string, // url
+    tts_mp3: union([string, nullType]), // url
     tts_size: union([string, nullType]), // xxK
   }),
 ]), 'collinExample')
