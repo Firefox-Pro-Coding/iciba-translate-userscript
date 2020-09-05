@@ -1,10 +1,10 @@
-module.exports = ({ env, options }) => ({
+module.exports = (api) => ({
   plugins: [
-    options.tailwind && (
+    api.file.endsWith('tailwind\.custom') && (
       require('tailwindcss')
     ),
     require('postcss-preset-env'),
-    env === 'production' && (
+    api.mode === 'production' && (
       require('cssnano')
     )
   ].filter(Boolean),

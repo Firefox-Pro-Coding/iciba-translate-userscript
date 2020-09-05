@@ -1,53 +1,43 @@
 import Vue from 'vue'
 import { defineComponent, reactive } from '@vue/composition-api'
-import Toast from './toast.vue'
 
 import { shadowRoot } from '~/service/shadowRoot'
+import { useIncrement } from '~/util/useIncrement'
+import type {
+  ToastItem,
+  ToastParams,
+  ToastFunction,
+} from './types'
+import Toast from './Toast/index.vue'
 
-interface ToastParams {
-  text: string
-  timeout?: number
-}
-
-interface ToastItem {
-  id: number
-  text: string
-  timeout: number
-  destroy: () => void
-}
-
+const getId = useIncrement()
 const state = reactive({
   toasts: [] as Array<ToastItem>,
 })
 
-const ToastContainer = defineComponent({
-  setup: () => () => (
-    <div class="toast-container">
-      {state.toasts.map((item) => (
-        <Toast
-          key={item.id}
-          text={item.text}
-          timeout={item.timeout}
-          destroy={item.destroy}
-        />
-      ))}
-    </div>
-  ),
-})
+const init = () => {
+  const ToastContainer = defineComponent({
+    setup: () => () => (
+      <div class="toast-container">
+        {state.toasts.map((item) => (
+          <Toast
+            key={item.id}
+            text={item.text}
+            timeout={item.timeout}
+            destroy={item.destroy}
+          />
+        ))}
+      </div>
+    ),
+  })
 
-const toastContainer = new Vue({
-  el: document.createElement('div'),
-  render: (h) => h(ToastContainer),
-})
+  const toastContainer = new Vue({
+    el: document.createElement('div'),
+    render: (h) => h(ToastContainer),
+  })
 
-shadowRoot.appendChild(toastContainer.$el)
-
-interface ToastFunction {
-  (p: ToastParams): void
-  (text: string, timeout?: number): void
+  shadowRoot.appendChild(toastContainer.$el)
 }
-
-let id = 0
 
 export const toast: ToastFunction = (params: ToastParams | string, timeout?: number) => {
   const t = typeof params === 'string'
@@ -58,10 +48,8 @@ export const toast: ToastFunction = (params: ToastParams | string, timeout?: num
     ? params
     : params.text
 
-  id += 1
-
   const toastItem = {
-    id,
+    id: getId(),
     timeout: t,
     text,
     destroy: () => {
@@ -71,4 +59,11 @@ export const toast: ToastFunction = (params: ToastParams | string, timeout?: num
   }
 
   state.toasts.push(toastItem)
+}
+
+init()
+export const toastService = {
+  state,
+
+  toast,
 }

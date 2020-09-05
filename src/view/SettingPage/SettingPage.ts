@@ -7,10 +7,10 @@ import {
 import { bus, EVENTS } from '~/service/globalBus'
 import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'
 
-import ITabs from './components/tabs/tabs.vue'
-import ITab from './components/tab/tab.vue'
-import ITabsItems from './components/tabsItems/tabsItems.vue'
-import ITabItem from './components/tabItem/tabItem.vue'
+import ITabs from '~/components/tabs/tabs.vue'
+import ITab from '~/components/tab/tab.vue'
+import ITabsItems from '~/components/tabsItems/tabsItems.vue'
+import ITabItem from '~/components/tabItem/tabItem.vue'
 
 import About from './subpage/about/about.vue'
 import CoreSetting from './subpage/coreSetting/coreSetting.vue'

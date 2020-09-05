@@ -1,6 +1,6 @@
 import { defineComponent, reactive, onMounted } from '@vue/composition-api'
 
-export default defineComponent({
+export const Toast = defineComponent({
   props: {
     text: {
       type: String,
@@ -12,7 +12,7 @@ export default defineComponent({
     },
     destroy: {
       type: Function,
-      default: () => () => 1,
+      required: true,
     },
   },
   setup: (props) => {

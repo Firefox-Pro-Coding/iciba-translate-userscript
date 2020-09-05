@@ -1,8 +1,6 @@
 import { reactive } from '@vue/composition-api'
 import { Codec } from './types'
 
-const data = {
+export const containerData = reactive({
   data: null as (Codec | null),
-}
-
-export default reactive(data)
+})

@@ -4,27 +4,27 @@
       class="scroll-bar-track absolute"
       :class="{
         moving: state.drag.start,
-        'no-scroll-bar': state.noScrollBar,
+        'hidden': state.noScrollBar,
       }"
       ref="scroll-bar-track"
     >
       <div
         class="scroll-bar-thumb rounded-full flex justify-center absolute ease-in-out duration-100"
+        :style="thumbStyle"
         v-if="!state.noScrollBar"
-        ref="scroll-bar-thumb"
         @wheel.prevent
         @mousedown="handleScrollbarThumbClick"
-        :style="computedScrollBarStyle.thumb"
+        ref="scroll-bar-thumb"
       />
     </div>
     <div class="scroll-content flex-col flex-auto overflow-hidden">
       <div
-        v-no-overscroll
+        class="scroll-box flex flex-auto overflow-x-hidden overflow-y-scroll"
         :style="scrollBoxStyle"
-        class="scroll-box flex flex-auto"
         @scroll="calcScrollbar"
         @mouseenter="calcScrollbar"
         ref="container"
+        v-no-overscroll
       >
         <div
           class="w-full"

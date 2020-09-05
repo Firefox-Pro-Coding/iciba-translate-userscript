@@ -1,11 +1,12 @@
 <template>
   <div
-    class="foldable-box w-full ease-in-out duration-300 overflow-hidden"
+    class="w-full overflow-hidden"
+    ref="root"
     :style="{
       height: state.height,
     }"
   >
-    <div ref="wrapper" class="foldable-wrapper flex-col">
+    <div ref="wrapper" class="flex-col">
       <slot />
     </div>
   </div>

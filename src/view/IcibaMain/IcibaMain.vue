@@ -11,11 +11,11 @@
         ref="icibaMainWrap"
       >
         <div
-          ref="computedIcibaMainStyle"
-          class="iciba-main absolute flex-col items-stretch text-14 ease-in-out duration-150 transition-transform"
+          class="iciba-main absolute flex-col items-stretch h-auto text-14 ease-in-out duration-150 transition-transform"
           @mouseenter="state.stickBoxVisible = true"
           @mouseleave="state.stickBoxVisible = false"
           :style="mainStyle"
+          ref="icibaMain"
         >
           <div class="input-box flex relative flex-none bg-white">
             <div
@@ -32,8 +32,8 @@
                 v-model="state.inputText"
                 @focus="state.inputFocused = true"
                 @blur="state.inputFocused = false"
-                @keydown.capture="m.handleInputKeydownCapture"
-                @keypress.13="m.handleInputConfirm"
+                @keydown.capture.stop
+                @keypress.13="m.handleInputEnter"
               >
               <div
                 class="setting-button flex flex-center absolute cursor-pointer"
@@ -51,8 +51,8 @@
                 />
                 <button
                   :key="provider.id"
-                  @keydown.13="m.translateWithProvider(provider.id)"
-                  @click="m.translateWithProvider(provider.id)"
+                  @keydown.13="m.handleTranslateWithProvider(provider.id)"
+                  @click="m.handleTranslateWithProvider(provider.id)"
                   class="provider-button flex flex-center relative flex-none"
                 >
                   <i-icon :svg="m.getIcon(provider)" />

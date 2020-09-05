@@ -104,14 +104,9 @@ export default defineComponent({
       }
     }
 
-    const computedScrollBarStyle = computed(() => ({
-      track: {
-        top: `${state.scrollbar.track.top}px`,
-      },
-      thumb: {
-        height: `${state.scrollbar.thumb.size}%`,
-        top: `${state.scrollbar.thumb.position}%`,
-      },
+    const thumbStyle = computed(() => ({
+      height: `${state.scrollbar.thumb.size}%`,
+      top: `${state.scrollbar.thumb.position}%`,
     }))
 
     const scrollBoxStyle = computed(() => ({
@@ -133,11 +128,12 @@ export default defineComponent({
       })
 
       calcScrollbar()
-    })
 
-    onUnmounted(() => {
-      window.removeEventListener('mousemove', handleScrollbarThumbMousemove, false)
-      window.removeEventListener('mouseup', handleScrollbarThumbMouseup, false)
+      onUnmounted(() => {
+        window.removeEventListener('mousemove', handleScrollbarThumbMousemove, false)
+        window.removeEventListener('mouseup', handleScrollbarThumbMouseup, false)
+        ro.disconnect()
+      })
     })
 
     onUpdated(() => {
@@ -147,7 +143,7 @@ export default defineComponent({
     return {
       state,
       props,
-      computedScrollBarStyle,
+      thumbStyle,
       scrollBoxStyle,
       calcScrollbar,
       handleScrollbarThumbClick,

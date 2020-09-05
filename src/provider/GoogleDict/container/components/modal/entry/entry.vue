@@ -28,7 +28,7 @@
     </div>
 
     <!-- headword -->
-    <div class="headword flex flex-wrap">
+    <div class="headword flex flex-wrap items-center">
       <div class="headword-word text-28" :title="e.locale">
         {{ e.syllabifiedHeadword || e.headword }}
       </div>
@@ -38,19 +38,25 @@
       >
         {{ e.homographIndex }}
       </div>
+      <label-set
+        class="entry-label-set ml-2"
+        v-if="e.labelSet"
+        size="large"
+        :label-set="e.labelSet"
+      />
     </div>
 
     <!-- phonetics -->
     <phonetics class="phonetics-box mb-1" :phonetics="e.phonetics" />
 
     <!-- labelSet -->
-    <div class="entry-label-set-box mt-5px mb-3px" v-if="e.labelSet">
+    <!-- <div class="entry-label-set-box mt-5px mb-3px" v-if="e.labelSet">
       <label-set
         class="entry-label-set"
         size="large"
         :label-set="e.labelSet"
       />
-    </div>
+    </div> -->
 
     <!-- note -->
     <note :note="e.note" />
@@ -117,7 +123,10 @@
         <phonetics class="phonetics-box" :phonetics="senseFamilyItem.phonetics" />
 
         <!-- labelSet -->
-        <div class="sense-family-label-set-box">
+        <div
+          class="sense-family-label-set-box mb-1"
+          v-if="senseFamilyItem.labelSet"
+        >
           <label-set
             class="sense-family-label-set"
             size="medium"

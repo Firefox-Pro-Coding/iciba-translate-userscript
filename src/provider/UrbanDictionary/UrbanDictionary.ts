@@ -1,4 +1,5 @@
 import { stringify } from 'querystring'
+import { left, right } from 'fp-ts/lib/Either'
 
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
@@ -9,8 +10,8 @@ import UrbanDictionaryContainer from './container/UrbanDictionary.vue'
 import containerData from './containerData'
 import { UrbanDictionaryResult } from './type'
 
-const useUrbanDictionaryProvider = (): ProviderType => {
-  const translate = async (word: string) => {
+const translate: ProviderType['translate'] = async (word: string) => {
+  try {
     /* https://api.urbandictionary.com/v0/define?term={word} */
     const url = `https://api.urbandictionary.com/v0/define?${stringify({ term: word })}`
 
@@ -21,15 +22,18 @@ const useUrbanDictionaryProvider = (): ProviderType => {
     })
     const result: UrbanDictionaryResult = JSON.parse(response.responseText)
 
-    return () => {
+    return right(() => {
       containerData.data = copy(result)
-    }
-  }
-  return {
-    id: PROVIDER.URBAN_DICTIONARY,
-    view: UrbanDictionaryContainer,
-    translate,
+    })
+  } catch (e) {
+    return left({
+      message: e.message,
+    })
   }
 }
 
-export const urbanDictionary = useUrbanDictionaryProvider()
+export const urbanDictionary: ProviderType = {
+  id: PROVIDER.URBAN_DICTIONARY,
+  view: UrbanDictionaryContainer,
+  translate,
+}

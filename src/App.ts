@@ -1,9 +1,9 @@
 import { defineComponent, onMounted, watch, onUnmounted } from '@vue/composition-api'
 import { lazyLoadHoc } from '~/util/lazyLoadHoc'
 
-import IcibaMain from '~/components/IcibaMain/IcibaMain.vue'
-import IcibaCircle from '~/components/IcibaCircle/IcibaCircle.vue'
-import SettingPage from '~/components/SettingPage/SettingPage.vue'
+import IcibaMain from '~/view/IcibaMain/IcibaMain.vue'
+import IcibaCircle from '~/view/IcibaCircle/IcibaCircle.vue'
+import SettingPage from '~/view/SettingPage/SettingPage.vue'
 
 import GoogleDictModal from '~/provider/GoogleDict/container/GoogleDictModal.vue'
 import { EVENTS, bus } from './service/globalBus'

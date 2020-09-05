@@ -8,7 +8,7 @@ const resolve = (dir) => path.join(__dirname, '../..', dir)
 
 const config = new Config()
 
-const createCssRule = (name, test, postcssContext) => config.module.rule(name)
+const createCssRule = (name, test) => config.module.rule(name)
   .test(test)
   .use('cache-loader')
   .loader('cache-loader')
@@ -22,11 +22,6 @@ const createCssRule = (name, test, postcssContext) => config.module.rule(name)
   .end()
   .use('postcss-loader')
   .loader('postcss-loader')
-  .options({
-    config: {
-      ctx: postcssContext,
-    },
-  })
   .end()
 
 config.mode('none')
@@ -50,6 +45,7 @@ config.resolve.alias
   .set('~', resolve('src'))
   .set('assets', resolve('src/assets'))
   .set('vue$', 'vue/dist/vue.esm.js')
+  .set('fp-ts/lib', 'fp-ts/es6')
 
 config.module.rule('ts')
   .test(/\.tsx?$/)
@@ -88,9 +84,8 @@ createCssRule('sass', /\.(sass|scss)$/)
   .use('sass-loader')
   .loader('sass-loader')
   .end()
-createCssRule('tailwind', /tailwind\.custom$/, {
-  tailwind: true,
-})
+
+createCssRule('tailwind', /tailwind\.custom$/)
   .use('sass-loader')
   .loader('sass-loader')
   .end()

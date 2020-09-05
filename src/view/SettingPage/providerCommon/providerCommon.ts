@@ -1,7 +1,7 @@
 import { defineComponent } from '@vue/composition-api'
 
 import Foldable from '~/components/Foldable/Foldable.vue'
-import IconRadioGroup from '~/components/SettingPage/components/IconRadioGroup/IconRadioGroup.vue'
+import IconRadioGroup from '../IconRadioGroup/IconRadioGroup.vue'
 
 export default defineComponent({
   name: 'ProviderCommon',

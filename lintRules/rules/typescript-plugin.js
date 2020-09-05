@@ -16,6 +16,7 @@ module.exports = {
 
     rules: {
       'vue/script-indent': 'off',
+      'no-undef': 'off',
 
       // conficts with typescript overload
       'no-dupe-class-members': 'off',
@@ -153,6 +154,7 @@ module.exports = {
       '@typescript-eslint/no-extraneous-class': ['error', { allowEmpty: true }],
       '@typescript-eslint/no-floating-promises': 'off', // too much noise
       '@typescript-eslint/no-for-in-array': 'error',
+      '@typescript-eslint/no-implicit-any-catch': 'off',
       '@typescript-eslint/no-implied-eval': 'error',
       '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/no-invalid-void-type': 'error',
@@ -280,10 +282,20 @@ module.exports = {
       'no-invalid-this': 'off',
       '@typescript-eslint/no-invalid-this': 'error',
 
+      'no-loop-func': 'off',
+      '@typescript-eslint/no-loop-func': 'off',
+
+      'no-loss-of-precision': 'off',
       '@typescript-eslint/no-loss-of-precision': 'off',
 
       'no-magic-numbers': 'off',
       '@typescript-eslint/no-magic-numbers': 'off',
+
+      'no-redeclare': 'off',
+      '@typescript-eslint/no-redeclare': 'off',
+
+      'no-shadow': 'off',
+      '@typescript-eslint/no-shadow': 'off',
 
       'no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-expressions': ['error', {
