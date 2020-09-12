@@ -153,6 +153,7 @@ export const baseInfoSuggestion = excess(type({
       key: string,
     }),
     partial({
+      paraphrase: string,
       value: number,
     }),
   ]))),

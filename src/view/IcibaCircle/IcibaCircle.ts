@@ -102,7 +102,7 @@ export default defineComponent({
       })
     }
 
-    const handleMouseUp = (e: MouseEvent, proxied = false) => {
+    const handleMouseUp = async (e: MouseEvent, proxied = false) => {
       // let handleShadowRootClick handle
       if (!proxied && e.target === icibaRoot) {
         return
@@ -114,6 +114,10 @@ export default defineComponent({
       const hide = () => {
         state.visible = false
       }
+
+      // Wait for next frame. If user clicks on selection text, it will be
+      // cleared on next frame
+      await new Promise((rs) => requestAnimationFrame(rs))
 
       const selectionString = getSelectionString()
       state.currentWord = selectionString
