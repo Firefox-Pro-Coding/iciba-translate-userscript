@@ -17,7 +17,7 @@
 // @icon               http://tb.himg.baidu.com/sys/portrait/item/d4346e6f65313332ac06
 // @version            {{ version }}
 // @supportURL         https://github.com/Firefox-Pro-Coding/iciba-translate-userscript
-// @description        简单好用的划词查词翻译。支持iciba，google字典，google翻译，百度翻译等多种接口
+// @description        小巧简洁实用的划词翻译。选择单词或段落进行查词或翻译，或手动输入文本查词翻译。支持iciba，google字典，google翻译，百度翻译等多个查词翻译接口
 // ==/UserScript==
 
 // this file was compiled by webpack.
