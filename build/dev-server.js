@@ -11,7 +11,7 @@ const devServer = new WebpackDevServer(compiler, {
   https: false,
   publicPath: '/',
   writeToDisk: true,
-  host: '127.0.0.1',
+  host: 'localhost',
   sockPort: 13333,
   transportMode: 'ws',
   disableHostCheck: true,

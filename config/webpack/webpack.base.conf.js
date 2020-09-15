@@ -47,6 +47,11 @@ config.resolve.alias
   .set('vue$', 'vue/dist/vue.esm.js')
   .set('fp-ts/lib', 'fp-ts/es6')
 
+
+config.module.rule('mjs')
+  .test(/\.m?js$/)
+  .resolve.set('fullySpecified', false)
+
 config.module.rule('ts')
   .test(/\.tsx?$/)
   .use('cache-loader')

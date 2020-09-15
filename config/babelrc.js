@@ -13,6 +13,7 @@ module.exports = (api) => {
         corejs: 3,
         useESModules: true,
       }],
+      // eslint-disable-next-line global-require
       require('../utils/plugin/injectH'),
     ],
   }
