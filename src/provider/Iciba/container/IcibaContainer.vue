@@ -59,7 +59,10 @@
 
                 <!-- meaning -->
                 <div
-                  class="part-box mt-1 flex-col flex-none items-stretch"
+                  class="part-box flex-col flex-none items-stretch"
+                  :class="{
+                    'mt-1': symbolItem.symbol_mp3 || symbolItem.word_symbol
+                  }"
                   v-if="symbolItem.parts && symbolItem.parts.length"
                 >
                   <div
