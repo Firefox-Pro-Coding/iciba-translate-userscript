@@ -85,7 +85,7 @@
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12",
     "vue-tsx-support": "^2.3.3",
-    "webpack": "^5.0.0-beta.29",
+    "webpack": "^5.0.0-beta.30",
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-chain": "^6.5.1",
     "webpack-cli": "^3.3.12",

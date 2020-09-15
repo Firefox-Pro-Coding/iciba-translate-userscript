@@ -43,7 +43,7 @@ const translate: ProviderType['translate'] = async (word: string) => {
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line
     const check = require('./check').default as (...args: Array<any>) => unknown
-    check(result, word)
+    check(result)
   }
 
   return right(() => {
