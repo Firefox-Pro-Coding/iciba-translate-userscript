@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import {
   defineComponent,
   onMounted,
@@ -6,7 +5,9 @@ import {
   computed,
   reactive,
   watch,
-} from '@vue/composition-api'
+  nextTick,
+  ref,
+} from 'vue'
 
 import settingsIcon from '~/assets/img/settings_149837.svg'
 import dragIcon from '~/assets/img/drag_462998.svg'
@@ -32,20 +33,25 @@ import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 import LoadingText from './LoadingText/LoadingText'
 
 interface Props {
-  getIcibaCircle: () => Vue
+  getIcibaCircle: () => ReturnType<typeof defineComponent>
 }
 
 export default defineComponent({
   name: 'IcibaMain',
   components: { LoadingText },
-  props: { getIcibaCircle: null },
-  setup: (props: Props, setupContext) => {
-    const $refs: {
-      icibaMainWrap: HTMLDivElement | undefined
-      icibaMain: HTMLDivElement | undefined
-      icibaSearchInput: HTMLInputElement | undefined
-      sizeHelper: HTMLInputElement
-    } = setupContext.refs
+  props: {
+    getIcibaCircle: {
+      type: null,
+      required: true,
+    },
+  },
+  setup: (props: Props) => {
+    const refs = {
+      icibaMainWrap: ref<HTMLDivElement>(),
+      icibaMain: ref<HTMLDivElement>(),
+      icibaSearchInput: ref<HTMLInputElement>(),
+      sizeHelper: ref<HTMLInputElement>(),
+    }
 
     const state = reactive({
       visible: false,
@@ -78,8 +84,8 @@ export default defineComponent({
     })
 
     const focusInput = () => {
-      Vue.nextTick(() => {
-        const input = $refs.icibaSearchInput
+      nextTick(() => {
+        const input = refs.icibaSearchInput.value
         if (input) {
           const textLength = state.inputText.length
           input.focus()
@@ -91,7 +97,10 @@ export default defineComponent({
 
     /** 设置 IcibaMain position */
     const setPosition = (e: MouseEvent) => {
-      const sizeHelperBounding = $refs.sizeHelper.getBoundingClientRect()
+      if (!refs.sizeHelper.value) {
+        return
+      }
+      const sizeHelperBounding = refs.sizeHelper.value.getBoundingClientRect()
       const availableSpace = {
         x: sizeHelperBounding.left - e.clientX,
         y: sizeHelperBounding.top - e.clientY,
@@ -134,7 +143,7 @@ export default defineComponent({
         }
       } else {
         // reset if out of bound
-        const container = $refs.icibaMain
+        const container = refs.icibaMain.value
         if (container) {
           const rect = container.getBoundingClientRect()
           if (rect.bottom < 0 || rect.top > window.innerHeight) {
@@ -217,8 +226,11 @@ export default defineComponent({
       },
 
       onShadowRootClick: (e: Event) => {
+        if (!refs.icibaMainWrap.value) {
+          return
+        }
         const ignoreCondition = [
-          insideOf(e.target, $refs.icibaMainWrap!),
+          insideOf(e.target, refs.icibaMainWrap.value),
           insideOf(e.target, props.getIcibaCircle().$el),
           store.config.core.showPin && store.config.core.pinned,
         ]
@@ -283,9 +295,12 @@ export default defineComponent({
 
       /** 窗体拖拽 */
       handleDragStart: (_e: Event) => {
+        if (!refs.icibaMainWrap.value) {
+          return
+        }
         const e: MouseEvent = _e as any
         state.drag.ignoreCtrl = false
-        if (!insideOf(e.target, $refs.icibaMainWrap!) || !e.ctrlKey) {
+        if (!insideOf(e.target, refs.icibaMainWrap.value) || !e.ctrlKey) {
           return
         }
         if (!store.config.core.pressCtrlToDrag) {
@@ -344,10 +359,10 @@ export default defineComponent({
     )
 
     watch(() => wrapperStyle.value, (style) => {
-      if ($refs.icibaMainWrap) {
-        Object.assign($refs.icibaMainWrap.style, style)
+      if (refs.icibaMainWrap.value) {
+        Object.assign(refs.icibaMainWrap.value.style, style)
       }
-    }, { deep: true })
+    }, { deep: true, immediate: true })
 
     onMounted(() => {
       window.addEventListener('mousedown', listeners.onWindowClick, true)
@@ -411,6 +426,7 @@ export default defineComponent({
         pinIcon,
       },
       state,
+      refs,
       store,
 
       mainStyle,

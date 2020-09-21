@@ -2,20 +2,20 @@
   <div>
     <div
       class="iciba-size-helper fixed top-auto left-auto bottom-0 right-0 w-0 h-0 overflow-hidden"
-      ref="sizeHelper"
+      :ref="refs.sizeHelper"
     />
     <transition name="m">
       <div
         class="iciba-main-wrap absolute overflow-visible ease-in-out duration-150 transition-opacity"
         v-show="state.visible"
-        ref="icibaMainWrap"
+        :ref="refs.icibaMainWrap"
       >
         <div
           class="iciba-main absolute flex-col items-stretch h-auto text-14 ease-in-out duration-150 transition-transform"
           @mouseenter="state.stickBoxVisible = true"
           @mouseleave="state.stickBoxVisible = false"
           :style="mainStyle"
-          ref="icibaMain"
+          :ref="refs.icibaMain"
         >
           <div class="input-box flex relative flex-none bg-white">
             <div
@@ -26,14 +26,14 @@
             >
               <input
                 class="search-input flex-auto text-grey-900"
-                ref="icibaSearchInput"
+                :ref="refs.icibaSearchInput"
                 size="1"
                 type="text"
                 v-model="state.inputText"
                 @focus="state.inputFocused = true"
                 @blur="state.inputFocused = false"
                 @keydown.capture.stop
-                @keypress.13="m.handleInputEnter"
+                @keypress.enter="m.handleInputEnter"
               >
               <div
                 class="setting-button flex flex-center absolute cursor-pointer"
@@ -44,14 +44,10 @@
             </div>
 
             <div class="provider-box flex border-b border-grey-350">
-              <template v-for="provider of showButtonProviders">
-                <div
-                  class="split border-l border-grey-350"
-                  :key="`${provider.id}index`"
-                />
+              <template v-for="provider of showButtonProviders" :key="provider.id">
+                <div class="split border-l border-grey-350" />
                 <button
-                  :key="provider.id"
-                  @keydown.13="m.handleTranslateWithProvider(provider.id)"
+                  @keydown.enter="m.handleTranslateWithProvider(provider.id)"
                   @click="m.handleTranslateWithProvider(provider.id)"
                   class="provider-button flex flex-center relative flex-none"
                 >

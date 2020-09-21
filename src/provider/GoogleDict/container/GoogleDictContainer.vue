@@ -1,17 +1,17 @@
 <template>
   <div class="google-dict-box flex-col relative break-words text-grey-900">
     <scrollable class="scroll-container">
-      <template #default="{ scrollBar }">
+      <template #default="ctx">
         <div
           class="google-content-simple relative flex-auto"
           :class="[
-            scrollBar && 'py-10px pl-10px pr-14px',
-            !scrollBar && 'p-10px',
+            ctx.scrollBar && 'py-10px pl-10px pr-14px',
+            !ctx.scrollBar && 'p-10px',
           ]"
         >
           <div
             class="expand-button flex flex-center absolute"
-            :class="{ 'with-scroll-bar': scrollBar }"
+            :class="{ 'with-scroll-bar': ctx.scrollBar }"
             title="展开"
             @click="handleOpenModal"
             v-if="containerData.data && containerData.data.length"

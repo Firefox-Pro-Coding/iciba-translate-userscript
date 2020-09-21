@@ -3,18 +3,16 @@ module.exports = (api) => {
 
   return {
     'presets': [
-      '@vue/babel-preset-jsx',
       ['@babel/preset-env', {
         modules: false,
       }],
     ],
     'plugins': [
+      '@vue/babel-plugin-jsx',
       ['@babel/transform-runtime', {
         corejs: 3,
         useESModules: true,
       }],
-      // eslint-disable-next-line global-require
-      require('../utils/plugin/injectH'),
     ],
   }
 }

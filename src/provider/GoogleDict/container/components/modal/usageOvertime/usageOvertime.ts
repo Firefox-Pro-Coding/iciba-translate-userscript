@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import { UsageOverTimeImage } from '~/provider/GoogleDict/types'
 import imageLoader from '../imageLoader/imageLoader.vue'
 
@@ -12,7 +12,10 @@ export default defineComponent({
     imageLoader,
   },
   props: {
-    image: null,
+    image: {
+      type: null,
+      required: true,
+    },
     term: {
       type: String,
       required: true,

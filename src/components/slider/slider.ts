@@ -1,9 +1,9 @@
-import { defineComponent, reactive, onMounted, onUnmounted, watch, computed } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, onUnmounted, watch, computed, ref } from 'vue'
 
 export default defineComponent({
   name: 'Slider',
   props: {
-    value: {
+    modelValue: {
       type: Number,
       required: true,
     },
@@ -21,10 +21,10 @@ export default defineComponent({
     },
   },
   setup: (props, ctx) => {
-    const $refs: {
-      track: HTMLDivElement
-      notch: HTMLDivElement
-    } = ctx.refs
+    const refs = {
+      track: ref<HTMLDivElement>(),
+      notch: ref<HTMLDivElement>(),
+    }
 
     const state = reactive({
       drag: {
@@ -52,7 +52,7 @@ export default defineComponent({
 
     const getValueFromDeltaPercentage = (percentage: number) => {
       // return this.getValueFromPercentage(props.value / (props.max - props.min) + percentage)
-      let newValue = props.value + percentage * (props.max - props.min)
+      let newValue = props.modelValue + percentage * (props.max - props.min)
       newValue = newValue < props.min ? props.min : newValue
       newValue = newValue > props.max ? props.max : newValue
 
@@ -75,11 +75,11 @@ export default defineComponent({
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!state.drag.dragging) {
+      if (!state.drag.dragging || !refs.track.value) {
         return
       }
       const deltaX = e.clientX - state.drag.startX
-      const width = $refs.track.getBoundingClientRect().width
+      const width = refs.track.value.getBoundingClientRect().width
       const deltaPercentage = deltaX / width
       state.cachedValue = getValueFromDeltaPercentage(deltaPercentage)
     }
@@ -89,31 +89,35 @@ export default defineComponent({
       setTimeout(() => {
         state.drag.afterDragging = false
       })
-      ctx.emit('input', state.cachedValue)
+      ctx.emit('update:modelValue', state.cachedValue)
     }
 
     const handleTrackClick = (e: MouseEvent) => {
-      if (e.target === $refs.notch || state.drag.afterDragging) {
+      if (e.target === refs.notch.value || state.drag.afterDragging || !refs.track.value) {
         return
       }
 
-      const position = e.clientX - $refs.track.getBoundingClientRect().left
-      const width = $refs.track.getBoundingClientRect().width
+      const position = e.clientX - refs.track.value.getBoundingClientRect().left
+      const width = refs.track.value.getBoundingClientRect().width
       const percentage = position / width
-      ctx.emit('input', getValueFromPercentage(percentage))
+      ctx.emit('update:modelValue', getValueFromPercentage(percentage))
     }
 
 
     const position = computed(() => ((state.cachedValue - props.min) / (props.max - props.min)) * 100)
 
-    watch(() => props.value, () => {
-      state.cachedValue = props.value
-    }, { immediate: true })
+    watch(
+      () => props.modelValue,
+      () => {
+        state.cachedValue = props.modelValue
+      },
+      { immediate: true },
+    )
 
     onMounted(() => {
       window.addEventListener('mousemove', handleMouseMove)
       window.addEventListener('mouseup', handleMouseUp)
-      state.cachedValue = props.value
+      state.cachedValue = props.modelValue
     })
 
     onUnmounted(() => {
@@ -123,6 +127,7 @@ export default defineComponent({
 
     return {
       state,
+      refs,
       position,
       handleNotchMouseDown,
       handleTrackClick,

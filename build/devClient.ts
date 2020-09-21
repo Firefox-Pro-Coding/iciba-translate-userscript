@@ -1,15 +1,15 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 
 const webpackHookKey = 'webpackHotUpdateiciba'
 
 /* eslint-disable no-underscore-dangle */
 // #!dev_only attach Vue to the devtools hook
-const install = (top: any) => {
-  top.Vue = top.Vue || Vue
-  top.Vue.config.devtools = true
-  if (top.__VUE_DEVTOOLS_GLOBAL_HOOK__ && !top.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue) {
-    top.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = Vue
-  }
+const install = (_top: any) => {
+  // top.Vue = top.Vue || Vue
+  // top.Vue.config.devtools = true
+  // if (top.__VUE_DEVTOOLS_GLOBAL_HOOK__ && !top.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue) {
+  //   top.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = Vue
+  // }
 }
 
 // expose webpackHotUpdate out of sandbox

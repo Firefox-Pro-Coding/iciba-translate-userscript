@@ -61,7 +61,7 @@
                 <div
                   class="part-box flex-col flex-none items-stretch"
                   :class="{
-                    'mt-1': symbolItem.symbol_mp3 || symbolItem.word_symbol
+                    'mt-1': symbolItem.symbol_mp3 || symbolItem.word_symbol,
                   }"
                   v-if="symbolItem.parts && symbolItem.parts.length"
                 >

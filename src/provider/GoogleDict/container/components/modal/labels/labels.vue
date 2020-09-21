@@ -4,7 +4,7 @@
     :class="[colorClass, sizeClass]"
     v-if="labels && labels.length"
   >
-    <template v-for="(label, index) in props.labels">
+    <template v-for="(label, index) in props.labels" :key="index">
       <div
         class="label relative inline-flex text-grey-700"
         :class="[
@@ -13,7 +13,6 @@
         ]"
         @mouseover="shopTip(label)"
         @mouseleave="hideTip(label)"
-        :key="index"
       >
         {{ label }}
         <span class="label-split" :innerHTML.prop="' '" />
@@ -28,7 +27,6 @@
       </div>
       <span
         class="label-split text-0"
-        :key="`${index}-split`"
         :innerHTML.prop="' '"
       />
     </template>

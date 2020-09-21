@@ -1,4 +1,4 @@
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import labels from '../labels/labels.vue'
 import { LabelSet } from '~/provider/GoogleDict/types'
 
@@ -14,7 +14,10 @@ export default defineComponent({
     labels,
   },
   props: {
-    labelSet: null,
+    labelSet: {
+      type: null,
+      required: true,
+    },
     size: {
       type: String,
       default: 'medium',

@@ -1,5 +1,5 @@
 <template>
-  <div class="urban-dictionary-box flex-col relative text-grey-900" ref="container">
+  <div class="urban-dictionary-box flex-col relative text-grey-900" :ref="refs.container">
     <scrollable class="scroll-container">
       <template #default="{ scrollBar }">
         <div
@@ -10,11 +10,8 @@
           ]"
         >
           <template v-if="result.data && result.data.list">
-            <template v-for="(item, index) of result.data.list">
-              <div
-                class="row flex-col"
-                :key="index"
-              >
+            <template v-for="(item, index) of result.data.list" :key="index">
+              <div class="row flex-col">
                 <div class="index font-bold">
                   {{ index + 1 }}. {{ item.word }}
                 </div>

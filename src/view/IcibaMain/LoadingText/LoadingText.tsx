@@ -3,7 +3,7 @@ import {
   onMounted,
   onUnmounted,
   reactive,
-} from '@vue/composition-api'
+} from 'vue'
 
 export default defineComponent({
   setup: () => {

@@ -1,4 +1,4 @@
-import { reactive } from '@vue/composition-api'
+import { reactive } from 'vue'
 import { getScrollBarWidth } from '~/util/scrollbar-width'
 
 const state = reactive({

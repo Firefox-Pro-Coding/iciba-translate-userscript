@@ -1,4 +1,4 @@
-import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch } from 'vue'
 import { got } from '~/util/gmapi'
 
 

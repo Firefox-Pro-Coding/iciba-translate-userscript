@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
@@ -6,12 +6,12 @@ export default defineComponent({
     current: Number,
   },
   setup: (props, ctx) => () => {
-    const VNodes = ctx.slots.default()
+    const VNodes = ctx.slots.default?.() ?? []
     return (
       <div>
         {VNodes.map((v) => {
-          if (v.componentOptions?.propsData) {
-            const pd: any = v.componentOptions.propsData
+          if (v.props) {
+            const pd: any = v.props
             pd.active = props.index === props.current
           }
           return v

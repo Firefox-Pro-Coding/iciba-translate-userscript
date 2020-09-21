@@ -1,4 +1,4 @@
-import { reactive, watch } from '@vue/composition-api'
+import { reactive, watch } from 'vue'
 import { Either } from 'fp-ts/lib/Either'
 import { exact, type, TypeOf, Errors } from 'io-ts'
 

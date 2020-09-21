@@ -188,7 +188,7 @@ function update(el, binding) {
     updateRipple(el, binding, wasEnabled);
 }
 export default {
-    bind: directive,
-    unbind: unbind,
-    update: update
+    mounted: directive,
+    unmounted: unbind,
+    updated: update
 };

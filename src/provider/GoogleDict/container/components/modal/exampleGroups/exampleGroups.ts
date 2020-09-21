@@ -1,4 +1,4 @@
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { ExampleGroup } from '~/provider/GoogleDict/types'
 import { store } from '~/service/store'
@@ -16,7 +16,10 @@ export default defineComponent({
     Foldable,
   },
   props: {
-    exampleGroups: null,
+    exampleGroups: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props: Props) => {
     const folded = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_EXAMPLES)

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 export const getValue = (name: string, def: string): Promise<string | number | boolean> => {
-  if (typeof GM !== 'undefined' && GM.getValue) {
+  if (GM?.getValue) {
     return Promise.resolve(GM.getValue(name, def) as Promise<string | number | boolean>)
   }
   if (GM_getValue) {
@@ -10,7 +10,7 @@ export const getValue = (name: string, def: string): Promise<string | number | b
 }
 
 export const setValue = (name: string, value: string): Promise<void> => {
-  if (typeof GM !== 'undefined' && GM.setValue) {
+  if (GM?.setValue) {
     return Promise.resolve(GM.setValue(name, value))
   }
   if (GM_setValue) {
@@ -45,13 +45,7 @@ export class GMXMLError extends Error {
 }
 
 export const got = <T = unknown>(params: IcibaExtendedGMOption) => {
-  let api: typeof GM_xmlhttpRequest | typeof GM.xmlHttpRequest
-
-  if (typeof GM !== 'undefined' && GM.xmlHttpRequest) {
-    api = GM.xmlHttpRequest
-  } else {
-    api = GM_xmlhttpRequest
-  }
+  const api = GM?.xmlHttpRequest ?? GM_xmlhttpRequest
 
   if (!api) {
     throw new Error('not running in greasymonkey or tampermonkey enviroment')
@@ -82,7 +76,7 @@ export const got = <T = unknown>(params: IcibaExtendedGMOption) => {
 }
 
 export const registerMenuCommand = (name: string, fn: () => unknown) => {
-  if (typeof GM_registerMenuCommand !== 'undefined') {
+  if (GM_registerMenuCommand) {
     GM_registerMenuCommand(name, fn)
   }
 }

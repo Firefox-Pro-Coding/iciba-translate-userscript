@@ -1,7 +1,7 @@
 <template>
   <transition name="c">
     <div
-      ref="circle"
+      :ref="refs.circle"
       v-show="state.visible"
       :style="computedStyle"
       class="iciba-circle absolute select-none overflow-hidden rounded-full"

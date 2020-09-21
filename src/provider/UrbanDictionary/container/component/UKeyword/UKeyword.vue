@@ -1,7 +1,7 @@
 <template>
   <span
     class="u-keyword relative"
-    ref="span"
+    :ref="refs.span"
     @click="handleClick"
     @mouseenter="showTooltip"
     @mouseleave="hideTooltip"

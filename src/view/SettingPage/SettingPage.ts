@@ -2,7 +2,7 @@ import {
   defineComponent,
   reactive,
   onMounted,
-} from '@vue/composition-api'
+} from 'vue'
 
 import { bus, EVENTS } from '~/service/globalBus'
 import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'

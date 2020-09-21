@@ -1,4 +1,4 @@
-import { defineComponent, reactive, onMounted, watch } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, watch, ref } from 'vue'
 
 import urbanBus, { NAMES } from '../../bus'
 import { bus, EVENTS } from '~/service/globalBus'
@@ -12,10 +12,10 @@ export default defineComponent({
       default: '',
     },
   },
-  setup: (props, ctx) => {
-    const $refs: {
-      span: HTMLSpanElement
-    } = ctx.refs
+  setup: (props) => {
+    const refs = {
+      span: ref<HTMLSpanElement>(),
+    }
 
     const state = reactive({
       id: 0,
@@ -56,13 +56,15 @@ export default defineComponent({
 
     watch(() => state.visible, () => {
       if (state.visible) {
-        const rect = $refs.span.getBoundingClientRect()
-        urbanBus.emit(NAMES.SHOW_TOOLTIP, {
-          top: rect.bottom,
-          left: rect.right,
-          id: state.id,
-          text: props.content,
-        })
+        if (refs.span.value) {
+          const rect = refs.span.value.getBoundingClientRect()
+          urbanBus.emit(NAMES.SHOW_TOOLTIP, {
+            top: rect.bottom,
+            left: rect.right,
+            id: state.id,
+            text: props.content,
+          })
+        }
       } else {
         urbanBus.emit(NAMES.HIDE_TOOLTIP, { id: state.id })
       }
@@ -70,6 +72,7 @@ export default defineComponent({
 
     return {
       props,
+      refs,
       handleClick,
       showTooltip,
       hideTooltip,

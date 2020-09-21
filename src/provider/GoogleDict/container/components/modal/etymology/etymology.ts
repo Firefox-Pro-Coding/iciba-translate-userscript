@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import fragment from '../../common/fragment/fragment.vue'
 import imageLoader from '../imageLoader/imageLoader.vue'
 import { Etymology } from '~/provider/GoogleDict/types'
@@ -14,7 +14,10 @@ export default defineComponent({
     imageLoader,
   },
   props: {
-    etymology: null,
+    etymology: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props: Props) => ({
     props,

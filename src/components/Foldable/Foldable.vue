@@ -1,12 +1,15 @@
 <template>
   <div
     class="w-full overflow-hidden"
-    ref="root"
+    :ref="refs.root"
     :style="{
       height: state.height,
     }"
   >
-    <div ref="wrapper" class="flex-col">
+    <div
+      class="flex-col"
+      :ref="refs.wrapper"
+    >
       <slot />
     </div>
   </div>

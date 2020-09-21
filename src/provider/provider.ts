@@ -1,5 +1,5 @@
+import { defineComponent } from 'vue'
 import { Either } from 'fp-ts/lib/Either'
-import { VueConstructor } from 'vue'
 import { PROVIDER } from '~/constants/constant'
 import providerIcon from '~/constants/icon'
 import { store } from '~/service/store'
@@ -12,7 +12,7 @@ interface TranslateErr {
 
 export interface ProviderType {
   id: PROVIDER
-  view: VueConstructor
+  view: ReturnType<typeof defineComponent>
   translate: (word: string, payload: any) => Promise<Either<TranslateErr, () => unknown>>
 }
 

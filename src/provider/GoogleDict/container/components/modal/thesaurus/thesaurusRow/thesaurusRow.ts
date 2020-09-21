@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { Thesaurus } from '~/provider/GoogleDict/types'
 import { bus, EVENTS } from '~/service/globalBus'
@@ -18,8 +18,14 @@ export default defineComponent({
     Foldable,
   },
   props: {
-    item: null,
-    index: Number,
+    item: {
+      type: null,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   setup: (props: Props) => {
     const handleNymClick = (event: MouseEvent, nym: any) => {

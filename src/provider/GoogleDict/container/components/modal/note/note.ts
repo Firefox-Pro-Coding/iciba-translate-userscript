@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import labels from '../labels/labels.vue'
 import { Note } from '~/provider/GoogleDict/types'
 
@@ -12,7 +12,10 @@ export default defineComponent({
     labels,
   },
   props: {
-    note: null,
+    note: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props: Props) => ({
     props,

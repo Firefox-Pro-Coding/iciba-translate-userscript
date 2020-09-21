@@ -6,14 +6,17 @@
     <div
       class="icon relative"
       :class="{
-        checked: value,
+        checked: props.modelValue,
         'mr-2': !!label,
       }"
     >
-      <i-icon size="100%" :svg="value ? icon.checked : icon.unchecked" />
+      <i-icon
+        size="100%"
+        :svg="props.modelValue ? icon.checked : icon.unchecked"
+      />
       <div
         class="ripple absolute rounded-full"
-        :class="{ checked: value }"
+        :class="{ checked: props.modelValue }"
         v-ripple="{ center: true }"
       >
         <div class="ripple-trigger absolute" />

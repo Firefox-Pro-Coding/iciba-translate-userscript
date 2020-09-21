@@ -1,26 +1,25 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 import checked_291201 from '~/assets/img/checked_291201.svg'
 
 interface Props {
-  value: string
+  modelValue: string
   icons: Array<{ icon: string, key: string }>
 }
 
 export default defineComponent({
-  model: {},
   props: {
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
     icons: {
-      type: Array,
+      type: null,
       required: true,
     },
   },
   setup: (props: Props, context) => {
     const handleSelect = (key: string) => {
-      context.emit('input', key)
+      context.emit('update:modelValue', key)
     }
     return {
       props,

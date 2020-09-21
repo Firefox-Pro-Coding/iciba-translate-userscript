@@ -1,8 +1,9 @@
 <template>
-  <div class="icon-box-wrapper relative" ref="container">
+  <div class="icon-box-wrapper relative" :ref="refs.container">
     <transition-group
       class="icon-box-container flex ease-linear"
       name="icon"
+      tag="div"
     >
       <div
         class="icon-item relative select-none"
@@ -13,7 +14,6 @@
         @mousedown.left="handleDragStart(iconItem)"
         @click.right.prevent="handleToggleVisibility(iconItem.id)"
         :key="iconItem.id"
-        ref="icons"
       >
         <transition name="mask">
           <div

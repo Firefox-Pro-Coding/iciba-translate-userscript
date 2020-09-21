@@ -5,24 +5,27 @@ import {
   computed,
   onMounted,
   watch,
-} from '@vue/composition-api'
+} from 'vue'
 
 const normalizeKey = (key: string) => (key >= 'a' && key <= 'z'
   ? key.toUpperCase()
   : key)
 
 interface Props {
-  value?: Array<string>
+  modelValue?: Array<string>
 }
 
 export default defineComponent({
   name: 'HotkeyInput',
   props: {
-    value: null,
+    modelValue: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props: Props, ctx) => {
     const state = reactive({
-      keys: props.value ?? [] as Array<string>,
+      keys: props.modelValue ?? [] as Array<string>,
       setKeys: [] as Array<string>,
     })
 
@@ -82,18 +85,22 @@ export default defineComponent({
     })
 
     watch(() => sortedKeys.value, () => {
-      ctx.emit('input', sortedKeys.value)
+      ctx.emit('update:modelValue', sortedKeys.value)
     })
 
-    watch(() => props.value, () => {
-      if (!props.value) {
-        return
-      }
-      if (props.value.every((v, i) => v === state.setKeys[i])) {
-        return
-      }
-      state.setKeys = [...props.value]
-    }, { immediate: true })
+    watch(
+      () => props.modelValue,
+      () => {
+        if (!props.modelValue) {
+          return
+        }
+        if (props.modelValue.every((v, i) => v === state.setKeys[i])) {
+          return
+        }
+        state.setKeys = [...props.modelValue]
+      },
+      { immediate: true },
+    )
 
     onMounted(() => {
       window.addEventListener('keyup', handleKeyUp)

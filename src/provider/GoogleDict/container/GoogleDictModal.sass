@@ -4,22 +4,22 @@
   z-index: 10000
   font-family: 'Arial', 'Microsoft Yahei UI', sans-serif
 
-  ::v-deep .entry-link
+  ::v-deep(.entry-link)
     color: lighten(desaturate($primary, 50%), 4%)
     color: #7da7d4
     cursor: pointer
 
-  &.modal-enter, &.modal-leave-to
+  &.modal-enter-from, &.modal-leave-to
     opacity: 0
 
-  &.modal-enter
+  &.modal-enter-from
     .modal-content
       transform: scale(0.9)
 
     .fold-control
       transform: translate(-50%, -100%)
 
-  &.modal-enter-to, &.modal-leave
+  &.modal-enter-to, &.modal-leave-from
     opacity: 1
 
   .fold-control

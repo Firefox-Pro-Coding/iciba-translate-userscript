@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 // import googleDictBus from '~/provider/GoogleDict/bus'
 import { bus, EVENTS } from '~/service/globalBus'
 import { PROVIDER } from '~/constants/constant'
@@ -11,7 +11,10 @@ interface Props {
 export default defineComponent({
   name: 'GFragment',
   props: {
-    fragment: null,
+    fragment: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props: Props) => {
     const handleEntryLinkClick = (event: MouseEvent, word: string) => {

@@ -1,4 +1,4 @@
-import { defineComponent, reactive, watch } from '@vue/composition-api'
+import { defineComponent, reactive, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'GFoldable',
@@ -12,45 +12,39 @@ export default defineComponent({
       default: 300,
     },
   },
-  setup: (props, ctx) => {
-    const $refs: {
-      root: HTMLDivElement | undefined
-      wrapper: HTMLDivElement | undefined
-    } = ctx.refs
+  setup: (props) => {
+    const refs = {
+      root: ref<HTMLDivElement>(),
+      wrapper: ref<HTMLDivElement>(),
+    }
 
     const state = reactive({
-      folding: false,
       height: props.fold ? '0' : 'auto',
     })
 
     const doFold = () => {
-      if (state.folding || !$refs.root || !$refs.wrapper) {
+      if (!refs.root.value || !refs.wrapper.value) {
         return
       }
-      state.folding = true
       state.height = 'auto'
-      $refs.root.animate([
-        { height: `${$refs.wrapper.clientHeight}px` },
+      refs.root.value.animate([
+        { height: `${refs.wrapper.value.clientHeight}px` },
         { height: '0' },
       ], {
         duration: props.duration,
         easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
       })
       state.height = '0'
-      window.setTimeout(() => {
-        state.folding = false
-      }, props.duration)
     }
 
     const doExpand = () => {
-      if (state.folding || !$refs.root || !$refs.wrapper) {
+      if (!refs.root.value || !refs.wrapper.value) {
         return
       }
-      state.folding = true
       state.height = 'auto'
-      const full = $refs.wrapper.clientHeight
+      const full = refs.wrapper.value.clientHeight
       state.height = '0'
-      $refs.root.animate([
+      refs.root.value.animate([
         { height: '0px' },
         { height: `${full}px` },
       ], {
@@ -59,10 +53,6 @@ export default defineComponent({
       })
 
       state.height = 'auto'
-
-      window.setTimeout(() => {
-        state.folding = false
-      }, props.duration)
     }
 
     watch(() => props.fold, () => {
@@ -75,6 +65,7 @@ export default defineComponent({
 
     return {
       props,
+      refs,
       state,
     }
   },

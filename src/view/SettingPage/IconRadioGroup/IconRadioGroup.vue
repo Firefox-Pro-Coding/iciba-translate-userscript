@@ -9,7 +9,7 @@
       <i-icon size="100%" :svg="icon.icon" />
       <div
         class="check-icon absolute rounded-full bg-white text-20"
-        v-if="icon.key === props.value"
+        v-if="icon.key === props.modelValue"
       >
         <i-icon size="20" :svg="checkedIconSvg" />
       </div>

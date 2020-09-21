@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import { defineComponent, reactive, onMounted, h } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, h, nextTick } from 'vue'
 import { bus, EVENTS } from '~/service/globalBus'
 
 export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => defineComponent({
@@ -23,7 +22,7 @@ export const lazyLoadHoc = (Component: any, event: EVENTS | Array<EVENTS>) => de
             listener: cb,
           })
         })
-        Vue.nextTick(() => {
+        nextTick(() => {
           bus.emit(action)
         })
       }

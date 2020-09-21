@@ -1,23 +1,27 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'CheckboxLine',
   props: {
-    value: Boolean,
+    modelValue: Boolean,
     text: String,
     label: String,
     nomt: Boolean,
   },
 
   setup: (props, ctx) => {
-    const handleInput = (v: boolean) => ctx.emit('input', v)
+    const handleInput = (v: boolean) => {
+      ctx.emit('update:modelValue', v)
+    }
 
     return () => (
       <div class={[!props.nomt && 'mt-6']}>
         <i-checkbox
-          value={props.value}
-          onInput={handleInput}
           label={props.label ?? ''}
+          modelValue={props.modelValue}
+          {...{
+            'onUpdate:modelValue': handleInput,
+          }}
         />
         <p class="text-14 text-grey-400 mt-1 mb-0">
           {ctx.slots.default?.()}

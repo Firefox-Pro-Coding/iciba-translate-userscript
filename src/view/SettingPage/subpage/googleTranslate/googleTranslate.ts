@@ -1,4 +1,4 @@
-import { defineComponent, watch, onUnmounted } from '@vue/composition-api'
+import { defineComponent, watch, onUnmounted } from 'vue'
 
 import { store } from '~/service/store'
 import providerIcon from '~/constants/icon'

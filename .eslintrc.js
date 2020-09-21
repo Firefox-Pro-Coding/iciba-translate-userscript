@@ -51,5 +51,19 @@ module.exports = {
         'varsIgnorePattern': '^h$',
       }],
     },
+  }, {
+    'files': [
+      '*.vue',
+      '*.tsx',
+    ],
+
+
+    'rules': {
+      'vue/valid-v-model': 'off',
+      'vue/valid-v-for': 'off',
+      'vue/no-template-key': 'off',
+      'vue/require-v-for-key': 'off',
+      'vue/no-v-for-template-key': 'off',
+    },
   }],
 }

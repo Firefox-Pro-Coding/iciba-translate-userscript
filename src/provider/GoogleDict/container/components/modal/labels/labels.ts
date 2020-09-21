@@ -1,4 +1,4 @@
-import { defineComponent, reactive, computed, watch } from '@vue/composition-api'
+import { defineComponent, reactive, computed, watch } from 'vue'
 
 interface Props {
   labels: Array<string>

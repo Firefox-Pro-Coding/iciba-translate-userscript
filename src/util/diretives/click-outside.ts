@@ -1,10 +1,10 @@
-import { DirectiveOptions } from 'vue'
+import { Directive } from 'vue'
 import { shadowRoot } from '~/service/shadowRoot'
 
 const map = new Map<Node, any>()
 
-export const clickOutside: DirectiveOptions = {
-  bind: (el, binding) => {
+export const clickOutside: Directive = {
+  mounted: (el: Element, binding) => {
     const c = (e: Event) => {
       const node = e.target as Node
       if (!node) {
@@ -21,7 +21,7 @@ export const clickOutside: DirectiveOptions = {
   // inserted: function () {},
   // update: function () {},
   // componentUpdated: function () {},
-  unbind: (el) => {
+  unmounted: (el) => {
     const c = map.get(el)
     map.delete(el)
     if (c) {

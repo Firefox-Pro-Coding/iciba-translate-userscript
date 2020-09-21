@@ -1,4 +1,4 @@
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed } from 'vue'
 import play from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { audioBus, AEVENTS } from '~/service/audioBus'

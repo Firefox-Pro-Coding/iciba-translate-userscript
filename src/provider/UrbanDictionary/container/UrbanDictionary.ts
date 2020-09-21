@@ -1,4 +1,4 @@
-import { defineComponent, reactive, onMounted, onUnmounted } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, onUnmounted, ref } from 'vue'
 
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
@@ -23,10 +23,10 @@ export default defineComponent({
     Scrollable,
     UKeyword,
   },
-  setup: (_p, ctx) => {
-    const $refs: {
-      container: HTMLDivElement
-    } = ctx.refs
+  setup: () => {
+    const refs = {
+      container: ref<HTMLDivElement>(),
+    }
 
     const state = reactive({
       tooltips: [] as Array<any>,
@@ -56,7 +56,10 @@ export default defineComponent({
     const getTime = (time: string) => time.slice(0, time.indexOf('T'))
 
     const showTooltip = (p: ShowTooltipPayload) => {
-      const rect = $refs.container.getBoundingClientRect()
+      if (!refs.container.value) {
+        return
+      }
+      const rect = refs.container.value.getBoundingClientRect()
       if (state.tooltips.find((v) => v.id === p.id)) {
         return
       }
@@ -116,6 +119,7 @@ export default defineComponent({
 
     return {
       state,
+      refs,
       icon,
       result: containerData,
 

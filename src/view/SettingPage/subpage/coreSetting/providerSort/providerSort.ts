@@ -1,4 +1,4 @@
-import { defineComponent, reactive, onMounted, onUnmounted } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, onUnmounted, ref } from 'vue'
 
 import { defaultData, store } from '~/service/store'
 import { PROVIDER } from '~/constants/constant'
@@ -18,11 +18,11 @@ interface RectItem {
 }
 
 export default defineComponent({
-  name: 'CoreSettings',
-  setup: (_p, ctx) => {
-    const $refs: {
-      container: HTMLDivElement
-    } = ctx.refs
+  name: 'ProviderSort',
+  setup: () => {
+    const refs = {
+      container: ref<HTMLDivElement>(),
+    }
 
     const loadList = () => store.config.core.providerOrder.map((id) => ({
       id,
@@ -43,7 +43,10 @@ export default defineComponent({
 
     const threshold = 1
     const calcCenter = () => {
-      drag.rects = Array.from($refs.container.firstElementChild!.children)
+      if (!refs.container.value) {
+        return
+      }
+      drag.rects = Array.from(refs.container.value.firstElementChild!.children)
         .map((v) => {
           const b = v.getBoundingClientRect()
           return {
@@ -134,6 +137,7 @@ export default defineComponent({
 
     return {
       state,
+      refs,
 
       handleDragStart,
       handleToggleVisibility,

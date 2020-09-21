@@ -1,4 +1,4 @@
-import { defineComponent, watch, onUnmounted, reactive, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, watch, onUnmounted, reactive, computed, onMounted } from 'vue'
 
 import { providerOptions, PROVIDER } from '~/constants/constant'
 import { store } from '~/service/store'

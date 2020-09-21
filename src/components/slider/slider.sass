@@ -1,12 +1,7 @@
 .track
   height: 32px
 
-.track-left
-  height: 2px
-  background: #1976D2
-  width: 50%
-
-.track-right
+.track-left, .track-right
   height: 2px
   width: 50%
 
@@ -15,7 +10,6 @@
   width: 15px
   top: 50%
   transform: translate(-50%, -50%)
-  background: #1976D2
   transition-property: width, height
 
   &.dragging
@@ -29,7 +23,6 @@
   transform: translate(-50%, -150%) rotate(45deg) scale(0)
   margin-left: -13px
   border-radius: 50% 50% 0
-  background: #1976D2
   transform-origin: 100% 100%
 
   &.dragging

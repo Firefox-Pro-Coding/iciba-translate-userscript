@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 
 import { providerOptions } from '~/constants/constant'
 import { store } from '~/service/store'

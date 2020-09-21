@@ -4,12 +4,12 @@ import {
   defineComponent,
   computed,
   watch,
-} from '@vue/composition-api'
+} from 'vue'
 
 export default defineComponent({
-  model: {},
+  name: 'Tabs',
   props: {
-    value: {
+    modelValue: {
       type: Number,
       required: true,
     },
@@ -18,10 +18,8 @@ export default defineComponent({
       default: '',
     },
   },
-  setup: (props, setupContext) => {
-    const $refs: {
-      tab: Array<HTMLDivElement>
-    } = setupContext.refs
+  setup: (props, ctx) => {
+    const tabs = reactive([] as Array<HTMLDivElement>)
 
     const state = reactive({
       slider: {
@@ -32,13 +30,13 @@ export default defineComponent({
     })
 
     const tabModel = computed({
-      get: () => props.value,
-      set: (value: number) => setupContext.emit('input', value),
+      get: () => props.modelValue,
+      set: (value: number) => ctx.emit('update:modelValue', value),
     })
 
     const updateSlider = () => {
-      const height = $refs.tab[tabModel.value].getBoundingClientRect().height
-      const top = $refs.tab
+      const height = tabs[tabModel.value].getBoundingClientRect().height
+      const top = tabs
         .filter((_v, i) => i < tabModel.value)
         .map((v) => v.getBoundingClientRect().height)
         .reduce((p, c) => p + c, 0)
@@ -56,36 +54,36 @@ export default defineComponent({
 
 
     onMounted(() => {
-      watch(() => props.value, () => {
-        updateSlider()
-      }, { immediate: true })
+      watch(
+        () => props.modelValue,
+        () => {
+          updateSlider()
+        },
+        { immediate: true },
+      )
     })
 
-    return () => {
-      const tabs = setupContext.slots.default()
-      return (
-        <div class="tabs__div flex-col flex-wrap relative items-stretch">
+    return () => (
+      <div class="i-tabs flex-col flex-wrap relative items-stretch">
+        <div
+          class="slider absolute ease-in-out duration-300"
+          style={sliderStyle.value}
+        />
+        {(ctx.slots.default?.() ?? []).map((tab, index) => (
           <div
-            class="slider absolute ease-in-out duration-300"
-            style={sliderStyle}
-          />
-          {tabs.map((tab, index) => (
-            <div
-              refInFor={true}
-              ref="tab"
-              class={{
-                'tab__div flex flex-center text-14': true,
-                'active': tabModel.value === index,
-              }}
-              v-ripple={{ class: tabModel.value === index ? 'active-ripple' : 'inactive-ripple' }}
-              onClick={() => { tabModel.value = index }}
-              key={index}
-            >
-              {tab}
-            </div>
-          ))}
-        </div>
-      )
-    }
+            ref={(el) => { if (el) { tabs[index] = el as HTMLDivElement } }}
+            class={{
+              'tab flex flex-center text-14': true,
+              'active': tabModel.value === index,
+            }}
+            v-ripple={{ class: tabModel.value === index ? 'active-ripple' : 'inactive-ripple' }}
+            onClick={() => { tabModel.value = index }}
+            key={index}
+          >
+            {tab}
+          </div>
+        ))}
+      </div>
+    )
   },
 })

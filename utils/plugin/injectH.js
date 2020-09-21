@@ -1,7 +1,7 @@
 // https://github.com/luwanquan/babel-preset-vca-jsx/blob/master/src/babel-sugar-inject-h.js
 const syntaxJsx = require('@babel/plugin-syntax-jsx').default
 
-const importSource = '@vue/composition-api'
+const importSource = 'vue'
 
 const hasJSX = (t, path) => {
   const JSXChecker = {

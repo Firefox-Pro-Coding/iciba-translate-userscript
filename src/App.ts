@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, watch, onUnmounted } from '@vue/composition-api'
+import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 import { lazyLoadHoc } from '~/util/lazyLoadHoc'
 
 import IcibaMain from '~/view/IcibaMain/IcibaMain.vue'
@@ -26,6 +26,9 @@ export default defineComponent({
     GoogleDictModal: lazyLoadHoc(GoogleDictModal, EVENTS.OPEN_GOOGLE_DICT_MODAL),
   },
   setup: () => {
+    const refs = {
+      icibaCircle: ref<HTMLDivElement>(),
+    }
     let lastMouseUpEvent: MouseEvent | null = null
     let lastMouseMoveEvent: MouseEvent | null = null
 
@@ -109,6 +112,10 @@ export default defineComponent({
         window.removeEventListener('mousemove', handleMouseMove, true)
         hotkeyService.offHotkeyPress(handleHotkeyPress)
       })
+    }
+
+    return {
+      refs,
     }
   },
 })

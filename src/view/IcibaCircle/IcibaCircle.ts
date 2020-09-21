@@ -4,7 +4,8 @@ import {
   onUnmounted,
   computed,
   reactive,
-} from '@vue/composition-api'
+  ref,
+} from 'vue'
 
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
@@ -23,10 +24,10 @@ interface IcibaCirclePosition {
 }
 
 export default defineComponent({
-  setup: (_props, setupContext) => {
-    const $refs: {
-      circle: HTMLDivElement
-    } = setupContext.refs
+  setup: () => {
+    const refs = {
+      circle: ref<HTMLDivElement>(),
+    }
 
     const state = reactive({
       visible: false,
@@ -107,7 +108,7 @@ export default defineComponent({
       if (!proxied && e.target === icibaRoot) {
         return
       }
-      if (proxied && e.target === $refs.circle) {
+      if (proxied && e.target === refs.circle.value) {
         return
       }
 
@@ -185,6 +186,7 @@ export default defineComponent({
 
     return {
       state,
+      refs,
       computedStyle,
 
       m: {

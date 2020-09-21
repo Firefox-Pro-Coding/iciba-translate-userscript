@@ -1,11 +1,11 @@
-.tabs__div
+.i-tabs
   user-select: none
 
   .slider
     width: 3px
     background: rgba(white, 0.6)
 
-  .tab__div
+  .tab
     cursor: pointer
     color: rgba(white, 0.7)
     line-height: 22px
@@ -17,8 +17,8 @@
     &.active
       color: white
 
-    ::v-deep .active-ripple .v-ripple__animation--in
+    .active-ripple .v-ripple__animation--in
       opacity: 0.25 !important
 
-    ::v-deep .inactive-ripple .v-ripple__animation--in
+    .inactive-ripple .v-ripple__animation--in
       opacity: 0.2

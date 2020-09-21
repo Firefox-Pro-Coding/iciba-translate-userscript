@@ -1,4 +1,4 @@
-import { reactive } from '@vue/composition-api'
+import { reactive } from 'vue'
 import { Codec } from './types'
 
 export const containerData = reactive({

@@ -5,16 +5,17 @@ import {
   onUpdated,
   computed,
   reactive,
-} from '@vue/composition-api'
+  ref,
+} from 'vue'
 import ResizeObserver from 'resize-observer-polyfill'
 import { scrollBarWidthService } from '~/service/scrollBarWidth'
 
 export default defineComponent({
-  setup: (props, setupContext) => {
-    const $refs: {
-      container: HTMLDivElement
-      scrollBox: HTMLDivElement
-    } = setupContext.refs
+  setup: (props) => {
+    const refs = {
+      container: ref<HTMLDivElement>(),
+      scrollBox: ref<HTMLDivElement>(),
+    }
 
     const state = reactive({
       drag: {
@@ -36,19 +37,25 @@ export default defineComponent({
 
     const handleScrollbarThumbClick = (e: MouseEvent) => {
       e.preventDefault()
+      if (!refs.container.value) {
+        return
+      }
       state.drag.start = true
       state.drag.startY = e.clientY
-      state.drag.startScrollTop = $refs.container.scrollTop
+      state.drag.startScrollTop = refs.container.value.scrollTop
     }
 
     const handleScrollbarThumbMousemove = (e: MouseEvent) => {
+      if (!refs.container.value) {
+        return
+      }
       if (state.drag.start) {
         e.preventDefault()
 
         const {
           scrollHeight,
           clientHeight,
-        } = $refs.container
+        } = refs.container.value
 
         const scrollSpacePixel = scrollHeight - clientHeight
         const mouseMovePixel = e.clientY - state.drag.startY
@@ -62,7 +69,7 @@ export default defineComponent({
           destScrollTop = 0
         }
 
-        $refs.container.scrollTop = destScrollTop
+        refs.container.value.scrollTop = destScrollTop
       }
     }
 
@@ -71,14 +78,14 @@ export default defineComponent({
     }
 
     const calcScrollbar = () => {
-      if (!$refs.container) {
+      if (!refs.container.value) {
         return
       }
       const {
         scrollTop,
         scrollHeight,
         clientHeight,
-      } = $refs.container
+      } = refs.container.value
 
       const sizePercentage = clientHeight / scrollHeight
       const avaliableScrollSpace = scrollHeight - clientHeight
@@ -119,11 +126,11 @@ export default defineComponent({
 
       const ro = new ResizeObserver(calcScrollbar)
       window.setTimeout(() => {
-        if ($refs.container) {
-          ro.observe($refs.container)
+        if (refs.container.value) {
+          ro.observe(refs.container.value)
         }
-        if ($refs.scrollBox) {
-          ro.observe($refs.scrollBox)
+        if (refs.scrollBox.value) {
+          ro.observe(refs.scrollBox.value)
         }
       })
 
@@ -142,6 +149,7 @@ export default defineComponent({
 
     return {
       state,
+      refs,
       props,
       thumbStyle,
       scrollBoxStyle,

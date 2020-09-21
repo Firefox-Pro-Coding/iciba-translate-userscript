@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'
@@ -33,8 +33,14 @@ export default defineComponent({
     morphUnit,
   },
   props: {
-    entry: null,
-    isSubentry: null,
+    entry: {
+      type: null,
+      required: true,
+    },
+    isSubentry: {
+      type: Boolean,
+      required: true,
+    },
   },
   setup: (props: Props) => ({
     e: props.entry,

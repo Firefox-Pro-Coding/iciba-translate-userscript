@@ -1,4 +1,4 @@
-import { computed, reactive } from '@vue/composition-api'
+import { computed, reactive } from 'vue'
 import { isLeft, isRight } from 'fp-ts/lib/Either'
 import { PROVIDER } from '~/constants/constant'
 import { useIncrement } from '~/util/useIncrement'

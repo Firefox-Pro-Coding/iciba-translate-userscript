@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 
 import Foldable from '~/components/Foldable/Foldable.vue'
 import IconRadioGroup from '../IconRadioGroup/IconRadioGroup.vue'

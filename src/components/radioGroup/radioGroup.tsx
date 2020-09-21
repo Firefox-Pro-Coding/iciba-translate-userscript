@@ -1,26 +1,20 @@
-import { defineComponent } from '@vue/composition-api'
+import { computed, defineComponent, provide } from 'vue'
 
 export default defineComponent({
-  model: {},
   props: {
-    value: null,
+    modelValue: null,
   },
-  setup: (props, setupContext) => {
+  setup: (props, ctx) => {
     const handleRadioClick = (value: unknown) => {
-      setupContext.emit('input', value)
+      ctx.emit('update:modelValue', value)
     }
+
+    provide('radio-group-handle-radio-click', handleRadioClick)
+    provide('radio-group-value', computed(() => props.modelValue as unknown))
+
     return () => (
       <div class='radio-group flex-col items-start'>
-        {setupContext.slots.default().map((v) => {
-          if (v.componentOptions?.propsData) {
-            v.componentOptions.listeners = v.componentOptions.listeners ?? {}
-            const listeners = v.componentOptions.listeners as any
-            listeners.update_value = handleRadioClick
-            const childProps = v.componentOptions.propsData as any
-            childProps.checked = childProps.value === props.value
-          }
-          return v
-        })}
+        {ctx.slots.default?.()}
       </div>
     )
   },

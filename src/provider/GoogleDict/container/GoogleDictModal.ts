@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import { defineComponent, reactive, onMounted, computed } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted, computed, nextTick } from 'vue'
 import { bus, EVENTS, OpenGoogleDictModalAction } from '~/service/globalBus'
 import { store } from '~/service/store'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
@@ -47,7 +46,7 @@ export default defineComponent({
       state.containerData = copy(p.googleDictData)
       state.id += 1
 
-      Vue.nextTick(() => {
+      nextTick(() => {
         state.visible = true
       })
     }

@@ -1,4 +1,4 @@
-import { defineComponent, reactive, watch, computed } from '@vue/composition-api'
+import { defineComponent, reactive, watch, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { ThesaurusEntry, Thesaurus } from '~/provider/GoogleDict/types'
 import { store } from '~/service/store'
@@ -20,7 +20,7 @@ export default defineComponent({
   },
   props: {
     thesaurusEntries: {
-      type: Array,
+      type: null,
       default: () => [],
     },
   },

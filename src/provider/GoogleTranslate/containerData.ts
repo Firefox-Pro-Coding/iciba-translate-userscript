@@ -1,4 +1,4 @@
-import { reactive } from '@vue/composition-api'
+import { reactive } from 'vue'
 import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 
 const data = {

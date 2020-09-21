@@ -20,10 +20,10 @@ const handleScroll = (_e: Event) => {
 
 
 export default {
-  bind(el: Element) {
+  mounted(el: Element) {
     el.addEventListener('wheel', handleScroll)
   },
-  unbind(el: Element) {
+  unmounted(el: Element) {
     el.removeEventListener('wheel', handleScroll)
   },
 }

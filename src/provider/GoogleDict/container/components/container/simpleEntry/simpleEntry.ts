@@ -1,4 +1,4 @@
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from 'vue'
 
 import phonetics from '../../common/phonetics/phonetics.vue'
 import fragment from '../../common/fragment/fragment.vue'
@@ -16,7 +16,10 @@ export default defineComponent({
     fragment,
   },
   props: {
-    entry: null,
+    entry: {
+      type: null,
+      required: true,
+    },
     isSubentry: {
       type: Boolean,
       default: false,

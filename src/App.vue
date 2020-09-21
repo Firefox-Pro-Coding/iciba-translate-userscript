@@ -1,8 +1,8 @@
 <template>
   <div class="the-app">
-    <iciba-circle ref="icibaCircle" />
+    <iciba-circle :ref="refs.icibaCircle" />
     <iciba-main
-      :get-iciba-circle="() => $refs.icibaCircle"
+      :get-iciba-circle="() => refs.icibaCircle.value"
     />
     <setting-page />
     <google-dict-modal />

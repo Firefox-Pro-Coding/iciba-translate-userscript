@@ -1,4 +1,4 @@
-import { defineComponent, reactive, onMounted } from '@vue/composition-api'
+import { defineComponent, reactive, onMounted } from 'vue'
 
 export const Toast = defineComponent({
   props: {
@@ -36,3 +36,5 @@ export const Toast = defineComponent({
     }
   },
 })
+
+export type ToastComponent = typeof Toast

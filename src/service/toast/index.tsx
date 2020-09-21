@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import { defineComponent, reactive } from '@vue/composition-api'
+import { createApp, defineComponent, h, reactive } from 'vue'
 
 import { shadowRoot } from '~/service/shadowRoot'
 import { useIncrement } from '~/util/useIncrement'
@@ -9,18 +8,21 @@ import type {
   ToastFunction,
 } from './types'
 import Toast from './Toast/index.vue'
+import type { ToastComponent } from './Toast'
 
 const getId = useIncrement()
 const state = reactive({
   toasts: [] as Array<ToastItem>,
 })
 
+const ToastHack = Toast as any as ToastComponent
+
 const init = () => {
   const ToastContainer = defineComponent({
     setup: () => () => (
       <div class="toast-container">
         {state.toasts.map((item) => (
-          <Toast
+          <ToastHack
             key={item.id}
             text={item.text}
             timeout={item.timeout}
@@ -31,12 +33,12 @@ const init = () => {
     ),
   })
 
-  const toastContainer = new Vue({
-    el: document.createElement('div'),
-    render: (h) => h(ToastContainer),
+  const toastContainer = createApp({
+    render: () => h(ToastContainer),
   })
-
-  shadowRoot.appendChild(toastContainer.$el)
+  const div = document.createElement('div')
+  toastContainer.mount(div)
+  shadowRoot.appendChild(div)
 }
 
 export const toast: ToastFunction = (params: ToastParams | string, timeout?: number) => {

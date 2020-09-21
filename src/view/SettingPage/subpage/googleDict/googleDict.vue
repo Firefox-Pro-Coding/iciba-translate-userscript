@@ -1,10 +1,10 @@
 <template>
   <div class="flex-col items-start">
     <provider-common
-      :icon.sync="form.icon"
-      :display.sync="form.display"
-      :enable-hotkey.sync="form.enableHotkey"
-      :hotkey.sync="form.hotkey"
+      v-model:icon="form.icon"
+      v-model:display="form.display"
+      v-model:enable-hotkey="form.enableHotkey"
+      v-model:hotkey="form.hotkey"
       name="google字典"
       :icons="iconOptions"
     />

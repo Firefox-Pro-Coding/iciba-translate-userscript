@@ -3,9 +3,6 @@ const config = require('./webpack.base.conf')
 
 process.env.NODE_ENV = 'production'
 
-// using runtime only in production
-config.resolve.alias.set('vue$', 'vue/dist/vue.runtime.esm.js')
-
 config.performance.maxEntrypointSize((1024 ** 2) * 5)
 config.performance.maxAssetSize((1024 ** 2) * 5)
 
