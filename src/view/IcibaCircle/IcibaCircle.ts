@@ -13,7 +13,12 @@ import { bus, EVENTS } from '~/service/globalBus'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 import { store } from '~/service/store'
 import { shadowRoot, icibaRoot } from '~/service/shadowRoot'
-import { PROVIDER, allProviders } from '~/constants/constant'
+import {
+  PROVIDER,
+  allProviders,
+  ICIBA_CIRCLE_ICON_MAP,
+  ICIBA_CIRCLE_ICON_TYPE_MAP,
+} from '~/constants/constant'
 import { translateService } from '~/service/translate'
 
 interface IcibaCirclePosition {
@@ -165,12 +170,16 @@ export default defineComponent({
       handleMouseUp(e as MouseEvent, true)
     }
 
+
     const computedStyle = computed(() => ({
       ...state.style,
       zIndex: state.zIndex,
       width: `${store.config.core.icibaCircleSize}px`,
       height: `${store.config.core.icibaCircleSize}px`,
     }))
+
+    const iconUrl = computed(() => ICIBA_CIRCLE_ICON_MAP[store.config.core.icibaCircleIcon])
+    const iconType = computed(() => ICIBA_CIRCLE_ICON_TYPE_MAP[store.config.core.icibaCircleIcon])
 
     onMounted(() => {
       window.addEventListener('mouseup', handleMouseUp, true)
@@ -187,6 +196,8 @@ export default defineComponent({
     return {
       state,
       refs,
+      iconUrl,
+      iconType,
       computedStyle,
 
       m: {

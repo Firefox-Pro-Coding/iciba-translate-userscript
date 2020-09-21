@@ -11,6 +11,19 @@
     </i-checkbox-line>
 
     <foldable :fold="!form.useIcibaCircle">
+      <icon-radio-group
+        class="mt-6"
+        v-model="form.icibaCircleIcon"
+        :icons="icibaCircleIconOptions"
+      >
+        <template #[defaultIconKey]>
+          <div class="flex-1 default-iciba-circle" />
+        </template>
+      </icon-radio-group>
+      <p class="text-14 text-grey-400 mt-1 mb-0">
+        自定义小圆圈图标
+      </p>
+
       <i-checkbox-line
         v-model="form.pressCtrlToShowCircle"
         label="仅按住 ctrl 时显示小圆圈"
@@ -195,3 +208,4 @@
 </template>
 
 <script lang="ts" src="./coreSetting.ts"></script>
+<style lang="sass" src="./coreSetting.sass"></style>

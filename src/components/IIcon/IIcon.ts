@@ -3,6 +3,12 @@ import {
   computed,
 } from 'vue'
 
+interface Props {
+  svg: string
+  size: number | string | false
+  color: string
+}
+
 export default defineComponent({
   props: {
     svg: {
@@ -10,7 +16,7 @@ export default defineComponent({
       default: '',
     },
     size: {
-      type: [Number, String],
+      type: null,
       default: 16,
     },
     color: {
@@ -18,8 +24,11 @@ export default defineComponent({
       default: '',
     },
   },
-  setup: (props) => {
+  setup: (props: Props) => {
     const computedSize = computed(() => {
+      if (!props.size) {
+        return undefined
+      }
       const size = parseInt(`${props.size}`, 10)
       if (`${size}` === `${props.size}`) {
         return `${size}px`
