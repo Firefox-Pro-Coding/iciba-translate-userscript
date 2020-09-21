@@ -12,9 +12,10 @@ import {
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
-import { PROVIDER, allProviders } from '~/constants/constant'
+import { PROVIDER, allProviders, ICIBA_CIRCLE_ICON } from '~/constants/constant'
 
 const provider = enumType<PROVIDER>(PROVIDER, 'PROVIDER')
+const icibaCircleIcon = enumType<ICIBA_CIRCLE_ICON>(ICIBA_CIRCLE_ICON, 'ICIBA_CIRCLE_ICON')
 
 const looseProviderArray = new Type<Array<PROVIDER>>(
   'provider-array',
@@ -44,6 +45,7 @@ export const type = tType({
   icibaCircleNoCJK: fallback(boolean, false),
 
   useIcibaCircle: fallback(boolean, true),
+  icibaCircleIcon: fallback(icibaCircleIcon, ICIBA_CIRCLE_ICON.DEFAULT),
   pressCtrlToDrag: fallback(boolean, true),
   pressCtrlToShowCircle: fallback(boolean, false),
   mouseOverTranslate: fallback(boolean, false),

@@ -6,7 +6,7 @@
       width: computedSize,
     }"
   >
-    <img class="svg-img w-full h-full" :src="svgUrl" alt="">
+    <img class="svg-img flex-1 w-0" :src="svgUrl" alt="">
   </div>
 </template>
 

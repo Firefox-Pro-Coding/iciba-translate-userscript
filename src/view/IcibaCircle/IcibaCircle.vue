@@ -1,14 +1,20 @@
 <template>
   <transition name="c">
     <div
+      class="iciba-circle absolute select-none overflow-hidden flex flex-center"
+      :class="{
+        'has-icon': !!iconUrl,
+        [iconType]: true,
+      }"
       :ref="refs.circle"
       v-show="state.visible"
       :style="computedStyle"
-      class="iciba-circle absolute select-none overflow-hidden rounded-full"
       @contextmenu.prevent
       @mouseover="m.handleSelfMouseover"
       @mouseup="m.handleSelfMouseUp"
-    />
+    >
+      <i-icon class="flex-1" :size="false" v-if="iconUrl" :svg="iconUrl" />
+    </div>
   </transition>
 </template>
 

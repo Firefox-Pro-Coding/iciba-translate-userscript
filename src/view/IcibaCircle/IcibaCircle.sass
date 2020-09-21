@@ -2,10 +2,19 @@
   z-index: 10000
   width: 22px
   height: 22px
-  border: 1px solid hsl(0, 0%, 6%)
-  background: hsl(215, 70%, 80%)
-  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 0 1px 0 rgba(0, 0, 0, 0.14), 0 0 3px 0 rgba(0, 0, 0, 0.12)
-  opacity: 0.7
+  opacity: 0.9
+
+  &.circle
+    border-radius: 9999px
+
+  &:not(.has-icon)
+    border: 1px solid hsl(0, 0%, 6%)
+    background: hsl(215, 70%, 80%)
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 0 1px 0 rgba(0, 0, 0, 0.14), 0 0 3px 0 rgba(0, 0, 0, 0.12)
+    opacity: 0.7
+
+    &:active
+      box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 0 1px 0 rgba(0, 0, 0, 0.14), 0 0 3px 0 rgba(0, 0, 0, 0.12), 1px 1px 1px rgba(black, 0.4) inset
 
   &.c-leave-active
     transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1)
@@ -23,5 +32,4 @@
     opacity: 1
 
   &:active
-    background: shade(hsl(215, 70%, 80%), 12%)
-    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2), 0 0 1px 0 rgba(0, 0, 0, 0.14), 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 1px 1px rgba(black, 0.4) inset
+    filter: brightness(0.7)
