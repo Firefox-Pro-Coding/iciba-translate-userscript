@@ -1,4 +1,4 @@
-import { allProviders } from '~/constants/constant'
+import { allProviders } from '~/constants'
 import { store } from '~/service/store'
 
 const normalizeKey = (key: string) => (

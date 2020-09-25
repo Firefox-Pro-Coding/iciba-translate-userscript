@@ -3,3 +3,4 @@ tsc_dist/
 dist/
 yarn-error.log
 .cache-loader/
+/coverage

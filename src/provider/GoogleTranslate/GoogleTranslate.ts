@@ -1,6 +1,6 @@
 import { stringify } from 'querystring'
 import { left, right } from 'fp-ts/lib/Either'
-import { PROVIDER, GOOGLE_TRANSLATE_HOST_MAP } from '~/constants/constant'
+import { PROVIDER, GOOGLE_TRANSLATE_HOST_MAP } from '~/constants'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'
 import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'

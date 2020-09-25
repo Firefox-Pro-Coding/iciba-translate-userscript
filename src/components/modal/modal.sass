@@ -1,0 +1,17 @@
+.modal-component
+  background: rgba(0, 0, 0, 0.3)
+
+  &.m-enter-from,
+  &.m-leave-to
+    background: rgba(0, 0, 0, 0)
+
+    .modal-container
+      opacity: 0
+
+  &.m-enter-from
+    .modal-container
+      transform: scale(0.9)
+
+  &.m-leave-from,
+  &.m-enter-to
+    background: rgba(0, 0, 0, 0.3)

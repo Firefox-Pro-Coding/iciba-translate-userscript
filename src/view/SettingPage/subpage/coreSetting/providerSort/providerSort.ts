@@ -1,7 +1,7 @@
 import { defineComponent, reactive, onMounted, onUnmounted, ref } from 'vue'
 
 import { defaultData, store } from '~/service/store'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { getIcon } from '~/provider/provider'
 
 interface DragItem {

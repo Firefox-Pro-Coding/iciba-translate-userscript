@@ -5,7 +5,7 @@ import {
 } from 'io-ts'
 
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import providerIcon from '~/constants/icon'
 import { providerCommonStore } from '../provider'
 

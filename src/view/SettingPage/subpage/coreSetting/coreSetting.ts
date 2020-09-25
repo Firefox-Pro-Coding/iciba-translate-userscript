@@ -5,7 +5,7 @@ import {
   PROVIDER,
   ICIBA_CIRCLE_ICON,
   ICIBA_CIRCLE_ICON_MAP,
-} from '~/constants/constant'
+} from '~/constants'
 import { store } from '~/service/store'
 
 import Foldable from '~/components/Foldable/Foldable.vue'

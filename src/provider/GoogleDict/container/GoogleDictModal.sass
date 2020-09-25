@@ -1,82 +1,48 @@
 @import '~assets/styles/variables.sass'
 
-.modal-wrapper
-  z-index: 10000
+.google-dict-modal
+  height: 100vh
+  width: 80vw
+  max-width: 800px
   font-family: 'Arial', 'Microsoft Yahei UI', sans-serif
 
   ::v-deep(.entry-link)
-    color: lighten(desaturate($primary, 50%), 4%)
+    // color: lighten(desaturate($primary, 50%), 4%)
     color: #7da7d4
     cursor: pointer
 
-  &.modal-enter-from, &.modal-leave-to
-    opacity: 0
+.fold-control
+  top: 0
+  left: 50%
+  transform: translate(-50%, 0)
 
-  &.modal-enter-from
-    .modal-content
-      transform: scale(0.9)
+  .control-btn
+    height: 32px
+    width: 32px
 
-    .fold-control
-      transform: translate(-50%, -100%)
-
-  &.modal-enter-to, &.modal-leave-from
-    opacity: 1
-
-  .fold-control
-    top: 0
-    left: 50%
-    transform: translate(-50%, 0)
-    z-index: 4
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) transform, 0.1s cubic-bezier(0.4, 0, 0.2, 1) opacity
-    background-color: $background-level-5
-    opacity: 0.7
+    &.disable
+      pointer-events: none
+      opacity: 0.2
 
     &:hover
-      opacity: 1
-
-    .control-btn
-      height: 32px
-      width: 32px
-      position: relative
-
-      &.disable
-        pointer-events: none
-        opacity: 0.2
-
-      &:hover
-        background-color: $background-level-4
-
-        .tooltip
-          opacity: 1
-
-      &:active
-        box-shadow: 0 1px 3px rgba(black, 0.3) inset
+      background-color: $background-level-4
 
       .tooltip
-        opacity: 0
-        font-size: 12px
-        position: absolute
-        bottom: -8px
-        left: 50%
-        transform: translate(-50%, 100%)
-        background: rgba(black, 0.5)
-        padding: 1px 4px
-        color: white
-        border-radius: 4px
-        pointer-events: none
-        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+        opacity: 1
 
-  .modal-bg
-    background: rgba(0, 0, 0, 0.4)
-    z-index: 1
+    &:active
+      box-shadow: 0 1px 3px rgba(black, 0.3) inset
 
-  .modal-box
-    z-index: 2
-    width: 80%
-    max-width: 800px
-
-    .scroll-container
-      height: 100%
-
-    .content-box
-      padding: 20px 20px 30px 20px
+  .tooltip
+    position: absolute
+    bottom: -8px
+    left: 50%
+    transform: translate(-50%, 100%)
+    background: rgba(black, 0.5)
+    border-radius: 4px
+    color: white
+    font-size: 12px
+    opacity: 0
+    padding: 1px 6px
+    pointer-events: none
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1)

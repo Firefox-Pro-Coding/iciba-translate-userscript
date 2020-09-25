@@ -9,5 +9,5 @@
   </transition>
 </template>
 
-<script src="./toast.ts" lang="ts"></script>
-<style src="./toast.sass" lang="sass" scoped></style>
+<script src="./index.ts" lang="ts"></script>
+<style src="./index.sass" lang="sass" scoped></style>

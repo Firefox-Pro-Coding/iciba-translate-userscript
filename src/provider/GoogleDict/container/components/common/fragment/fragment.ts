@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 // import googleDictBus from '~/provider/GoogleDict/bus'
 import { bus, EVENTS } from '~/service/globalBus'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { Fragment } from '~/provider/GoogleDict/types'
 
 interface Props {

@@ -2,7 +2,7 @@ import { defineComponent, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { store } from '~/service/store'
 import { Sense } from '~/provider/GoogleDict/types'
-import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
+import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants'
 
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'

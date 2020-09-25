@@ -1,7 +1,7 @@
 import { left, right } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import { ProviderType } from '../provider'
 import IcibaContainer from './container/VocabularyContainer.vue'

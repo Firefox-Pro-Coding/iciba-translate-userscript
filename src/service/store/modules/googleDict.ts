@@ -4,7 +4,7 @@ import {
   boolean,
 } from 'io-ts'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
-import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
+import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants'
 import providerIcon from '~/constants/icon'
 import { providerCommonStore } from '../provider'
 import { enumType } from '~/util/extendIoTs/enum'

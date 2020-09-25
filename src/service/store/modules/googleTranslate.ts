@@ -5,7 +5,7 @@ import {
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
-import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants/constant'
+import { PROVIDER, GOOGLE_TRANSLATE_HOST } from '~/constants'
 import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 
 import providerIcon from '~/constants/icon'

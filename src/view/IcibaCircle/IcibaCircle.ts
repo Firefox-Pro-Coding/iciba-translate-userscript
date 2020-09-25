@@ -18,7 +18,7 @@ import {
   allProviders,
   ICIBA_CIRCLE_ICON_MAP,
   ICIBA_CIRCLE_ICON_TYPE_MAP,
-} from '~/constants/constant'
+} from '~/constants'
 import { translateService } from '~/service/translate'
 
 interface IcibaCirclePosition {

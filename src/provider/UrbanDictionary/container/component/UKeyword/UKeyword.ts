@@ -2,7 +2,7 @@ import { defineComponent, reactive, onMounted, watch, ref } from 'vue'
 
 import urbanBus, { NAMES } from '../../bus'
 import { bus, EVENTS } from '~/service/globalBus'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 export default defineComponent({
   name: 'UrbanDictionaryKeyword',

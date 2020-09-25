@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 import { store } from '~/service/store'
 
 import providerIcon from '~/constants/icon'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import ProviderCommon from '../../providerCommon/providerCommon.vue'
 

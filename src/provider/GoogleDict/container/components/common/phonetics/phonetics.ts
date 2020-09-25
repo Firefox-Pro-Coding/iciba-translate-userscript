@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 import { audioBus, AEVENTS } from '~/service/audioBus'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 export default defineComponent({
   name: 'GPhonetics',

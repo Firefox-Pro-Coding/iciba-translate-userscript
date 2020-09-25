@@ -1,3 +1,5 @@
+import { IcibaExtendedGMOption, IcibaExtendedGMXMLHttpRequestResponse } from './types'
+
 /* eslint-disable camelcase */
 export const getValue = (name: string, def: string): Promise<string | number | boolean> => {
   if (GM?.getValue) {
@@ -18,19 +20,6 @@ export const setValue = (name: string, value: string): Promise<void> => {
     return Promise.resolve()
   }
   return Promise.resolve()
-}
-
-interface IcibaExtendedGMOption extends GM.Request {
-  responseType?: string
-  anonymous?: boolean
-}
-
-type IfEquals<A, B, X, Y> =
-  (<T>() => T extends A ? 1 : 2) extends
-  (<T>() => T extends B ? 1 : 2) ? X : Y
-
-interface IcibaExtendedGMXMLHttpRequestResponse<T = unknown> extends GM.Response<unknown> {
-  response: IfEquals<T, unknown, unknown, T>
 }
 
 export class GMXMLError extends Error {

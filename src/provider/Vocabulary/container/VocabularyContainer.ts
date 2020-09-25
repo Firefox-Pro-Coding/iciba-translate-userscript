@@ -2,7 +2,7 @@ import { defineComponent, computed } from 'vue'
 import play from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { audioBus, AEVENTS } from '~/service/audioBus'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import containerData from '../containerData'
 
