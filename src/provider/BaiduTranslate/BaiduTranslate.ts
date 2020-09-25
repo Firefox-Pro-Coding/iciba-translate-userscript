@@ -1,6 +1,6 @@
 import { stringify } from 'querystring'
 import { left, right } from 'fp-ts/lib/Either'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'

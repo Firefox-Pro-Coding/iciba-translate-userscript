@@ -4,7 +4,7 @@ import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 import { audioBus, AEVENTS } from '~/service/audioBus'
 import { bus, EVENTS } from '~/service/globalBus'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import { containerData } from '../containerData'
 import type {

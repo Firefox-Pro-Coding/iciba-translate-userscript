@@ -6,7 +6,7 @@ import {
   PROVIDER,
   GOOGLE_DICT_FOLD_STATUS,
   GOOGLE_DICT_FOLD_STATUS_MAP,
-} from '~/constants/constant'
+} from '~/constants'
 
 import ProviderCommon from '../../providerCommon/providerCommon.vue'
 

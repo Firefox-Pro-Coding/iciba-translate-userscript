@@ -1,3 +1,4 @@
+const tailwindDefaults = require('tailwindcss/defaultConfig')
 const colors = require('./utils/color-palette')
 
 module.exports = {
@@ -12,6 +13,14 @@ module.exports = {
       './src/**/*.tsx',
       './src/**/*.js',
     ],
+  },
+  corePlugins: {
+    textOpacity: false,
+    backgroundOpacity: false,
+    borderOpacity: false,
+  },
+  variants: {
+    backgroundColor: [...tailwindDefaults.variants.backgroundColor, 'group-hover'],
   },
   theme: {
     screens: false,
@@ -75,7 +84,19 @@ module.exports = {
     },
 
     extend: {
-      colors,
+      colors: {
+        ...colors,
+        'primary': '#409EFF',
+        'success': '#67C23A',
+        'warning': '#E6A23C',
+        'danger': '#F56C6C',
+        'info': '#909399',
+        'bg-1': 'hsl(0, 0%, 85%)',
+        'bg-2': 'hsl(0, 0%, 88%)',
+        'bg-3': 'hsl(0, 0%, 91%)',
+        'bg-4': 'hsl(0, 0%, 94%)',
+        'bg-5': 'hsl(0, 0%, 97%)',
+      },
     },
   },
 }

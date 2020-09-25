@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 
-import { providerOptions } from '~/constants/constant'
+import { providerOptions } from '~/constants'
 import { store } from '~/service/store'
 
 import Foldable from '~/components/Foldable/Foldable.vue'

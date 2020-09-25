@@ -1,4 +1,4 @@
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import searchIcon from '~/assets/img/providerIcon/iciba/search.svg'
 import iciba_1362193 from '~/assets/img/providerIcon/iciba/iciba_1362193.svg'

@@ -1,6 +1,6 @@
 import { computed, reactive } from 'vue'
 import { isLeft, isRight } from 'fp-ts/lib/Either'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { useIncrement } from '~/util/useIncrement'
 import { iciba } from '~/provider/Iciba/Iciba'
 import { googleDict } from '~/provider/GoogleDict/GoogleDict'
@@ -14,6 +14,7 @@ import { ProviderType } from '~/provider/provider'
 
 import { EVENTS, TranslateAction } from '../globalBus'
 import { store } from '../store'
+import { historyService } from '../history'
 
 interface ActiveTask {
   word: string
@@ -102,6 +103,10 @@ const translate = async (action: TranslateAction) => {
   if (isRight(result)) {
     state.activeProviderId = provider.id
     result.right()
+    historyService.addItem({
+      word: newTask.word,
+      provider: newTask.provider,
+    })
     state.loading = false
     state.activeTask = null
   }

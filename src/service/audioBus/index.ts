@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { BaiduTranslatePlayAudioPayload } from '~/provider/BaiduTranslate/types'
 import { BingTranslatePlayAudioPayload } from '~/provider/BingTranslate/types'
 import { GoogleDictPlayAudioPayload } from '~/provider/GoogleDict/types'

@@ -22,11 +22,17 @@
     "paths": {
       "~/*": ["src/*"]
     },
-    "plugins": []
+    "plugins": [],
+    "types": [
+      "node",
+      "jest",
+      "greasemonkey",
+      "tampermonkey",
+    ]
   },
   "include": [
-    // "node_modules/vue-tsx-support/enable-check.d.ts",
     "src",
+    "test",
     "build/devClient.ts",
-  ]
+  ],
 }

@@ -119,11 +119,6 @@ config.plugin('fork-ts-checker-webpack-plugin')
     eslint: {
       files: './src/**/*.{ts,tsx,js,jsx,vue}',
     },
-    // typescript: {
-    //   extensions: {
-    //     vue: true,
-    //   },
-    // },
   }])
 
 config.plugin('duplicate-package-checker-webpack-plugin')

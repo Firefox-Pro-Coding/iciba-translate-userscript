@@ -1,7 +1,7 @@
 import { defineComponent, reactive } from 'vue'
 import { bus, EVENTS } from '~/service/globalBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import { audioBus, AEVENTS } from '~/service/audioBus'
 import { GOOGLE_LANGUAGE_MAP, GOOGLE_LANGUAGES } from '~/constants/googleLanguages'

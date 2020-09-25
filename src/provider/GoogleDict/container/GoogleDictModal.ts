@@ -1,8 +1,8 @@
 import { defineComponent, reactive, onMounted, computed, nextTick } from 'vue'
 import { bus, EVENTS, OpenGoogleDictModalAction } from '~/service/globalBus'
 import { store } from '~/service/store'
-import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 
+import ModalComponent from '~/components/modal/modal.vue'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import ImageLoader from './components/modal/imageLoader/imageLoader.vue'
 import UsageOvertime from './components/modal/usageOvertime/usageOvertime.vue'
@@ -12,12 +12,13 @@ import {
   GOOGLE_DICT_FOLD_STATUS,
   GOOGLE_DICT_FOLD_STATUS_NEXT_MAP,
   GOOGLE_DICT_FOLD_STATUS_PREV_MAP,
-} from '~/constants/constant'
+} from '~/constants'
 
 import minus from '~/assets/img/minus.svg'
 import plus from '~/assets/img/plus.svg'
 import copy from '~/util/copy'
 import { Codec } from '../types'
+import { viewService } from '~/service/view'
 
 const icon = {
   minus,
@@ -31,30 +32,26 @@ export default defineComponent({
     UsageOvertime,
     Entry,
     Scrollable,
+    ModalComponent,
   },
   setup: () => {
     const state = reactive({
-      zIndex: 0,
       containerData: null as null | Codec['dictionaryData'],
-      visible: false,
       id: 0,
     })
 
     const handleOpenModal = (p: OpenGoogleDictModalAction) => {
-      state.zIndex = zIndexService.gen(Z_INDEX_KEY.GOOGLE_DICT_MODAL)
-
       state.containerData = copy(p.googleDictData)
       state.id += 1
 
       nextTick(() => {
-        state.visible = true
+        viewService.openGoogleDictModal()
       })
     }
 
     const handleCloseModal = () => {
-      state.visible = false
+      viewService.closeGoogleDictModal()
     }
-
 
     const handleShrink = () => {
       const status = store.config[PROVIDER.GOOGLE_DICT].foldStatus
@@ -73,11 +70,13 @@ export default defineComponent({
       })
     })
 
+    const visible = computed(() => viewService.state.googleDictModal)
     const shrinkable = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus < GOOGLE_DICT_FOLD_STATUS.FOLD_SUBSENSE)
     const expandable = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus > GOOGLE_DICT_FOLD_STATUS.UNFOLD)
 
     return {
       state,
+      visible,
       icon,
       shrinkable,
       expandable,

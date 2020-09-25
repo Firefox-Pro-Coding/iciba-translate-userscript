@@ -7,7 +7,7 @@
     <transition name="m">
       <div
         class="iciba-main-wrap absolute overflow-visible ease-in-out duration-150 transition-opacity"
-        v-show="state.visible"
+        v-show="visible"
         :ref="refs.icibaMainWrap"
       >
         <div
@@ -36,7 +36,14 @@
                 @keypress.enter="m.handleInputEnter"
               >
               <div
-                class="setting-button flex flex-center absolute cursor-pointer"
+                class="input-button flex flex-center cursor-pointer"
+                v-if="store.config.core.history"
+                @click="m.handleOpenHistory"
+              >
+                <i-icon :size="21" :svg="icon.historyIcon" color="#aaa" />
+              </div>
+              <div
+                class="input-button flex flex-center cursor-pointer"
                 @click="m.handleOpenSetting"
               >
                 <i-icon :svg="icon.settingsIcon" />

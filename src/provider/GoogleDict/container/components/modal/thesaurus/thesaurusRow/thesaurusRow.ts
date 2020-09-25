@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { Thesaurus } from '~/provider/GoogleDict/types'
 import { bus, EVENTS } from '~/service/globalBus'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import Labels from '../../labels/labels.vue'
 

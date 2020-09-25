@@ -1,3 +1,4 @@
+import { GM_STORE_KEY } from '~/constants'
 import {
   getValue,
   setValue,
@@ -8,10 +9,8 @@ interface SeccodeStore {
   time: number
 }
 
-const SOUGOU_SECCODE_KEY = 'sougou_seccode'
-
 const parseKey = async (): Promise<string> => {
-  const dataString = await getValue(SOUGOU_SECCODE_KEY, '') as string
+  const dataString = await getValue(GM_STORE_KEY.SOUGOU_SECCODE, '') as string
   if (!dataString) {
     return ''
   }
@@ -89,7 +88,7 @@ const init = () => {
   unsafeWindow.addEventListener('load', () => {
     try {
       const seccode = (unsafeWindow as any).__INITIAL_STATE__.CONFIG.secretCode as number
-      setValue(SOUGOU_SECCODE_KEY, JSON.stringify({
+      setValue(GM_STORE_KEY.SOUGOU_SECCODE, JSON.stringify({
         seccode,
         time: Date.now(),
       }))

@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 import { SOUGOU_LANGUAGE_MAP, SOUGOU_LANGUAGES } from '~/constants/sougouLanguages'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { bus, EVENTS } from '~/service/globalBus'
 import { audioBus, AEVENTS } from '~/service/audioBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'

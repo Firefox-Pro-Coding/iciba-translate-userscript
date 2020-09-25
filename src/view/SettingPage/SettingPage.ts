@@ -1,16 +1,14 @@
 import {
   defineComponent,
   reactive,
-  onMounted,
+  computed,
 } from 'vue'
-
-import { bus, EVENTS } from '~/service/globalBus'
-import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'
 
 import ITabs from '~/components/tabs/tabs.vue'
 import ITab from '~/components/tab/tab.vue'
 import ITabsItems from '~/components/tabsItems/tabsItems.vue'
 import ITabItem from '~/components/tabItem/tabItem.vue'
+import ModalComponent from '~/components/modal/modal.vue'
 
 import About from './subpage/about/about.vue'
 import CoreSetting from './subpage/coreSetting/coreSetting.vue'
@@ -23,13 +21,16 @@ import SougouTranslate from './subpage/sougouTranslate/sougouTranslate.vue'
 import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
 import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
 import Vocabulary from './subpage/vocabulary/vocabulary.vue'
+import { viewService } from '~/service/view'
 
 export default defineComponent({
+  name: 'SettingPage',
   components: {
     ITabs,
     ITab,
     ITabsItems,
     ITabItem,
+    ModalComponent,
 
     About,
     CoreSetting,
@@ -46,35 +47,17 @@ export default defineComponent({
   setup: () => {
     const state = reactive({
       tab: 1,
-      visible: false,
-      zIndex: 0,
-      bodyOverflowXValue: '',
-      bodyOverflowYValue: '',
     })
-
-    const openSetting = () => {
-      state.bodyOverflowXValue = document.body.style.overflowX || ''
-      state.bodyOverflowYValue = document.body.style.overflowY || ''
-      state.zIndex = zIndexService.gen(Z_INDEX_KEY.GENERAL)
-      state.tab = 1
-      state.visible = true
-    }
 
     const handleCloseSetting = () => {
-      document.body.style.overflowX = state.bodyOverflowXValue
-      document.body.style.overflowY = state.bodyOverflowYValue
-      state.visible = false
+      viewService.closeSettings()
     }
 
-    onMounted(() => {
-      bus.on({
-        event: EVENTS.OPEN_SETTING,
-        listener: openSetting,
-      })
-    })
+    const visible = computed(() => viewService.state.setting)
 
     return {
       state,
+      visible,
 
       handleCloseSetting,
     }

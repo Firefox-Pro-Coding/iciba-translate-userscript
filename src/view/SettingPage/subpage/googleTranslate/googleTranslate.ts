@@ -7,7 +7,7 @@ import {
   GOOGLE_TRANSLATE_HOST,
   GOOGLE_TRANSLATE_HOST_MAP,
   PROVIDER,
-} from '~/constants/constant'
+} from '~/constants'
 
 import ProviderCommon from '../../providerCommon/providerCommon.vue'
 

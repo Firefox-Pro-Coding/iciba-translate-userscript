@@ -37,4 +37,6 @@ export const Toast = defineComponent({
   },
 })
 
+export default Toast
+
 export type ToastComponent = typeof Toast

@@ -2,7 +2,7 @@ import { defineComponent, reactive, watch, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { ThesaurusEntry, Thesaurus } from '~/provider/GoogleDict/types'
 import { store } from '~/service/store'
-import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants/constant'
+import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants'
 
 import Labels from '../labels/labels.vue'
 import ThesaurusRow from './thesaurusRow/thesaurusRow.vue'

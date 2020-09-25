@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import { Either } from 'fp-ts/lib/Either'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import providerIcon from '~/constants/icon'
 import { store } from '~/service/store'
 

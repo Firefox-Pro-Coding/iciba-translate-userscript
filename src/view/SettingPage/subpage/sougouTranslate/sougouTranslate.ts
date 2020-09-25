@@ -3,7 +3,7 @@ import { defineComponent, watch, onUnmounted } from 'vue'
 import { store } from '~/service/store'
 
 import providerIcon from '~/constants/icon'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { sougouLanguagesOptions, SOUGOU_LANGUAGES } from '~/constants/sougouLanguages'
 
 import ProviderCommon from '../../providerCommon/providerCommon.vue'

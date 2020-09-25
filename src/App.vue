@@ -6,6 +6,7 @@
     />
     <setting-page />
     <google-dict-modal />
+    <history-modal />
   </div>
 </template>
 

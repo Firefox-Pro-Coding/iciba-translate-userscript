@@ -25,7 +25,7 @@
         v-no-overscroll
       >
         <div
-          class="w-full"
+          class="w-full flex-col"
           :ref="refs.scrollBox"
         >
           <slot :scrollBar="!state.noScrollBar" />

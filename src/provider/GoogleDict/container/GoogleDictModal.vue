@@ -1,11 +1,10 @@
 <template>
-  <transition name="modal">
-    <div
-      class="modal-wrapper flex fixed inset-0 justify-center items-stretch ease-in-out duration-300"
-      :style="{ zIndex: state.zIndex }"
-      v-if="state.visible"
-    >
-      <div class="fold-control select-none flex shadow-2 absolute">
+  <modal-component
+    :open="visible"
+    @close="handleCloseModal"
+  >
+    <div class="google-dict-modal flex-col relative shadow-16">
+      <div class="fold-control flex absolute select-none z-20 shadow-2 opacity-75 hover:opacity-100 duration-200 ease-in-out bg-bg-5">
         <div
           :class="{ disable: !shrinkable }"
           class="control-btn flex flex-center relative"
@@ -29,66 +28,65 @@
         </div>
       </div>
 
-      <div
-        class="modal-bg absolute inset-0 ease-in-out duration-300"
-        @click="handleCloseModal"
-      />
-
-      <div class="modal-box relative mx-auto shadow-16 text-14 bg-white">
-        <scrollable
-          class="scroll-container"
-          :no-scroll-bar-style="{ 'padding-right': '10px' }"
-          :scroll-bar-style="{ 'padding-right': '2px' }"
-        >
-          <div class="content-box">
+      <div class="modal-box flex-col flex-1 h-0 relative text-14 bg-white">
+        <scrollable class="flex-1 h-0">
+          <template #default="{ scrollBar }">
             <div
-              class="dictionary-data-box flex-col items-stretch"
-              v-if="state.containerData && state.containerData.length"
+              class="content-box px-5 pt-5 pb-7"
+              :class="{
+                'pr-5': !scrollBar,
+                'pr-7': scrollBar,
+              }"
             >
               <div
-                class="dictionary-data-item"
-                v-for="dicDataItem in state.containerData"
-                :key="state.id + dicDataItem.queryTerm"
+                class="dictionary-data-box flex-col items-stretch"
+                v-if="state.containerData && state.containerData.length"
               >
-                <!-- entry -->
-                <!-- <div class="entry-box flex-col items-stretch" v-if="false"> -->
                 <div
-                  class="entry-box flex-col items-stretch"
-                  v-if="dicDataItem.entries && dicDataItem.entries.length"
+                  class="dictionary-data-item"
+                  v-for="dicDataItem in state.containerData"
+                  :key="state.id + dicDataItem.queryTerm"
                 >
-                  <entry
-                    :class="{
-                      'mt-5': entryIndex !== 0,
-                    }"
-                    v-for="(entry, entryIndex) in dicDataItem.entries"
-                    :entry="entry"
-                    :key="entry.entrySeqNo"
+                  <!-- entry -->
+                  <!-- <div class="entry-box flex-col items-stretch" v-if="false"> -->
+                  <div
+                    class="entry-box flex-col items-stretch"
+                    v-if="dicDataItem.entries && dicDataItem.entries.length"
+                  >
+                    <entry
+                      :class="{
+                        'mt-5': entryIndex !== 0,
+                      }"
+                      v-for="(entry, entryIndex) in dicDataItem.entries"
+                      :entry="entry"
+                      :key="entry.entrySeqNo"
+                    />
+                  </div>
+
+                  <!-- usage over time -->
+                  <usage-overtime
+                    v-if="dicDataItem.usageOverTimeImage"
+                    :image="dicDataItem.usageOverTimeImage"
+                    :term="dicDataItem.queryTerm"
                   />
                 </div>
-
-                <!-- usage over time -->
-                <usage-overtime
-                  v-if="dicDataItem.usageOverTimeImage"
-                  :image="dicDataItem.usageOverTimeImage"
-                  :term="dicDataItem.queryTerm"
-                />
               </div>
-            </div>
 
-            <!-- {{#hasWebDefinitions}}
-            <div class="section-name">Web definitions</div>
-            {{#webDefinitions}}
-            <div>
-              <div>{{definition}}</div>
-              <div><a href="{{sourceUrl}}">{{sourceUrl}}</a></div>
+              <!-- {{#hasWebDefinitions}}
+              <div class="section-name">Web definitions</div>
+              {{#webDefinitions}}
+              <div>
+                <div>{{definition}}</div>
+                <div><a href="{{sourceUrl}}">{{sourceUrl}}</a></div>
+              </div>
+              {{/webDefinitions}}
+              {{/hasWebDefinitions}} -->
             </div>
-            {{/webDefinitions}}
-            {{/hasWebDefinitions}} -->
-          </div>
+          </template>
         </scrollable>
       </div>
     </div>
-  </transition>
+  </modal-component>
 </template>
 
 <script lang="ts" src="./GoogleDictModal.ts"></script>

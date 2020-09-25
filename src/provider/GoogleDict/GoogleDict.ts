@@ -1,7 +1,7 @@
 import { stringify } from 'querystring'
 import { left, right } from 'fp-ts/lib/Either'
 import { got, GMXMLError } from '~/util/gmapi'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { audioCacheService } from '~/service/audioCache'
 import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 

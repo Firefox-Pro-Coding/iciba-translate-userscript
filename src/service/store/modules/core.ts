@@ -12,7 +12,7 @@ import {
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
-import { PROVIDER, allProviders, ICIBA_CIRCLE_ICON } from '~/constants/constant'
+import { PROVIDER, allProviders, ICIBA_CIRCLE_ICON } from '~/constants'
 
 const provider = enumType<PROVIDER>(PROVIDER, 'PROVIDER')
 const icibaCircleIcon = enumType<ICIBA_CIRCLE_ICON>(ICIBA_CIRCLE_ICON, 'ICIBA_CIRCLE_ICON')
@@ -50,6 +50,8 @@ export const type = tType({
   pressCtrlToShowCircle: fallback(boolean, false),
   mouseOverTranslate: fallback(boolean, false),
   icibaMainInputAutoFocus: fallback(boolean, false),
+
+  history: fallback(boolean, false),
 
   showPin: fallback(boolean, false),
   pinned: fallback(boolean, false),

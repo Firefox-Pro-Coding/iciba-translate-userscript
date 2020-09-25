@@ -4,6 +4,7 @@ import { lazyLoadHoc } from '~/util/lazyLoadHoc'
 import IcibaMain from '~/view/IcibaMain/IcibaMain.vue'
 import IcibaCircle from '~/view/IcibaCircle/IcibaCircle.vue'
 import SettingPage from '~/view/SettingPage/SettingPage.vue'
+import HistoryModal from '~/view/HistoryModal/HistoryModal.vue'
 
 import GoogleDictModal from '~/provider/GoogleDict/container/GoogleDictModal.vue'
 import { EVENTS, bus } from './service/globalBus'
@@ -22,8 +23,9 @@ export default defineComponent({
       EVENTS.HOTKEY_TRANSLATE,
     ]),
     IcibaCircle,
-    SettingPage: lazyLoadHoc(SettingPage, EVENTS.OPEN_SETTING),
-    GoogleDictModal: lazyLoadHoc(GoogleDictModal, EVENTS.OPEN_GOOGLE_DICT_MODAL),
+    HistoryModal,
+    SettingPage,
+    GoogleDictModal,
   },
   setup: () => {
     const refs = {

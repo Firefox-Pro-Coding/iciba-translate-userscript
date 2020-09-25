@@ -2,7 +2,7 @@ import { defineComponent, reactive } from 'vue'
 import { bus, EVENTS } from '~/service/globalBus'
 import { audioBus, AEVENTS } from '~/service/audioBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 
 import { BING_LANGUAGE_MAP, BING_LANGUAGES } from '~/constants/bingLanguages'
 import play_speaker_filled_audio_tool_59284 from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'

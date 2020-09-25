@@ -1,6 +1,6 @@
 import { stringify } from 'querystring'
 import { left, right } from 'fp-ts/lib/Either'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import { BING_LANGUAGES, BING_VOICE_MAP } from '~/constants/bingLanguages'
 import { got } from '~/util/gmapi'
 import { store } from '~/service/store'

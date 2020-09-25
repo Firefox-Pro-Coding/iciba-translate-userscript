@@ -5,7 +5,7 @@ import { exact, type, TypeOf, Errors } from 'io-ts'
 import { getValue, setValue } from '~/util/gmapi'
 import copy from '~/util/copy'
 
-import { PROVIDER } from '~/constants/constant'
+import { GM_STORE_KEY, PROVIDER } from '~/constants'
 
 import * as core from './modules/core'
 import * as iciba from './modules/iciba'
@@ -16,8 +16,6 @@ import * as sougouTranslate from './modules/sougouTranslate'
 import * as urbanDictionary from './modules/urbanDictionary'
 import * as bingTranslate from './modules/bingTranslate'
 import * as vocabulary from './modules/vocabulary'
-
-const GM_VALUE_KEY = 'iciba_store'
 
 const storeType = exact(type({
   core: core.type,
@@ -61,7 +59,7 @@ const useStore = () => {
   const loadConfig = async () => {
     let dataString
     try {
-      dataString = await getValue(GM_VALUE_KEY, '') as string
+      dataString = await getValue(GM_STORE_KEY.STORE, '') as string
     } catch (e) {
       dataString = ''
     }
@@ -104,7 +102,7 @@ const useStore = () => {
 
   const saveConfig = () => {
     const dataString = JSON.stringify(store.config)
-    setValue(GM_VALUE_KEY, dataString)
+    setValue(GM_STORE_KEY.STORE, dataString)
   }
 
   const store = {

@@ -114,6 +114,12 @@
     </foldable>
 
     <i-checkbox-line
+      v-model="form.history"
+      label="显示历史记录按钮"
+      text="在设置按钮旁边显示历史查词记录按钮"
+    />
+
+    <i-checkbox-line
       v-model="form.pressCtrlToDrag"
       label="按住 Ctrl 拖拽查词框"
       text="按住 Ctrl 键可拖拽移动查词框位置"
@@ -208,4 +214,4 @@
 </template>
 
 <script lang="ts" src="./coreSetting.ts"></script>
-<style lang="sass" src="./coreSetting.sass"></style>
+<style lang="sass" src="./coreSetting.sass" scoped></style>

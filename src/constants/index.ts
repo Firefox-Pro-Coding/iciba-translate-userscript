@@ -96,3 +96,9 @@ export const ICIBA_CIRCLE_ICON_TYPE_MAP: Record<ICIBA_CIRCLE_ICON, 'square' | 'c
   [ICIBA_CIRCLE_ICON.GOOGLE_TRANSLATE_TEXT]: 'square',
   [ICIBA_CIRCLE_ICON.MAG_ICON]: 'square',
 }
+
+export enum GM_STORE_KEY {
+  STORE = 'iciba_store',
+  SOUGOU_SECCODE = 'sougou_seccode',
+  HISTORY = 'history',
+}

@@ -12,6 +12,7 @@ import {
 import settingsIcon from '~/assets/img/settings_149837.svg'
 import dragIcon from '~/assets/img/drag_462998.svg'
 import pinIcon from '~/assets/img/pin_25474.svg'
+import historyIcon from '~/assets/img/history.svg'
 
 import { icibaRoot, shadowRoot } from '~/service/shadowRoot'
 import { store } from '~/service/store'
@@ -26,11 +27,12 @@ import {
 } from '~/service/globalBus'
 
 import { getIcon } from '~/provider/provider'
-import { PROVIDER } from '~/constants/constant'
+import { PROVIDER } from '~/constants'
 import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
 import LoadingText from './LoadingText/LoadingText'
+import { viewService } from '~/service/view'
 
 interface Props {
   getIcibaCircle: () => ReturnType<typeof defineComponent>
@@ -54,7 +56,7 @@ export default defineComponent({
     }
 
     const state = reactive({
-      visible: false,
+      // visible: false,
       inputFocused: false,
       inputText: '',
       stickBoxVisible: false,
@@ -135,9 +137,9 @@ export default defineComponent({
     }
 
     const showIcibaMain = (e: MouseEvent, autoFocus: boolean) => {
-      if (!state.visible) {
+      if (!viewService.state.icibaMain) {
         setPosition(e)
-        state.visible = true
+        viewService.openIcibaMain()
         if (autoFocus) {
           focusInput()
         }
@@ -165,7 +167,7 @@ export default defineComponent({
 
       /** 热键显示 */
       onHotKeyShowUp: async (action: HotKeyShowAction) => {
-        if (state.visible) {
+        if (viewService.state.icibaMain) {
           setPosition(action.mouseEvent)
           if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
             focusInput()
@@ -177,7 +179,7 @@ export default defineComponent({
         translateService.clearActiveProvider()
         setPosition(action.mouseEvent)
         state.inputText = ''
-        state.visible = true
+        viewService.openIcibaMain()
 
         if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
           focusInput()
@@ -186,7 +188,7 @@ export default defineComponent({
 
       /** 热键查词 */
       onHotkeyTranslate: (action: HotKeyTranslateAction) => {
-        if (!state.visible) {
+        if (!viewService.state.icibaMain) {
           if (!action.word) {
             return
           }
@@ -215,13 +217,13 @@ export default defineComponent({
       },
 
       onGoogleDictModalOpen: () => {
-        state.visible = false
+        viewService.closeIcibaMain()
       },
 
       onWindowClick: (e: MouseEvent) => {
         // outside shadow-root
         if (e.target !== icibaRoot && (!store.config.core.showPin || !store.config.core.pinned)) {
-          state.visible = false
+          viewService.closeIcibaMain()
         }
       },
 
@@ -237,14 +239,17 @@ export default defineComponent({
         if (ignoreCondition.some((v) => v)) {
           return
         }
-        state.visible = false
+        viewService.closeIcibaMain()
       },
     }
 
     const methods = {
       handleOpenSetting: () => {
-        state.visible = false
-        bus.emit({ type: EVENTS.OPEN_SETTING })
+        viewService.openSettings()
+      },
+
+      handleOpenHistory: () => {
+        viewService.openHistory()
       },
 
       handleTranslateWithProvider: (provider: PROVIDER) => {
@@ -358,6 +363,8 @@ export default defineComponent({
         .filter((p) => store.config[p.id].display),
     )
 
+    const visible = computed(() => viewService.state.icibaMain)
+
     watch(() => wrapperStyle.value, (style) => {
       if (refs.icibaMainWrap.value) {
         Object.assign(refs.icibaMainWrap.value.style, style)
@@ -424,8 +431,10 @@ export default defineComponent({
         settingsIcon,
         dragIcon,
         pinIcon,
+        historyIcon,
       },
       state,
+      visible,
       refs,
       store,
 
