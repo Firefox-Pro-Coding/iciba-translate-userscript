@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unassigned-import, import/order */
-import { createApp, h } from 'vue'
 import { shadowRoot } from './service/shadowRoot'
+import { createApp, h } from 'vue'
 
 import '~/util/extendIoTs/enum'
 import '~/plugin/prototype'
