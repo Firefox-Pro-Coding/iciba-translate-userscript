@@ -219,6 +219,9 @@ module.exports = {
       'brace-style': 'off',
       '@typescript-eslint/brace-style': ['error', '1tbs', { allowSingleLine: true }],
 
+      'comma-dangle': 'off',
+      '@typescript-eslint/comma-dangle': ['error', 'always-multiline'],
+
       'comma-spacing': 'off',
       '@typescript-eslint/comma-spacing': 'error',
 
