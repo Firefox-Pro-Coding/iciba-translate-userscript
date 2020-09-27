@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { UrbanDictionaryResult } from './type'
+import { UrbanDictionaryResult } from './types'
 
 const data = {
   data: null as (UrbanDictionaryResult | null),

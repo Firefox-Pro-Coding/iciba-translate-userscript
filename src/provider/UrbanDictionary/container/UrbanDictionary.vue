@@ -9,71 +9,73 @@
             !scrollBar && 'p-10px',
           ]"
         >
-          <template v-if="result.data && result.data.list">
-            <template v-for="(item, index) of result.data.list" :key="index">
-              <div class="row flex-col">
-                <div class="index font-bold">
-                  {{ index + 1 }}. {{ item.word }}
+          <template v-for="(item, index) of list" :key="index">
+            <div class="row flex-col">
+              <div class="index font-bold">
+                {{ index + 1 }}. {{ item.word }}
+              </div>
+
+              <div class="definition">
+                <template v-for="(definitionItem, definitionIndex) of extractDefinition(item.definition)">
+                  <UKeyword
+                    :content="definitionItem.text"
+                    class="keyword definition-keyword"
+                    :key="definitionIndex"
+                    v-if="definitionItem.isTag"
+                  />
+                  <span
+                    :textContent.prop="definitionItem.text"
+                    :key="definitionIndex"
+                    v-if="!definitionItem.isTag"
+                  />
+                </template>
+              </div>
+
+              <div class="text-12 text-grey-500 mt-1">
+                <template v-for="(exampleItem, exampleIndex) of extractDefinition(item.example)">
+                  <UKeyword
+                    :content="exampleItem.text"
+                    class="keyword example-keyword"
+                    :key="exampleIndex"
+                    v-if="exampleItem.isTag"
+                  />
+                  <span
+                    :textContent.prop="exampleItem.text"
+                    :key="exampleIndex"
+                    v-if="!exampleItem.isTag"
+                  />
+                </template>
+              </div>
+
+              <div class="flex mt-1 items-center text-12 text-grey-500">
+                <div class="mr-2 pr-1 flex flex-none">
+                  <i-icon
+                    size="14"
+                    class="thumb-up thumb mr-1"
+                    :svg="icon.like_179655"
+                  />
+                  {{ item.thumbs_up }}
                 </div>
-                <div class="definition">
-                  <template v-for="(definitionItem, definitionIndex) of extractDefinition(item.definition)">
-                    <UKeyword
-                      :content="definitionItem.text"
-                      class="keyword definition-keyword"
-                      :key="definitionIndex"
-                      v-if="definitionItem.isTag"
-                    />
-                    <span
-                      :text-content.prop="definitionItem.text"
-                      :key="definitionIndex"
-                      v-if="!definitionItem.isTag"
-                    />
-                  </template>
+                <div class="flex mr-2 flex-none">
+                  <i-icon
+                    size="14"
+                    color="#E64C3D"
+                    class="thumb thumb-down mr-1"
+                    :svg="icon.like_179655"
+                  />
+                  {{ item.thumbs_down }}
                 </div>
-                <div class="text-12 text-grey-500 mt-1">
-                  <template v-for="(exampleItem, exampleIndex) of extractDefinition(item.example)">
-                    <UKeyword
-                      :content="exampleItem.text"
-                      class="keyword example-keyword"
-                      :key="exampleIndex"
-                      v-if="exampleItem.isTag"
-                    />
-                    <span
-                      :text-content.prop="exampleItem.text"
-                      :key="exampleIndex"
-                      v-if="!exampleItem.isTag"
-                    />
-                  </template>
-                </div>
-                <div class="flex mt-1 items-center text-12 text-grey-500">
-                  <div class="mr-2 pr-1 flex flex-none">
-                    <i-icon
-                      size="14"
-                      class="thumb-up thumb mr-1"
-                      :svg="icon.like_179655"
-                    />
-                    {{ item.thumbs_up }}
-                  </div>
-                  <div class="flex mr-2 flex-none">
-                    <i-icon
-                      size="14"
-                      color="#E64C3D"
-                      class="thumb thumb-down mr-1"
-                      :svg="icon.like_179655"
-                    />
-                    {{ item.thumbs_down }}
-                  </div>
-                  <div class="truncate">
-                    {{ getTime(item.written_on) }}
-                  </div>
+                <div class="truncate">
+                  {{ getTime(item.written_on) }}
                 </div>
               </div>
-              <div
-                v-if="index !== result.data.list.length - 1"
-                class="divider my-2 bg-grey-300"
-                :key="`${index}-divider`"
-              />
-            </template>
+            </div>
+
+            <div
+              v-if="index !== list.length - 1"
+              class="divider my-2 bg-grey-300"
+              :key="`${index}-divider`"
+            />
           </template>
         </div>
       </template>
@@ -88,7 +90,7 @@
       <div
         class="inner-content"
         v-if="item.text"
-        :inner-html.prop="item.text"
+        :innerHtml.prop="item.text"
       />
       <div
         v-if="!item.text"

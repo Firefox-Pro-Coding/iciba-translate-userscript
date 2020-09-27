@@ -8,7 +8,8 @@ import { PROVIDER } from '~/constants'
 import { ProviderType } from '../provider'
 import UrbanDictionaryContainer from './container/UrbanDictionary.vue'
 import containerData from './containerData'
-import { UrbanDictionaryResult } from './type'
+import { UrbanDictionaryResult } from './types'
+import { check } from './check'
 
 const translate: ProviderType['translate'] = async (word: string) => {
   try {
@@ -20,7 +21,12 @@ const translate: ProviderType['translate'] = async (word: string) => {
       url,
       timeout: 5000,
     })
+
     const result: UrbanDictionaryResult = JSON.parse(response.responseText)
+
+    if (process.env.NODE_ENV === 'development') {
+      check(result)
+    }
 
     return right(() => {
       containerData.data = copy(result)

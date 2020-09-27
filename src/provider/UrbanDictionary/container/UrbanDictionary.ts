@@ -1,4 +1,4 @@
-import { defineComponent, reactive, onMounted, onUnmounted, ref } from 'vue'
+import { defineComponent, reactive, onMounted, onUnmounted, ref, computed } from 'vue'
 
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
@@ -34,20 +34,29 @@ export default defineComponent({
 
     const extractDefinition = (s: string) => {
       const array: Array<{ text: string, isTag: boolean }> = []
-      let isTag = false
+      const groups = s.matchAll(/\[.+?\]/g)
       let start = 0
-
-      for (let i = 0; i < s.length; i += 1) {
-        if (s[i] === '[' || s[i] === ']') {
-          if (start < i) {
-            array.push({
-              text: s.slice(start, i),
-              isTag,
-            })
-          }
-          start = i + 1
-          isTag = !isTag
+      for (const item of groups) {
+        if (item.index !== start) {
+          array.push({
+            text: s.substring(start, item.index),
+            isTag: false,
+          })
         }
+
+        array.push({
+          text: item[0].slice(1, -1),
+          isTag: true,
+        })
+
+        start = item.index! + item[0].length
+      }
+
+      if (start !== s.length - 1) {
+        array.push({
+          text: s.substring(start),
+          isTag: false,
+        })
       }
 
       return array
@@ -107,6 +116,8 @@ export default defineComponent({
       }
     }
 
+    const list = computed(() => containerData.data?.list ?? [])
+
     onMounted(() => {
       bus.on(NAMES.SHOW_TOOLTIP, showTooltip)
       bus.on(NAMES.HIDE_TOOLTIP, hideTooltip)
@@ -119,9 +130,9 @@ export default defineComponent({
 
     return {
       state,
+      list,
       refs,
       icon,
-      result: containerData,
 
       extractDefinition,
       getTime,
