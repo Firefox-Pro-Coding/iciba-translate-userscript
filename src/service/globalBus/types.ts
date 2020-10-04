@@ -61,6 +61,7 @@ export interface OpenGoogleDictModalAction {
 export interface HotKeyShowAction {
   type: EVENTS.HOTKEY_SHOW
   mouseEvent: MouseEvent
+  word?: string
 }
 
 export interface HotKeyTranslateAction {

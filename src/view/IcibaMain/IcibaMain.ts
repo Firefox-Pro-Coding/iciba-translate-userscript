@@ -56,7 +56,6 @@ export default defineComponent({
     }
 
     const state = reactive({
-      // visible: false,
       inputFocused: false,
       inputText: '',
       stickBoxVisible: false,
@@ -85,13 +84,13 @@ export default defineComponent({
       },
     })
 
-    const focusInput = () => {
+    const focusInput = (selectAll = false) => {
       nextTick(() => {
         const input = refs.icibaSearchInput.value
         if (input) {
           const textLength = state.inputText.length
           input.focus()
-          input.selectionStart = textLength
+          input.selectionStart = selectAll ? 0 : textLength
           input.selectionEnd = textLength
         }
       })
@@ -143,14 +142,15 @@ export default defineComponent({
         if (autoFocus) {
           focusInput()
         }
-      } else {
-        // reset if out of bound
-        const container = refs.icibaMain.value
-        if (container) {
-          const rect = container.getBoundingClientRect()
-          if (rect.bottom < 0 || rect.top > window.innerHeight) {
-            setPosition(e)
-          }
+        return
+      }
+
+      // reset if out of bound
+      const container = refs.icibaMain.value
+      if (container) {
+        const rect = container.getBoundingClientRect()
+        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+          setPosition(e)
         }
       }
     }
@@ -166,24 +166,11 @@ export default defineComponent({
       },
 
       /** 热键显示 */
-      onHotKeyShowUp: async (action: HotKeyShowAction) => {
-        if (viewService.state.icibaMain) {
-          setPosition(action.mouseEvent)
-          if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
-            focusInput()
-          }
-          return
-        }
-
-        await new Promise((rs) => setTimeout(rs, 0))
-        translateService.clearActiveProvider()
+      onHotKeyShowUp: (action: HotKeyShowAction) => {
         setPosition(action.mouseEvent)
-        state.inputText = ''
-        viewService.openIcibaMain()
-
-        if (store.config.core.hotkeyIcibaMainInputAutoFocus) {
-          focusInput()
-        }
+        state.inputText = action.word ?? ''
+        translateService.clearActiveProvider()
+        showIcibaMain(action.mouseEvent, store.config.core.hotkeyIcibaMainInputAutoFocus)
       },
 
       /** 热键查词 */
@@ -193,14 +180,9 @@ export default defineComponent({
             return
           }
           showIcibaMain(action.mouseEvent, store.config.core.providerHotkeyAutoFocus)
-          state.inputText = action.word
-        } else {
-          state.inputText = action.word || state.inputText
         }
 
-        if (action.word) {
-          state.inputText = action.word
-        }
+        state.inputText = action.word || state.inputText
 
         translateService.translate({
           type: EVENTS.TRANSLATE,
@@ -365,11 +347,15 @@ export default defineComponent({
 
     const visible = computed(() => viewService.state.icibaMain)
 
-    watch(() => wrapperStyle.value, (style) => {
-      if (refs.icibaMainWrap.value) {
-        Object.assign(refs.icibaMainWrap.value.style, style)
-      }
-    }, { deep: true, immediate: true })
+    watch(
+      () => wrapperStyle.value,
+      (style) => {
+        if (refs.icibaMainWrap.value) {
+          Object.assign(refs.icibaMainWrap.value.style, style)
+        }
+      },
+      { deep: true, immediate: true },
+    )
 
     onMounted(() => {
       window.addEventListener('mousedown', listeners.onWindowClick, true)
@@ -379,22 +365,10 @@ export default defineComponent({
       shadowRoot.addEventListener('mousedown', listeners.onShadowRootClick, false)
       shadowRoot.addEventListener('keyup', pinDrag.handleDragEnd, true)
 
-      bus.on({
-        event: EVENTS.TRANSLATE,
-        listener: listeners.onTranslate,
-      })
-      bus.on({
-        event: EVENTS.OPEN_GOOGLE_DICT_MODAL,
-        listener: listeners.onGoogleDictModalOpen,
-      })
-      bus.on({
-        event: EVENTS.HOTKEY_SHOW,
-        listener: listeners.onHotKeyShowUp,
-      })
-      bus.on({
-        event: EVENTS.HOTKEY_TRANSLATE,
-        listener: listeners.onHotkeyTranslate,
-      })
+      bus.on({ event: EVENTS.TRANSLATE, listener: listeners.onTranslate })
+      bus.on({ event: EVENTS.OPEN_GOOGLE_DICT_MODAL, listener: listeners.onGoogleDictModalOpen })
+      bus.on({ event: EVENTS.HOTKEY_SHOW, listener: listeners.onHotKeyShowUp })
+      bus.on({ event: EVENTS.HOTKEY_TRANSLATE, listener: listeners.onHotkeyTranslate })
     })
 
     // no need to unmounted since it never unmount
@@ -407,22 +381,10 @@ export default defineComponent({
         shadowRoot.removeEventListener('mousedown', listeners.onShadowRootClick, false)
         shadowRoot.removeEventListener('keyup', pinDrag.handleDragEnd, true)
 
-        bus.off({
-          event: EVENTS.TRANSLATE,
-          listener: listeners.onTranslate,
-        })
-        bus.off({
-          event: EVENTS.OPEN_GOOGLE_DICT_MODAL,
-          listener: listeners.onGoogleDictModalOpen,
-        })
-        bus.off({
-          event: EVENTS.HOTKEY_SHOW,
-          listener: listeners.onHotKeyShowUp,
-        })
-        bus.off({
-          event: EVENTS.HOTKEY_TRANSLATE,
-          listener: listeners.onHotkeyTranslate,
-        })
+        bus.off({ event: EVENTS.TRANSLATE, listener: listeners.onTranslate })
+        bus.off({ event: EVENTS.OPEN_GOOGLE_DICT_MODAL, listener: listeners.onGoogleDictModalOpen })
+        bus.off({ event: EVENTS.HOTKEY_SHOW, listener: listeners.onHotKeyShowUp })
+        bus.off({ event: EVENTS.HOTKEY_TRANSLATE, listener: listeners.onHotkeyTranslate })
       })
     }
 

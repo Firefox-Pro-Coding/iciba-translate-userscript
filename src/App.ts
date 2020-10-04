@@ -55,6 +55,7 @@ export default defineComponent({
       bus.emit({
         type: EVENTS.HOTKEY_SHOW,
         mouseEvent: lastMouseMoveEvent,
+        word: window.getSelection()?.toString().trim() ?? undefined,
       })
     }
 

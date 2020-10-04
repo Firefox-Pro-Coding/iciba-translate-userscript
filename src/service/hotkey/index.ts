@@ -7,7 +7,7 @@ const normalizeKey = (key: string) => (
     : key
 )
 
-type HotKeyHandler = (keys: Array<string>, e: MouseEvent, stop: () => void) => unknown
+type HotKeyHandler = (keys: Array<string>, e: MouseEvent, stopPropagation: () => void) => unknown
 
 const listeners = new Set<HotKeyHandler>()
 const keys = [] as Array<string>
