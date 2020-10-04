@@ -11,7 +11,14 @@
           v-if="data"
         >
           <div class="word flex items-center">
-            <span class="text-15">{{ data.word }}</span>
+            <a
+              class="text-15 no-underline text-link"
+              :href="`https://www.vocabulary.com/dictionary/${data.word}`"
+              target="_blank"
+              rel="noopener"
+            >
+              {{ data.word }}
+            </a>
             <div
               class="play-sound flex flex-center mt-2px ml-1"
               v-if="data.definition.audio"
