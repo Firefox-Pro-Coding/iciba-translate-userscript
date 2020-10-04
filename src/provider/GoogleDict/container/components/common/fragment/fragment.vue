@@ -10,7 +10,7 @@
     >
       <a
         v-if="frag.isEntryLink"
-        class="entry-link"
+        class="text-link cursor-pointer"
         @click="handleEntryLinkClick($event, frag.text)"
         v-html="frag.text"
       />

@@ -19,7 +19,7 @@
       >
         <div
           @click="handleNymClick($event, nym)"
-          :class="{ 'entry-link': nym.numEntries }"
+          :class="{ 'text-link cursor-pointer': nym.numEntries }"
           class="nym-content inline"
         >
           {{ nym.nym }}

@@ -86,6 +86,7 @@ module.exports = {
     extend: {
       colors: {
         ...colors,
+        'link': '#77a9dd', // lighten(desaturate($primary, 40%), 4%)
         'primary': '#409EFF',
         'success': '#67C23A',
         'warning': '#E6A23C',
