@@ -1,8 +1,6 @@
-interface KeywordCache {
-  [k: string]: {
-    data: string | Promise<string>
-  }
-}
+type KeywordCache = Record<string, {
+  data: string | Promise<string>
+}>
 
 const cache: KeywordCache = {}
 

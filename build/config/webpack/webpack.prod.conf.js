@@ -16,21 +16,6 @@ config.optimization.minimizer('terser')
     },
   }])
 
-config.module.rule('eslint')
-  .test(/\.(vue|tsx?|jsx?)$/)
-  .enforce('pre')
-  .use('eslint')
-  .loader('eslint-loader')
-  .end()
-  .exclude.add(/node_modules/)
-
-config.module.rule('ts')
-  .use('ts')
-  .loader('ts-loader')
-  .options({ happyPackMode: true })
-
-config.plugins.delete('fork-ts-checker-webpack-plugin')
-
 config.mode('production')
 config.devtool(false)
 

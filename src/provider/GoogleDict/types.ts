@@ -200,6 +200,7 @@ export const subSense = excess(intersection([
     relevantTopics: array(relevantTopics),
     semanticClasses: array(string),
     thesaurusEntries: array(thesaurusEntry),
+    wsdSenseIds: array(string),
   }),
 ]), 'subSense')
 export type SubSense = TypeOf<typeof subSense>
@@ -225,17 +226,18 @@ export const sense = excess(intersection([
     sourceId: string,
   }),
   partial({
-    kgMapping,
     conciseDefinition: string,
     domainClasses: array(string),
     etymology,
     exampleGroups: array(senseExampleGroup),
+    kgMapping,
     labelSet,
     note,
     relevantTopics: array(relevantTopics),
     semanticClasses: array(string),
     subsenses: array(subSense),
     thesaurusEntries: array(thesaurusEntry),
+    wsdSenseIds: array(string),
   }),
 ]), 'sense')
 export type Sense = TypeOf<typeof sense>

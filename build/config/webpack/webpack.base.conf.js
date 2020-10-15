@@ -1,10 +1,11 @@
 const path = require('path')
+const webpack = require('webpack')
 const Config = require('webpack-chain')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
-const resolve = (dir) => path.join(__dirname, '../..', dir)
+const resolve = (dir) => path.join(__dirname, '../../..', dir)
 
 const config = new Config()
 
@@ -26,9 +27,9 @@ const createCssRule = (name, test) => config.module.rule(name)
 
 config.mode('none')
 
-config.resolveLoader.alias.set('local-vue-style-loader', path.join(__dirname, '../../utils/vue-style-loader'))
+config.resolveLoader.alias.set('local-vue-style-loader', path.join(__dirname, '../../../utils/vue-style-loader'))
 
-config.context(path.join(__dirname, '../..'))
+config.context(path.join(__dirname, '../../..'))
 
 config.entry('index')
   .add(resolve('./src/index.ts'))
@@ -45,11 +46,6 @@ config.resolve.alias
   .set('~', resolve('src'))
   .set('assets', resolve('src/assets'))
   .set('fp-ts/lib', 'fp-ts/es6')
-
-
-config.module.rule('mjs')
-  .test(/\.m?js$/)
-  .resolve.set('fullySpecified', false)
 
 config.module.rule('ts')
   .test(/\.tsx?$/)
@@ -123,5 +119,11 @@ config.plugin('fork-ts-checker-webpack-plugin')
 
 config.plugin('duplicate-package-checker-webpack-plugin')
   .use(DuplicatePackageCheckerPlugin)
+
+config.plugin('vue-bundle-flags')
+  .use(webpack.DefinePlugin, [{
+    __VUE_OPTIONS_API__: JSON.stringify(false),
+    __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+  }])
 
 module.exports = config

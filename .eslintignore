@@ -3,6 +3,6 @@ node_modules/
 iciba.user.js
 !.eslintrc.js
 *.d.ts
-/config/metaData.js
+/build/config/metaData.js
 /utils/vue-style-loader/
 /docker-compose.yml

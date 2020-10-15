@@ -32,13 +32,16 @@ module.exports = {
         },
       }],
 
-      // Uncategorized
+      // TODO: Uncategorized
+      'vue/block-tag-newline': 'error',
       'vue/max-len': 'off',
       'vue/padding-line-between-blocks': 'off',
       'vue/require-direct-export': 'off',
       'vue/require-name-property': 'off',
       'vue/sort-keys': 'off',
       'vue/static-class-names-order': 'off',
+
+      // TODO: extension rules
     },
   }],
 }

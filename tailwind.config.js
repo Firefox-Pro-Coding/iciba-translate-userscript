@@ -3,8 +3,10 @@ const colors = require('./utils/color-palette')
 
 module.exports = {
   future: {
-    removeDeprecatedGapUtilities: true,
+    defaultLineHeights: true,
     purgeLayersByDefault: true,
+    removeDeprecatedGapUtilities: true,
+    standardFontWeights: true,
   },
   purge: {
     layers: ['utilities'],

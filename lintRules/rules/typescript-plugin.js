@@ -76,6 +76,7 @@ module.exports = {
         },
       }],
       '@typescript-eslint/class-literal-property-style': 'off',
+      '@typescript-eslint/consistent-indexed-object-style': 'error',
       '@typescript-eslint/consistent-type-assertions': ['off', {
         assertionStyle: 'as',
         objectLiteralTypeAssertions: 'allow-as-parameter',
@@ -261,6 +262,9 @@ module.exports = {
 
       'no-array-constructor': 'off',
       '@typescript-eslint/no-array-constructor': 'error',
+
+      'no-duplicate-imports': 'off',
+      '@typescript-eslint/no-duplicate-imports': 'off',
 
       'no-empty-function': 'off',
       '@typescript-eslint/no-empty-function': ['error', {

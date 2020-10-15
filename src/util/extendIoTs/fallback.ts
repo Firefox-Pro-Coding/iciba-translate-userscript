@@ -30,9 +30,7 @@ export const fallback = <T extends any>(p: Type<T>, dValue: T | (() => T)) => ne
   p, typeof dValue === 'function' ? (dValue as () => T)() : dValue,
 )
 
-interface FallbackProps {
-  [k: string]: FallbackType<any>
-}
+type FallbackProps = Record<string, FallbackType<any>>
 
 type GetFallback = <P extends FallbackProps>(t: InterfaceType<P>) => {
   [k in keyof P]: P[k]['d']

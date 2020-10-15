@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const webpackConfig = require('../config/webpack/webpack.dev.conf.js')
+const webpackConfig = require('./config/webpack/webpack.dev.conf.js')
 
 const url = 'http://localhost:13333/'
 webpackConfig.output.publicPath(url)

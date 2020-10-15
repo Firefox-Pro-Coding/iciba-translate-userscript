@@ -6,7 +6,7 @@ import * as path from 'path'
 /* eslint-disable @typescript-eslint/no-require-imports */
 const packageInfo = require('../package.json')
 
-const metaData = fs.readFileSync(path.join(__dirname, '../config/metaData.js'))
+const metaData = fs.readFileSync(path.join(__dirname, '../build/config/metaData.js'))
   .toString()
   .replace('{{ version }}', `${packageInfo.version}`)
 
