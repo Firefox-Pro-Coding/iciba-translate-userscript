@@ -61,7 +61,7 @@ const getGoogleTranslateResult = async (
 ): Promise<GetGoogleTranslateResult> => {
   let token
   try {
-    token = await getToken(word, getApiDomain())
+    token = await getToken(word)
   } catch (e) {
     throw new Error(`获取token失败！请检查网络。(${(e as Error).message})`)
   }
@@ -153,7 +153,7 @@ const handlePlay = async (payload: PlayAudioAction) => {
     q: params.word,
     tl: params.tl,
     textlen: params.word.length,
-    tk: await getToken(params.word, getApiDomain()),
+    tk: await getToken(params.word),
   }
   const url = `https://${getApiDomain()}/translate_tts?${stringify(query)}`
 

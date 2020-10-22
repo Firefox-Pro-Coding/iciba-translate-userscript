@@ -142,6 +142,12 @@ export const baseInfoTranslate = excess(type({
   translate_msg: string,
   translate_result: string,
   translate_type: union([literal(2), literal(3), literal('2'), literal('3')]),
+
+  enFrom: string,
+  enTo: string,
+  from: string,
+  to: string,
+  ttsLan: number,
 }), 'base-info-translate')
 export type BaseInfoTranslate = TypeOf<typeof baseInfoTranslate>
 

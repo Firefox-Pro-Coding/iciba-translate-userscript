@@ -11,9 +11,6 @@ const config = new Config()
 
 const createCssRule = (name, test) => config.module.rule(name)
   .test(test)
-  .use('cache-loader')
-  .loader('cache-loader')
-  .end()
   .use('vue-style-loader')
   .loader('local-vue-style-loader')
   .end()
@@ -27,9 +24,18 @@ const createCssRule = (name, test) => config.module.rule(name)
 
 config.mode('none')
 
-config.resolveLoader.alias.set('local-vue-style-loader', path.join(__dirname, '../../../utils/vue-style-loader'))
+config.cache({
+  type: 'filesystem',
+  buildDependencies: {
+    config: [__filename],
+    babel: [resolve('build/config/babelrc.js')],
+    package: [resolve('package.json')],
+  },
+})
 
-config.context(path.join(__dirname, '../../..'))
+config.resolveLoader.alias.set('local-vue-style-loader', resolve('utils/vue-style-loader'))
+
+config.context(resolve(''))
 
 config.entry('index')
   .add(resolve('./src/index.ts'))
@@ -49,9 +55,6 @@ config.resolve.alias
 
 config.module.rule('ts')
   .test(/\.tsx?$/)
-  .use('cache-loader')
-  .loader('cache-loader')
-  .end()
   .use('thread-loader')
   .loader('thread-loader')
   .options({ workers: 3 })
@@ -67,9 +70,6 @@ config.module.rule('ts')
 
 config.module.rule('js')
   .test(/\.jsx?$/)
-  .use('cache-loader')
-  .loader('cache-loader')
-  .end()
   .use('thread-loader')
   .loader('thread-loader')
   .options({ workers: 3 })

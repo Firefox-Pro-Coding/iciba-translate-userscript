@@ -11,6 +11,8 @@ config.entry('index').add(resolve('./build/devClient.ts'))
 config.mode('development')
 config.devtool('eval-source-map')
 
+config.target('web')
+
 // force using http
 config.module.rule('dev-server-sockjs')
   .test(/webpack-dev-server\\client\\utils\\createSocketUrl\.js$/)

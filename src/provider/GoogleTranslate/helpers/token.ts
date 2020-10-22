@@ -40,7 +40,9 @@ const updateTKK = async (domain: string) => {
   }
 }
 
-const getToken = async (word: string, domain: string) => {
+const getToken = async (word: string) => {
+  // translate.google.com 改版了
+  const domain = 'translate.google.cn'
   await updateTKK(domain)
   const token = calcToken(word, googleTranslateTKK)
   return token

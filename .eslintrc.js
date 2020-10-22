@@ -27,43 +27,36 @@ module.exports = {
     },
   },
 
-  'overrides': [{
-    'files': [
-      '*.ts',
-      '*.tsx',
-    ],
+  'overrides': [
+    {
+      'files': [
+        '*.ts',
+        '*.tsx',
+      ],
 
-    'parser': '@typescript-eslint/parser',
-    'parserOptions': {
-      'project': 'tsconfig.json',
-      'createDefaultProgram': true,
+      'rules': {
+        '@typescript-eslint/no-unused-vars-experimental': ['error', {
+          'ignoredNamesRegex': '^h$',
+        }],
+        '@typescript-eslint/no-unused-vars': ['off', {
+          'varsIgnorePattern': '^h$',
+        }],
+      },
     },
+    {
+      'files': [
+        '*.vue',
+        '*.tsx',
+      ],
 
-    'plugins': [
-      '@typescript-eslint',
-    ],
 
-    'rules': {
-      '@typescript-eslint/no-unused-vars-experimental': ['error', {
-        'ignoredNamesRegex': '^h$',
-      }],
-      '@typescript-eslint/no-unused-vars': ['off', {
-        'varsIgnorePattern': '^h$',
-      }],
+      'rules': {
+        'vue/valid-v-model': 'off',
+        'vue/valid-v-for': 'off',
+        'vue/no-template-key': 'off',
+        'vue/require-v-for-key': 'off',
+        'vue/no-v-for-template-key': 'off',
+      },
     },
-  }, {
-    'files': [
-      '*.vue',
-      '*.tsx',
-    ],
-
-
-    'rules': {
-      'vue/valid-v-model': 'off',
-      'vue/valid-v-for': 'off',
-      'vue/no-template-key': 'off',
-      'vue/require-v-for-key': 'off',
-      'vue/no-v-for-template-key': 'off',
-    },
-  }],
+  ],
 }
