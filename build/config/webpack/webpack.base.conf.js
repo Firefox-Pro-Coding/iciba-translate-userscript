@@ -1,16 +1,23 @@
+const os = require('os')
 const path = require('path')
+const chalk = require('chalk')
 const webpack = require('webpack')
 const Config = require('webpack-chain')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
+const workers = Math.min(1, os.cpus().length - 1)
 const resolve = (dir) => path.join(__dirname, '../../..', dir)
 
 const config = new Config()
 
 const createCssRule = (name, test) => config.module.rule(name)
   .test(test)
+  .use('thread-loader')
+  .loader('thread-loader')
+  .options({ workers })
+  .end()
   .use('vue-style-loader')
   .loader('local-vue-style-loader')
   .end()
@@ -23,15 +30,6 @@ const createCssRule = (name, test) => config.module.rule(name)
   .end()
 
 config.mode('none')
-
-config.cache({
-  type: 'filesystem',
-  buildDependencies: {
-    config: [__filename],
-    babel: [resolve('build/config/babelrc.js')],
-    package: [resolve('package.json')],
-  },
-})
 
 config.resolveLoader.alias.set('local-vue-style-loader', resolve('utils/vue-style-loader'))
 
@@ -57,7 +55,7 @@ config.module.rule('ts')
   .test(/\.tsx?$/)
   .use('thread-loader')
   .loader('thread-loader')
-  .options({ workers: 3 })
+  .options({ workers })
   .end()
   .use('babel')
   .loader('babel-loader')
@@ -72,7 +70,7 @@ config.module.rule('js')
   .test(/\.jsx?$/)
   .use('thread-loader')
   .loader('thread-loader')
-  .options({ workers: 3 })
+  .options({ workers })
   .end()
   .use('babel')
   .loader('babel-loader')
@@ -81,11 +79,6 @@ config.module.rule('js')
 
 createCssRule('css', /\.css$/)
 createCssRule('sass', /\.(sass|scss)$/)
-  .use('sass-loader')
-  .loader('sass-loader')
-  .end()
-
-createCssRule('tailwind', /tailwind\.custom$/)
   .use('sass-loader')
   .loader('sass-loader')
   .end()
@@ -110,13 +103,6 @@ config.module.rule('svg')
 config.plugin('vue-loader-plugin')
   .use(VueLoaderPlugin)
 
-config.plugin('fork-ts-checker-webpack-plugin')
-  .use(ForkTsCheckerWebpackPlugin, [{
-    eslint: {
-      files: './src/**/*.{ts,tsx,js,jsx,vue}',
-    },
-  }])
-
 config.plugin('duplicate-package-checker-webpack-plugin')
   .use(DuplicatePackageCheckerPlugin)
 
@@ -124,6 +110,19 @@ config.plugin('vue-bundle-flags')
   .use(webpack.DefinePlugin, [{
     __VUE_OPTIONS_API__: JSON.stringify(false),
     __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+  }])
+
+config.plugin('progress')
+  .use(ProgressBarPlugin, [{
+    format: [
+      chalk.cyan.bold('  build '),
+      chalk.bold('['),
+      ':bar',
+      chalk.bold(']'),
+      chalk.green.bold(' :percent'),
+      ' :msg',
+    ].join(''),
+    width: 30,
   }])
 
 module.exports = config

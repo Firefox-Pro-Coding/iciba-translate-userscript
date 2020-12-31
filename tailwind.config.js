@@ -1,13 +1,6 @@
-const tailwindDefaults = require('tailwindcss/defaultConfig')
 const colors = require('./utils/color-palette')
 
 module.exports = {
-  future: {
-    defaultLineHeights: true,
-    purgeLayersByDefault: true,
-    removeDeprecatedGapUtilities: true,
-    standardFontWeights: true,
-  },
   purge: {
     layers: ['utilities'],
     content: [
@@ -20,9 +13,6 @@ module.exports = {
     textOpacity: false,
     backgroundOpacity: false,
     borderOpacity: false,
-  },
-  variants: {
-    backgroundColor: [...tailwindDefaults.variants.backgroundColor, 'group-hover'],
   },
   theme: {
     screens: false,
@@ -50,8 +40,6 @@ module.exports = {
     },
 
     borderRadius: {
-      'none': '0',
-      'full': '9999px',
       ...Array(20).fill(0)
         .map((_v, i) => i + 1)
         .reduce((p, c) => ({ ...p, [c]: `${c}px` }), {}),
@@ -86,6 +74,9 @@ module.exports = {
     },
 
     extend: {
+      variants: {
+        backgroundColor: ['group-hover'],
+      },
       colors: {
         ...colors,
         'link': '#77a9dd', // lighten(desaturate($primary, 40%), 4%)

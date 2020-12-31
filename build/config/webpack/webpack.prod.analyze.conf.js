@@ -1,4 +1,5 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const StatsPlugin = require('stats-webpack-plugin')
 
@@ -12,6 +13,9 @@ config.plugin('StatsPlugin').use(StatsPlugin, [
   'stats.json',
   { chunkModules: true },
 ])
+
+config.plugin('duplicate-package-checker-webpack-plugin')
+  .use(DuplicatePackageCheckerPlugin)
 
 if (process.env.cat === 'false') {
   config.optimization.concatenateModules(false)

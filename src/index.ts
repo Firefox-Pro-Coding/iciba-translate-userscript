@@ -5,7 +5,7 @@ import { createApp, h } from 'vue'
 import '~/util/extendIoTs/enum'
 import '~/plugin/prototype'
 
-import '~/assets/styles/tailwind.custom'
+import '~/assets/styles/tailwind.sass'
 
 import Ripple from './util/diretives/ripple'
 import NoOverscroll from './util/diretives/no-overscroll'
