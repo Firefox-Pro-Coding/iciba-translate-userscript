@@ -1,16 +1,17 @@
 import { stringify } from 'querystring'
-import { left, right } from 'fp-ts/lib/Either'
+import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
+import { decode } from 'base64-arraybuffer'
+
 import { PROVIDER, GOOGLE_TRANSLATE_HOST_MAP } from '~/constants'
 import { store } from '~/service/store'
 import { audioCacheService } from '~/service/audioCache'
-import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
 import { got } from '~/util/gmapi'
 
 import { ProviderType } from '../provider'
-import getToken from './helpers/token'
 import GoogleTranslateContainer from './container/GoogleTranslateContainer.vue'
 import containerData from './containerData'
 import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
+import { GetGoogleTranslateResult } from './types'
 
 export interface GoogleTranslateParams {
   sl?: string
@@ -18,118 +19,112 @@ export interface GoogleTranslateParams {
   fromDict?: boolean
 }
 
-interface GetGoogleTranslateResult {
-  result: Array<string>
-  sl: string
-  tl: string
-  dl: string
-  fromDict: boolean
-}
-
-const apiQuery = {
-  client: 'webapp',
-  pc: '1',
-  otf: '1',
-  ssel: '0',
-  tsel: '0',
-  kc: '1',
-  dt: [
-    'at',
-    'bd',
-    'ex',
-    'ld',
-    'md',
-    'qca',
-    'rw',
-    'rm',
-    'ss',
-    't',
-    'gt',
-  ],
-  // ie: 'UTF-8',
-  // oe: 'UTF-8',
-  // source: 'btn',
-}
-
 const getApiDomain = () => GOOGLE_TRANSLATE_HOST_MAP[
   store.config[PROVIDER.GOOGLE_TRANSLATE].translateHost
 ]
 
-const getGoogleTranslateResult = async (
-  word: string,
-  payload?: GoogleTranslateParams,
-): Promise<GetGoogleTranslateResult> => {
-  let token
-  try {
-    token = await getToken(word)
-  } catch (e) {
-    throw new Error(`获取token失败！请检查网络。(${(e as Error).message})`)
-  }
+const getGoogleTranslateResult = async (word: string, payload?: GoogleTranslateParams) => {
+  const sourceLanguage = payload?.sl ?? 'auto'
+  const targetLanguage = payload?.tl ?? store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
 
-  const sl = payload?.sl ?? 'auto'
-  const tl = payload?.tl ?? store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
+  const req = JSON.stringify([[[
+    'MkEWBc',
+    JSON.stringify([
+      [word, sourceLanguage, targetLanguage, true],
+      [null],
+    ]),
+    null,
+    'generic',
+  ]]])
 
-  const query = {
-    ...apiQuery,
-    sl,
-    tl,
-    hl: tl,
-    tk: token,
-    q: word,
-  }
+  const doRequest = async (getToken = false) => {
+    const result = await got<any>({
+      url: `https://${getApiDomain()}/_/TranslateWebserverUi/data/batchexecute`,
+      method: 'POST',
+      headers: {
+        'Referer': `https://${getApiDomain()}/`,
+        'Cache-Control': 'max-age=0',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      data: stringify({
+        'f.req': req,
+        ...getToken ? {} : {
+          at: store.config[PROVIDER.GOOGLE_TRANSLATE].xsrfToken,
+        },
+      }),
+      timeout: 5000,
+      // responseType: '', // force auto json parse
+    } as any)
 
-  const url = `https://${getApiDomain()}/translate_a/single?${stringify(query)}`
+    if (isLeft(result)) {
+      const body = JSON.parse(result.left.res.responseText.substring(4)) as Array<any>
+      const err = body.find((v) => v && v[0] === 'er') as Array<any>
+      const errDetail = err[4] as Array<any>
+      if (errDetail && errDetail[0] === 'xsrf') {
+        const xsrfToken = errDetail[1] as string
+        store.config[PROVIDER.GOOGLE_TRANSLATE].xsrfToken = xsrfToken
+        return left({
+          type: 'xsrf',
+          res: result.left.res,
+        })
+      }
+      return left({
+        type: result.left.type,
+        res: result.left.res,
+      })
+    }
 
-  const result = await got<any>({
-    method: 'GET',
-    headers: {
-      'Referer': `https://${getApiDomain()}/`,
-      'Cache-Control': 'max-age=0',
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-    },
-    url,
-    timeout: 5000,
-    responseType: 'json', // force auto json parse
-  })
-  const data = result.response
-  const detectedLanguage: string = data[2]
-
-  // autodetected and fallback to secondTargetLanguage
-  if (
-    !payload
-      && detectedLanguage === tl
-      && detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage
-  ) {
-    return getGoogleTranslateResult(word, {
-      sl,
-      tl: store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage,
+    const data = JSON.parse(result.right.responseText.substring(4))
+    if (data[0]?.[1] === 'MkEWBc') {
+      return right(JSON.parse(data[0][2]))
+    }
+    return left({
+      type: 'unknown',
+      res: result.right,
     })
   }
 
-  const translateResult = (data[0] as Array<Array<string>>)
-    .map((v) => (v[0] ? v[0] : ''))
-    .filter(Boolean)
-    .flatMap((v) => v.split('\n'))
+  let result = await doRequest()
 
-  return {
-    result: translateResult,
-    sl,
-    tl,
-    dl: detectedLanguage,
-    fromDict: payload?.fromDict ?? false,
+  if (isLeft(result) && result.left.res.status === 400) {
+    await doRequest(true)
+    result = await doRequest()
   }
+
+  if (isLeft(result)) {
+    throw new Error(result.left.type)
+  }
+
+  const data = result.right
+
+  const o: GetGoogleTranslateResult = {
+    sourceLanguage,
+    targetLanguage,
+    detectedLanguage: (data[0][2] as string) || sourceLanguage,
+    phon: data[0][0] as string | null,
+    translate: data[1][0][0][5][0][0] as string,
+    translatePhone: data[1][0][0][1] as string,
+    translateVariations: data[1][0][0][5][0][1] as Array<string>,
+    fromDict: !!payload?.fromDict,
+  }
+
+  return o
 }
 
 const translate: ProviderType['translate'] = async (word: string, payload?: GoogleTranslateParams) => {
   try {
-    const data = await getGoogleTranslateResult(word, payload)
+    let data = await getGoogleTranslateResult(word, payload)
+
+    // autodetected and fallback to secondTargetLanguage
+    if (!payload && data.detectedLanguage === store.config[PROVIDER.GOOGLE_TRANSLATE].targetLanguage) {
+      data = await getGoogleTranslateResult(word, {
+        tl: store.config[PROVIDER.GOOGLE_TRANSLATE].secondTargetLanguage,
+      })
+    }
+
     return right(() => {
-      containerData.data = data.result
+      containerData.data = data
       containerData.inputText = word
-      containerData.detectedLanguage = data.dl as GOOGLE_LANGUAGES
-      containerData.sourceLanguage = data.sl
-      containerData.targetLanguage = data.tl as GOOGLE_LANGUAGES
-      containerData.fromDict = data.fromDict
     })
   } catch (e) {
     return left({
@@ -142,40 +137,83 @@ const handlePlay = async (payload: PlayAudioAction) => {
   if (payload.id !== PROVIDER.GOOGLE_TRANSLATE) {
     return
   }
-  const params = payload.params
   const volume = 0.8
-  const query = {
-    ie: 'UTF-8',
-    total: '1',
-    idx: '0',
-    client: 'webapp',
-    prev: 'input',
-    q: params.word,
-    tl: params.tl,
-    textlen: params.word.length,
-    tk: await getToken(params.word),
+  const req = JSON.stringify([[[
+    'jQ1olc',
+    JSON.stringify([
+      payload.params.word,
+      payload.params.tl,
+      // null: normal speed; true: slow mode
+      null,
+      'null',
+    ]),
+    null,
+    'generic',
+  ]]])
+
+  const doRequest = async (getToken = false) => {
+    const result = await got<any>({
+      url: `https://${getApiDomain()}/_/TranslateWebserverUi/data/batchexecute`,
+      method: 'POST',
+      headers: {
+        'Referer': `https://${getApiDomain()}/`,
+        'Cache-Control': 'max-age=0',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+      data: stringify({
+        'f.req': req,
+        ...getToken ? {} : {
+          at: store.config[PROVIDER.GOOGLE_TRANSLATE].xsrfToken,
+        },
+      }),
+      timeout: 5000,
+      // responseType: '', // force auto json parse
+    } as any)
+
+    if (isLeft(result)) {
+      const body = JSON.parse(result.left.res.responseText.substring(4)) as Array<any>
+      const err = body.find((v) => v && v[0] === 'er') as Array<any>
+      const errDetail = err[4] as Array<any>
+      if (errDetail && errDetail[0] === 'xsrf') {
+        const xsrfToken = errDetail[1] as string
+        store.config[PROVIDER.GOOGLE_TRANSLATE].xsrfToken = xsrfToken
+        return left({
+          type: 'xsrf',
+          res: result.left.res,
+        })
+      }
+      return left({
+        type: result.left.type,
+        res: result.left.res,
+      })
+    }
+
+    const data = JSON.parse(result.right.responseText.substring(4))
+    if (data[0]?.[1] === 'jQ1olc') {
+      return right(JSON.parse(data[0][2]))
+    }
+    return left({
+      type: 'unknown',
+      res: result.right,
+    })
   }
-  const url = `https://${getApiDomain()}/translate_tts?${stringify(query)}`
 
-  if (audioCacheService.play(url, volume)) {
-    return
+  let result = await doRequest()
+
+  if (isLeft(result) && result.left.res.status === 400) {
+    await doRequest(true)
+    result = await doRequest()
   }
 
-  const response = await got<ArrayBuffer>({
-    method: 'GET',
-    headers: {
-      'Referer': `https://${getApiDomain()}/`,
-      'Accept': '*/*',
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache',
-      'upgrade-insecure-requests': '1',
-    },
-    responseType: 'arraybuffer',
-    url,
-    timeout: 5000,
-  })
-
-  audioCacheService.play(url, response.response, volume)
+  if (isRight(result)) {
+    const base64Data = result.right[0]
+    const audioBuffer = decode(base64Data)
+    audioCacheService.play(
+      `googletranslatetts-${payload.params.word}-${payload.params.tl}`,
+      audioBuffer,
+      volume,
+    )
+  }
 }
 
 audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)

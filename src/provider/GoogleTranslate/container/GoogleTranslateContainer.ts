@@ -1,4 +1,4 @@
-import { defineComponent, reactive } from 'vue'
+import { computed, defineComponent, reactive } from 'vue'
 import { bus, EVENTS } from '~/service/globalBus'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import { PROVIDER } from '~/constants'
@@ -25,7 +25,7 @@ export default defineComponent({
       type: 'source' as 'source' | 'target',
     })
 
-    const getLanguage = (language: GOOGLE_LANGUAGES) => GOOGLE_LANGUAGE_MAP[language] || language
+    const getLanguage = (language: string) => GOOGLE_LANGUAGE_MAP[language as GOOGLE_LANGUAGES] || language
 
     const handleLanguageSelect = (language: GOOGLE_LANGUAGES | 'auto') => {
       bus.emit({
@@ -34,8 +34,8 @@ export default defineComponent({
         param: {
           provider: PROVIDER.GOOGLE_TRANSLATE,
           param: {
-            sl: state.type === 'source' ? language : containerData.sourceLanguage,
-            tl: state.type === 'target' ? language : containerData.targetLanguage,
+            sl: state.type === 'source' ? language : containerData.data!.sourceLanguage,
+            tl: state.type === 'target' ? language : containerData.data!.targetLanguage,
           },
         },
       })
@@ -54,18 +54,18 @@ export default defineComponent({
         params: type === 'source'
           ? {
             word: containerData.inputText,
-            tl: containerData.detectedLanguage,
+            tl: containerData.data!.detectedLanguage,
           }
           : {
-            word: containerData.data.join(),
-            tl: containerData.targetLanguage,
+            word: containerData.data!.translate,
+            tl: containerData.data!.targetLanguage,
           },
       })
     }
 
     return {
       state,
-      containerData,
+      data: computed(() => containerData.data!),
       languages,
       icon,
 

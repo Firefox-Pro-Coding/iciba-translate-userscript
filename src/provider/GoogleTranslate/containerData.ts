@@ -1,13 +1,9 @@
 import { reactive } from 'vue'
-import { GOOGLE_LANGUAGES } from '~/constants/googleLanguages'
+import { GetGoogleTranslateResult } from './types'
 
 const data = {
-  data: [] as Array<string>,
+  data: null as null | GetGoogleTranslateResult,
   inputText: '',
-  sourceLanguage: '',
-  targetLanguage: '' as GOOGLE_LANGUAGES,
-  detectedLanguage: '' as GOOGLE_LANGUAGES,
-  fromDict: false,
 }
 
 export default reactive(data)

@@ -1,5 +1,5 @@
 <template>
-  <div class="google-translate-box flex-col relative text-grey-900">
+  <div class="google-translate-box flex-col relative text-grey-900" v-if="data">
     <Scrollable class="scroll-container">
       <template #default="{ scrollBar }">
         <div
@@ -21,8 +21,8 @@
                 :class="{
                   'language-item text-center text-grey-600': true,
                   'active text-grey-800': state.type === 'source'
-                    ? v.id === containerData.sourceLanguage
-                    : v.id === containerData.targetLanguage,
+                    ? v.id === data.sourceLanguage
+                    : v.id === data.targetLanguage,
                 }"
                 :key="v.id"
                 @click="handleLanguageSelect(v.id)"
@@ -33,7 +33,7 @@
                 v-if="state.type === 'source'"
                 :class="{
                   'language-item text-center text-grey-600': true,
-                  'active text-grey-800': containerData.sourceLanguage === 'auto',
+                  'active text-grey-800': data.sourceLanguage === 'auto',
                 }"
                 key="auto"
                 @click="handleLanguageSelect('auto')"
@@ -44,7 +44,7 @@
           </div>
 
           <div class="translate-content mb-2px" v-show="!state.visible">
-            <template v-for="(text, index) of containerData.data" class="row">
+            <template v-for="(text, index) of data.translate.split('\n')" class="row">
               <span v-if="text" :key="index">{{ text }}</span>
               <br v-if="!text" :key="index">
             </template>
@@ -52,7 +52,7 @@
 
           <div
             class="google-dict-tip mt-2px mb-3px text-12 text-right text-grey-400"
-            v-if="containerData.fromDict"
+            v-if="data.fromDict"
           >
             google字典无结果，以上内容来自谷歌翻译
           </div>
@@ -79,15 +79,15 @@
                 class="language"
                 @click="showLanguageSelect('source')"
               >
-                {{ getLanguage(containerData.detectedLanguage) }}
-                {{ containerData.sourceLanguage === 'auto' ? '(自动检测)' : '' }}
+                {{ getLanguage(data.detectedLanguage) }}
+                {{ data.sourceLanguage === 'auto' ? '(自动检测)' : '' }}
               </div>
               <div class="px-1"> -&gt; </div>
               <div
                 class="language"
                 @click="showLanguageSelect('target')"
               >
-                {{ getLanguage(containerData.targetLanguage) }}
+                {{ getLanguage(data.targetLanguage) }}
               </div>
             </div>
           </div>
