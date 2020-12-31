@@ -2,6 +2,7 @@ import {
   type as tType,
   keyof,
   boolean,
+  string,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
 import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
@@ -22,6 +23,8 @@ export const type = tType({
   translateHost: fallback(translateHost, GOOGLE_TRANSLATE_HOST.GOOGLE_COM),
   targetLanguage: fallback(googleLanguage, GOOGLE_LANGUAGES.zh),
   secondTargetLanguage: fallback(googleLanguage, GOOGLE_LANGUAGES.en),
+
+  xsrfToken: fallback(string, ''),
 })
 
 export const defaultData = getFallbackData(type)

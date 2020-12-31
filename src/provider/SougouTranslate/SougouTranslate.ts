@@ -1,7 +1,7 @@
 import { stringify } from 'querystring'
 import { v4 } from 'uuid'
 
-import { left, right } from 'fp-ts/lib/Either'
+import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
 import { PROVIDER } from '~/constants'
 import { got } from '~/util/gmapi'
 import { store } from '~/service/store'
@@ -60,7 +60,11 @@ const translate: ProviderType['translate'] = async (word: string, payload?: Soug
       data: stringify(body).replace(/%20/g, '+'),
     })
 
-    const result = res.response
+    if (isLeft(res)) {
+      throw new Error(res.left.type)
+    }
+
+    const result = res.right.response
 
     if (!result || !result.data || !result.data.translate || !result.data.translate.dit) {
       return left({
@@ -125,7 +129,9 @@ const handlePlay = async (payload: PlayAudioAction) => {
     timeout: 5000,
   })
 
-  audioCacheService.play(url, response.response, volume)
+  if (isRight(response)) {
+    audioCacheService.play(url, response.right.response, volume)
+  }
 }
 
 audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)

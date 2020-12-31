@@ -1,5 +1,5 @@
 import { stringify } from 'querystring'
-import { left, right } from 'fp-ts/lib/Either'
+import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
 import { PROVIDER } from '~/constants'
 import { BING_LANGUAGES, BING_VOICE_MAP } from '~/constants/bingLanguages'
 import { got } from '~/util/gmapi'
@@ -61,7 +61,11 @@ const getBingTranslate = async (word: string, payload?: BingTranslateParams): Pr
     responseType: 'json',
   })
 
-  const data = result.response[0]
+  if (isLeft(result)) {
+    throw new Error(result.left.type)
+  }
+
+  const data = result.right.response[0]
   const detectedLanguage: string = data.detectedLanguage.language
 
   // autodetected and fallback to secondTargetLanguage
@@ -145,7 +149,9 @@ const handlePlay = async (payload: PlayAudioAction) => {
     timeout: 5000,
   })
 
-  audioCacheService.play(namespacedKey, response.response, volume)
+  if (isRight(response)) {
+    audioCacheService.play(namespacedKey, response.right.response, volume)
+  }
 }
 
 audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)

@@ -1,4 +1,5 @@
 import { stringify } from 'querystring'
+import { isLeft } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 
 interface VoiceToken {
@@ -13,24 +14,28 @@ const data = {
   token: {} as any as VoiceToken,
 }
 
-const getToken = (ig: string, iid: string): Promise<VoiceToken> => {
+const getToken = async (ig: string, iid: string): Promise<VoiceToken> => {
   if (data.ig === ig && data.iid === iid) {
-    return Promise.resolve(data.token)
+    return data.token
   }
   const query = stringify({
     isVertical: '1',
     IG: ig,
     IID: iid,
   })
-  return got<any>({
+  const res = await got<any>({
     method: 'POST',
     url: `https://cn.bing.com/tfetspktok?${query}`,
     responseType: 'json',
-  }).then((res) => {
-    data.ig = ig
-    data.iid = iid
-    data.token = res.response
-    return res.response as VoiceToken
   })
+
+  if (isLeft(res)) {
+    throw new Error(res.left.type)
+  }
+
+  data.ig = ig
+  data.iid = iid
+  data.token = res.right.response
+  return res.right.response as VoiceToken
 }
 export default getToken

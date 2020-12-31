@@ -1,5 +1,5 @@
 import { stringify } from 'querystring'
-import { left, right } from 'fp-ts/lib/Either'
+import { isRight, left, right } from 'fp-ts/lib/Either'
 import { PROVIDER } from '~/constants'
 import { BAIDU_LANGUAGES } from '~/constants/baiduLanguages'
 import { store } from '~/service/store'
@@ -31,9 +31,11 @@ const detectLang = async (word: string): Promise<BAIDU_LANGUAGES> => {
     data: stringify(formdata),
     timeout: 5000,
   })
-  const result = JSON.parse(response.responseText)
-  if (result.error === 0) {
-    return result.lan as BAIDU_LANGUAGES
+  if (isRight(response)) {
+    const result = JSON.parse(response.right.responseText)
+    if (result.error === 0) {
+      return result.lan as BAIDU_LANGUAGES
+    }
   }
   throw new Error('检测翻译文本语言失败！')
 }
@@ -68,12 +70,15 @@ const fetchTranslation = async ({ word, sl, tl }: { word: string, sl: string, tl
     timeout: 5000,
   })
 
-  const result = JSON.parse(response.responseText)
+  if (isRight(response)) {
+    const result = JSON.parse(response.right.responseText)
 
-  const trans_result = result.trans_result
-  if (trans_result && trans_result.type === 2 && trans_result.status === 0) {
-    return (trans_result.data as Array<any>).map((v: any) => v.dst as string)
+    const trans_result = result.trans_result
+    if (trans_result && trans_result.type === 2 && trans_result.status === 0) {
+      return (trans_result.data as Array<any>).map((v: any) => v.dst as string)
+    }
   }
+
   throw new Error('翻译出错！')
 }
 
@@ -135,7 +140,9 @@ const handlePlay = async (payload: PlayAudioAction) => {
     timeout: 5000,
   })
 
-  audioCacheService.play(url, response.response, volume)
+  if (isRight(response)) {
+    audioCacheService.play(url, response.right.response, volume)
+  }
 }
 
 audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)

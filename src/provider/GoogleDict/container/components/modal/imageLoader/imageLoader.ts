@@ -1,3 +1,4 @@
+import { isLeft } from 'fp-ts/lib/Either'
 import { defineComponent, reactive, onMounted, watch } from 'vue'
 import { got } from '~/util/gmapi'
 
@@ -24,33 +25,33 @@ export default defineComponent({
     })
 
     const handleDraw = async (url: string): Promise<void> => {
-      try {
-        const response = await got<Blob>({
-          method: 'GET',
-          headers: {
-            'Accept': '*/*',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-            'upgrade-insecure-requests': '1',
-            'User-Agent': window.navigator.userAgent,
-          },
-          responseType: 'blob',
-          url,
-          timeout: 5000,
-        })
-        const blob = response.response
+      const response = await got<Blob>({
+        method: 'GET',
+        headers: {
+          'Accept': '*/*',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'upgrade-insecure-requests': '1',
+          'User-Agent': window.navigator.userAgent,
+        },
+        responseType: 'blob',
+        url,
+        timeout: 5000,
+      })
 
-        const reader = new FileReader()
-        reader.readAsDataURL(blob)
-        reader.onloadend = () => {
-          state.data = (reader.result as string).replace('data:;base64,', 'data:image/png;base64,')
-        }
-      } catch (e) {
-        return Promise.reject(e)
+      if (isLeft(response)) {
+        throw new Error(response.left.type)
       }
-      return Promise.resolve()
+
+      const blob = response.right.response
+
+      const reader = new FileReader()
+      reader.readAsDataURL(blob)
+      reader.onloadend = () => {
+        state.data = (reader.result as string).replace('data:;base64,', 'data:image/png;base64,')
+      }
     }
 
     const loadImage = () => {

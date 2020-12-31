@@ -1,3 +1,4 @@
+import { Either, left, right } from 'fp-ts/lib/Either'
 import { IcibaExtendedGMOption, IcibaExtendedGMXMLHttpRequestResponse } from './types'
 
 /* eslint-disable camelcase */
@@ -33,30 +34,29 @@ export class GMXMLError extends Error {
   }
 }
 
-export const got = <T = unknown>(params: IcibaExtendedGMOption) => {
+
+interface GotError {
+  type: 'timeout' | 'error' | 'statuscode'
+  res: GM.Response<unknown>
+}
+type GotReturnType<T> = Promise<Either<GotError, IcibaExtendedGMXMLHttpRequestResponse<T>>>
+export const got = <T = unknown>(params: IcibaExtendedGMOption): GotReturnType<T> => {
   const api = GM?.xmlHttpRequest ?? GM_xmlhttpRequest
 
   if (!api) {
     throw new Error('not running in greasymonkey or tampermonkey enviroment')
   }
 
-  return new Promise<IcibaExtendedGMXMLHttpRequestResponse<T>>((rs, rj) => {
+  return new Promise((rs) => {
     const option: IcibaExtendedGMOption = {
       timeout: 10000,
-      ontimeout(res) {
-        const error = new GMXMLError('timeout exceeded', res)
-        rj(error)
-      },
-      onerror(res) {
-        const error = new GMXMLError(`request failed ${res.status} ${res.statusText}`, res)
-        rj(error)
-      },
-      onload(response) {
-        if (response.status < 200 || response.status >= 300) {
-          const err = new GMXMLError(`response with status code ${response.status}`, response)
-          rj(err)
+      ontimeout: (res) => rs(left({ type: 'timeout', res })),
+      onerror: (res) => rs(left({ type: 'error', res })),
+      onload: (res) => {
+        if (res.status < 200 || res.status >= 300) {
+          rs(left({ type: 'statuscode', res }))
         }
-        rs(response as IcibaExtendedGMXMLHttpRequestResponse<T>)
+        rs(right(res as IcibaExtendedGMXMLHttpRequestResponse<T>))
       },
       ...params,
     }

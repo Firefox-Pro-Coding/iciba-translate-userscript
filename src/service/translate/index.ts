@@ -83,7 +83,7 @@ const translate = async (action: TranslateAction) => {
 
   if (isLeft(result)) {
     if (result.left.message) {
-      state.errorMessage = `${provider.id as string}: ${result.left.message}`
+      state.errorMessage = `${provider.id as string} 错误: ${result.left.message}`
       state.loading = false
     }
 

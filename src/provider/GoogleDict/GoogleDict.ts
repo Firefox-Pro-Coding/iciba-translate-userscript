@@ -1,6 +1,6 @@
 import { stringify } from 'querystring'
-import { left, right } from 'fp-ts/lib/Either'
-import { got, GMXMLError } from '~/util/gmapi'
+import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
+import { got } from '~/util/gmapi'
 import { PROVIDER } from '~/constants'
 import { audioCacheService } from '~/service/audioCache'
 import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
@@ -9,8 +9,6 @@ import { ProviderType } from '../provider'
 import GoogleDictContainer from './container/GoogleDictContainer.vue'
 import { containerData } from './containerDataStore'
 import { Codec } from './types'
-
-type UnPromisify<T> = T extends Promise<infer U> ? U : T
 
 const wordErrorCache = {} as Record<string, boolean>
 
@@ -34,40 +32,38 @@ const fetchGoogleDict = async (word: string, lang: string = 'uk') => {
   }
   const apiUrl = `${apiUrlBase}${stringify(query)}`
 
-  let response: UnPromisify<ReturnType<typeof got>>
+  const response = await got({
+    method: 'GET',
+    headers: {
+      // 'accept': '*/*',
+      // 'accept-encoding': 'gzip, deflate, br',
+      // 'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
+      // 'cache-control': 'no-cache',
+      // 'pragma': 'no-cache',
+      // 'user-agent': window.navigator.userAgent,
+      // 'x-goog-encode-response-if-executable': 'base64',
+      // 'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
+      'x-origin': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
+      'x-referer': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
+      // 'x-requested-with': 'XMLHttpRequest',
+    },
+    url: apiUrl,
+    timeout: 10000,
+  })
 
-  try {
-    response = await got({
-      method: 'GET',
-      headers: {
-        // 'accept': '*/*',
-        // 'accept-encoding': 'gzip, deflate, br',
-        // 'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.6',
-        // 'cache-control': 'no-cache',
-        // 'pragma': 'no-cache',
-        // 'user-agent': window.navigator.userAgent,
-        // 'x-goog-encode-response-if-executable': 'base64',
-        // 'x-javascript-user-agent': 'google-api-javascript-client/1.1.0',
-        'x-origin': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
-        'x-referer': 'chrome-extension://mgijmajocgfcbeboacabfgobmjgjcoja',
-        // 'x-requested-with': 'XMLHttpRequest',
-      },
-      url: apiUrl,
-      timeout: 10000,
-    })
-  } catch (_e) {
-    const e: GMXMLError = _e
-    const responseText = e.response.responseText
+  if (isLeft(response)) {
+    const responseText = response.left.res.responseText
     if (responseText) {
       const result = JSON.parse(responseText)
       if (result?.error?.message) {
         throw new Error(result.error.message)
       }
     }
-    throw new Error(`遇到错误: ${e.message} ${e.response.status}`)
+    throw new Error(`遇到错误: ${response.left.type} ${response.left.res.status}`)
   }
 
-  const data = JSON.parse(response.responseText)
+
+  const data = JSON.parse(response.right.responseText)
   if (Object.getOwnPropertyNames(data).length === 0) {
     throw new Error('无查询结果！')
   }
@@ -145,7 +141,10 @@ const handlePlay = async (payload: PlayAudioAction): Promise<void> => {
     url: mp3Url,
     timeout: 5000,
   })
-  audioCacheService.play(mp3Url, response.response, volume)
+
+  if (isRight(response)) {
+    audioCacheService.play(mp3Url, response.right.response, volume)
+  }
 }
 
 audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)

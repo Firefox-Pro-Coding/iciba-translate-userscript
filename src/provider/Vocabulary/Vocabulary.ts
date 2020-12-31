@@ -1,4 +1,4 @@
-import { left, right } from 'fp-ts/lib/Either'
+import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
 import { PROVIDER } from '~/constants'
@@ -31,7 +31,11 @@ const getAutocomplete = async (word: string) => {
     },
   })
 
-  const html = result.responseText
+  if (isLeft(result)) {
+    throw new Error(result.left.type)
+  }
+
+  const html = result.right.responseText
   const div = document.createElement('div')
   div.innerHTML = html
   const data = Array.from(div.querySelectorAll('.suggestions > li')).map((li) => ({
@@ -68,7 +72,11 @@ const getDefinition = async (word: string) => {
     },
   })
 
-  const html = result.responseText
+  if (isLeft(result)) {
+    throw new Error(result.left.type)
+  }
+
+  const html = result.right.responseText
   const div = document.createElement('div')
   div.innerHTML = html
 
@@ -134,7 +142,10 @@ const handlePlay = async (payload: PlayAudioAction): Promise<void> => {
     url,
     timeout: 5000,
   })
-  audioCacheService.play(url, response.response, volume)
+
+  if (isRight(response)) {
+    audioCacheService.play(url, response.right.response, volume)
+  }
 }
 
 audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)

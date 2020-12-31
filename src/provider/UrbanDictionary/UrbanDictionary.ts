@@ -1,5 +1,5 @@
 import { stringify } from 'querystring'
-import { left, right } from 'fp-ts/lib/Either'
+import { isLeft, left, right } from 'fp-ts/lib/Either'
 
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
@@ -22,7 +22,11 @@ const translate: ProviderType['translate'] = async (word: string) => {
       timeout: 5000,
     })
 
-    const result: UrbanDictionaryResult = JSON.parse(response.responseText)
+    if (isLeft(response)) {
+      throw new Error(response.left.type)
+    }
+
+    const result: UrbanDictionaryResult = JSON.parse(response.right.responseText)
 
     if (process.env.NODE_ENV === 'development') {
       check(result)

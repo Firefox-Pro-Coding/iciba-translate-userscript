@@ -3,6 +3,7 @@
  * https://www.jianshu.com/p/38a65d8d3e80
  */
 
+import { isLeft } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 import calcToken from './calcToken'
 
@@ -19,9 +20,13 @@ const updateGTK = async (force?: boolean) => {
     url: 'https://fanyi.baidu.com/',
     timeout: 5000,
   })
+  if (isLeft(response)) {
+    throw new Error(response.left.type)
+  }
 
-  const gtkMatch = /window\.gtk = '(.*?)'/.exec(response.responseText)
-  const commonTokenMatch = /token: '(.*?)',/.exec(response.responseText)
+  const responseText = response.right.responseText
+  const gtkMatch = /window\.gtk = '(.*?)'/.exec(responseText)
+  const commonTokenMatch = /token: '(.*?)',/.exec(responseText)
 
   if (!gtkMatch) {
     throw new Error('failed to get gtk')

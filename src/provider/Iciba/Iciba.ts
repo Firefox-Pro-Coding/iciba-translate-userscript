@@ -1,4 +1,4 @@
-import { left, right } from 'fp-ts/lib/Either'
+import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
 import { PROVIDER } from '~/constants'
@@ -17,7 +17,10 @@ const translate: ProviderType['translate'] = async (word: string) => {
     url: apiUrl,
     timeout: 5000,
   })
-  const content = response.responseText
+  if (isLeft(response)) {
+    throw new Error(response.left.type)
+  }
+  const content = response.right.responseText
   const contentMatch = /<script id="__NEXT_DATA__" type="application\/json">(.+?)<\/script>/.exec(content)
 
   if (!contentMatch) {
@@ -72,7 +75,10 @@ const handlePlay = async (payload: PlayAudioAction): Promise<void> => {
     responseType: 'arraybuffer',
     url,
   })
-  audioCacheService.play(url, response.response, volume)
+
+  if (isRight(response)) {
+    audioCacheService.play(url, response.right.response, volume)
+  }
 }
 
 audioBus.on(AEVENTS.PLAY_AUDIO, handlePlay)

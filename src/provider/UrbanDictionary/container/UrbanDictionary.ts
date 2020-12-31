@@ -1,4 +1,5 @@
 import { defineComponent, reactive, onMounted, onUnmounted, ref, computed } from 'vue'
+import { isLeft } from 'fp-ts/lib/Either'
 
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 
@@ -82,7 +83,13 @@ export default defineComponent({
           url: `https://api.urbandictionary.com/v0/tooltip?term=${encodeURIComponent(p.text)}`,
           timeout: 5000,
           responseType: 'json',
-        }).then((response) => JSON.parse(response.responseText).string) // eslint-disable-line @typescript-eslint/no-unsafe-return
+        }).then((res) => {
+          if (isLeft(res)) {
+            throw new Error(res.left.type)
+          }
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+          return JSON.parse(res.right.responseText).string
+        })
         cacheItem = { data: tooltipPromise }
         keywordCache[p.text] = cacheItem
       }
