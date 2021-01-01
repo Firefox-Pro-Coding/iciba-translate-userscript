@@ -8,7 +8,7 @@
         v-if="item.examples"
       >
         <div
-          class="example-item mt-1px flex"
+          class="example-item mt-px flex"
           v-for="(example, eIndex) in item.examples"
           :key="eIndex"
         >
@@ -45,7 +45,7 @@
           </div>
           <div class="thesaurus-box ml-4">
             <ThesaurusRow
-              class="mt-1px"
+              class="mt-px"
               :index="0"
               :item="combined[type][0]"
             />
@@ -54,7 +54,7 @@
               :fold="!getShowMoreExpanded(combined[type])"
             >
               <ThesaurusRow
-                class="mt-1px"
+                class="mt-px"
                 v-for="(tItem, tIndex) in combined[type].slice(1)"
                 :key="tIndex"
                 :index="tIndex + 1"

@@ -9,17 +9,25 @@
             !scrollBar && 'p-10px',
           ]"
         >
-          <div class="language-select-box w-full" v-show="state.visible">
-            <div class="title-box flex justify-between">
+          <div
+            class="language-select-box w-full select-none"
+            v-show="state.visible"
+          >
+            <div class="flex justify-between">
               <div v-show="state.type === 'source'">源语言</div>
               <div v-show="state.type === 'target'">翻译到</div>
-              <div class="cancel-button text-center text-grey-600" @click="state.visible = false">取消</div>
+              <div
+                class="text-center text-grey-600 py-px px-6px cursor-pointer hover:bg-bg-2"
+                @click="state.visible = false"
+              >
+                取消
+              </div>
             </div>
             <div class="items-box flex flex-wrap mt-1" v-show="state.visible">
               <div
                 v-for="v of languages"
                 :class="{
-                  'language-item text-center text-grey-600': true,
+                  'language-item text-center text-grey-600 cursor-pointer': true,
                   'active text-grey-800': state.type === 'source'
                     ? v.id === data.sourceLanguage
                     : v.id === data.targetLanguage,
@@ -58,25 +66,25 @@
           </div>
 
           <div class="bottom-info-box flex justify-between" v-show="!state.visible">
-            <div class="tts-box flex">
+            <div class="tts-box flex select-none">
               <div
-                class="play-sound flex flex-center"
+                class="play-sound flex flex-center cursor-pointer"
                 @click="handlePlay('source')"
               >
                 源
                 <i-icon class="audio-icon" :svg="icon.play_speaker_filled_audio_tool_59284" />
               </div>
               <div
-                class="play-sound flex flex-center ml-2"
+                class="play-sound flex flex-center ml-2 cursor-pointer"
                 @click="handlePlay('target')"
               >
                 译
                 <i-icon class="audio-icon" :svg="icon.play_speaker_filled_audio_tool_59284" />
               </div>
             </div>
-            <div class="language-info-box flex">
+            <div class="flex select-none text-grey-400">
               <div
-                class="language"
+                class="cursor-pointer hover:text-primary"
                 @click="showLanguageSelect('source')"
               >
                 {{ getLanguage(data.detectedLanguage) }}
@@ -84,7 +92,7 @@
               </div>
               <div class="px-1"> -&gt; </div>
               <div
-                class="language"
+                class="cursor-pointer hover:text-primary"
                 @click="showLanguageSelect('target')"
               >
                 {{ getLanguage(data.targetLanguage) }}

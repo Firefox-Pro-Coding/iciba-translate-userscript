@@ -27,9 +27,10 @@ module.exports = {
     spacing: {
       'auto': 'auto',
       '0': '0',
+      'px': '1px',
       ...Object.fromEntries(
-        Array(20).fill(0).map(
-          (_v, i) => [`${i + 1}px`, `${(i + 1)}px`],
+        Array(14).fill(0).map(
+          (_v, i) => [`${i + 2}px`, `${(i + 2)}px`],
         ),
       ),
       ...Object.fromEntries(

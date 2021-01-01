@@ -21,7 +21,7 @@
 
             <div class="items-box flex flex-wrap mt-1" v-show="state.visible">
               <div
-                class="language-item text-center text-grey-600 py-1px"
+                class="language-item text-center text-grey-600 py-px"
                 :class="{
                   'active text-grey-800': state.type === 'source'
                     ? v.id === containerData.sourceLanguage
