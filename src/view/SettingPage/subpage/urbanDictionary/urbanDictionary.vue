@@ -8,11 +8,6 @@
       name="urban dictionary"
       :icons="iconOptions"
     />
-    <i-checkbox-line
-      v-model="form.display"
-      label="显示按钮"
-      text="在查词框右侧显示按钮"
-    />
   </div>
 </template>
 
