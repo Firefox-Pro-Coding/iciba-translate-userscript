@@ -11,6 +11,7 @@ import { EVENTS, bus } from './service/globalBus'
 import { hotkeyService } from './service/hotkey'
 import { store } from './service/store'
 import { translateService } from './service/translate'
+import { viewService } from './service/view'
 import { registerMenuCommand } from './util/gmapi'
 import { scrollBarWidthService } from './service/scrollBarWidth'
 
@@ -101,9 +102,7 @@ export default defineComponent({
       }, { immediate: true })
 
       registerMenuCommand('打开iciba划词翻译设置', () => {
-        bus.emit({
-          type: EVENTS.OPEN_SETTING,
-        })
+        viewService.openSettings()
       })
 
       scrollBarWidthService.init()
