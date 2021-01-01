@@ -56,6 +56,7 @@
     "autoprefixer": "^10.1.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
+    "babel-plugin-polyfill-corejs3": "^0.0.10",
     "cache-loader": "^4.1.0",
     "chalk": "^4.1.0",
     "confusing-browser-globals": "^1.0.10",

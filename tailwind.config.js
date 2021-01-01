@@ -24,28 +24,6 @@ module.exports = {
       }, {}),
     },
 
-    spacing: {
-      'auto': 'auto',
-      '0': '0',
-      'px': '1px',
-      ...Object.fromEntries(
-        Array(14).fill(0).map(
-          (_v, i) => [`${i + 2}px`, `${(i + 2)}px`],
-        ),
-      ),
-      ...Object.fromEntries(
-        Array(64).fill(0).map(
-          (_v, i) => [i + 1, `${4 * (i + 1)}px`],
-        ),
-      ),
-    },
-
-    borderRadius: {
-      ...Array(20).fill(0)
-        .map((_v, i) => i + 1)
-        .reduce((p, c) => ({ ...p, [c]: `${c}px` }), {}),
-    },
-
     boxShadow: {
       '0': '0px 0px 0px 0px rgba(0,0,0,.2),0px 0px 0px 0px rgba(0,0,0,.14),0px 0px 0px 0px rgba(0,0,0,.12)',
       '1': '0px 2px 1px -1px rgba(0,0,0,.2),0px 1px 1px 0px rgba(0,0,0,.14),0px 1px 3px 0px rgba(0,0,0,.12)',
@@ -91,6 +69,25 @@ module.exports = {
         'bg-3': 'hsl(0, 0%, 91%)',
         'bg-4': 'hsl(0, 0%, 94%)',
         'bg-5': 'hsl(0, 0%, 97%)',
+      },
+
+      borderRadius: {
+        ...Array(20).fill(0)
+          .map((_v, i) => i + 1)
+          .reduce((p, c) => ({ ...p, [c]: `${c}px` }), {}),
+      },
+
+      spacing: {
+        ...Object.fromEntries(
+          Array(14).fill(0).map(
+            (_v, i) => [`${i + 2}px`, `${(i + 2)}px`],
+          ),
+        ),
+        ...Object.fromEntries(
+          Array(64).fill(0).map(
+            (_v, i) => [i + 1, `${4 * (i + 1)}px`],
+          ),
+        ),
       },
     },
   },

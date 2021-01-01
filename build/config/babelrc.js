@@ -5,13 +5,17 @@ module.exports = (api) => {
     'presets': [
       ['@babel/preset-env', {
         modules: false,
+        bugfixes: true,
       }],
     ],
     'plugins': [
       '@vue/babel-plugin-jsx',
       ['@babel/transform-runtime', {
-        corejs: 3,
         useESModules: true,
+      }],
+
+      ['polyfill-corejs3', {
+        'method': 'usage-pure',
       }],
     ],
   }
