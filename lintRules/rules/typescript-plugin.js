@@ -148,6 +148,9 @@ module.exports = {
         },
       ],
       '@typescript-eslint/no-base-to-string': 'error',
+      '@typescript-eslint/no-confusing-void-expression': ['error', {
+        'ignoreArrowShorthand': true,
+      }],
       '@typescript-eslint/no-dynamic-delete': 'off',
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
@@ -175,12 +178,15 @@ module.exports = {
       '@typescript-eslint/no-unnecessary-qualifier': 'error',
       '@typescript-eslint/no-unnecessary-type-arguments': 'error',
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+      // tsx genereis need this
+      '@typescript-eslint/no-unnecessary-type-constraint': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-call': 'error',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-unused-vars-experimental': 'error',
       '@typescript-eslint/no-var-requires': 'error',
+      '@typescript-eslint/non-nullable-type-assertion-style': 'error',
       '@typescript-eslint/prefer-as-const': 'error',
       '@typescript-eslint/prefer-for-of': 'off',
       '@typescript-eslint/prefer-function-type': 'off',
@@ -200,6 +206,7 @@ module.exports = {
       '@typescript-eslint/restrict-plus-operands': 'error',
       '@typescript-eslint/restrict-template-expressions': 'error',
       '@typescript-eslint/strict-boolean-expressions': 'off', // too much noise
+      '@typescript-eslint/sort-type-union-intersection-members': 'off',
       '@typescript-eslint/triple-slash-reference': ['error', {
         path: 'never',
         types: 'never',
@@ -343,6 +350,9 @@ module.exports = {
         named: 'never',
         asyncArrow: 'always',
       }],
+
+      'space-infix-ops': 'off',
+      '@typescript-eslint/space-infix-ops': 'error',
     },
   }],
 }

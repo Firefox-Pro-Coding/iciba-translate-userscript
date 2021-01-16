@@ -20,7 +20,7 @@ class Bus {
   }
 
   public emit(action: Actions) {
-    return this.bus.emit(`${action.type}`, action)
+    this.bus.emit(`${action.type}`, action)
   }
 }
 

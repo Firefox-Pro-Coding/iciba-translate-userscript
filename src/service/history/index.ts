@@ -1,5 +1,6 @@
-import { isRight } from 'fp-ts/lib/Either'
 import { reactive } from 'vue'
+import * as E from 'fp-ts/lib/Either'
+import { identity, pipe } from 'fp-ts/lib/function'
 import { GM_STORE_KEY } from '~/constants'
 import { getValue, setValue } from '~/util/gmapi'
 import { historyItem, HistoryItem } from './type'
@@ -17,23 +18,22 @@ const saveHistory = async () => {
 
 const loadHistory = async () => {
   const raw = await getValue(GM_STORE_KEY.HISTORY, '') as string
-  try {
-    const data = JSON.parse(raw)
-    if (!Array.isArray(data)) {
-      throw new Error()
-    }
+  const parsedList = pipe(
+    E.tryCatch(
+      () => JSON.parse(raw) as unknown,
+      identity,
+    ),
+    (v) => (E.isRight(v) && Array.isArray(v.right)
+      ? v.right as Array<unknown>
+      : []),
+  )
+    .map((item) => historyItem.decode(item))
+    .map((v) => (E.isRight(v) ? v.right : null))
+    .filter(<T>(v: T | null): v is T => !!v)
+    .filter((_, i) => i < MAX_SIZE)
 
-    state.list = data.reduce<Array<HistoryItem>>((p, c) => {
-      const item = historyItem.decode(c)
-      if (isRight(item)) {
-        p.push(item.right)
-      }
-      return p
-    }, [])
-    state.list.length = Math.min(state.list.length, MAX_SIZE)
-  } catch (e) {
-    await saveHistory()
-  }
+  state.list = parsedList
+  await saveHistory()
 }
 
 const clearHistory = async () => {

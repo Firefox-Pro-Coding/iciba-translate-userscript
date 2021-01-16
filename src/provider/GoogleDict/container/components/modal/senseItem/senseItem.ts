@@ -43,7 +43,7 @@ export default defineComponent({
       const th = props.sense.thesaurusEntries
       const examples = eg ?? []
       const thesaurusExamples = (th ?? [])
-        .map((v) => v.examples as Array<string>)
+        .map((v) => v.examples!)
         .filter(Boolean)
         .map((v) => v.filter(
           (l) => !examples.find((u) => !u.registers && u.examples.includes(l)),

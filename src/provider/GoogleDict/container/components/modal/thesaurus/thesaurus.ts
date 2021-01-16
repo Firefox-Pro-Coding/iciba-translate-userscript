@@ -1,6 +1,6 @@
 import { defineComponent, reactive, watch, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
-import { ThesaurusEntry, Thesaurus } from '~/provider/GoogleDict/types'
+import { ThesaurusEntry } from '~/provider/GoogleDict/types'
 import { store } from '~/service/store'
 import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants'
 
@@ -48,12 +48,12 @@ export default defineComponent({
 
     const combined = computed(() => {
       const synonyms = props.thesaurusEntries
-        .map((v) => v.synonyms as Array<Thesaurus>)
+        .map((v) => v.synonyms!)
         .filter(Boolean)
         .flatMap((v) => v)
 
       const antonyms = props.thesaurusEntries
-        .map((v) => v.antonyms as Array<Thesaurus>)
+        .map((v) => v.antonyms!)
         .filter(Boolean)
         .flatMap((v) => v)
 

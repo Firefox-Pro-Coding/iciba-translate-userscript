@@ -1,5 +1,6 @@
 import { reactive, watch } from 'vue'
-import { Either } from 'fp-ts/lib/Either'
+import * as E from 'fp-ts/lib/Either'
+import { identity, pipe } from 'fp-ts/lib/function'
 import { exact, type, TypeOf, Errors } from 'io-ts'
 
 import { getValue, setValue } from '~/util/gmapi'
@@ -57,25 +58,18 @@ const setDefaultDataByPath = (path: Array<string>, _data: any) => {
 /* eslint-disable @typescript-eslint/no-use-before-define */
 const useStore = () => {
   const loadConfig = async () => {
-    let dataString
-    try {
-      dataString = await getValue(GM_STORE_KEY.STORE, '') as string
-    } catch (e) {
-      dataString = ''
-    }
+    const dataString = await getValue(GM_STORE_KEY.STORE, '') as string
 
-    let data: any
-    try {
-      data = JSON.parse(dataString)
-    } catch (e) {
-      data = {}
-    }
+    let data: any = pipe(
+      E.tryCatch(
+        () => JSON.parse(dataString) as unknown,
+        identity,
+      ),
+      (v) => (E.isLeft(v) ? {} : v.right),
+      (v) => (Array.isArray(v) ? {} : v),
+    )
 
-    if (Array.isArray(data)) {
-      data = {}
-    }
-
-    let report!: Either<Errors, any>
+    let report!: E.Either<Errors, any>
     for (let i = 0; i < 3; i += 1) {
       report = storeType.decode(data)
       if (report._tag === 'Left') {
