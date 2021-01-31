@@ -35,11 +35,12 @@ export default defineComponent({
     })
 
     const updateSlider = () => {
-      const height = tabs[tabModel.value].getBoundingClientRect().height
+      const height = tabs[tabModel.value].clientHeight
       const top = tabs
         .filter((_v, i) => i < tabModel.value)
-        .map((v) => v.getBoundingClientRect().height)
+        .map((v) => v.clientHeight)
         .reduce((p, c) => p + c, 0)
+
       state.slider = {
         top,
         height,
@@ -51,7 +52,6 @@ export default defineComponent({
       height: `${state.slider.height}px`,
       ...props.sliderColor ? { color: props.sliderColor } : {},
     }))
-
 
     onMounted(() => {
       watch(

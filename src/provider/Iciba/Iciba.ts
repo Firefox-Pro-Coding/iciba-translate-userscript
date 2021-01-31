@@ -1,4 +1,6 @@
-import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
+import md5 from 'md5'
+import { isLeft, isRight, left, right, tryCatch } from 'fp-ts/lib/Either'
+import { identity } from 'fp-ts/lib/function'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
 import { PROVIDER } from '~/constants'
@@ -9,8 +11,22 @@ import { ProviderType } from '../provider'
 import { containerData } from './containerData'
 import IcibaContainer from './container/IcibaContainer.vue'
 
+// e.params = {client: 6, key: 1000006, timestamp: 1611974079765, word: "lead"}
 const translate: ProviderType['translate'] = async (word: string) => {
-  const apiUrl = `http://www.iciba.com/word?w=${encodeURIComponent(word)}`
+  const now = Date.now()
+  // hard code in http://www.iciba.com/_next/static/chunks/8caea17ae752a5965491f530aed3596fce3ca5a9.f4f0c70d4f1b9d4253e3.js
+  const hashKey = '7ece94d9f9c202b0d2ec557dg4r9bc'
+  const hashMessageBody = `61000006${now}${word}`
+  const hashMessage = `/dictionary/word/query/web${hashMessageBody}${hashKey}`
+  const signature = md5(hashMessage)
+  const query = [
+    'client=6',
+    'key=1000006',
+    `timestamp=${now}`,
+    `word=${encodeURIComponent(word)}`,
+    `signature=${signature}`,
+  ]
+  const apiUrl = `https://dict.iciba.com/dictionary/word/query/web?${query.join('&')}`
 
   const response = await got({
     method: 'GET',
@@ -21,36 +37,40 @@ const translate: ProviderType['translate'] = async (word: string) => {
     throw new Error(response.left.type)
   }
   const content = response.right.responseText
-  const contentMatch = /<script id="__NEXT_DATA__" type="application\/json">(.+?)<\/script>/.exec(content)
 
-  if (!contentMatch) {
+  const result = tryCatch(
+    () => JSON.parse(content).message as unknown,
+    identity,
+  )
+
+  if (isLeft(result)) {
     return left({
       message: '数据错误！',
     })
   }
-  const resultJson = JSON.parse(contentMatch[1])
-  const result = resultJson.props.initialDvaState.word.wordInfo
+
+  const message = result.right as any
 
   // fix iciba api typo
-  if ('baesInfo' in result) {
-    result.baseInfo = result.baesInfo
-    delete result.baesInfo
+  if ('baesInfo' in message) {
+    message.baseInfo = message.baesInfo
+    delete message.baesInfo
   }
 
-  if ('bidce' in result) {
-    result.bidec = result.bidce
-    delete result.bidce
+  if ('bidce' in message) {
+    message.bidec = message.bidce
+    delete message.bidce
   }
 
   // dev only check
   if (process.env.NODE_ENV === 'development') {
     // eslint-disable-next-line
     const check = require('./check').default as (...args: Array<any>) => unknown
-    check(result)
+    check(message)
   }
 
   return right(() => {
-    containerData.data = copy(result)
+    containerData.data = copy(message)
   })
 }
 
