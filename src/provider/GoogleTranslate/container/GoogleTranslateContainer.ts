@@ -57,7 +57,7 @@ export default defineComponent({
             tl: containerData.data!.detectedLanguage,
           }
           : {
-            word: containerData.data!.translate,
+            word: containerData.data!.translate.map((v) => v.text).join(''),
             tl: containerData.data!.targetLanguage,
           },
       })
@@ -66,6 +66,7 @@ export default defineComponent({
     return {
       state,
       data: computed(() => containerData.data!),
+      translateText: computed(() => containerData.data?.translate.map((v) => v.text).join('').split('\n') ?? []),
       languages,
       icon,
 

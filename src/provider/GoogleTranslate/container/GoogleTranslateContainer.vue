@@ -52,7 +52,7 @@
           </div>
 
           <div class="translate-content mb-2px" v-show="!state.visible">
-            <template v-for="(text, index) of data.translate.split('\n')" class="row">
+            <template v-for="(text, index) of translateText" class="row">
               <span v-if="text" :key="index">{{ text }}</span>
               <br v-if="!text" :key="index">
             </template>

@@ -75,6 +75,7 @@ const getGoogleTranslateResult = async (word: string, payload?: GoogleTranslateP
     }
 
     const data = JSON.parse(result.right.responseText.substring(4))
+    console.log(data)
     if (data[0]?.[1] === 'MkEWBc') {
       return right(JSON.parse(data[0][2]))
     }
@@ -102,9 +103,12 @@ const getGoogleTranslateResult = async (word: string, payload?: GoogleTranslateP
     targetLanguage,
     detectedLanguage: (data[0][2] as string) || sourceLanguage,
     phon: data[0][0] as string | null,
-    translate: data[1][0][0][5][0][0] as string,
-    translatePhone: data[1][0][0][1] as string,
-    translateVariations: data[1][0][0][5][0][1] as Array<string>,
+    // eslint-disable-next-line
+    translate: data[1][0][0][5].map((v: any) => ({
+      text: v[0] as string,
+      variations: v[1] as Array<string>,
+    })),
+    translatePhonetics: data[1][0][0][1] as string,
     fromDict: !!payload?.fromDict,
   }
 

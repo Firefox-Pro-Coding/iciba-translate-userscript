@@ -1,8 +1,10 @@
 export interface GetGoogleTranslateResult {
   phon: string | null
-  translate: string
-  translatePhone: string
-  translateVariations: Array<string>
+  translate: Array<{
+    text: string
+    variations: Array<string>
+  }>
+  translatePhonetics: string
   sourceLanguage: string
   targetLanguage: string
   detectedLanguage: string
