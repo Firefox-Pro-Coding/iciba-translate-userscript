@@ -10,15 +10,16 @@ const resolve = (dir) => path.join(__dirname, '../../..', dir)
 config.performance.maxEntrypointSize((1024 ** 2) * 5)
 config.performance.maxAssetSize((1024 ** 2) * 5)
 
-config.optimization.minimizer('terser')
-  .use(TerserPlugin, [{
-    extractComments: false,
-    terserOptions: {
-      output: {
-        comments: false,
-      },
-    },
-  }])
+config.optimization.minimize(false)
+// config.optimization.minimizer('terser')
+//   .use(TerserPlugin, [{
+//     extractComments: false,
+//     terserOptions: {
+//       output: {
+//         comments: false,
+//       },
+//     },
+//   }])
 
 config.plugin('fork-ts-checker-webpack-plugin')
   .use(ForkTsCheckerWebpackPlugin, [{
@@ -29,9 +30,9 @@ config.plugin('fork-ts-checker-webpack-plugin')
         syntactic: true,
       },
     },
-    eslint: {
-      files: './src/**/*.{ts,tsx,js,jsx,vue}',
-    },
+    // eslint: {
+    //   files: './src/**/*.{ts,tsx,js,jsx,vue}',
+    // },
   }])
 
 config.mode('production')
