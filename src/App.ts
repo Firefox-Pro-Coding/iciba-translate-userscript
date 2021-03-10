@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
 import { lazyLoadHoc } from '~/util/lazyLoadHoc'
 
 import IcibaMain from '~/view/IcibaMain/IcibaMain.vue'
@@ -93,13 +93,7 @@ export default defineComponent({
       window.addEventListener('mouseup', handleMouseUp, true)
       window.addEventListener('mousemove', handleMouseMove, true)
 
-      watch(() => store.config.core.useHotkeyShowUp, (showUp) => {
-        if (!showUp) {
-          hotkeyService.offHotkeyPress(handleHotkeyPress)
-          return
-        }
-        hotkeyService.onHotkeyPress(handleHotkeyPress)
-      }, { immediate: true })
+      hotkeyService.onHotkeyPress(handleHotkeyPress)
 
       registerMenuCommand('打开iciba划词翻译设置', () => {
         viewService.openSettings()
