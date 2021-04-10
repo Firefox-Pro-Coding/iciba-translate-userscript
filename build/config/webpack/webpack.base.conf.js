@@ -112,6 +112,16 @@ config.plugin('vue-bundle-flags')
     __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
   }])
 
+
+config.module.rule('json-stringify-replace')
+  .use('string-replace-loader')
+  .loader('string-replace-loader')
+  .options({
+    search: 'JSON.stringify(',
+    replace: 'JSON.__stringify(',
+  })
+
+
 config.plugin('progress')
   .use(ProgressBarPlugin, [{
     format: [

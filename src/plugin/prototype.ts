@@ -1,5 +1,9 @@
 /** fix prototype.js Array.prototype.toJSON pollution */
-
-if ((Array.prototype as any).toJSON) {
-  delete (Array.prototype as any).toJSON
+(JSON as any).__stringify = (...args: Parameters<typeof JSON.stringify>) => {
+  const arrayToJSON = (Array.prototype as any).toJSON
+  const stringyfy = JSON.stringify;
+  (Array.prototype as any).toJSON = undefined
+  const result = stringyfy.call(JSON, ...args);
+  (Array.prototype as any).toJSON = arrayToJSON
+  return result
 }
