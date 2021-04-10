@@ -34,6 +34,7 @@ module.exports = {
 
       // TODO: Uncategorized
       'vue/block-tag-newline': 'error',
+      'vue/html-button-has-type': 'off',
       'vue/max-len': 'off',
       'vue/padding-line-between-blocks': 'off',
       'vue/require-direct-export': 'off',

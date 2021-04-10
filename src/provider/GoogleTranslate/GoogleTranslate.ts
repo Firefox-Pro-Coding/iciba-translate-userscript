@@ -75,7 +75,6 @@ const getGoogleTranslateResult = async (word: string, payload?: GoogleTranslateP
     }
 
     const data = JSON.parse(result.right.responseText.substring(4))
-    console.log(data)
     if (data[0]?.[1] === 'MkEWBc') {
       return right(JSON.parse(data[0][2]))
     }

@@ -181,6 +181,7 @@ module.exports = {
       // tsx genereis need this
       '@typescript-eslint/no-unnecessary-type-constraint': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-call': 'error',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'error',
