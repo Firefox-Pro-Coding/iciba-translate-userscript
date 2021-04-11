@@ -118,7 +118,7 @@ config.module.rule('json-stringify-replace')
   .loader('string-replace-loader')
   .options({
     search: 'JSON.stringify(',
-    replace: 'JSON.__stringify(',
+    replace: 'require(\'~/util/stringify\').stringify(',
   })
 
 
