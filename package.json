@@ -1,6 +1,6 @@
 {
   "name": "iciba-translate-userscript",
-  "version": "4.9.9",
+  "version": "4.9.10",
   "description": "iciba划词翻译",
   "scripts": {
     "dev": "yarn clean:dist && node ./build/dev-server.js",
@@ -63,7 +63,7 @@
     "confusing-browser-globals": "^1.0.10",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.1",
-    "cssnano": "^4.1.11",
+    "cssnano": "^5.0.0",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
     "eslint": "^7.24.0",
     "eslint-import-resolver-typescript": "^2.4.0",
