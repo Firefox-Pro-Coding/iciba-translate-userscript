@@ -13,6 +13,7 @@ export const type = tType({
   ...providerCommonStore,
   display: fallback(boolean, true),
   icon: fallback(keyof(providerIcon[PROVIDER.ICIBA]), 'searchIcon'),
+  lowerCaseCapital: fallback(boolean, false),
 })
 
 export const defaultData = getFallbackData(type)

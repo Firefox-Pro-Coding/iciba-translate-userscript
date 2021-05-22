@@ -10,10 +10,15 @@ import { audioBus, AEVENTS, PlayAudioAction } from '~/service/audioBus'
 import { ProviderType } from '../provider'
 import { containerData } from './containerData'
 import IcibaContainer from './container/IcibaContainer.vue'
+import { store } from '~/service/store'
 
 // e.params = {client: 6, key: 1000006, timestamp: 1611974079765, word: "lead"}
-const translate: ProviderType['translate'] = async (word: string) => {
+const translate: ProviderType['translate'] = async (rawWord: string) => {
   const now = Date.now()
+  const wordCapital = store.config[PROVIDER.ICIBA].lowerCaseCapital
+    ? rawWord.substring(0, 1).toLowerCase()
+    : rawWord.substring(0, 1)
+  const word = `${wordCapital}${rawWord.substring(1)}`
   // hard code in http://www.iciba.com/_next/static/chunks/8caea17ae752a5965491f530aed3596fce3ca5a9.f4f0c70d4f1b9d4253e3.js
   const hashKey = '7ece94d9f9c202b0d2ec557dg4r9bc'
   const hashMessageBody = `61000006${now}${word}`

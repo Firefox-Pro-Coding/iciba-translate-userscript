@@ -8,6 +8,12 @@
       name="iciba"
       :icons="iconOptions"
     />
+
+    <i-checkbox-line
+      v-model="form.lowerCaseCapital"
+      label="查词首字母转换小写"
+      text="查词的单词首字母自动转换为小写"
+    />
   </div>
 </template>
 
