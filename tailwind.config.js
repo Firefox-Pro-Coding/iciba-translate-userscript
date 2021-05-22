@@ -1,6 +1,7 @@
 const colors = require('./utils/color-palette')
 
 module.exports = {
+  mode: 'jit',
   purge: {
     layers: ['utilities'],
     content: [
