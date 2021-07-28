@@ -4,6 +4,8 @@ import {
   defineComponent,
   computed,
   watch,
+  Fragment,
+  VNode,
 } from 'vue'
 
 export default defineComponent({
@@ -63,27 +65,35 @@ export default defineComponent({
       )
     })
 
-    return () => (
-      <div class="i-tabs flex-col flex-wrap relative items-stretch">
-        <div
-          class="slider absolute ease-in-out duration-300"
-          style={sliderStyle.value}
-        />
-        {(ctx.slots.default?.() ?? []).map((tab, index) => (
+    return () => {
+      const VNodes = (ctx.slots.default?.() ?? []).flatMap((v) => {
+        if (v.type === Fragment) {
+          return v.children
+        }
+        return v
+      }) as Array<VNode>
+      return (
+        <div class="i-tabs flex-col flex-wrap relative items-stretch">
           <div
-            ref={(el) => { if (el) { tabs[index] = el as HTMLDivElement } }}
-            class={{
-              'tab flex flex-center text-14': true,
-              'active': tabModel.value === index,
-            }}
-            v-ripple={{ class: tabModel.value === index ? 'active-ripple' : 'inactive-ripple' }}
-            onClick={() => { tabModel.value = index }}
-            key={index}
-          >
-            {tab}
-          </div>
-        ))}
-      </div>
-    )
+            class="slider absolute ease-in-out duration-300"
+            style={sliderStyle.value}
+          />
+          {VNodes.map((tab, index) => (
+            <div
+              ref={(el) => { if (el) { tabs[index] = el as HTMLDivElement } }}
+              class={{
+                'tab flex flex-center text-14': true,
+                'active': tabModel.value === index,
+              }}
+              v-ripple={{ class: tabModel.value === index ? 'active-ripple' : 'inactive-ripple' }}
+              onClick={() => { tabModel.value = index }}
+              key={index}
+            >
+              {tab}
+            </div>
+          ))}
+        </div>
+      )
+    }
   },
 })

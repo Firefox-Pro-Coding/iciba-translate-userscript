@@ -1,9 +1,9 @@
 import { defineComponent, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { ExampleGroup } from '~/provider/GoogleDict/types'
-import { store } from '~/service/store'
-import { GOOGLE_DICT_FOLD_STATUS, PROVIDER } from '~/constants'
+import { store } from '~/provider/GoogleDict/store'
 import labels from '../labels/labels.vue'
+import { GOOGLE_DICT_FOLD_STATUS } from '~/provider/GoogleDict/constant'
 
 interface Props {
   exampleGroups: Array<ExampleGroup>
@@ -22,7 +22,7 @@ export default defineComponent({
     },
   },
   setup: (props: Props) => {
-    const folded = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_EXAMPLES)
+    const folded = computed(() => store.data.foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_EXAMPLES)
     return {
       props,
       folded,

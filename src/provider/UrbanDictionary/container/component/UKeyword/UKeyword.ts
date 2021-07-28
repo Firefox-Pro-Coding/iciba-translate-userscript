@@ -2,7 +2,7 @@ import { defineComponent, reactive, onMounted, watch, ref } from 'vue'
 
 import urbanBus, { NAMES } from '../../bus'
 import { bus, EVENTS } from '~/service/globalBus'
-import { PROVIDER } from '~/constants'
+import { UrbanDictionaryProvider } from '~/provider/UrbanDictionary'
 
 export default defineComponent({
   name: 'UrbanDictionaryKeyword',
@@ -28,7 +28,7 @@ export default defineComponent({
         type: EVENTS.TRANSLATE,
         word: props.content,
         param: {
-          provider: PROVIDER.URBAN_DICTIONARY,
+          provider: UrbanDictionaryProvider.id,
         },
       })
     }

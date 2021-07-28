@@ -15,14 +15,13 @@ import Radio from '~/components/radio/radio.vue'
 import Slider from '~/components/slider/slider.vue'
 import HotkeyInput from '~/components/hotkeyInput/hotkeyInput.vue'
 import IIcon from '~/components/IIcon/IIcon.vue'
-// import { clickOutside } from './util/diretives/click-outside'
 
-
+import { initStore } from '~/service/store'
+import { providers } from '~/provider'
 import App from '~/App.vue'
-import { store } from '~/service/store'
 
 const main = async () => {
-  await store.loadConfig()
+  await initStore(providers)
 
   const style = document.createElement('style')
   style.innerHTML = '.iciba-root{all:initial}'
@@ -36,7 +35,6 @@ const main = async () => {
 
   app.directive('ripple', Ripple)
   app.directive('no-overscroll', NoOverscroll)
-  // app.directive('click-outside', clickOutside)
 
   app.component('i-checkbox-line', CheckboxLine)
   app.component('i-checkbox', Checkbox)

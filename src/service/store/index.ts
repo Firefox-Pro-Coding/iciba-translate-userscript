@@ -1,110 +1,81 @@
 import { reactive, watch } from 'vue'
 import * as E from 'fp-ts/lib/Either'
 import { identity, pipe } from 'fp-ts/lib/function'
-import { exact, type, TypeOf, Errors } from 'io-ts'
+import { Errors, Any, TypeOf } from 'io-ts'
 
 import { getValue, setValue } from '~/util/gmapi'
 import copy from '~/util/copy'
+import { GM_STORE_KEY } from '~/constants'
+import { Provider } from '~/provider/create'
 
-import { GM_STORE_KEY, PROVIDER } from '~/constants'
+import * as core from './core'
 
-import * as core from './modules/core'
-import * as iciba from './modules/iciba'
-import * as googleDict from './modules/googleDict'
-import * as googleTranslate from './modules/googleTranslate'
-import * as baiduTranslate from './modules/baiduTranslate'
-import * as sougouTranslate from './modules/sougouTranslate'
-import * as urbanDictionary from './modules/urbanDictionary'
-import * as bingTranslate from './modules/bingTranslate'
-import * as vocabulary from './modules/vocabulary'
+type StoreType = {
+  core: TypeOf<typeof core.storeType>
+} & Record<string, Any>
 
-const storeType = exact(type({
-  core: core.type,
-  [PROVIDER.ICIBA]: iciba.type,
-  [PROVIDER.GOOGLE_DICT]: googleDict.type,
-  [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.type,
-  [PROVIDER.BAIDU_TRANSLATE]: baiduTranslate.type,
-  [PROVIDER.SOUGOU_TRANSLATE]: sougouTranslate.type,
-  [PROVIDER.URBAN_DICTIONARY]: urbanDictionary.type,
-  [PROVIDER.BING_TRANSLATE]: bingTranslate.type,
-  [PROVIDER.VOCABULARY]: vocabulary.type,
-}))
+export const store = {} as StoreType
 
-export type Config = TypeOf<typeof storeType>
-
-export const defaultData: Config = {
-  core: core.defaultData,
-  [PROVIDER.ICIBA]: iciba.defaultData,
-  [PROVIDER.GOOGLE_DICT]: googleDict.defaultData,
-  [PROVIDER.GOOGLE_TRANSLATE]: googleTranslate.defaultData,
-  [PROVIDER.BAIDU_TRANSLATE]: baiduTranslate.defaultData,
-  [PROVIDER.SOUGOU_TRANSLATE]: sougouTranslate.defaultData,
-  [PROVIDER.URBAN_DICTIONARY]: urbanDictionary.defaultData,
-  [PROVIDER.BING_TRANSLATE]: bingTranslate.defaultData,
-  [PROVIDER.VOCABULARY]: vocabulary.defaultData,
-}
-
-const setDefaultDataByPath = (path: Array<string>, _data: any) => {
+const setDefaultDataByPath = (path: Array<string>, _data: any, _defaultData: any) => {
   let data = _data
-  let dData = defaultData as any
+  let defaultData = _defaultData
   for (let i = 0; i < path.length - 1; i += 1) {
     data = data[path[i]]
-    dData = dData[path[i]]
+    defaultData = defaultData[path[i]]
   }
   const lastPath = path[path.length - 1]
-  data[lastPath] = copy(dData[lastPath])
+  data[lastPath] = copy(defaultData[lastPath])
 }
 
-/* eslint-disable @typescript-eslint/no-use-before-define */
-const useStore = () => {
-  const loadConfig = async () => {
-    const dataString = await getValue(GM_STORE_KEY.STORE, '') as string
-
-    let data: any = pipe(
-      E.tryCatch(
-        () => JSON.parse(dataString) as unknown,
-        identity,
-      ),
-      (v) => (E.isLeft(v) ? {} : v.right),
-      (v) => (Array.isArray(v) ? {} : v),
-    )
-
-    let report!: E.Either<Errors, any>
-    for (let i = 0; i < 3; i += 1) {
-      report = storeType.decode(data)
-      if (report._tag === 'Left') {
-        report.left.forEach((e) => {
-          const pathArray = e.context.map((path) => path.key).filter((v) => v)
-          setDefaultDataByPath(pathArray, data)
-        })
-      } else {
-        data = report.right
-        break
-      }
-    }
-
+const decode = (type: Any, _data: unknown, defaultData: any) => {
+  const data = copy(_data)
+  let report!: E.Either<Errors, any>
+  for (let i = 0; i < 3; i += 1) {
+    report = type.decode(data)
     if (report._tag === 'Left') {
-      data = defaultData
+      report.left.forEach((e) => {
+        const pathArray = e.context.map((path) => path.key).filter((v) => v)
+        setDefaultDataByPath(pathArray, data, defaultData)
+      })
+    } else {
+      return report.right as unknown
     }
-
-    store.config = reactive(data)
-
-    watch(() => store.config, () => {
-      saveConfig()
-    }, { deep: true })
   }
-
-  const saveConfig = () => {
-    const dataString = JSON.stringify(store.config)
-    setValue(GM_STORE_KEY.STORE, dataString)
-  }
-
-  const store = {
-    config: null as any as Config,
-    loadConfig,
-  }
-
-  return store
+  return data
 }
 
-export const store = useStore()
+export const initStore = async (providers: ReadonlyArray<Provider>) => {
+  const dataString = await getValue(GM_STORE_KEY.STORE, '') as string
+
+  const data: any = pipe(
+    E.tryCatch(
+      () => JSON.parse(dataString) as unknown,
+      identity,
+    ),
+    (v) => (E.isLeft(v) ? {} : v.right),
+    (v) => (Array.isArray(v) ? {} : v),
+  )
+
+  providers.forEach((p) => {
+    const providerStore = decode(p.storeType, data[p.id], p.defaultStore)
+    const reactiveData = reactive(providerStore as any)
+    p.storeWrapper.data = reactiveData
+    data[p.id] = reactiveData
+  })
+
+  const coreStore = decode(core.storeType, data.core, core.defaultData)
+  data.core = reactive(coreStore as any)
+
+  const newStore = reactive(data)
+
+  watch(
+    newStore,
+    () => {
+      const dataString = JSON.stringify(newStore)
+      setValue(GM_STORE_KEY.STORE, dataString)
+    },
+    { deep: true },
+  )
+
+  Object.assign(store, newStore)
+}

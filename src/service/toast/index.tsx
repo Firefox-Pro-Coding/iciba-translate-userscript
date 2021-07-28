@@ -15,7 +15,7 @@ const state = reactive({
   toasts: [] as Array<ToastItem>,
 })
 
-const ToastHack = Toast as any as ToastComponent
+const ToastHack = Toast as ToastComponent
 
 const init = () => {
   const ToastContainer = defineComponent({

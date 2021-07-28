@@ -1,8 +1,8 @@
 import { defineComponent } from 'vue'
 // import googleDictBus from '~/provider/GoogleDict/bus'
 import { bus, EVENTS } from '~/service/globalBus'
-import { PROVIDER } from '~/constants'
 import { Fragment } from '~/provider/GoogleDict/types'
+import { GoogleDictProvider } from '~/provider/GoogleDict'
 
 interface Props {
   fragment: Array<Fragment>
@@ -23,7 +23,7 @@ export default defineComponent({
         word,
         mouseEvent: event,
         param: {
-          provider: PROVIDER.GOOGLE_DICT,
+          provider: GoogleDictProvider.id,
         },
       })
     }

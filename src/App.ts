@@ -43,11 +43,11 @@ export default defineComponent({
     }
 
     const handleShowUpHotkeyPress = (keys: Array<string>, stop: () => void) => {
-      if (!store.config.core.useHotkeyShowUp) {
+      if (!store.core.useHotkeyShowUp) {
         return
       }
 
-      const hotkeyMatch = hotkeyService.match(store.config.core.showUpHotkey, keys)
+      const hotkeyMatch = hotkeyService.match(store.core.showUpHotkey, keys)
       if (!hotkeyMatch || !lastMouseMoveEvent) {
         return
       }
@@ -79,7 +79,7 @@ export default defineComponent({
           type: EVENTS.HOTKEY_TRANSLATE,
           word,
           mouseEvent,
-          provider: matchedProvider,
+          provider: matchedProvider.id,
         })
       }
     }

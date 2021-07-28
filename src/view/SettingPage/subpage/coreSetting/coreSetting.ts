@@ -1,16 +1,15 @@
 import { defineComponent, watch, onUnmounted, reactive, computed, onMounted } from 'vue'
 
 import {
-  providerOptions,
-  PROVIDER,
   ICIBA_CIRCLE_ICON,
   ICIBA_CIRCLE_ICON_MAP,
 } from '~/constants'
 import { store } from '~/service/store'
 
 import Foldable from '~/components/Foldable/Foldable.vue'
-import IconRadioGroup from '../../IconRadioGroup/IconRadioGroup.vue'
+import IconRadioGroup from '~/components/IconRadioGroup/IconRadioGroup.vue'
 import ProviderSort from './providerSort/providerSort.vue'
+import { providers } from '~/provider'
 
 const icibaCircleIconOptions = Object
   .entries(ICIBA_CIRCLE_ICON_MAP)
@@ -18,6 +17,11 @@ const icibaCircleIconOptions = Object
     icon: v,
     key: k,
   }))
+
+const providerOptions = providers.map((p) => ({
+  label: p.label,
+  key: p.id,
+}))
 
 export default defineComponent({
   name: 'CoreSettings',
@@ -34,8 +38,8 @@ export default defineComponent({
       keys: [] as Array<string>,
       setKeys: [] as Array<string>,
     })
-    const form = store.config.core
-    let reset: Array<PROVIDER> | null = null
+    const form = store.core
+    let reset: Array<string> | null = null
 
     watch(() => [
       form.defaultProvider,

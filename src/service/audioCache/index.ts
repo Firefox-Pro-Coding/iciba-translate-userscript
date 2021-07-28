@@ -7,6 +7,8 @@ interface PlayAudio {
 
 const audioMap = new Map<string, ArrayBuffer>()
 
+const has = (key: string) => audioMap.has(key)
+
 const play: PlayAudio = (key: string, p1?: ArrayBuffer | number, p2?: number) => {
   const buffer = p1 instanceof ArrayBuffer ? p1 : null
   const volume = typeof p1 === 'number' ? p1 : p2 ?? 1
@@ -25,5 +27,6 @@ const play: PlayAudio = (key: string, p1?: ArrayBuffer | number, p2?: number) =>
 }
 
 export const audioCacheService = {
+  has,
   play,
 }

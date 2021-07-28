@@ -49,7 +49,7 @@
 
                 <div class="flex items-center flex-none text-grey-400 text-14 ml-1">
                   <div class="ml-2">
-                    {{ PROVIDER_MAP[item.provider] }}
+                    {{ getProviderName(item.provider) }}
                   </div>
                   <div class="ml-2">
                     <span :title="formatTimeFull(item.time)">

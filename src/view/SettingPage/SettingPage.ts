@@ -13,15 +13,17 @@ import ModalComponent from '~/components/modal/modal.vue'
 import About from './subpage/about/about.vue'
 import CoreSetting from './subpage/coreSetting/coreSetting.vue'
 import HotKey from './subpage/hotKey/hotKey.vue'
-import Iciba from './subpage/iciba/iciba.vue'
-import GoogleDict from './subpage/googleDict/googleDict.vue'
-import GoogleTranslate from './subpage/googleTranslate/googleTranslate.vue'
-import BaiduTranslate from './subpage/baiduTranslate/baiduTranslate.vue'
-import SougouTranslate from './subpage/sougouTranslate/sougouTranslate.vue'
-import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
-import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
-import Vocabulary from './subpage/vocabulary/vocabulary.vue'
+// import Iciba from './subpage/iciba/iciba.vue'
+// import GoogleDict from './subpage/googleDict/googleDict.vue'
+// import GoogleTranslate from './subpage/googleTranslate/googleTranslate.vue'
+// import BaiduTranslate from './subpage/baiduTranslate/baiduTranslate.vue'
+// import SougouTranslate from './subpage/sougouTranslate/sougouTranslate.vue'
+// import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
+// import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
+// import Vocabulary from './subpage/vocabulary/vocabulary.vue'
 import { viewService } from '~/service/view'
+import { providers } from '~/provider'
+
 
 export default defineComponent({
   name: 'SettingPage',
@@ -35,14 +37,14 @@ export default defineComponent({
     About,
     CoreSetting,
     HotKey,
-    Iciba,
-    GoogleDict,
-    GoogleTranslate,
-    BaiduTranslate,
-    SougouTranslate,
-    UrbanDictionary,
-    BingTranslate,
-    Vocabulary,
+    // Iciba,
+    // GoogleDict,
+    // GoogleTranslate,
+    // BaiduTranslate,
+    // SougouTranslate,
+    // UrbanDictionary,
+    // BingTranslate,
+    // Vocabulary,
   },
   setup: () => {
     const state = reactive({
@@ -58,7 +60,8 @@ export default defineComponent({
     return {
       state,
       visible,
-
+      providersPage: providers.map((v) => v.settingView),
+      providersLabel: providers.map((v) => v.label),
       handleCloseSetting,
     }
   },

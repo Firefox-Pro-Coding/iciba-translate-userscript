@@ -1,43 +1,23 @@
 import { computed, reactive } from 'vue'
 import { isLeft, isRight } from 'fp-ts/lib/Either'
-import { PROVIDER } from '~/constants'
 import { useIncrement } from '~/util/useIncrement'
-import { iciba } from '~/provider/Iciba/Iciba'
-import { googleDict } from '~/provider/GoogleDict/GoogleDict'
-import { googleTranslate } from '~/provider/GoogleTranslate/GoogleTranslate'
-import { baiduTranslate } from '~/provider/BaiduTranslate/BaiduTranslate'
-import { sougouTranslate } from '~/provider/SougouTranslate/SougouTranslate'
-import { urbanDictionary } from '~/provider/UrbanDictionary/UrbanDictionary'
-import { bingTranslate } from '~/provider/BingTranslate/BingTranslate'
-import { vocabulary } from '~/provider/Vocabulary/Vocabulary'
-import { ProviderType } from '~/provider/provider'
 
 import { EVENTS, TranslateAction } from '../globalBus'
 import { store } from '../store'
 import { historyService } from '../history'
+import { providers } from '~/provider'
 
 interface ActiveTask {
   word: string
-  provider: PROVIDER
+  provider: string
   id: number
 }
-
-const providers: Array<ProviderType> = [
-  iciba,
-  googleDict,
-  googleTranslate,
-  baiduTranslate,
-  sougouTranslate,
-  urbanDictionary,
-  bingTranslate,
-  vocabulary,
-]
 
 const state = reactive({
   loading: false,
   activeTask: null as ActiveTask | null,
-  activeProviderId: null as PROVIDER | null,
-  lastUsedProvider: PROVIDER.ICIBA,
+  activeProviderId: null as string | null,
+  lastUsedProvider: 'ICIBA',
   errorMessage: '',
 })
 
@@ -47,7 +27,7 @@ const getTaskId = useIncrement(0)
 const translate = async (action: TranslateAction) => {
   const param = action.param
   const provider = (param && providers.find((p) => p.id === param.provider))
-    ?? providers.find((v) => v.id === store.config.core.defaultProvider)
+    ?? providers.find((v) => v.id === store.core.defaultProvider)
     ?? providers[0]
   const payload = param?.param ?? null
   const word = action.word.trim()
@@ -75,17 +55,18 @@ const translate = async (action: TranslateAction) => {
   state.activeTask = newTask
   state.loading = true
   state.errorMessage = ''
-  const result = await provider.translate(word, payload as any)
+  const result = await provider.translate({
+    word,
+    payload,
+  })
 
   if (state.activeTask?.id !== newTask.id) {
     return
   }
 
   if (isLeft(result)) {
-    if (result.left.message) {
-      state.errorMessage = `${provider.id as string} 错误: ${result.left.message}`
-      state.loading = false
-    }
+    state.errorMessage = `${provider.id} 错误: ${result.left.message ?? ''}`
+    state.loading = false
 
     if (result.left.redirect) {
       await translate({

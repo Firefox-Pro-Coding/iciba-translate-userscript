@@ -1,9 +1,3 @@
-import { PROVIDER } from '~/constants'
-import { BaiduTranslateParams } from '~/provider/BaiduTranslate/BaiduTranslate'
-import { BingTranslateParams } from '~/provider/BingTranslate/BingTranslate'
-import { GoogleTranslateParams } from '~/provider/GoogleTranslate/GoogleTranslate'
-import { SougouTranslateParams } from '~/provider/SougouTranslate/SougouTranslate'
-
 export const enum EVENTS {
   TRANSLATE,
   HOTKEY_SHOW,
@@ -19,29 +13,8 @@ export interface TranslateAction {
   word: string
   mouseEvent?: MouseEvent
   param?: {
-    provider: PROVIDER.BAIDU_TRANSLATE
-    param?: BaiduTranslateParams
-  } | {
-    provider: PROVIDER.BING_TRANSLATE
-    param?: BingTranslateParams
-  } | {
-    provider: PROVIDER.GOOGLE_TRANSLATE
-    param?: GoogleTranslateParams
-  } | {
-    provider: PROVIDER.GOOGLE_DICT
-    param?: undefined
-  } | {
-    provider: PROVIDER.ICIBA
-    param?: undefined
-  } | {
-    provider: PROVIDER.SOUGOU_TRANSLATE
-    param?: SougouTranslateParams
-  } | {
-    provider: PROVIDER.URBAN_DICTIONARY
-    param?: undefined
-  } | {
-    provider: PROVIDER.VOCABULARY
-    param?: undefined
+    provider: string
+    param?: any
   }
 }
 
@@ -68,7 +41,7 @@ export interface HotKeyTranslateAction {
   type: EVENTS.HOTKEY_TRANSLATE
   mouseEvent: MouseEvent
   word: string
-  provider: PROVIDER
+  provider: string
 }
 
 export interface HideCircleTranslateAction {

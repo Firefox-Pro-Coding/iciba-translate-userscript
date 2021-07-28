@@ -37,7 +37,7 @@
               >
               <div
                 class="input-button flex flex-center cursor-pointer"
-                v-if="store.config.core.history"
+                v-if="store.core.history"
                 @click="m.handleOpenHistory"
               >
                 <i-icon :size="21" :svg="icon.historyIcon" color="#aaa" />
@@ -68,7 +68,7 @@
             <component
               class="provider-container"
               v-if="!translateLoading && !errorMessage && activeProvider"
-              :is="activeProvider.view"
+              :is="activeProvider.translateView"
               :key="activeProvider.id"
             />
             <div
@@ -94,8 +94,8 @@
           <transition name="s">
             <div
               class="stick-box absolute border-l border-grey-350"
-              v-if="store.config.core.showPin"
-              v-show="store.config.core.pinned || state.stickBoxVisible"
+              v-if="store.core.showPin"
+              v-show="store.core.pinned || state.stickBoxVisible"
             >
               <div
                 class="drag flex flex-center border-b border-grey-350"
@@ -106,7 +106,7 @@
               <div
                 class="stick flex flex-center relative"
                 :class="{
-                  pinned: store.config.core.pinned,
+                  pinned: store.core.pinned,
                 }"
                 @click="m.pinDrag.handleTogglePinned"
               >

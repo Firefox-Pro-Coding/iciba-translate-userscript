@@ -1,11 +1,11 @@
 import { defineComponent, reactive, onMounted, onUnmounted, ref } from 'vue'
 
-import { defaultData, store } from '~/service/store'
-import { PROVIDER } from '~/constants'
-import { getIcon } from '~/provider/provider'
+import { store } from '~/service/store'
+import { defaultData } from '~/service/store/core'
+import { getIcon, providers } from '~/provider'
 
 interface DragItem {
-  id: PROVIDER
+  id: string
   icon: string
   mask: boolean
   z: number
@@ -24,12 +24,15 @@ export default defineComponent({
       container: ref<HTMLDivElement>(),
     }
 
-    const loadList = () => store.config.core.providerOrder.map((id) => ({
-      id,
-      icon: getIcon(id),
-      mask: false,
-      z: 0,
-    })) as Array<DragItem>
+    const loadList = () => store.core.providerOrder.map((id) => {
+      const provider = providers.find((p) => p.id === id)!
+      return {
+        id,
+        icon: getIcon(provider),
+        mask: false,
+        z: 0,
+      }
+    }) as Array<DragItem>
 
     const state = reactive({
       list: loadList(),
@@ -111,19 +114,23 @@ export default defineComponent({
       }
       drag.item.mask = false
       drag.item = null
-      store.config.core.providerOrder = state.list.map((v) => v.id)
+      store.core.providerOrder = state.list.map((v) => v.id)
     }
 
-    const handleToggleVisibility = (key: PROVIDER) => {
-      store.config[key].display = !store.config[key].display
+    const handleToggleVisibility = (key: string) => {
+      const provider = providers.find((p) => p.id === key)!
+      provider.store.display = !provider.store.display
     }
 
     const handleReset = () => {
-      store.config.core.providerOrder = [...defaultData.core.providerOrder]
+      store.core.providerOrder = [...defaultData.providerOrder]
       state.list = loadList()
     }
 
-    const isProviderVisible = (key: PROVIDER) => store.config[key].display
+    const isProviderVisible = (key: string) => {
+      const provider = providers.find((p) => p.id === key)!
+      return provider.store.display
+    }
 
     onMounted(() => {
       window.addEventListener('mousemove', handleMouseMove)

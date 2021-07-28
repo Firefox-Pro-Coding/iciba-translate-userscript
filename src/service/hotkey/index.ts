@@ -1,5 +1,4 @@
-import { allProviders } from '~/constants'
-import { store } from '~/service/store'
+import { providers } from '~/provider'
 
 const normalizeKey = (key: string) => (
   key >= 'a' && key <= 'z'
@@ -61,9 +60,8 @@ const offHotkeyPress = (fn: HotKeyHandler) => {
 const match = (k1: Array<string>, k2: Array<string>) => k1.length === k2.length && k1.every((k) => k2.includes(k))
 
 const getHotkeyMatchedProvider = (ks: Array<string>) => {
-  const config = store.config
-  const provider = allProviders.find((p) => {
-    const providerConfig = config[p]
+  const provider = providers.find((p) => {
+    const providerConfig = p.store
     return providerConfig.enableHotkey && match(ks, providerConfig.hotkey)
   })
 

@@ -1,4 +1,4 @@
-import { GM_STORE_KEY, PROVIDER } from '~/constants'
+import { GM_STORE_KEY } from '~/constants'
 import { historyService } from '~/service/history'
 import { getValue, setValue } from '~/util/gmapi'
 
@@ -19,7 +19,7 @@ test('add item', async () => {
 
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(1)
@@ -33,7 +33,7 @@ test('filter invalid item', async () => {
     {
       word: 'apple',
       time: Date.now(),
-      provider: PROVIDER.ICIBA,
+      provider: 'ICIBA',
     },
     {
       word: 'banana',
@@ -68,7 +68,7 @@ test('max size 100', async () => {
   setValue(GM_STORE_KEY.HISTORY, JSON.stringify(Array(101).fill({
     word: 'apple',
     time: Date.now(),
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })))
 
   await historyService.loadHistory()
@@ -84,7 +84,7 @@ test('add duplicate item within 10m', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 60 * 10 + 1)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(1)
@@ -92,7 +92,7 @@ test('add duplicate item within 10m', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 60 * 2)
   await historyService.addItem({
     word: 'banana',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(2)
@@ -101,7 +101,7 @@ test('add duplicate item within 10m', async () => {
   mockNow.mockImplementationOnce(() => now)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(2)
@@ -117,7 +117,7 @@ test('add duplicate item within 10m with different provider', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 60 * 10 + 1)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(1)
@@ -125,7 +125,7 @@ test('add duplicate item within 10m with different provider', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 60 * 2)
   await historyService.addItem({
     word: 'banana',
-    provider: PROVIDER.GOOGLE_DICT,
+    provider: 'GOOGLE_DICT',
   })
 
   expect(historyService.state.list).toHaveLength(2)
@@ -134,7 +134,7 @@ test('add duplicate item within 10m with different provider', async () => {
   mockNow.mockImplementationOnce(() => now)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.GOOGLE_TRANSLATE,
+    provider: 'GOOGLE_TRANSLATE',
   })
 
   expect(historyService.state.list).toHaveLength(2)
@@ -150,7 +150,7 @@ test('add duplicate item right out of 10m', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 60 * 10)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(1)
@@ -158,7 +158,7 @@ test('add duplicate item right out of 10m', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 60 * 2)
   await historyService.addItem({
     word: 'banana',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(2)
@@ -167,7 +167,7 @@ test('add duplicate item right out of 10m', async () => {
   mockNow.mockImplementationOnce(() => now)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(3)
@@ -183,7 +183,7 @@ test('add duplicate item sequentially', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 3600)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(1)
@@ -191,7 +191,7 @@ test('add duplicate item sequentially', async () => {
   mockNow.mockImplementationOnce(() => now - 1000 * 1800)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.ICIBA,
+    provider: 'ICIBA',
   })
 
   expect(historyService.state.list).toHaveLength(1)
@@ -200,10 +200,10 @@ test('add duplicate item sequentially', async () => {
   mockNow.mockImplementationOnce(() => now)
   await historyService.addItem({
     word: 'apple',
-    provider: PROVIDER.GOOGLE_DICT,
+    provider: 'GOOGLE_DICT',
   })
 
   expect(historyService.state.list).toHaveLength(1)
   expect(historyService.state.list[0].word).toBe('apple')
-  expect(historyService.state.list[0].provider).toBe(PROVIDER.GOOGLE_DICT)
+  expect(historyService.state.list[0].provider).toBe('GOOGLE_DICT')
 })

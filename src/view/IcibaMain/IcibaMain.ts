@@ -26,8 +26,7 @@ import {
   HotKeyTranslateAction,
 } from '~/service/globalBus'
 
-import { getIcon } from '~/provider/provider'
-import { PROVIDER } from '~/constants'
+import { getIcon, providers } from '~/provider'
 import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
@@ -113,7 +112,7 @@ export default defineComponent({
         left: 'auto',
         right: 'auto',
         ...{
-          ...availableSpace.x < store.config.core.icibaMainWidth
+          ...availableSpace.x < store.core.icibaMainWidth
             ? { right: '0' }
             : { left: '0' },
           ...availableSpace.y < 250
@@ -159,7 +158,7 @@ export default defineComponent({
       /** 查词事件 */
       onTranslate: (action: TranslateAction) => {
         if (action.mouseEvent) {
-          showIcibaMain(action.mouseEvent, store.config.core.icibaMainInputAutoFocus)
+          showIcibaMain(action.mouseEvent, store.core.icibaMainInputAutoFocus)
         }
         state.inputText = action.word
         translateService.translate(action)
@@ -170,7 +169,7 @@ export default defineComponent({
         setPosition(action.mouseEvent)
         state.inputText = action.word ?? ''
         translateService.clearActiveProvider()
-        showIcibaMain(action.mouseEvent, store.config.core.hotkeyIcibaMainInputAutoFocus)
+        showIcibaMain(action.mouseEvent, store.core.hotkeyIcibaMainInputAutoFocus)
       },
 
       /** 热键查词 */
@@ -179,7 +178,7 @@ export default defineComponent({
           if (!action.word) {
             return
           }
-          showIcibaMain(action.mouseEvent, store.config.core.providerHotkeyAutoFocus)
+          showIcibaMain(action.mouseEvent, store.core.providerHotkeyAutoFocus)
         }
 
         state.inputText = action.word || state.inputText
@@ -193,7 +192,7 @@ export default defineComponent({
           },
         })
 
-        if (store.config.core.providerHotkeyAutoFocus) {
+        if (store.core.providerHotkeyAutoFocus) {
           focusInput()
         }
       },
@@ -204,7 +203,7 @@ export default defineComponent({
 
       onWindowClick: (e: MouseEvent) => {
         // outside shadow-root
-        if (e.target !== icibaRoot && (!store.config.core.showPin || !store.config.core.pinned)) {
+        if (e.target !== icibaRoot && (!store.core.showPin || !store.core.pinned)) {
           viewService.closeIcibaMain()
         }
       },
@@ -216,7 +215,7 @@ export default defineComponent({
         const ignoreCondition = [
           insideOf(e.target, refs.icibaMainWrap.value),
           insideOf(e.target, props.getIcibaCircle().$el),
-          store.config.core.showPin && store.config.core.pinned,
+          store.core.showPin && store.core.pinned,
         ]
         if (ignoreCondition.some((v) => v)) {
           return
@@ -234,7 +233,7 @@ export default defineComponent({
         viewService.openHistory()
       },
 
-      handleTranslateWithProvider: (provider: PROVIDER) => {
+      handleTranslateWithProvider: (provider: string) => {
         translateService.translate({
           type: EVENTS.TRANSLATE,
           word: state.inputText,
@@ -259,7 +258,7 @@ export default defineComponent({
     const pinDrag = {
       /** 切换固定状态 */
       handleTogglePinned: () => {
-        store.config.core.pinned = !store.config.core.pinned
+        store.core.pinned = !store.core.pinned
       },
 
       /** 图钉拖拽 */
@@ -290,7 +289,7 @@ export default defineComponent({
         if (!insideOf(e.target, refs.icibaMainWrap.value) || !e.ctrlKey) {
           return
         }
-        if (!store.config.core.pressCtrlToDrag) {
+        if (!store.core.pressCtrlToDrag) {
           return
         }
         translateService.removeSelection()
@@ -336,13 +335,13 @@ export default defineComponent({
 
     const mainStyle = computed(() => ({
       ...state.mainStyle,
-      width: `${store.config.core.icibaMainWidth}px`,
+      width: `${store.core.icibaMainWidth}px`,
     }))
 
     const showButtonProviders = computed(
-      () => store.config.core.providerOrder
-        .map((id) => translateService.providers.find((p) => p.id === id)!)
-        .filter((p) => store.config[p.id].display),
+      () => store.core.providerOrder
+        .map((id) => providers.find((p) => p.id === id)!)
+        .filter((p) => p.store.display),
     )
 
     const visible = computed(() => viewService.state.icibaMain)

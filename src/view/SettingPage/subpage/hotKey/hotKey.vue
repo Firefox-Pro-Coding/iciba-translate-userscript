@@ -34,17 +34,17 @@
     <div class="">
       <div
         class="mt-2"
-        v-for="provider of providerOptions"
-        :key="provider.key"
+        v-for="provider of providers"
+        :key="provider.id"
       >
         <i-checkbox
-          v-model="config[provider.key].enableHotkey"
+          v-model="provider.store.enableHotkey"
           :label="provider.label"
         />
-        <foldable :fold="!config[provider.key].enableHotkey">
+        <foldable :fold="!provider.store.enableHotkey">
           <i-hotkey-input
             class="my-1"
-            v-model="config[provider.key].hotkey"
+            v-model="provider.store.hotkey"
           />
         </foldable>
       </div>

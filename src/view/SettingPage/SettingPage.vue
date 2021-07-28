@@ -13,14 +13,13 @@
           <i-tab>设置</i-tab>
           <i-tab>core</i-tab>
           <i-tab>热键</i-tab>
-          <i-tab>iciba</i-tab>
-          <i-tab>google 字典</i-tab>
-          <i-tab>google 翻译</i-tab>
-          <i-tab>百度翻译</i-tab>
-          <i-tab>搜狗翻译</i-tab>
-          <i-tab>urban<br>dictionary</i-tab>
-          <i-tab>bing 翻译</i-tab>
-          <i-tab>Vocabulary</i-tab>
+          <template
+            v-for="(c, i) in providersLabel"
+            :key="i"
+          >
+            <i-tab v-if="c === 'Urban Dictionary'">Urban<br>Dictionary</i-tab>
+            <i-tab v-else>{{ c }}</i-tab>
+          </template>
         </i-tabs>
       </div>
 
@@ -32,14 +31,12 @@
         <i-tab-item class="p-4"><about /></i-tab-item>
         <i-tab-item class="p-4"><core-setting /></i-tab-item>
         <i-tab-item class="p-4"><hot-key /></i-tab-item>
-        <i-tab-item class="p-4"><iciba /></i-tab-item>
-        <i-tab-item class="p-4"><google-dict /></i-tab-item>
-        <i-tab-item class="p-4"><google-translate /></i-tab-item>
-        <i-tab-item class="p-4"><baidu-translate /></i-tab-item>
-        <i-tab-item class="p-4"><sougou-translate /></i-tab-item>
-        <i-tab-item class="p-4"><urban-dictionary /></i-tab-item>
-        <i-tab-item class="p-4"><bing-translate /></i-tab-item>
-        <i-tab-item class="p-4"><vocabulary /></i-tab-item>
+        <template
+          v-for="(c, i) in providersPage"
+          :key="i"
+        >
+          <i-tab-item class="p-4"><component :is="c" /></i-tab-item>
+        </template>
       </i-tabs-items>
     </div>
   </modal-component>

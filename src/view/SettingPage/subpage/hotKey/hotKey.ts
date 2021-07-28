@@ -1,9 +1,7 @@
 import { defineComponent } from 'vue'
-
-import { providerOptions } from '~/constants'
 import { store } from '~/service/store'
-
 import Foldable from '~/components/Foldable/Foldable.vue'
+import { providers } from '~/provider'
 
 export default defineComponent({
   name: 'HotKeySetting',
@@ -14,8 +12,7 @@ export default defineComponent({
     Foldable,
   },
   setup: () => ({
-    providerOptions,
-    core: store.config.core,
-    config: store.config,
+    core: store.core,
+    providers,
   }),
 })

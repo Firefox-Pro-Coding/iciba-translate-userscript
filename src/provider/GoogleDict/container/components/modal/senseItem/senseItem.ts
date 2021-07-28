@@ -1,8 +1,7 @@
 import { defineComponent, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
-import { store } from '~/service/store'
 import { Sense } from '~/provider/GoogleDict/types'
-import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants'
+import { store } from '~/provider/GoogleDict/store'
 
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'
@@ -10,6 +9,7 @@ import thesaurus from '../thesaurus/thesaurus.vue'
 import fragment from '../../common/fragment/fragment.vue'
 import etymology from '../etymology/etymology.vue'
 import exampleGroups from '../exampleGroups/exampleGroups.vue'
+import { GOOGLE_DICT_FOLD_STATUS } from '~/provider/GoogleDict/constant'
 
 interface Props {
   sense: Sense
@@ -59,7 +59,7 @@ export default defineComponent({
       ]
     })
 
-    const subSenseFolded = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_SUBSENSE)
+    const subSenseFolded = computed(() => store.data.foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_SUBSENSE)
 
     return {
       s: props.sense,

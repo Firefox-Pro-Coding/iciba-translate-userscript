@@ -1,11 +1,7 @@
 import { array, boolean, string } from 'io-ts'
 import { fallback } from '~/util/extendIoTs/fallback'
 
-const providerHotkeyType = {
+export const providerCommonStore = {
   enableHotkey: fallback(boolean, false),
   hotkey: fallback(array(string), () => []),
-}
-
-export const providerCommonStore = {
-  ...providerHotkeyType,
 }

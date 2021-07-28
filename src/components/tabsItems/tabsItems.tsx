@@ -1,4 +1,4 @@
-import { defineComponent, reactive, watch, onMounted, ref, nextTick, CSSProperties } from 'vue'
+import { defineComponent, reactive, watch, onMounted, ref, nextTick, CSSProperties, Fragment, VNode } from 'vue'
 
 type WindowState = Pick<CSSProperties, 'position' | 'transform' | 'display'> & {
   animating: boolean
@@ -182,7 +182,12 @@ export default defineComponent({
     })
 
     return () => {
-      const VNodes = ctx.slots.default?.() ?? []
+      const VNodes = (ctx.slots.default?.() ?? []).flatMap((v) => {
+        if (v.type === Fragment) {
+          return v.children
+        }
+        return v
+      }) as Array<VNode>
       initStyle(VNodes.length)
       return (
         <div class="i-tabs-items" ref={refs.container}>

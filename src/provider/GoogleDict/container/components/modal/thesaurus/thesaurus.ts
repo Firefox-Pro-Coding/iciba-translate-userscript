@@ -1,11 +1,11 @@
 import { defineComponent, reactive, watch, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { ThesaurusEntry } from '~/provider/GoogleDict/types'
-import { store } from '~/service/store'
-import { PROVIDER, GOOGLE_DICT_FOLD_STATUS } from '~/constants'
 
 import Labels from '../labels/labels.vue'
 import ThesaurusRow from './thesaurusRow/thesaurusRow.vue'
+import { store } from '~/provider/GoogleDict/store'
+import { GOOGLE_DICT_FOLD_STATUS } from '~/provider/GoogleDict/constant'
 
 interface Props {
   thesaurusEntries: Array<ThesaurusEntry>
@@ -63,7 +63,7 @@ export default defineComponent({
       }
     })
 
-    const folded = computed(() => store.config[PROVIDER.GOOGLE_DICT].foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_THESAURUS)
+    const folded = computed(() => store.data.foldStatus >= GOOGLE_DICT_FOLD_STATUS.FOLD_THESAURUS)
 
     return {
       t: props.thesaurusEntries,

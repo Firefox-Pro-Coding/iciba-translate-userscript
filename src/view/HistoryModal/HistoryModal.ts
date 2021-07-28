@@ -7,8 +7,7 @@ import {
 
 import ModalComponent from '~/components/modal/modal.vue'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
-import { PROVIDER_MAP } from '~/constants'
-import { getIcon } from '~/provider/provider'
+import { getIcon, providers } from '~/provider'
 import { bus, EVENTS } from '~/service/globalBus'
 import { historyService } from '~/service/history'
 import { HistoryItem } from '~/service/history/type'
@@ -63,6 +62,8 @@ export default defineComponent({
       historyService.clearHistory()
     }
 
+    const getProviderName = (id: string) => providers.find((v) => v.id === id)!.label
+
     const padLeft = (value: any, pad: string, length: number) => {
       const text = String(value)
       const diff = text.length - length
@@ -102,7 +103,7 @@ export default defineComponent({
     const visible = computed(() => viewService.state.history)
 
     return {
-      PROVIDER_MAP,
+      getProviderName,
       state,
       visible,
       list,

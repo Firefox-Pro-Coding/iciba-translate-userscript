@@ -1,8 +1,8 @@
 import { defineComponent } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
+import { GoogleDictProvider } from '~/provider/GoogleDict'
 import { Thesaurus } from '~/provider/GoogleDict/types'
 import { bus, EVENTS } from '~/service/globalBus'
-import { PROVIDER } from '~/constants'
 
 import Labels from '../../labels/labels.vue'
 
@@ -34,7 +34,7 @@ export default defineComponent({
           type: EVENTS.TRANSLATE,
           word: nym.nym,
           param: {
-            provider: PROVIDER.GOOGLE_DICT,
+            provider: GoogleDictProvider.id,
           },
           mouseEvent: event,
         })

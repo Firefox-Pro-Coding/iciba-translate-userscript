@@ -14,12 +14,12 @@ import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
 import { store } from '~/service/store'
 import { shadowRoot, icibaRoot } from '~/service/shadowRoot'
 import {
-  PROVIDER,
-  allProviders,
   ICIBA_CIRCLE_ICON_MAP,
   ICIBA_CIRCLE_ICON_TYPE_MAP,
 } from '~/constants'
 import { translateService } from '~/service/translate'
+import { providers } from '~/provider'
+import { IcibaProvider } from '~/provider/Iciba'
 
 interface IcibaCirclePosition {
   top?: string
@@ -53,8 +53,8 @@ export default defineComponent({
       state.zIndex = zIndexService.gen(Z_INDEX_KEY.GENERAL)
       const calcedPosition = calcMouseEventPosition(e)
       state.style = {
-        top: `${calcedPosition.top + store.config.core.icibaCircleOffsetY}px`,
-        left: `${calcedPosition.left + store.config.core.icibaCircleOffsetX}px`,
+        top: `${calcedPosition.top + store.core.icibaCircleOffsetY}px`,
+        left: `${calcedPosition.left + store.core.icibaCircleOffsetX}px`,
       }
     }
 
@@ -71,13 +71,13 @@ export default defineComponent({
       // have to wait handleContextmenu trigger
       setTimeout(() => {
         state.visible = false
-        let provider = PROVIDER.ICIBA
+        let provider = IcibaProvider.id
         if (event.button === 0) {
           // 默认 provider
-          provider = store.config.core.defaultProvider
-        } else if (event.button === 2 && store.config.core.icibaCircleRightClick) {
+          provider = store.core.defaultProvider
+        } else if (event.button === 2 && store.core.icibaCircleRightClick) {
           // 备选 provider
-          provider = store.config.core.icibaCircleRightClickProvider
+          provider = store.core.icibaCircleRightClickProvider
         }
 
         bus.emit({
@@ -93,7 +93,7 @@ export default defineComponent({
     }
 
     const handleSelfMouseover = (event: MouseEvent) => {
-      if (!store.config.core.mouseOverTranslate) {
+      if (!store.core.mouseOverTranslate) {
         return
       }
 
@@ -103,7 +103,7 @@ export default defineComponent({
         mouseEvent: event,
         word: state.word,
         param: {
-          provider: store.config.core.defaultProvider,
+          provider: store.core.defaultProvider,
         },
       })
     }
@@ -132,28 +132,27 @@ export default defineComponent({
         return
       }
 
-      const config = store.config
 
-      if (config.core.pressCtrlToShowCircle && !e.ctrlKey) {
+      if (store.core.pressCtrlToShowCircle && !e.ctrlKey) {
         hide()
         return
       }
 
-      if (config.core.selectionMaxLengthCut
-        && selectionString.length > config.core.selectionMaxLength) {
+      if (store.core.selectionMaxLengthCut
+        && selectionString.length > store.core.selectionMaxLength) {
         hide()
         return
       }
 
       // dummy proof
-      const hasShowUpHotkey = config.core.useHotkeyShowUp && !!config.core.showUpHotkey.length
-      const hasProviderUsingHotkey = allProviders.some((p) => config[p].enableHotkey && config[p].hotkey.length)
+      const hasShowUpHotkey = store.core.useHotkeyShowUp && !!store.core.showUpHotkey.length
+      const hasProviderUsingHotkey = providers.some((p) => p.store.enableHotkey && p.store.hotkey.length)
       const hasHotkey = hasShowUpHotkey || hasProviderUsingHotkey
-      if (!config.core.useIcibaCircle && hasHotkey) {
+      if (!store.core.useIcibaCircle && hasHotkey) {
         return
       }
 
-      if (config.core.icibaCircleNoCJK) {
+      if (store.core.icibaCircleNoCJK) {
         // 669 is last of Latin Extended Additional
         // https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin_Extended_Additional
         const hasCJK = Array.from(selectionString).some((v) => v.charCodeAt(0) > 669)
@@ -174,12 +173,12 @@ export default defineComponent({
     const computedStyle = computed(() => ({
       ...state.style,
       zIndex: state.zIndex,
-      width: `${store.config.core.icibaCircleSize}px`,
-      height: `${store.config.core.icibaCircleSize}px`,
+      width: `${store.core.icibaCircleSize}px`,
+      height: `${store.core.icibaCircleSize}px`,
     }))
 
-    const iconUrl = computed(() => ICIBA_CIRCLE_ICON_MAP[store.config.core.icibaCircleIcon])
-    const iconType = computed(() => ICIBA_CIRCLE_ICON_TYPE_MAP[store.config.core.icibaCircleIcon])
+    const iconUrl = computed(() => ICIBA_CIRCLE_ICON_MAP[store.core.icibaCircleIcon])
+    const iconType = computed(() => ICIBA_CIRCLE_ICON_TYPE_MAP[store.core.icibaCircleIcon])
 
     onMounted(() => {
       window.addEventListener('mouseup', handleMouseUp, true)
