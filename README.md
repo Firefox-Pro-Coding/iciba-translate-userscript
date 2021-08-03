@@ -20,7 +20,6 @@ greasyfork： [https://greasyfork.org/zh-CN/scripts/6303-iciba划词翻译](http
 - google 字典
 - google 翻译
 - 百度翻译
-- 搜狗翻译
 - urban dictionary
 - vocabulary.com
 
