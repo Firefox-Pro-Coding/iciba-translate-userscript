@@ -1,5 +1,4 @@
 import {
-  type,
   boolean,
   number,
   Type,
@@ -11,7 +10,7 @@ import {
   string,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
-import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
+import { fallback, fallbackInterface } from '~/util/extendIoTs/fallback'
 import { ICIBA_CIRCLE_ICON } from '~/constants'
 import { providers } from '~/provider'
 import { providerType } from '~/util/extendIoTs/provider'
@@ -39,7 +38,7 @@ const looseProviderArray = new Type<Array<string>>(
   identity,
 )
 
-export const storeType = type({
+export const storeType = fallbackInterface({
   providerOrder: fallback(looseProviderArray, () => [...providerIds]),
 
   defaultProvider: fallback(providerType, 'ICIBA'),
@@ -72,5 +71,3 @@ export const storeType = type({
   hotkeyIcibaMainInputAutoFocus: fallback(boolean, true),
   showUpHotkey: fallback(array(string), () => []),
 })
-
-export const defaultData = getFallbackData(storeType)

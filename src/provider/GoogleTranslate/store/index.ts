@@ -1,12 +1,11 @@
 import {
-  type,
   TypeOf,
   keyof,
   boolean,
   string,
 } from 'io-ts'
 import { enumType } from '~/util/extendIoTs/enum'
-import { fallback, getFallbackData } from '~/util/extendIoTs/fallback'
+import { fallback, fallbackInterface } from '~/util/extendIoTs/fallback'
 import { GOOGLE_LANGUAGES } from '~/provider/GoogleTranslate/googleLanguages'
 import { providerCommonStore } from '~/service/store/provider'
 import { icons } from '../icons'
@@ -15,7 +14,7 @@ import { GOOGLE_TRANSLATE_HOST } from '../constant'
 const translateHost = enumType<GOOGLE_TRANSLATE_HOST>(GOOGLE_TRANSLATE_HOST, 'GOOGLE_TRANSLATE_HOST')
 const googleLanguage = enumType<GOOGLE_LANGUAGES>(GOOGLE_LANGUAGES, 'GOOGLE_LANGUAGES')
 
-export const storeType = type({
+export const storeType = fallbackInterface({
   ...providerCommonStore,
   icon: fallback(keyof(icons), 'type_1_translate_281759'),
   display: fallback(boolean, true),
@@ -29,7 +28,7 @@ export const storeType = type({
 
 export type StoreType = TypeOf<typeof storeType>
 
-export const defaultStore = getFallbackData(storeType)
+export const defaultStore = storeType.defaultData
 
 export const store = {
   data: null as any as StoreType,

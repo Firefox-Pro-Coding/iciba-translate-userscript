@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+// eslint-disable-next-line max-classes-per-file
 import {
   Type,
   success,
-  InterfaceType,
+  type,
 } from 'io-ts'
 
-import { isRight } from 'fp-ts/lib/Either'
+import { isLeft, isRight } from 'fp-ts/lib/Either'
 
 export class FallbackType<T> extends Type<T> {
-  public d: T
+  public defaultValue: T
 
-  public constructor(p: Type<T>, d: T) {
+  public constructor(p: Type<T>, defaultValue: T) {
     super(
       p.name,
       (_u): _u is T => true,
@@ -18,11 +20,22 @@ export class FallbackType<T> extends Type<T> {
         if (isRight(report)) {
           return report
         }
-        return success(d)
+        return success(
+          typeof this.defaultValue === 'function'
+            ? this.defaultValue()
+            : this.defaultValue,
+        )
       },
       p.encode,
     )
-    this.d = d
+    this.defaultValue = defaultValue
+  }
+
+  public get defaultData() {
+    const data: T = typeof this.defaultValue === 'function'
+      ? this.defaultValue()
+      : this.defaultValue
+    return data
   }
 }
 
@@ -30,11 +43,46 @@ export const fallback = <T extends any>(p: Type<T>, dValue: T | (() => T)) => ne
   p, typeof dValue === 'function' ? (dValue as () => T)() : dValue,
 )
 
-type FallbackProps = Record<string, FallbackType<any>>
+export type FallbackProps = Record<string, FallbackType<any> | FallbackInterface<any>>
 
-type GetFallback = <P extends FallbackProps>(t: InterfaceType<P>) => {
-  [k in keyof P]: P[k]['d']
+export type FallBackInterfaceType<P extends FallbackProps> = {
+  [k in keyof P]: P[k] extends FallbackType<unknown> ? P[k]['_A'] : P[k]['_A']
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-export const getFallbackData: GetFallback = (t) => Object.fromEntries(Object.entries(t.props).map(([k, v]) => [k, v.d])) as any
+export class FallbackInterface<
+  P extends FallbackProps,
+  T = FallBackInterfaceType<P>,
+> extends Type<T> {
+  private p: P
+
+  public constructor(p: P) {
+    const tp = type(p)
+
+    super(
+      '',
+      (_u): _u is T => true,
+      (u, c) => {
+        const report = tp.validate(u, c)
+        if (isLeft(report)) {
+          const data = Object.fromEntries(
+            Object.entries(p).map(([k, v]) => [k, v.defaultData]),
+          )
+          return success(data as any)
+        }
+        return report
+      },
+      tp.encode as any,
+    )
+
+    this.p = p
+  }
+
+  public get defaultData() {
+    const data: T = Object.fromEntries(
+      Object.entries(this.p).map(([k, v]) => [k, v.defaultData]),
+    ) as any
+    return data
+  }
+}
+
+export const fallbackInterface = <P extends FallbackProps>(t: P) => new FallbackInterface(t)

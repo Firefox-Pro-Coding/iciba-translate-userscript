@@ -1,7 +1,7 @@
 import { defineComponent, reactive, onMounted, onUnmounted, ref } from 'vue'
 
 import { store } from '~/service/store'
-import { defaultData } from '~/service/store/core'
+import { storeType } from '~/service/store/core'
 import { getIcon, providers } from '~/provider'
 
 interface DragItem {
@@ -123,7 +123,7 @@ export default defineComponent({
     }
 
     const handleReset = () => {
-      store.core.providerOrder = [...defaultData.providerOrder]
+      store.core.providerOrder = [...storeType.defaultData.providerOrder]
       state.list = loadList()
     }
 

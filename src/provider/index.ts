@@ -15,7 +15,7 @@ export const providers = [
   VocabularyProvider,
 ] as const
 
-export const getIcon = (_provider: Provider | string) => {
+export const getIcon = (_provider: Provider<any> | string) => {
   const provider = typeof _provider === 'string'
     ? providers.find((v) => v.id === _provider)!
     : _provider

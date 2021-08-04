@@ -1,6 +1,6 @@
 import { Component } from 'vue'
 import { Either } from 'fp-ts/lib/Either'
-import { Any, TypeOf } from 'io-ts'
+import { FallbackInterface, FallBackInterfaceType, FallbackProps } from '~/util/extendIoTs/fallback'
 
 export interface TranslateErr {
   message?: string
@@ -9,7 +9,11 @@ export interface TranslateErr {
   redirectParams?: any
 }
 
-export interface ProviderInit<S extends Any = Any, ST = TypeOf<S>> {
+export interface ProviderInit<
+  P extends FallbackProps = FallbackProps,
+  S = FallbackInterface<P>,
+  ST = FallBackInterfaceType<P>,
+> {
   id: string
   label: string
   translate: (p: { word: string, payload?: any }) => Promise<Either<TranslateErr, () => unknown>>
@@ -21,11 +25,15 @@ export interface ProviderInit<S extends Any = Any, ST = TypeOf<S>> {
   icons: Record<string, string>
 }
 
-export interface Provider<S extends Any = Any> extends ProviderInit<S>{
-  readonly store: TypeOf<S>
+// eslint-disable-next-line @typescript-eslint/ban-types
+export interface Provider<P extends FallbackProps = {}> extends ProviderInit<P>{
+  readonly store: FallBackInterfaceType<P>
 }
 
-export const createProvider = <S extends Any>(params: ProviderInit<S>): Provider<S> => ({
+export const createProvider = <
+  P extends FallbackProps,
+  S extends FallbackInterface<P>,
+>(params: ProviderInit<P, S>): Provider<P> => ({
   ...params,
   get store() {
     return this.storeWrapper.data

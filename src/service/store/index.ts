@@ -1,14 +1,15 @@
 import { reactive, watch } from 'vue'
 import * as E from 'fp-ts/lib/Either'
 import { identity, pipe } from 'fp-ts/lib/function'
-import { Errors, Any, TypeOf } from 'io-ts'
+import { Any, TypeOf } from 'io-ts'
 
 import { getValue, setValue } from '~/util/gmapi'
-import copy from '~/util/copy'
 import { GM_STORE_KEY } from '~/constants'
 import { Provider } from '~/provider/create'
 
 import * as core from './core'
+import { FallbackInterface, FallbackProps } from '~/util/extendIoTs/fallback'
+import copy from '~/util/copy'
 
 type StoreType = {
   core: TypeOf<typeof core.storeType>
@@ -16,35 +17,15 @@ type StoreType = {
 
 export const store = {} as StoreType
 
-const setDefaultDataByPath = (path: Array<string>, _data: any, _defaultData: any) => {
-  let data = _data
-  let defaultData = _defaultData
-  for (let i = 0; i < path.length - 1; i += 1) {
-    data = data[path[i]]
-    defaultData = defaultData[path[i]]
+const decode = <P extends FallbackProps>(type: FallbackInterface<P>, data: unknown) => {
+  const report = type.decode(data)
+  if (E.isRight(report)) {
+    return report.right as unknown
   }
-  const lastPath = path[path.length - 1]
-  data[lastPath] = copy(defaultData[lastPath])
+  return type.defaultData
 }
 
-const decode = (type: Any, _data: unknown, defaultData: any) => {
-  const data = copy(_data)
-  let report!: E.Either<Errors, any>
-  for (let i = 0; i < 3; i += 1) {
-    report = type.decode(data)
-    if (report._tag === 'Left') {
-      report.left.forEach((e) => {
-        const pathArray = e.context.map((path) => path.key).filter((v) => v)
-        setDefaultDataByPath(pathArray, data, defaultData)
-      })
-    } else {
-      return report.right as unknown
-    }
-  }
-  return data
-}
-
-export const initStore = async (providers: ReadonlyArray<Provider>) => {
+export const initStore = async (providers: ReadonlyArray<Provider<any>>) => {
   const dataString = await getValue(GM_STORE_KEY.STORE, '') as string
 
   const data: any = pipe(
@@ -57,13 +38,13 @@ export const initStore = async (providers: ReadonlyArray<Provider>) => {
   )
 
   providers.forEach((p) => {
-    const providerStore = decode(p.storeType, data[p.id], p.defaultStore)
+    const providerStore = decode(p.storeType, data[p.id])
     const reactiveData = reactive(providerStore as any)
     p.storeWrapper.data = reactiveData
     data[p.id] = reactiveData
   })
 
-  const coreStore = decode(core.storeType, data.core, core.defaultData)
+  const coreStore = decode(core.storeType, data.core)
   data.core = reactive(coreStore as any)
 
   const newStore = reactive(data)
