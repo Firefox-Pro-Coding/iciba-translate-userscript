@@ -12,7 +12,7 @@ module.exports = {
   },
 
   'extends': [
-    './lintRules/eslint.js',
+    '@noe132/eslint-config/vue',
   ],
 
   'env': {
