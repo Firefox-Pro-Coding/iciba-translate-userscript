@@ -34,7 +34,12 @@ export const initStore = async (providers: ReadonlyArray<Provider<any>>) => {
       identity,
     ),
     (v) => (E.isLeft(v) ? {} : v.right),
-    (v) => (Array.isArray(v) ? {} : v),
+    (v) => {
+      if (typeof v !== 'object' || Array.isArray(v)) {
+        return {}
+      }
+      return v
+    },
   )
 
   providers.forEach((p) => {
