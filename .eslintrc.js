@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   'globals': {
     'document': false,
@@ -12,7 +14,7 @@ module.exports = {
   },
 
   'extends': [
-    '@noe132/eslint-config/vue',
+    '@noe132/eslint-config-vue',
   ],
 
   'env': {
@@ -21,9 +23,11 @@ module.exports = {
     'browser': true,
   },
 
+  'root': true,
+
   'settings': {
     'import/resolver': {
-      'typescript': {},
+      'typescript': path.join(__dirname, 'tsconfig.json'),
     },
   },
 
@@ -33,6 +37,12 @@ module.exports = {
         '*.ts',
         '*.tsx',
       ],
+
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: 'tsconfig.json',
+        tsconfigRootDir: __dirname,
+      },
 
       'rules': {
         '@typescript-eslint/no-unused-vars-experimental': ['error', {
