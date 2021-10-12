@@ -99,7 +99,7 @@ export const translate = async (p: BaiduTranslateParams) => {
       containerData.sourceLanguage = sl
       containerData.targetLanguage = tl
     })
-  } catch (e) {
+  } catch (e: any) {
     return left({
       message: e.message,
     })

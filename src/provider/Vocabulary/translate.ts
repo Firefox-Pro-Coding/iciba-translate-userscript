@@ -106,7 +106,7 @@ export const translate = async ({ word }: VocabularyParams) => {
         definition,
       })
     })
-  } catch (e) {
+  } catch (e: any) {
     return left({
       message: e.message,
     })

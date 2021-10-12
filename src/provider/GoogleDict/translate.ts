@@ -80,7 +80,7 @@ export const translate = async ({ word }: GoogleDictParams) => {
   let googleDictData: Codec
   try {
     googleDictData = await fetchGoogleDict(word, 'uk')
-  } catch (e) {
+  } catch (e: any) {
     if (e.message === 'Backend Error') {
       // try googletranslate
       wordErrorCache[word] = true

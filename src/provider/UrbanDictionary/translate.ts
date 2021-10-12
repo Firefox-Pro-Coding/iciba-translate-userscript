@@ -37,7 +37,7 @@ export const translate = async ({ word }: UrbanDictionaryParams) => {
     return right(() => {
       containerData.data = copy(result)
     })
-  } catch (e) {
+  } catch (e: any) {
     return left({
       message: e.message,
     })

@@ -15,7 +15,7 @@
         @mouseleave="hideTip(label)"
       >
         {{ label }}
-        <span class="label-split" :innerHTML.prop="' '" />
+        <span class="label-split" v-html="' '" />
         <transition name="p">
           <div
             class="tooltip rounded-5 absolute text-white select-none ease-in-out"
@@ -27,7 +27,7 @@
       </div>
       <span
         class="label-split text-0"
-        :innerHTML.prop="' '"
+        v-html="' '"
       />
     </template>
   </div>

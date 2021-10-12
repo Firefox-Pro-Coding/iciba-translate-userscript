@@ -8,13 +8,12 @@ import { got } from '~/util/gmapi'
 import loading from '~/assets/img/loading.svg'
 import like_179655 from '~/assets/img/like_179655.svg'
 
+import { getApiKey, apiKeyState } from '../getApiKey'
 import containerData from './data'
 import bus, { ShowTooltipPayload, HideTooltipPayload, NAMES } from './bus'
 import UKeyword from './component/UKeyword/UKeyword.vue'
 
-const keywordCache: Record<string, {
-  data: string | Promise<string>
-}> = {}
+const keywordCache = new Map<string, string | Promise<string>>()
 
 const icon = {
   loading,
@@ -77,46 +76,45 @@ export default defineComponent({
         return
       }
 
-      let cacheItem = keywordCache[p.text]
-
-      if (!cacheItem) {
-        // load tooltip
-        const tooltipPromise = got({
-          method: 'GET',
-          url: `https://api.urbandictionary.com/v0/tooltip?term=${encodeURIComponent(p.text)}`,
-          timeout: 5000,
-          responseType: 'json',
-        }).then((res) => {
-          if (isLeft(res)) {
-            throw new Error(res.left.type)
-          }
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          return JSON.parse(res.right.responseText).string
-        })
-        cacheItem = { data: tooltipPromise }
-        keywordCache[p.text] = cacheItem
-      }
-
-      const tooltipItem = {
+      const cacheResult = keywordCache.get(p.text)
+      const tooltipItem = reactive({
         id: p.id,
         text: '',
         top: p.top - rect.top,
         left: p.left - rect.left,
-      }
-
-      if (cacheItem.data instanceof Promise) {
-        cacheItem.data.then((tooltipResult) => {
-          cacheItem.data = tooltipResult
-          tooltipItem.text = tooltipResult
-        }).catch(() => {
-          // delete cache if onerror
-          delete keywordCache[p.text]
-        })
-      } else {
-        tooltipItem.text = cacheItem.data
-      }
-
+      })
       state.tooltips.push(tooltipItem)
+      if (cacheResult) {
+        Promise.resolve(cacheResult).then((d) => {
+          tooltipItem.text = d
+        })
+        return
+      }
+
+      const run = async () => {
+        await getApiKey()
+
+        // load tooltip
+        const res = await got({
+          method: 'GET',
+          url: `https://api.urbandictionary.com/v0/tooltip?term=${encodeURIComponent(p.text)}&key=${apiKeyState.apiKey}`,
+          timeout: 5000,
+          responseType: 'json',
+        })
+
+        if (isLeft(res)) {
+          throw new Error(res.left.type)
+        }
+        console.log(JSON.parse(res.right.responseText).string)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return JSON.parse(res.right.responseText).string
+      }
+
+      const promise = run()
+      promise.then((d) => {
+        tooltipItem.text = d
+      })
+      keywordCache.set(p.text, promise)
     }
 
     const hideTooltip = (p: HideTooltipPayload) => {

@@ -130,7 +130,7 @@ export const translate = async (p: GoogleTranslateParams) => {
       containerData.data = data
       containerData.inputText = p.word
     })
-  } catch (e) {
+  } catch (e: any) {
     return left({
       message: e.message,
     })

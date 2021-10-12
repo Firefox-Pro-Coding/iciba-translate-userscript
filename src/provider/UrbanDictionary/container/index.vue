@@ -56,7 +56,7 @@
                   />
                   {{ item.thumbs_up }}
                 </div>
-                <div class="flex mr-2 flex-none">
+                <div class="flex mr-3 flex-none">
                   <i-icon
                     size="14"
                     color="#E64C3D"
@@ -90,7 +90,7 @@
       <div
         class="inner-content"
         v-if="item.text"
-        :innerHtml.prop="item.text"
+        v-html="item.text"
       />
       <div
         v-if="!item.text"
