@@ -10,7 +10,10 @@ const metaData = fs.readFileSync(path.join(__dirname, '../build/config/metaData.
   .toString()
   .replace('{{ version }}', `${packageInfo.version}`)
 
-const scriptContent = fs.readFileSync(path.join(__dirname, '../dist/iciba.user.js')).toString()
+const scriptContent = fs.readFileSync(path.join(__dirname, '../dist/iciba.user.js'))
+  .toString()
+  // TEMP FIX: remove sourcemapping from base64-arraybuffer
+  .replace(/\n\/\/# sourceMappingURL=.{1,100}\n/, '\n')
 
 const content = [
   metaData,
