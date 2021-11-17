@@ -2,8 +2,6 @@
 
 [![version](https://img.shields.io/github/package-json/v/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)](https://greasyfork.org/zh-CN/scripts/6303-iciba)
 [![license](https://img.shields.io/badge/license-MIT-green.svg?longCache=true&style=flat-square)](LICENSE)
-![David](https://img.shields.io/david/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
-![David](https://img.shields.io/david/dev/Firefox-Pro-Coding/iciba-translate-userscript.svg?style=flat-square)
 
 > 在页面上拖拽或双击以划取单词或段落进行查词或翻译。
 
