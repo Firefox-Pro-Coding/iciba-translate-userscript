@@ -14,6 +14,7 @@
 // @grant              GM.getValue
 // @grant              GM.setValue
 // @grant              unsafeWindow
+// @license            MIT
 // @icon               http://tb.himg.baidu.com/sys/portrait/item/d4346e6f65313332ac06
 // @version            {{ version }}
 // @supportURL         https://github.com/Firefox-Pro-Coding/iciba-translate-userscript
