@@ -1,5 +1,6 @@
 export const icibaRoot = document.createElement('div')
 icibaRoot.className = 'iciba-root'
+icibaRoot.style.all = 'initial'
 document.body.appendChild(icibaRoot)
 
 export const shadowRoot = (() => {

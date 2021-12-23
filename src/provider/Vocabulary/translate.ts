@@ -3,6 +3,7 @@ import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
 
 import containerData from './container/data'
+import { trustedHTMLHack } from '~/util/trustedHTMLHack'
 
 
 const nonNull = <T>(p: T | undefined | null) => {
@@ -28,7 +29,7 @@ const getAutocomplete = async (word: string) => {
 
   const html = result.right.responseText
   const div = document.createElement('div')
-  div.innerHTML = html
+  div.innerHTML = trustedHTMLHack(html)
   const data = Array.from(div.querySelectorAll('.suggestions > li')).map((li) => ({
     lang: li.getAttribute('lang') ?? '',
     synsetid: li.getAttribute('synsetid') ?? '',
@@ -69,7 +70,7 @@ const getDefinition = async (word: string) => {
 
   const html = result.right.responseText
   const div = document.createElement('div')
-  div.innerHTML = html
+  div.innerHTML = trustedHTMLHack(html)
 
   const data = {
     short: div.querySelector('.word-area .short')?.textContent?.trim() ?? undefined,

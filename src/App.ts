@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-unassigned-import
+import '~/util/trustedHTMLHack'
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue'
 import { lazyLoadHoc } from '~/util/lazyLoadHoc'
 

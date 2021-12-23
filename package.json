@@ -44,7 +44,7 @@
     "@babel/core": "^7.16.0",
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
-    "@noe132/eslint-config-vue": "^0.0.7",
+    "@noe132/eslint-config-vue": "^0.1.1",
     "@types/greasemonkey": "^4.0.2",
     "@types/jest": "^27.0.3",
     "@types/md5": "^2.3.1",

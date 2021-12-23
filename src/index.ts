@@ -23,10 +23,6 @@ import App from '~/App.vue'
 const main = async () => {
   await initStore(providers)
 
-  const style = document.createElement('style')
-  style.innerHTML = '.iciba-root{all:initial}'
-  document.head.appendChild(style)
-
   const app = createApp({
     render() {
       return h(App)

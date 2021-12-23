@@ -121,6 +121,31 @@ config.module.rule('json-stringify-replace')
     replace: 'require(\'~/util/stringify\').stringify(',
   })
 
+config.module.rule('vue-runtime-dom-trsuted-html-hack')
+  // node_modules\@vue\runtime-dom\dist\runtime-dom.esm-bundler.js
+  .test(/@vue[\\/]runtime-dom[\\/]dist[\\/]runtime-dom.esm-bundler\.js$/)
+  .use('string-replace-loader')
+  .loader('string-replace-loader')
+  .options({
+    multiple: [
+      {
+        search: 'container.innerHTML = \'\';',
+        replace: 'container.childNodes.forEach(v => container.removeChild(v))',
+      },
+      {
+        // eslint-disable-next-line no-template-curly-in-string
+        search: 't.innerHTML = isSVG ? `<svg>${content}</svg>` : content',
+        // eslint-disable-next-line no-template-curly-in-string
+        replace: 't.innerHTML = icibaUserscriptTrustedHTML(isSVG ? `<svg>${content}</svg>` : content);',
+      },
+      {
+        // eslint-disable-next-line no-template-curly-in-string
+        search: 'el[key] = value == null ? \'\' : value',
+        // eslint-disable-next-line no-template-curly-in-string
+        replace: 'el[key] = icibaUserscriptTrustedHTML(value == null ? \'\' : value)',
+      },
+    ],
+  })
 
 config.plugin('progress')
   .use(ProgressBarPlugin, [{

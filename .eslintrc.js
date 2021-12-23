@@ -45,9 +45,6 @@ module.exports = {
       },
 
       'rules': {
-        '@typescript-eslint/no-unused-vars-experimental': ['error', {
-          'ignoredNamesRegex': '^h$',
-        }],
         '@typescript-eslint/no-unused-vars': ['off', {
           'varsIgnorePattern': '^h$',
         }],
