@@ -1,7 +1,7 @@
 <template>
   <div class="icon-radio flex select-none">
     <div
-      class="icon-box flex relative p-2 flex-grow-0"
+      class="icon-box flex relative p-2 grow-0"
       v-for="icon of props.icons"
       :key="icon.key"
       @click="handleSelect(icon.key)"

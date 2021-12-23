@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { isRight, left, right } from 'fp-ts/lib/Either'
 import { BAIDU_LANGUAGES } from '~/provider/BaiduTranslate/baiduLanguages'
 import { got } from '~/util/gmapi'
@@ -18,7 +17,7 @@ const detectLang = async (word: string): Promise<BAIDU_LANGUAGES> => {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     },
     url: 'https://fanyi.baidu.com/langdetect',
-    data: stringify(formdata),
+    data: new URLSearchParams(formdata).toString(),
     timeout: 5000,
   })
   if (isRight(response)) {
@@ -43,7 +42,7 @@ const fetchTranslation = async ({ word, sl, tl }: { word: string, sl: string, tl
     to: tl,
     query: word,
     transtype: 'translang',
-    simple_means_flag: 3,
+    simple_means_flag: '3',
     sign: token.sign,
     token: token.token,
   }
@@ -56,7 +55,7 @@ const fetchTranslation = async ({ word, sl, tl }: { word: string, sl: string, tl
       'User-Agent': window.navigator.userAgent,
     },
     url: 'https://fanyi.baidu.com/v2transapi',
-    data: stringify(query),
+    data: new URLSearchParams(query).toString(),
     timeout: 5000,
   })
 

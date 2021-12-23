@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { isLeft, left, right } from 'fp-ts/lib/Either'
 
 import { got } from '~/util/gmapi'
@@ -14,7 +13,7 @@ interface UrbanDictionaryParams {
 export const translate = async ({ word }: UrbanDictionaryParams) => {
   try {
     /* https://api.urbandictionary.com/v0/define?term={word} */
-    const url = `https://api.urbandictionary.com/v0/define?${stringify({ term: word })}`
+    const url = `https://api.urbandictionary.com/v0/define?${new URLSearchParams({ term: word }).toString()}`
 
     const response = await got({
       method: 'GET',

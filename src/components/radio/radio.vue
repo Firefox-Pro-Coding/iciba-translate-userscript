@@ -1,6 +1,6 @@
 <template>
   <div
-    class="radio flex justify-center flex-grow-0 select-none cursor-pointer mr-4 mt-1 mb-1"
+    class="radio flex justify-center grow-0 select-none cursor-pointer mr-4 mt-1 mb-1"
     @click="handleClick"
   >
     <div class="icon relative mr-2" :class="{ checked: checked }">

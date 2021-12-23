@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { isLeft, left, right } from 'fp-ts/lib/Either'
 
 import { got } from '~/util/gmapi'
@@ -42,12 +41,12 @@ const getGoogleTranslateResult = async (p: GoogleTranslateParams) => {
         'Cache-Control': 'max-age=0',
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
-      data: stringify({
+      data: new URLSearchParams({
         'f.req': req,
         ...getToken ? {} : {
           at: store.data.xsrfToken,
         },
-      }),
+      }).toString(),
       timeout: 5000,
       // responseType: '', // force auto json parse
     } as any)

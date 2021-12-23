@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { isRight } from 'fp-ts/lib/Either'
 import { audioCacheService } from '~/service/audioCache'
 import { got } from '~/util/gmapi'
@@ -9,10 +8,10 @@ export const playAudio = async (word: string, tl: string) => {
   const query = {
     lan: tl,
     text: word,
-    spd: tl === 'zh' ? 5 : 3,
+    spd: tl === 'zh' ? '5' : '3',
     source: 'web',
   }
-  const url = `https://fanyi.baidu.com/gettts?${stringify(query)}`
+  const url = `https://fanyi.baidu.com/gettts?${new URLSearchParams(query).toString()}`
 
   if (audioCacheService.play(url, volume)) {
     return

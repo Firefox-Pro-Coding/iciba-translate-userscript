@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { isLeft, isRight, left, right } from 'fp-ts/lib/Either'
 import { decode } from 'base64-arraybuffer'
 
@@ -34,12 +33,12 @@ export const playAudio = async (word: string, tl: string) => {
         'Cache-Control': 'max-age=0',
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
-      data: stringify({
+      data: new URLSearchParams({
         'f.req': req,
         ...getToken ? {} : {
           at: GoogleTranslateProvider.store.xsrfToken,
         },
-      }),
+      }).toString(),
       timeout: 5000,
       // responseType: '', // force auto json parse
     } as any)

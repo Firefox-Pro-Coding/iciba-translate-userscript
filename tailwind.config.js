@@ -1,8 +1,7 @@
 const colors = require('./utils/color-palette')
 
 module.exports = {
-  mode: 'jit',
-  purge: {
+  content: {
     layers: ['utilities'],
     content: [
       './src/**/*.vue',
@@ -14,6 +13,7 @@ module.exports = {
     textOpacity: false,
     backgroundOpacity: false,
     borderOpacity: false,
+    preflight: false,
   },
   theme: {
     screens: false,

@@ -53,7 +53,7 @@
 
       <foldable :fold="!form.icibaCircleRightClick">
         <div class="flex mt-6">
-          <div class="flex-col flex-grow-0 pr-12">
+          <div class="flex-col grow-0 pr-12">
             <div class="text-grey-600 pr-6 mb-2">接口</div>
             <div
               class="option-item text-16 text-grey-600 mb-2"
@@ -63,10 +63,10 @@
               {{ n.label }}
             </div>
           </div>
-          <div class="flex-col items-center flex-grow-0">
+          <div class="flex-col items-center grow-0">
             <div class="text-grey-600 pr-6 mb-1">默认接口</div>
             <i-radio-group
-              class="mt-0 flex-grow-0"
+              class="mt-0 grow-0"
               v-model="form.defaultProvider"
             >
               <i-radio
@@ -77,7 +77,7 @@
               />
             </i-radio-group>
           </div>
-          <div class="flex-col items-center flex-grow-0">
+          <div class="flex-col items-center grow-0">
             <div class="text-grey-600 pr-6 mb-1">备选接口</div>
             <i-radio-group
               class="mt-0"
@@ -154,7 +154,7 @@
       <div class="flex self-stretch items-center mr-1 mt-6">
         <div class="mr-4 text-grey-600">{{ form.icibaCircleSize }}px</div>
         <i-slider
-          class="flex-grow"
+          class="grow"
           :min="10"
           :max="30"
           :step="1"
@@ -173,7 +173,7 @@
         </div>
         <div class="flex-col justify-around flex-auto">
           <i-slider
-            class="flex-grow"
+            class="grow"
             :min="0"
             :max="30"
             v-model="form.icibaCircleOffsetX"
@@ -181,7 +181,7 @@
           />
 
           <i-slider
-            class="flex-grow"
+            class="grow"
             :min="0"
             :max="30"
             v-model="form.icibaCircleOffsetY"
@@ -199,7 +199,7 @@
     <div class="flex items-center mr-1 mt-6 self-stretch">
       <div class="mr-4 text-grey-600">{{ form.icibaMainWidth }}px</div>
       <i-slider
-        class="flex-grow"
+        class="grow"
         :min="200"
         :max="500"
         :step="10"

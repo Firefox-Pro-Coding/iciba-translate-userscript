@@ -1,4 +1,3 @@
-import { stringify } from 'querystring'
 import { isLeft, left, right } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 import { containerData } from './container/data'
@@ -25,7 +24,7 @@ const fetchGoogleDict = async (word: string, lang: string = 'uk') => {
     // key: 'AIzaSyC9PDwo2wgENKuI8DSFOfqFqKP2cKAxxso',
     key: 'AIzaSyA6EEtrDCfBkHV8uU2lgGY-N383ZgAOo7Y',
   }
-  const apiUrl = `${apiUrlBase}${stringify(query)}`
+  const apiUrl = `${apiUrlBase}${new URLSearchParams(query).toString()}`
 
   const response = await got({
     method: 'GET',
