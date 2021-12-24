@@ -2,7 +2,7 @@
 declare const trustedTypes: any
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-const escapeHTMLPolicy = trustedTypes
+const escapeHTMLPolicy = (window as any).trustedTypes
   ? trustedTypes.createPolicy('myEscapePolicy', {
     createHTML: (string: string) => string,
   })
