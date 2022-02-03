@@ -100,10 +100,15 @@ const clearActiveProvider = () => {
 
 const removeSelection = () => {
   const selection = window.getSelection()
-  if (!selection) {
+  if (selection?.toString()) {
+    selection.removeAllRanges()
     return
   }
-  selection.removeAllRanges()
+
+  const active = document.activeElement
+  if (active instanceof HTMLInputElement || active instanceof HTMLTextAreaElement) {
+    active.setSelectionRange(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
+  }
 }
 
 export const translateService = {

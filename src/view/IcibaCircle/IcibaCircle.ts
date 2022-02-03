@@ -8,6 +8,7 @@ import {
 } from 'vue'
 
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
+import { getSelectionText } from '~/util/getSelectionText'
 
 import { bus, EVENTS } from '~/service/globalBus'
 import { zIndexService, Z_INDEX_KEY } from '~/service/zIndex'
@@ -56,15 +57,6 @@ export default defineComponent({
         top: `${calcedPosition.top + store.core.icibaCircleOffsetY}px`,
         left: `${calcedPosition.left + store.core.icibaCircleOffsetX}px`,
       }
-    }
-
-    const getSelectionString = () => {
-      const selection = window.getSelection()
-      if (!selection || !String(selection)) {
-        return ''
-      }
-
-      return selection.toString().trim()
     }
 
     const handleSelfMouseUp = (event: MouseEvent) => {
@@ -125,7 +117,7 @@ export default defineComponent({
       // cleared on next frame
       await new Promise((rs) => requestAnimationFrame(rs))
 
-      const selectionString = getSelectionString()
+      const selectionString = getSelectionText()
       state.currentWord = selectionString
       if (!selectionString) {
         hide()

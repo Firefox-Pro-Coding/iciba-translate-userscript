@@ -16,6 +16,7 @@ import { translateService } from './service/translate'
 import { viewService } from './service/view'
 import { registerMenuCommand } from './util/gmapi'
 import { scrollBarWidthService } from './service/scrollBarWidth'
+import { getSelectionText } from './util/getSelectionText'
 
 export default defineComponent({
   name: 'IcibaAppRoot',
@@ -58,12 +59,12 @@ export default defineComponent({
       bus.emit({
         type: EVENTS.HOTKEY_SHOW,
         mouseEvent: lastMouseMoveEvent,
-        word: window.getSelection()?.toString().trim() ?? undefined,
+        word: getSelectionText(),
       })
     }
 
     const handleTranslateHotkeyPress = (keys: Array<string>, stop: () => void) => {
-      const word = window.getSelection()?.toString().trim() ?? ''
+      const word = getSelectionText()
 
       if (!lastMouseUpEvent) {
         return

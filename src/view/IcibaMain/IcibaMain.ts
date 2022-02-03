@@ -167,7 +167,7 @@ export default defineComponent({
       /** 热键显示 */
       onHotKeyShowUp: (action: HotKeyShowAction) => {
         setPosition(action.mouseEvent)
-        state.inputText = action.word ?? ''
+        state.inputText = action.word
         translateService.clearActiveProvider()
         showIcibaMain(action.mouseEvent, store.core.hotkeyIcibaMainInputAutoFocus)
       },

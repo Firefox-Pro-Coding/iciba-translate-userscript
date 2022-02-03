@@ -5,11 +5,11 @@ import { providers } from '~/provider'
 
 export default defineComponent({
   name: 'HotKeySetting',
-  props: {
-    active: Boolean,
-  },
   components: {
     Foldable,
+  },
+  props: {
+    active: Boolean,
   },
   setup: () => ({
     core: store.core,
