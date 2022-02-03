@@ -45,6 +45,10 @@ module.exports = {
       },
 
       'rules': {
+        'vue/component-definition-name-casing': 'off',
+        'vue/multi-word-component-names': 'off',
+        'vue/one-component-per-file': 'off',
+        'vue/require-default-prop': 'off',
         '@typescript-eslint/no-unused-vars': ['off', {
           'varsIgnorePattern': '^h$',
         }],
@@ -56,13 +60,15 @@ module.exports = {
         '*.tsx',
       ],
 
-
       'rules': {
+        'vue/component-definition-name-casing': 'off',
+        'vue/multi-word-component-names': 'off',
         'vue/valid-v-model': 'off',
         'vue/valid-v-for': 'off',
         'vue/no-template-key': 'off',
-        'vue/require-v-for-key': 'off',
         'vue/no-v-for-template-key': 'off',
+        'vue/require-v-for-key': 'off',
+        'vue/require-default-prop': 'off',
       },
     },
   ],

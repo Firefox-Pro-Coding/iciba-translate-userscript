@@ -1,11 +1,11 @@
 import { computed, reactive } from 'vue'
 import { isLeft, isRight } from 'fp-ts/lib/Either'
 import { useIncrement } from '~/util/useIncrement'
+import { providers } from '~/provider'
 
 import { EVENTS, TranslateAction } from '../globalBus'
 import { store } from '../store'
 import { historyService } from '../history'
-import { providers } from '~/provider'
 
 interface ActiveTask {
   word: string

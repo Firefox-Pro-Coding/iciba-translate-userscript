@@ -6,7 +6,10 @@ import { playAudio } from '../../../../playAudio'
 export default defineComponent({
   name: 'GPhonetics',
   props: {
-    phonetics: null,
+    phonetics: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props) => {
     const handlePlay = (url: string) => {

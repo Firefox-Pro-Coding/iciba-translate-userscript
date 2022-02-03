@@ -4,8 +4,14 @@ export default defineComponent({
   name: 'CheckboxLine',
   props: {
     modelValue: Boolean,
-    text: String,
-    label: String,
+    text: {
+      type: String,
+      default: '',
+    },
+    label: {
+      type: String,
+      default: '',
+    },
     nomt: Boolean,
   },
 

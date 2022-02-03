@@ -19,6 +19,7 @@ export default defineComponent({
   props: {
     modelValue: {
       type: null,
+      required: true,
     },
     value: {
       type: null,

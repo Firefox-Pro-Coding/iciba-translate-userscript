@@ -1,6 +1,6 @@
 import { defineComponent, computed } from 'vue'
-import labels from '../labels/labels.vue'
 import { LabelSet } from '~/provider/GoogleDict/types'
+import labels from '../labels/labels.vue'
 
 interface Props {
   labelSet: LabelSet

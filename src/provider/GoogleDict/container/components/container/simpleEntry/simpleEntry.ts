@@ -1,8 +1,8 @@
 import { defineComponent } from 'vue'
 
+import { Entry } from '~/provider/GoogleDict/types'
 import phonetics from '../../common/phonetics/phonetics.vue'
 import fragment from '../../common/fragment/fragment.vue'
-import { Entry } from '~/provider/GoogleDict/types'
 
 interface Props {
   entry: Entry

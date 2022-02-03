@@ -23,11 +23,11 @@ const hostOptions = [
 
 export default defineComponent({
   name: 'GoogleTranslateSettings',
-  props: {
-    active: Boolean,
-  },
   components: {
     ProviderCommon,
+  },
+  props: {
+    active: Boolean,
   },
   setup: (props) => {
     const form = store.data

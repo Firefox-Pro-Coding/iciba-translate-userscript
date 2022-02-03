@@ -1,11 +1,10 @@
 import { defineComponent, reactive, watch, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { ThesaurusEntry } from '~/provider/GoogleDict/types'
-
-import Labels from '../labels/labels.vue'
-import ThesaurusRow from './thesaurusRow/thesaurusRow.vue'
 import { store } from '~/provider/GoogleDict/store'
 import { GOOGLE_DICT_FOLD_STATUS } from '~/provider/GoogleDict/constant'
+import Labels from '../labels/labels.vue'
+import ThesaurusRow from './thesaurusRow/thesaurusRow.vue'
 
 interface Props {
   thesaurusEntries: Array<ThesaurusEntry>

@@ -12,6 +12,7 @@ export default defineComponent({
     },
     windowClass: {
       type: String,
+      default: '',
     },
   },
   setup: (props, ctx) => {
@@ -112,7 +113,7 @@ export default defineComponent({
       }
 
       // await render
-      await new Promise<void>((rs) => nextTick(rs))
+      await nextTick()
 
       scrollToTop()
 

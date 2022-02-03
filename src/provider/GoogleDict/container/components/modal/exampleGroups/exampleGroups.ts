@@ -2,8 +2,8 @@ import { defineComponent, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { ExampleGroup } from '~/provider/GoogleDict/types'
 import { store } from '~/provider/GoogleDict/store'
-import labels from '../labels/labels.vue'
 import { GOOGLE_DICT_FOLD_STATUS } from '~/provider/GoogleDict/constant'
+import labels from '../labels/labels.vue'
 
 interface Props {
   exampleGroups: Array<ExampleGroup>

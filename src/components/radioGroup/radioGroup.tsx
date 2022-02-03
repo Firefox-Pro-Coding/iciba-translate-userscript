@@ -2,7 +2,10 @@ import { computed, defineComponent, provide } from 'vue'
 
 export default defineComponent({
   props: {
-    modelValue: null,
+    modelValue: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props, ctx) => {
     const handleRadioClick = (value: unknown) => {

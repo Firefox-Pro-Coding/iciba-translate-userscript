@@ -1,9 +1,9 @@
 import { isLeft, left, right } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 import copy from '~/util/copy'
+import { trustedHTMLHack } from '~/util/trustedHTMLHack'
 
 import containerData from './container/data'
-import { trustedHTMLHack } from '~/util/trustedHTMLHack'
 
 
 const nonNull = <T>(p: T | undefined | null) => {

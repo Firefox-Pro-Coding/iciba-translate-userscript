@@ -5,18 +5,26 @@ import IconRadioGroup from '../IconRadioGroup/IconRadioGroup.vue'
 
 export default defineComponent({
   name: 'ProviderCommon',
-  props: {
-    icon: String,
-    display: Boolean,
-    enableHotkey: Boolean,
-    hotkey: null,
-
-    name: String,
-    icons: null,
-  },
   components: {
     Foldable,
     IconRadioGroup,
+  },
+  props: {
+    display: Boolean,
+    enableHotkey: Boolean,
+    nahotkeyme: {
+      type: null,
+      required: true,
+    },
+
+    name: {
+      type: String,
+      required: true,
+    },
+    icons: {
+      type: null,
+      required: true,
+    },
   },
   setup: (props, ctx) => {
     const handleUpdateIcon = (icon: string) => {
@@ -42,5 +50,3 @@ export default defineComponent({
     }
   },
 })
-
-// TODO: 热键冲突检查

@@ -9,6 +9,8 @@ import ITab from '~/components/tab/tab.vue'
 import ITabsItems from '~/components/tabsItems/tabsItems.vue'
 import ITabItem from '~/components/tabItem/tabItem.vue'
 import ModalComponent from '~/components/modal/modal.vue'
+import { viewService } from '~/service/view'
+import { providers } from '~/provider'
 
 import About from './subpage/about/about.vue'
 import CoreSetting from './subpage/coreSetting/coreSetting.vue'
@@ -21,8 +23,6 @@ import HotKey from './subpage/hotKey/hotKey.vue'
 // import UrbanDictionary from './subpage/urbanDictionary/urbanDictionary.vue'
 // import BingTranslate from './subpage/bingTranslate/bingTranslate.vue'
 // import Vocabulary from './subpage/vocabulary/vocabulary.vue'
-import { viewService } from '~/service/view'
-import { providers } from '~/provider'
 
 
 export default defineComponent({

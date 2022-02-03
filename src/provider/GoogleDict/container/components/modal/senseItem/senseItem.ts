@@ -2,6 +2,7 @@ import { defineComponent, computed } from 'vue'
 import Foldable from '~/components/Foldable/Foldable.vue'
 import { Sense } from '~/provider/GoogleDict/types'
 import { store } from '~/provider/GoogleDict/store'
+import { GOOGLE_DICT_FOLD_STATUS } from '~/provider/GoogleDict/constant'
 
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'
@@ -9,7 +10,6 @@ import thesaurus from '../thesaurus/thesaurus.vue'
 import fragment from '../../common/fragment/fragment.vue'
 import etymology from '../etymology/etymology.vue'
 import exampleGroups from '../exampleGroups/exampleGroups.vue'
-import { GOOGLE_DICT_FOLD_STATUS } from '~/provider/GoogleDict/constant'
 
 interface Props {
   sense: Sense

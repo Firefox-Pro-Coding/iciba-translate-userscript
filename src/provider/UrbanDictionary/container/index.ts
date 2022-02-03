@@ -105,7 +105,6 @@ export default defineComponent({
         if (isLeft(res)) {
           throw new Error(res.left.type)
         }
-        console.log(JSON.parse(res.right.responseText).string)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return JSON.parse(res.right.responseText).string
       }

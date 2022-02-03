@@ -1,6 +1,9 @@
 import { defineComponent, reactive, onMounted, computed, nextTick } from 'vue'
 import { bus, EVENTS, OpenGoogleDictModalAction } from '~/service/globalBus'
-
+import { viewService } from '~/service/view'
+import minus from '~/assets/img/minus.svg'
+import plus from '~/assets/img/plus.svg'
+import copy from '~/util/copy'
 import ModalComponent from '~/components/modal/modal.vue'
 import Scrollable from '~/components/Scrollable/Scrollable.vue'
 import ImageLoader from './components/modal/imageLoader/imageLoader.vue'
@@ -12,10 +15,6 @@ import {
   GOOGLE_DICT_FOLD_STATUS_PREV_MAP,
 } from '../constant'
 
-import minus from '~/assets/img/minus.svg'
-import plus from '~/assets/img/plus.svg'
-import copy from '~/util/copy'
-import { viewService } from '~/service/view'
 import { Codec } from '../types'
 import { store } from '../store'
 

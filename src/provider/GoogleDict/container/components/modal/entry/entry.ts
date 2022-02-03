@@ -1,5 +1,6 @@
 import { defineComponent } from 'vue'
 
+import { Entry, SubEntry } from '~/provider/GoogleDict/types'
 import labelSet from '../labelSet/labelSet.vue'
 import labels from '../labels/labels.vue'
 import phonetics from '../../common/phonetics/phonetics.vue'
@@ -7,7 +8,6 @@ import etymology from '../etymology/etymology.vue'
 import note from '../note/note.vue'
 import senseItem from '../senseItem/senseItem.vue'
 import morphUnit from '../morphUnit/morphUnit.vue'
-import { Entry, SubEntry } from '~/provider/GoogleDict/types'
 
 interface PropsEntry {
   entry: Entry & SubEntry

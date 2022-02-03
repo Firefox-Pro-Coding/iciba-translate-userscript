@@ -8,8 +8,8 @@ import { store } from '~/service/store'
 
 import Foldable from '~/components/Foldable/Foldable.vue'
 import IconRadioGroup from '~/components/IconRadioGroup/IconRadioGroup.vue'
-import ProviderSort from './providerSort/providerSort.vue'
 import { providers } from '~/provider'
+import ProviderSort from './providerSort/providerSort.vue'
 
 const icibaCircleIconOptions = Object
   .entries(ICIBA_CIRCLE_ICON_MAP)
@@ -25,13 +25,13 @@ const providerOptions = providers.map((p) => ({
 
 export default defineComponent({
   name: 'CoreSettings',
-  props: {
-    active: Boolean,
-  },
   components: {
     ProviderSort,
     IconRadioGroup,
     Foldable,
+  },
+  props: {
+    active: Boolean,
   },
   setup: (props) => {
     const state = reactive({

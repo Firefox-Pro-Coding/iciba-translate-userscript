@@ -14,11 +14,11 @@ const iconOptions = Object
 
 export default defineComponent({
   name: 'BaiduTranslateSettings',
-  props: {
-    active: Boolean,
-  },
   components: {
     ProviderCommon,
+  },
+  props: {
+    active: Boolean,
   },
   setup: (props) => {
     const form = store.data

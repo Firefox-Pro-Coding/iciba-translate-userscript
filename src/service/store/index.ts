@@ -7,9 +7,9 @@ import { getValue, setValue } from '~/util/gmapi'
 import { GM_STORE_KEY } from '~/constants'
 import { Provider } from '~/provider/create'
 
-import * as core from './core'
 import { FallbackInterface, FallbackProps } from '~/util/extendIoTs/fallback'
 import copy from '~/util/copy'
+import * as core from './core'
 
 type StoreType = {
   core: TypeOf<typeof core.storeType>

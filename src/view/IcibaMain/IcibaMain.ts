@@ -18,6 +18,7 @@ import { icibaRoot, shadowRoot } from '~/service/shadowRoot'
 import { store } from '~/service/store'
 import { translateService } from '~/service/translate'
 import { Z_INDEX_KEY, zIndexService } from '~/service/zIndex'
+import { viewService } from '~/service/view'
 import {
   bus,
   EVENTS,
@@ -31,7 +32,6 @@ import insideOf from '~/util/insideOf'
 import calcMouseEventPosition from '~/util/calcMouseEventPosition'
 
 import LoadingText from './LoadingText/LoadingText'
-import { viewService } from '~/service/view'
 
 interface Props {
   getIcibaCircle: () => ReturnType<typeof defineComponent>

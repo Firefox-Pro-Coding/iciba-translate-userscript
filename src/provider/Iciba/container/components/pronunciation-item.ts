@@ -5,6 +5,9 @@ import play from '~/assets/img/play/speaker-filled-audio-tool_59284.svg'
 
 export default defineComponent({
   name: 'IcibaPronunciation',
+  components: {
+    Scrollable,
+  },
   props: {
     ipa: {
       type: String,
@@ -12,10 +15,8 @@ export default defineComponent({
     },
     type: {
       type: String,
+      default: '',
     },
-  },
-  components: {
-    Scrollable,
   },
   setup: (props, ctx) => {
     const handlePlay = () => {
