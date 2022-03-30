@@ -1,7 +1,18 @@
 export const icibaRoot = document.createElement('div')
 icibaRoot.className = 'iciba-root'
 icibaRoot.style.all = 'initial'
-document.body.appendChild(icibaRoot)
+document.body.append(icibaRoot)
+
+const mo = new MutationObserver(() => {
+  const inBody = Array.from(document.body.children).some((v) => v === icibaRoot)
+  if (!inBody) {
+    document.body.append(icibaRoot)
+  }
+})
+
+mo.observe(document.body, {
+  childList: true,
+})
 
 export const shadowRoot = (() => {
   let sr: ShadowRoot
