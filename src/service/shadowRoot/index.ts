@@ -17,8 +17,10 @@ const pollingCheck = () => {
   if (!document.body.contains(icibaRoot)) {
     document.body.append(icibaRoot)
   }
-  setTimeout(pollingCheck, 500);
+  setTimeout(pollingCheck, 500)
 }
+
+pollingCheck()
 
 export const shadowRoot = (() => {
   let sr: ShadowRoot
