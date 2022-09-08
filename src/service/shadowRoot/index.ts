@@ -4,8 +4,7 @@ icibaRoot.style.all = 'initial'
 document.body.append(icibaRoot)
 
 const mo = new MutationObserver(() => {
-  const inBody = Array.from(document.body.children).some((v) => v === icibaRoot)
-  if (!inBody) {
+  if (!document.body.contains(icibaRoot)) {
     document.body.append(icibaRoot)
   }
 })
@@ -13,6 +12,13 @@ const mo = new MutationObserver(() => {
 mo.observe(document.body, {
   childList: true,
 })
+
+const pollingCheck = () => {
+  if (!document.body.contains(icibaRoot)) {
+    document.body.append(icibaRoot)
+  }
+  setTimeout(pollingCheck, 500);
+}
 
 export const shadowRoot = (() => {
   let sr: ShadowRoot
