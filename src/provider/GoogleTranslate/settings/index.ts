@@ -2,10 +2,6 @@ import { defineComponent, watch, onUnmounted } from 'vue'
 
 import { googleLanguagesOptions, GOOGLE_LANGUAGES } from '~/provider/GoogleTranslate/googleLanguages'
 import ProviderCommon from '~/components/providerCommon/providerCommon.vue'
-import {
-  GOOGLE_TRANSLATE_HOST,
-  GOOGLE_TRANSLATE_HOST_MAP,
-} from '../constant'
 import { store } from '../store'
 import { icons } from '../icons'
 
@@ -15,11 +11,6 @@ const iconOptions = Object
     icon: v,
     key: k,
   }))
-
-const hostOptions = [
-  { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_COM], key: GOOGLE_TRANSLATE_HOST.GOOGLE_COM },
-  { label: GOOGLE_TRANSLATE_HOST_MAP[GOOGLE_TRANSLATE_HOST.GOOGLE_CN], key: GOOGLE_TRANSLATE_HOST.GOOGLE_CN },
-]
 
 export default defineComponent({
   name: 'GoogleTranslateSettings',
@@ -55,7 +46,6 @@ export default defineComponent({
     return {
       form,
       iconOptions,
-      hostOptions,
       languageOptions: googleLanguagesOptions,
     }
   },
