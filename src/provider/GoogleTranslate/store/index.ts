@@ -9,9 +9,7 @@ import { fallback, fallbackInterface } from '~/util/extendIoTs/fallback'
 import { GOOGLE_LANGUAGES } from '~/provider/GoogleTranslate/googleLanguages'
 import { providerCommonStore } from '~/service/store/provider'
 import { icons } from '../icons'
-import { GOOGLE_TRANSLATE_HOST } from '../constant'
 
-const translateHost = enumType<GOOGLE_TRANSLATE_HOST>(GOOGLE_TRANSLATE_HOST, 'GOOGLE_TRANSLATE_HOST')
 const googleLanguage = enumType<GOOGLE_LANGUAGES>(GOOGLE_LANGUAGES, 'GOOGLE_LANGUAGES')
 
 export const storeType = fallbackInterface({
@@ -19,7 +17,6 @@ export const storeType = fallbackInterface({
   icon: fallback(keyof(icons), 'type_1_translate_281759'),
   display: fallback(boolean, true),
 
-  translateHost: fallback(translateHost, GOOGLE_TRANSLATE_HOST.GOOGLE_COM),
   targetLanguage: fallback(googleLanguage, GOOGLE_LANGUAGES.zh),
   secondTargetLanguage: fallback(googleLanguage, GOOGLE_LANGUAGES.en),
 

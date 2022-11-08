@@ -9,24 +9,6 @@
       :icons="iconOptions"
     />
 
-    <i-radio-group
-      class="mt-6"
-      v-model="form.translateHost"
-    >
-      <i-radio
-        v-for="n of hostOptions"
-        :key="n.key"
-        :label="n.label"
-        :value="n.key"
-      />
-    </i-radio-group>
-
-    <p class="text-14 text-grey-400 mt-1 mb-0">
-      google翻译接口域名。
-      <br>
-      translate.google.cn 在国内大部分区域可直接访问
-    </p>
-
     <div class="flex mt-6 pt-1">
       <div class="flex-col items-start grow-0 pr-12">
         <div class="text-grey-600 pr-6 mb-2">语言</div>

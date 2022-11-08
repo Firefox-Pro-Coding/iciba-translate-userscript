@@ -4,7 +4,6 @@ import { decode } from 'base64-arraybuffer'
 import { audioCacheService } from '~/service/audioCache'
 import { got } from '~/util/gmapi'
 
-import { GOOGLE_TRANSLATE_HOST_MAP } from './constant'
 import { GoogleTranslateProvider } from '.'
 
 export const playAudio = async (word: string, tl: string) => {
@@ -23,7 +22,7 @@ export const playAudio = async (word: string, tl: string) => {
   ]]])
 
   const doRequest = async (getToken = false) => {
-    const apiDomain = GOOGLE_TRANSLATE_HOST_MAP[GoogleTranslateProvider.store.translateHost]
+    const apiDomain = 'translate.google.com'
 
     const result = await got<any>({
       url: `https://${apiDomain}/_/TranslateWebserverUi/data/batchexecute`,

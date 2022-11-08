@@ -3,7 +3,6 @@ import { isLeft, left, right } from 'fp-ts/lib/Either'
 import { got } from '~/util/gmapi'
 
 import containerData from './container/data'
-import { GOOGLE_TRANSLATE_HOST_MAP } from './constant'
 import { GetGoogleTranslateResult } from './types'
 import { store } from './store'
 
@@ -30,7 +29,7 @@ const getGoogleTranslateResult = async (p: GoogleTranslateParams) => {
     'generic',
   ]]])
 
-  const apiDomain = GOOGLE_TRANSLATE_HOST_MAP[store.data.translateHost]
+  const apiDomain = 'translate.google.com'
 
   const doRequest = async (getToken = false) => {
     const result = await got<any>({
