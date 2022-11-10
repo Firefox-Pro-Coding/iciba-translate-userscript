@@ -1,0 +1,36 @@
+@import '~assets/styles/variables.sass'
+
+.scroll-container
+  max-height: 250px
+
+.language-select-box
+  .title-box
+    .cancel-button
+      padding: 1px 6px
+      cursor: pointer
+
+      &:hover
+        background: $background-level-2
+
+  .language-item
+    cursor: pointer
+    flex: 0 0 33.3333%
+    padding: 1px 0
+
+    &.active
+      background: $background-level-3
+
+    &:hover
+      background: $background-level-2
+
+.bottom-info-box
+
+  .language-info-box
+    user-select: none
+    color: #BBB
+
+    .language
+      cursor: pointer
+
+      &:hover
+        color: $primary

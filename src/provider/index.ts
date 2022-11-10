@@ -4,6 +4,7 @@ import { GoogleTranslateProvider } from './GoogleTranslate'
 import { BaiduTranslateProvider } from './BaiduTranslate'
 import { UrbanDictionaryProvider } from './UrbanDictionary'
 import { VocabularyProvider } from './Vocabulary'
+import { AliApiTranslateProvider } from './AliApiTranslate'
 import { Provider } from './create'
 
 export const providers = [
@@ -13,6 +14,7 @@ export const providers = [
   BaiduTranslateProvider,
   UrbanDictionaryProvider,
   VocabularyProvider,
+  AliApiTranslateProvider,
 ] as const
 
 export const getIcon = (_provider: Provider<any> | string) => {

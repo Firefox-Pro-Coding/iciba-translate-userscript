@@ -5,3 +5,9 @@ export const providerCommonStore = {
   enableHotkey: fallback(boolean, false),
   hotkey: fallback(array(string), () => []),
 }
+
+export const apiProviderCommonStore = {
+  ...providerCommonStore,
+  appId: fallback(string, ''),
+  appKey: fallback(string, ''),
+}
