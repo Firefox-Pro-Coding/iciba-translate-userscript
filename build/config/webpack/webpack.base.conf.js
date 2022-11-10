@@ -160,4 +160,17 @@ config.plugin('progress')
     width: 30,
   }])
 
+config.resolve.set('fallback', {
+  crypto: require.resolve('crypto-browserify'),
+  stream: require.resolve('stream-browserify'),
+})
+
+config.plugin('buffer')
+  .use(new webpack.ProvidePlugin({
+    Buffer: ['buffer', 'Buffer'],
+  }))
+
+config.resolve.alias.set('crypto', 'crypto-browserify')
+config.resolve.alias.set('stream', 'stream-browserify')
+
 module.exports = config
