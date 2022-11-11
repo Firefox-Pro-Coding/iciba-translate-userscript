@@ -1,15 +1,17 @@
 <template>
   <div class="flex-col items-start">
-    <api-provider-common
+    <provider-common
       v-model:icon="form.icon"
       v-model:display="form.display"
       v-model:enable-hotkey="form.enableHotkey"
       v-model:hotkey="form.hotkey"
+      name="阿里API翻译"
+      :icons="iconOptions"
+    />
+
+    <ali-api-app-key
       v-model:app-id="form.appId"
       v-model:app-key="form.appKey"
-      name="阿里API翻译"
-      product-url="https://www.aliyun.com/product/ai/base_alimt"
-      :icons="iconOptions"
     />
 
     <div class="flex mt-6 pt-1">

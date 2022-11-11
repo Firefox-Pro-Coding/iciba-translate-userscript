@@ -17,10 +17,6 @@ export interface RadioProps {
 
 export default defineComponent({
   props: {
-    modelValue: {
-      type: null,
-      required: true,
-    },
     value: {
       type: null,
       required: true,
@@ -32,7 +28,7 @@ export default defineComponent({
   },
   setup: (props, ctx) => {
     const handleRadioClick: ((p: any) => unknown) | undefined = inject('radio-group-handle-radio-click')
-    const currentValue = inject('radio-group-value', props.modelValue) as ComputedRef<unknown>
+    const currentValue = inject<ComputedRef<unknown>>('radio-group-value')
 
     const handleClick = () => {
       ctx.emit('update:modelValue', props.value)
@@ -42,10 +38,10 @@ export default defineComponent({
     }
 
     const checked = computed(() => {
-      if (currentValue) {
-        return currentValue.value === props.value
+      if (!currentValue) {
+        return false
       }
-      return props.value === props.modelValue
+      return props.value === currentValue.value
     })
 
     return {

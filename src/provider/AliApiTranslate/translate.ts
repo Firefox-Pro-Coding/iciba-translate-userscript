@@ -1,8 +1,7 @@
-import { createHash, createHmac } from 'crypto'
 import { isLeft, left, right } from 'fp-ts/Either'
+import { encode } from 'base64-arraybuffer'
+import md5 from 'md5'
 import { v4 as randomUUID } from 'uuid'
-import { formatInTimeZone } from 'date-fns-tz'
-import { enUS } from 'date-fns/locale'
 
 import { got } from '~/util/gmapi'
 import containerData from '~/provider/AliApiTranslate/container/data'
@@ -10,22 +9,38 @@ import containerData from '~/provider/AliApiTranslate/container/data'
 import { store } from '~/provider/AliApiTranslate/store'
 import { AliApiTranslateParams, AliApiTranslateResult } from '~/provider/AliApiTranslate/types'
 
+const hexToUint8Array = (hexString: string) => Uint8Array
+  .from(
+    hexString.match(/.{1,2}/g)!.map((byte) => parseInt(byte, 16)),
+  )
+
 const MD5Base64 = (str: string) => {
   if (str === '') {
     return ''
   }
-  const md5 = createHash('md5')
-  md5.update(str)
-  return md5.digest('base64')
+  const md5Hex = md5(str)
+  const md5Uint8Arr = hexToUint8Array(md5Hex)
+  const md5Base64 = encode(md5Uint8Arr)
+  return md5Base64
 }
 
-const HMACSha1 = (str: string, key: string) => {
+const HMACSha1 = async (str: string, key: string) => {
   if (str === '') {
     return ''
   }
-  const hmac = createHmac('sha1', key)
-  hmac.update(str)
-  return hmac.digest('base64')
+  const keyUint8Arr = new TextEncoder().encode(key)
+  const singingKey = await window.crypto.subtle.importKey(
+    'raw',
+    keyUint8Arr,
+    { name: 'HMAC', hash: 'SHA-1' },
+    false,
+    ['sign'],
+  )
+  const dataUint8Arr = new TextEncoder().encode(str)
+  const signUint8Arr = await window.crypto.subtle.sign('HMAC', singingKey, dataUint8Arr)
+  const sign2 = encode(signUint8Arr)
+
+  return sign2
 }
 
 function trimIndent(str: string) {
@@ -39,7 +54,8 @@ const doRequest = async (body: string, appId: string, appKey: string) => {
   const method = 'POST'
   const accept = 'application/json'
   const contentType = 'application/json; charset=UTF-8'
-  const date = formatInTimeZone(new Date(), 'Etc/GMT+0', 'E, dd MMM yyyy HH:mm:ss z', { locale: enUS })
+  // const date = formatInTimeZone(new Date(), 'Etc/GMT+0', 'E, dd MMM yyyy HH:mm:ss z', { locale: enUS })
+  const date = new Date().toUTCString()
   const uuid = randomUUID()
   const version = '2019-01-02'
 
@@ -53,7 +69,7 @@ const doRequest = async (body: string, appId: string, appKey: string) => {
     x-acs-signature-nonce:${uuid}
     x-acs-version:${version}
     ${apiPath}`
-  const signature = HMACSha1(trimIndent(stringToSign), appKey)
+  const signature = await HMACSha1(trimIndent(stringToSign), appKey)
   const authorization = `acs ${appId}:${signature}`
 
   const sendPost = async () => {

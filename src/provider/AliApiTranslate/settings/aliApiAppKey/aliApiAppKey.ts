@@ -1,12 +1,7 @@
 import { defineComponent } from 'vue'
 
-import ProviderCommon from '~/components/providerCommon/providerCommon.vue'
-
 export default defineComponent({
   name: 'ApiProviderCommon',
-  components: {
-    ProviderCommon,
-  },
   props: {
     appId: String,
     appKey: String,
