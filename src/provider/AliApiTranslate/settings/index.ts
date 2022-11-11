@@ -1,7 +1,8 @@
 import { defineComponent, watch, onUnmounted } from 'vue'
 
 import { aliApiLanguagesOptions, ALI_API_LANGUAGES } from '~/provider/AliApiTranslate/aliApiLanguages'
-import ApiProviderCommon from '~/components/apiProviderCommon/apiProviderCommon.vue'
+import ProviderCommon from '~/components/providerCommon/providerCommon.vue'
+import AliApiAppKey from './aliApiAppKey/aliApiAppKey.vue'
 import { store } from '../store'
 import { icons } from '../icons'
 
@@ -15,7 +16,8 @@ const iconOptions = Object
 export default defineComponent({
   name: 'AliApiTranslateSettings',
   components: {
-    ApiProviderCommon,
+    ProviderCommon,
+    AliApiAppKey,
   },
   props: {
     active: Boolean,

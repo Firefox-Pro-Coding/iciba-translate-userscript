@@ -12,11 +12,8 @@ export default defineComponent({
   props: {
     display: Boolean,
     enableHotkey: Boolean,
-    nahotkeyme: {
-      type: null,
-      required: true,
-    },
-
+    icon: null,
+    hotkey: null,
     name: {
       type: String,
       required: true,

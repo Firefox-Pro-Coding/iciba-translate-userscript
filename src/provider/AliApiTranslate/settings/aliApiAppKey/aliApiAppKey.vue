@@ -1,9 +1,5 @@
 <template>
   <div class="flex-col items-start">
-    <provider-common
-      v-bind="$attrs"
-    />
-
     <i-text-input-line
       class="app-info-text-input"
       :model-value="props.appId"
@@ -31,5 +27,5 @@
   </div>
 </template>
 
-<script lang="ts" src="./apiProviderCommon.ts"></script>
-<style lang="sass" src="./apiProviderCommon.sass" scoped></style>
+<script lang="ts" src="./aliApiAppKey.ts"></script>
+<style lang="sass" src="./aliApiAppKey.sass" scoped></style>

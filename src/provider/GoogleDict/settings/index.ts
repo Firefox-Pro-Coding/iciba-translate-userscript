@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
 
 import ProviderCommon from '~/components/providerCommon/providerCommon.vue'
 import { icons } from '../icons'
@@ -27,8 +27,10 @@ export default defineComponent({
   components: {
     ProviderCommon,
   },
-  setup: () => ({
-    form: store.data,
+  setup: () => reactive({
+    get form() {
+      return store.data
+    },
     iconOptions,
     foldOptions,
   }),
