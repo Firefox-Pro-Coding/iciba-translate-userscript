@@ -2,6 +2,7 @@ import { isLeft, left, right } from 'fp-ts/Either'
 import { encode } from 'base64-arraybuffer'
 import md5 from 'md5'
 import { v4 as randomUUID } from 'uuid'
+import hmacSha1 from 'crypto-js/hmac-sha1'
 
 import { got } from '~/util/gmapi'
 import containerData from '~/provider/AliApiTranslate/container/data'
@@ -24,23 +25,13 @@ const MD5Base64 = (str: string) => {
   return md5Base64
 }
 
-const HMACSha1 = async (str: string, key: string) => {
+const HMACSha1 = (str: string, key: string) => {
   if (str === '') {
     return ''
   }
-  const keyUint8Arr = new TextEncoder().encode(key)
-  const singingKey = await window.crypto.subtle.importKey(
-    'raw',
-    keyUint8Arr,
-    { name: 'HMAC', hash: 'SHA-1' },
-    false,
-    ['sign'],
-  )
-  const dataUint8Arr = new TextEncoder().encode(str)
-  const signUint8Arr = await window.crypto.subtle.sign('HMAC', singingKey, dataUint8Arr)
-  const sign2 = encode(signUint8Arr)
-
-  return sign2
+  const sign = encode(hexToUint8Array(hmacSha1(str, key).toString()))
+  sign.toString()
+  return sign
 }
 
 function trimIndent(str: string) {
@@ -69,7 +60,7 @@ const doRequest = async (body: string, appId: string, appKey: string) => {
     x-acs-signature-nonce:${uuid}
     x-acs-version:${version}
     ${apiPath}`
-  const signature = await HMACSha1(trimIndent(stringToSign), appKey)
+  const signature = HMACSha1(trimIndent(stringToSign), appKey)
   const authorization = `acs ${appId}:${signature}`
 
   const sendPost = async () => {
