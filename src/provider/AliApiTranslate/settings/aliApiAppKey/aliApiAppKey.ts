@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'ApiProviderCommon',
+  name: 'AliApiAppKey',
   props: {
     appId: String,
     appKey: String,

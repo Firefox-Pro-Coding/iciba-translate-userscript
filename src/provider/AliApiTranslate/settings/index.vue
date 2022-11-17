@@ -12,6 +12,7 @@
     <ali-api-app-key
       v-model:app-id="form.appId"
       v-model:app-key="form.appKey"
+      product-url="https://www.aliyun.com/product/ai/base_alimt"
     />
 
     <div class="flex mt-6 pt-1">
