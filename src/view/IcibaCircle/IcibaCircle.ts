@@ -64,12 +64,12 @@ export default defineComponent({
       setTimeout(() => {
         state.visible = false
         let provider = IcibaProvider.id
-        if (event.button === 0) {
-          // 默认 provider
-          provider = store.core.defaultProvider
-        } else if (event.button === 2 && store.core.icibaCircleRightClick) {
+        if (event.button === 2 && store.core.icibaCircleRightClick) {
           // 备选 provider
           provider = store.core.icibaCircleRightClickProvider
+        } else {
+          // 默认 provider
+          provider = store.core.defaultProvider
         }
 
         bus.emit({

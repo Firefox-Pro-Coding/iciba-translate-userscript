@@ -51,60 +51,58 @@
         text="右击小圆圈，使用备选接口查词"
       />
 
-      <foldable :fold="!form.icibaCircleRightClick">
-        <div class="flex mt-6">
-          <div class="flex-col grow-0 pr-12">
-            <div class="text-grey-600 pr-6 mb-2">接口</div>
-            <div
-              class="option-item text-16 text-grey-600 mb-2"
-              v-for="n of providerOptions"
-              :key="n.key"
-            >
-              {{ n.label }}
-            </div>
-          </div>
-          <div class="flex-col items-center grow-0">
-            <div class="text-grey-600 pr-6 mb-1">默认接口</div>
-            <i-radio-group
-              class="mt-0 grow-0"
-              v-model="form.defaultProvider"
-            >
-              <i-radio
-                v-for="n of providerOptions"
-                :key="n.key"
-                label=""
-                :value="n.key"
-              />
-            </i-radio-group>
-          </div>
-          <div class="flex-col items-center grow-0">
-            <div class="text-grey-600 pr-6 mb-1">备选接口</div>
-            <i-radio-group
-              class="mt-0"
-              v-model="form.icibaCircleRightClickProvider"
-            >
-              <i-radio
-                v-for="n of providerOptions"
-                :key="n.key"
-                label=""
-                :value="n.key"
-              />
-            </i-radio-group>
+      <div class="flex mt-6">
+        <div class="flex-col grow-0 pr-12">
+          <div class="text-grey-600 pr-6 mb-2">接口</div>
+          <div
+            class="option-item text-16 text-grey-600 mb-2"
+            v-for="n of providerOptions"
+            :key="n.key"
+          >
+            {{ n.label }}
           </div>
         </div>
+        <div class="flex-col items-center grow-0">
+          <div class="text-grey-600 pr-6 mb-1">默认接口</div>
+          <i-radio-group
+            class="mt-0 grow-0"
+            v-model="form.defaultProvider"
+          >
+            <i-radio
+              v-for="n of providerOptions"
+              :key="n.key"
+              label=""
+              :value="n.key"
+            />
+          </i-radio-group>
+        </div>
+        <div class="flex-col items-center grow-0">
+          <div class="text-grey-600 pr-6 mb-1">备选接口</div>
+          <i-radio-group
+            class="mt-0"
+            v-model="form.icibaCircleRightClickProvider"
+          >
+            <i-radio
+              v-for="n of providerOptions"
+              :key="n.key"
+              label=""
+              :value="n.key"
+            />
+          </i-radio-group>
+        </div>
+      </div>
 
-        <p
-          v-if="form.defaultProvider === form.icibaCircleRightClickProvider"
-          class="text-14 text-red-500 mt-2 mb-0"
-        >
-          默认接口和备选接口请选择不同的选项
-        </p>
-        <p class="text-14 text-grey-400 mt-1 mb-0">
-          默认接口：左键点击小圆圈查词接口
-          <br>
-          备选接口：启用时，右键键点击小圆圈使用此查词接口
-        </p>
-      </foldable>
+      <p
+        v-if="form.defaultProvider === form.icibaCircleRightClickProvider"
+        class="text-14 text-red-500 mt-2 mb-0"
+      >
+        默认接口和备选接口请选择不同的选项
+      </p>
+      <p class="text-14 text-grey-400 mt-1 mb-0">
+        默认接口：左键点击小圆圈查词接口
+        <br>
+        备选接口：启用时，右键键点击小圆圈使用此查词接口
+      </p>
 
       <i-checkbox-line
         v-model="form.icibaCircleNoCJK"
