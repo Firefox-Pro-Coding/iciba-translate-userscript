@@ -51,16 +51,20 @@ const getGoogleTranslateResult = async (p: GoogleTranslateParams) => {
     } as any)
 
     if (isLeft(result)) {
-      const body = JSON.parse(result.left.res.responseText.substring(4)) as Array<any>
-      const err = body.find((v) => v && v[0] === 'er') as Array<any>
-      const errDetail = err[4] as Array<any>
-      if (errDetail && errDetail[0] === 'xsrf') {
-        const xsrfToken = errDetail[1] as string
-        store.data.xsrfToken = xsrfToken
-        return left({
-          type: 'xsrf',
-          res: result.left.res,
-        })
+      try {
+        const body = JSON.parse(result.left.res.responseText.substring(4)) as Array<any>
+        const err = body.find((v) => v && v[0] === 'er') as Array<any>
+        const errDetail = err[10][0][48448350] as Array<any>
+        if (errDetail[0] === 'xsrf') {
+          const xsrfToken = errDetail[1] as string
+          store.data.xsrfToken = xsrfToken
+          return left({
+            type: 'xsrf',
+            res: result.left.res,
+          })
+        }
+      } catch (e) {
+        console.error(e)
       }
       return left({
         type: result.left.type,
@@ -134,3 +138,31 @@ export const translate = async (p: GoogleTranslateParams) => {
     })
   }
 }
+
+
+// export const translate = async (p: GoogleTranslateParams) => {
+//   const url = [
+//     `https://translate.google.com/translate_a/single`,
+//     '?client=at',
+//     '&dt=t',  // return sentences
+//     '&dt=rm', // add translit to sentences
+//     '&dj=1',  // result as pretty json instead of deep nested arrays
+//   ].join('');
+//   const result = await got<any>({
+//     url,
+//     method: 'POST',
+//     headers: {
+//       'Referer': `https://translate.google.com/`,
+//       'Cache-Control': 'max-age=0',
+//       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+//     },
+//     data: new URLSearchParams({
+//       'f.req': req,
+//       ...getToken ? {} : {
+//         at: store.data.xsrfToken,
+//       },
+//     }).toString(),
+//     timeout: 5000,
+//     // responseType: '', // force auto json parse
+//   } as any)
+// }
