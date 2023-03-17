@@ -1,6 +1,6 @@
 {
   "name": "iciba-translate-userscript",
-  "version": "4.11.17",
+  "version": "4.11.18",
   "description": "iciba划词翻译",
   "scripts": {
     "dev": "yarn clean:dist && node ./build/dev-server.js",
@@ -46,7 +46,6 @@
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
-    "@noe132/eslint-config-vue": "^0.1.4",
     "@types/greasemonkey": "^4.0.2",
     "@types/jest": "^27.4.1",
     "@types/md5": "^2.3.2",
